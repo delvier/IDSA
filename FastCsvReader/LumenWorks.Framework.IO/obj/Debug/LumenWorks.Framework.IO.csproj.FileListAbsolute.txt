@@ -14,3 +14,11 @@ F:\GitRepoC#\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\obj\
 F:\GitRepoC#\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\ResGen.write.1.tlog
 F:\GitRepoC#\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\LumenWorks.Framework.IO.dll
 F:\GitRepoC#\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\LumenWorks.Framework.IO.pdb
+F:\GitRepoC#\IDSA\FastCsvReader\LumenWorks.Framework.IO\bin\Debug\LumenWorks.Framework.IO.dll
+F:\GitRepoC#\IDSA\FastCsvReader\LumenWorks.Framework.IO\bin\Debug\LumenWorks.Framework.IO.pdb
+F:\GitRepoC#\IDSA\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\ResolveAssemblyReference.cache
+F:\GitRepoC#\IDSA\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\LumenWorks.Framework.IO.Csv.Resources.ExceptionMessage.resources
+F:\GitRepoC#\IDSA\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\ResGen.read.1.tlog
+F:\GitRepoC#\IDSA\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\ResGen.write.1.tlog
+F:\GitRepoC#\IDSA\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\LumenWorks.Framework.IO.dll
+F:\GitRepoC#\IDSA\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\LumenWorks.Framework.IO.pdb
