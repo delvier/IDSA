@@ -34,8 +34,12 @@ namespace WindowsFormsApplication1
                             headerList.Add(
                                 new Company() { name = null, id = null, link = null, undefined = null }
                                 );
-                            csvDataGrid.DataSource = headerList;
+                            //Use dictionary ?
+                            //Create Header class ?
 
+                            //DataGridViewColumnCollection testColection;
+
+                            
                             csvDataGrid.DataSource = _csvReader;
                             //csvDataGrid.Columns[0].HeaderText = "testName1";
                             
