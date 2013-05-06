@@ -1,0 +1,16 @@
+C:\Users\pljanotx\Documents\Visual Studio 2010\Projects\[TRAINING] C++\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\bin\Debug\LumenWorks.Framework.IO.dll
+C:\Users\pljanotx\Documents\Visual Studio 2010\Projects\[TRAINING] C++\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\bin\Debug\LumenWorks.Framework.IO.pdb
+C:\Users\pljanotx\Documents\Visual Studio 2010\Projects\[TRAINING] C++\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\pljanotx\Documents\Visual Studio 2010\Projects\[TRAINING] C++\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\LumenWorks.Framework.IO.Csv.Resources.ExceptionMessage.resources
+C:\Users\pljanotx\Documents\Visual Studio 2010\Projects\[TRAINING] C++\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\ResGen.read.1.tlog
+C:\Users\pljanotx\Documents\Visual Studio 2010\Projects\[TRAINING] C++\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\ResGen.write.1.tlog
+C:\Users\pljanotx\Documents\Visual Studio 2010\Projects\[TRAINING] C++\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\LumenWorks.Framework.IO.dll
+C:\Users\pljanotx\Documents\Visual Studio 2010\Projects\[TRAINING] C++\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\LumenWorks.Framework.IO.pdb
+F:\GitRepoC#\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\bin\Debug\LumenWorks.Framework.IO.dll
+F:\GitRepoC#\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\bin\Debug\LumenWorks.Framework.IO.pdb
+F:\GitRepoC#\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\ResolveAssemblyReference.cache
+F:\GitRepoC#\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\LumenWorks.Framework.IO.Csv.Resources.ExceptionMessage.resources
+F:\GitRepoC#\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\ResGen.read.1.tlog
+F:\GitRepoC#\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\ResGen.write.1.tlog
+F:\GitRepoC#\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\LumenWorks.Framework.IO.dll
+F:\GitRepoC#\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.IO\obj\Debug\LumenWorks.Framework.IO.pdb

@@ -1,0 +1,1 @@
+C:\Users\pljanotx\Documents\Visual Studio 2010\Projects\[TRAINING] C++\WindowsFormsApplication1\FastCsvReader\LumenWorks.Framework.Tests.Unit\obj\Debug\ResolveAssemblyReference.cache

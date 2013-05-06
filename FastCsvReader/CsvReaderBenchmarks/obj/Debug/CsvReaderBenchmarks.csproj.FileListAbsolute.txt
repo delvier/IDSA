@@ -1,0 +1,7 @@
+C:\Users\pljanotx\Documents\Visual Studio 2010\Projects\[TRAINING] C++\WindowsFormsApplication1\FastCsvReader\CsvReaderBenchmarks\bin\Debug\CsvReaderBenchmarks.exe
+C:\Users\pljanotx\Documents\Visual Studio 2010\Projects\[TRAINING] C++\WindowsFormsApplication1\FastCsvReader\CsvReaderBenchmarks\bin\Debug\CsvReaderBenchmarks.pdb
+C:\Users\pljanotx\Documents\Visual Studio 2010\Projects\[TRAINING] C++\WindowsFormsApplication1\FastCsvReader\CsvReaderBenchmarks\bin\Debug\LumenWorks.Framework.IO.dll
+C:\Users\pljanotx\Documents\Visual Studio 2010\Projects\[TRAINING] C++\WindowsFormsApplication1\FastCsvReader\CsvReaderBenchmarks\bin\Debug\LumenWorks.Framework.IO.pdb
+C:\Users\pljanotx\Documents\Visual Studio 2010\Projects\[TRAINING] C++\WindowsFormsApplication1\FastCsvReader\CsvReaderBenchmarks\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\pljanotx\Documents\Visual Studio 2010\Projects\[TRAINING] C++\WindowsFormsApplication1\FastCsvReader\CsvReaderBenchmarks\obj\Debug\CsvReaderBenchmarks.exe
+C:\Users\pljanotx\Documents\Visual Studio 2010\Projects\[TRAINING] C++\WindowsFormsApplication1\FastCsvReader\CsvReaderBenchmarks\obj\Debug\CsvReaderBenchmarks.pdb
