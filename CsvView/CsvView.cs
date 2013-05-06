@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.IO;
 
 using LumenWorks.Framework.IO.Csv;
+using CsvReaderModule;
 
 namespace WindowsFormsApplication1
 {
@@ -29,8 +30,15 @@ namespace WindowsFormsApplication1
                     {
                         using (var _csvReader = new CachedCsvReader(new StreamReader(ofd.FileName), false))
                         {
+                            List<Company> headerList = new List<Company>();
+                            headerList.Add(
+                                new Company() { name = null, id = null, link = null, undefined = null }
+                                );
+                            csvDataGrid.DataSource = headerList;
+
                             csvDataGrid.DataSource = _csvReader;
-                            csvDataGrid.Columns[0].HeaderText = "testName1";
+                            //csvDataGrid.Columns[0].HeaderText = "testName1";
+                            
                             // rozkodowanie kolumn.csv
                             // zarzadzanie wyswietlaniem kolumn.
                             // filtracja po wybranych kolumnach
