@@ -34,3 +34,5 @@ F:\GitRepoC#\IDSA\CsvView\obj\x86\Debug\GenerateResource.read.1.tlog
 F:\GitRepoC#\IDSA\CsvView\obj\x86\Debug\GenerateResource.write.1.tlog
 F:\GitRepoC#\IDSA\CsvView\obj\x86\Debug\CsvReader-Module.exe
 F:\GitRepoC#\IDSA\CsvView\obj\x86\Debug\CsvReader-Module.pdb
+C:\Users\pljanotx\Desktop\rebelprj\IDSA\CsvView\obj\x86\Debug\CsvReader-Module.exe
+C:\Users\pljanotx\Desktop\rebelprj\IDSA\CsvView\obj\x86\Debug\CsvReader-Module.pdb
