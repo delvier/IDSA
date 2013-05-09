@@ -7,7 +7,11 @@ namespace CsvReaderModule
 {
     class CsvEnums
     {
-        enum Company
+
+        public _company Company { get; set; }
+        public _financialData FinancialData { get; set; }
+
+        public enum _company
         {
             Id,
             ColumnB,
@@ -34,7 +38,7 @@ namespace CsvReaderModule
             ColumnW,
             ColumnX
         }
-        enum FinancialData
+        public enum _financialData
         {
             // implement.enum.here
         }
