@@ -30,17 +30,18 @@ namespace WindowsFormsApplication1
                     {
                         using (var _csvReader = new CachedCsvReader(new StreamReader(ofd.FileName), false))
                         {
-
                             csvDataGrid.DataSource = _csvReader;
                             //set enums on collumns view.
                             if (Enum.GetNames(typeof(CsvEnums._company)).Length < csvDataGrid.Columns.Count)
                             {
                                 MessageBox.Show("Mismatch enum.length != columns.count");
                             }
+                            // rozkodowanie kolumn.csv - > ENUM (V)
                             foreach (CsvEnums._company cmp in Enum.GetValues(typeof(CsvEnums._company)))
                             {
                                 csvDataGrid.Columns[(int) cmp].HeaderText = cmp.ToString();
                             }
+
                             //foreach (DataGridViewColumn col in csvDataGrid.Columns)
                             //{
                             //    col.HeaderText = "test";
@@ -48,7 +49,7 @@ namespace WindowsFormsApplication1
                             //}
                                 
                             
-                            // rozkodowanie kolumn.csv - > ENUM (V)
+                            // select columns ? - > transfer to data base.
                             // zarzadzanie wyswietlaniem kolumn.
                             // filtracja po wybranych kolumnach
                         }
