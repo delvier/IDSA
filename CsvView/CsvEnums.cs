@@ -34,5 +34,9 @@ namespace CsvReaderModule
             ColumnW,
             ColumnX
         }
+        enum FinancialData
+        {
+            // implement.enum.here
+        }
     }
 }
