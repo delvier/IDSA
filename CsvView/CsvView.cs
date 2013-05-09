@@ -30,25 +30,25 @@ namespace WindowsFormsApplication1
                     {
                         using (var _csvReader = new CachedCsvReader(new StreamReader(ofd.FileName), false))
                         {
-                            List<Company> headerList = new List<Company>();
-                            headerList.Add(
-                                new Company() { name = null, id = null, link = null, undefined = null }
-                                );
-                            //Use dictionary ? enums ?
-                            //Create Header class ?
-
-                            //DataGridViewColumnCollection testColection;
 
                             csvDataGrid.DataSource = _csvReader;
-                            
-                            foreach (var col in csvDataGrid.Columns)
+                            //set enums on collumns view.
+                            if (Enum.GetNames(typeof(CsvEnums._company)).Length < csvDataGrid.Columns.Count)
                             {
-                                //
+                                MessageBox.Show("Mismatch enum.length != columns.count");
                             }
+                            foreach (CsvEnums._company cmp in Enum.GetValues(typeof(CsvEnums._company)))
+                            {
+                                csvDataGrid.Columns[(int) cmp].HeaderText = cmp.ToString();
+                            }
+                            //foreach (DataGridViewColumn col in csvDataGrid.Columns)
+                            //{
+                            //    col.HeaderText = "test";
+                            //    //csvDataGrid.Columns[0].HeaderText = "testName1";
+                            //}
                                 
-                            //csvDataGrid.Columns[0].HeaderText = "testName1";
                             
-                            // rozkodowanie kolumn.csv
+                            // rozkodowanie kolumn.csv - > ENUM (V)
                             // zarzadzanie wyswietlaniem kolumn.
                             // filtracja po wybranych kolumnach
                         }
