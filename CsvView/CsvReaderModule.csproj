@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Company.cs" />
+    <Compile Include="CsvEnums.cs" />
     <Compile Include="CsvView.cs">
       <SubType>UserControl</SubType>
     </Compile>
