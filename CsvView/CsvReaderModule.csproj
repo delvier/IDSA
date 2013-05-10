@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Company.cs" />
     <Compile Include="CsvEnums.cs" />
     <Compile Include="CsvView.cs">
       <SubType>UserControl</SubType>
@@ -63,11 +62,9 @@
     <Compile Include="EProjectionType.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Interface1.cs" />
     <Compile Include="IViewProvider.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Report.cs" />
     <Compile Include="ServiceLocator.cs">
       <SubType>Code</SubType>
     </Compile>

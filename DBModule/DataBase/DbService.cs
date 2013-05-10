@@ -5,22 +5,6 @@ using System.Linq;
 
 namespace DBModule
 {
-    //TODO: 
-    //Pin to compare Reports, 
-    //Move to another file
-    public class ReportComparer : IEqualityComparer<Report>
-    {
-        public bool Equals(Report x, Report y)
-        {
-            return (x.CompanySymbol == y.CompanySymbol && x.Year == y.Year && x.Period == y.Period);
-        }
-
-        public int GetHashCode(Report obj)
-        {
-            return obj.ID.GetHashCode();
-        }
-    }
-
     public class DbService
     {
         private IUnitOfWork uow;

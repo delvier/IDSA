@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 using DBModule;
 
 namespace WindowsFormsApplication1
@@ -11,12 +12,14 @@ namespace WindowsFormsApplication1
         public DBView()
         {
             InitializeComponent();
+            Task.Factory.StartNew(() => dbService = new DbService());
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            dbService = new DbService();
+            //TODO: Wait for dbService initialization complete :)
+            //dbService = new DbService();
             this.companyBindingSource.DataSource = dbService.GetAllCompanies();
         }
 

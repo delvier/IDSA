@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBase\Company.cs" />
+    <Compile Include="DataBase\Comparers.cs" />
     <Compile Include="DataBase\Context.cs" />
     <Compile Include="DataBase\DatabaseInitializer.cs" />
     <Compile Include="Repository\Repository.cs" />
