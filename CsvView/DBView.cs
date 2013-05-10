@@ -1,16 +1,13 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows.Forms;
-using System.Linq;
+using DBModule;
 
-namespace DBModule
+namespace WindowsFormsApplication1
 {
     public partial class DBView : UserControl
     {
-        //TODO: Is DBOperations class needed???
-        DBOperations dbOperations = new DBOperations();
-        EFUnitOfWork uow;
-
+        DbService dbService;
+        
         public DBView()
         {
             InitializeComponent();
@@ -19,43 +16,29 @@ namespace DBModule
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
-            uow = new EFUnitOfWork(new Context());
-            if (!uow.Companies.Query().Any())
-                dbOperations.AddRecords(uow);
-
-            this.companyBindingSource.DataSource = uow.Companies.GetAll();
+            dbService = new DbService();
+            this.companyBindingSource.DataSource = dbService.GetAllCompanies();
         }
 
         private void companyBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
             this.Validate();
 
-            //dbOperations.AddReport(uow);
+            //dbService.AddReport();
 
-            //foreach (var item in uow.Reports.Query().ToList())
-            //{
-            //    if (item.Year != 2012)
-            //    {
-            //        uow.Reports.Remove(item);
-            //    }
-            //}
-            //uow.Commit();
             this.companyDataGridView.Refresh();
             this.reportsDataGridView.Refresh();
         }
 
-        public void Dispose()
+        public void Dispose()       //TODO: Dispose() hides dispose() from ComponentModel.Component ???
         {
-            this.uow.Dispose();
+            base.Dispose();
+            this.dbService.Dispose();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            dbOperations.AddsNewCompany(uow);
-
-            //delete relationship
-            //db.Entry(report).Reference(r => r.CompanySymbol).CurrentValue = null;
+            dbService.AddsNewCompany();
         }
 
         //[TestMethod()]        //UNIT Tests

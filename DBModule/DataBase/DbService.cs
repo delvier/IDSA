@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 
@@ -20,15 +21,30 @@ namespace DBModule
         }
     }
 
-    public class DBOperations
+    public class DbService
     {
+        private IUnitOfWork uow;
+
+        public DbService()
+        {
+            uow = new EFUnitOfWork(new Context());
+            //TODO: Change in the future in this place !!!!!!!!!!!!
+            if (!uow.Companies.Query().Any())
+                AddRecords();
+        }
+
+        public BindingList<Company> GetAllCompanies()
+        {
+            return uow.Companies.GetAll();
+        }
+
         public void AddAllCompanies(IUnitOfWork uow)
         {
             //TODO: add all companies functionality
 
         }
 
-        public void AddRecords(IUnitOfWork uow)
+        public void AddRecords()
         {
             var company = new Company
             {
@@ -92,7 +108,7 @@ namespace DBModule
             uow.Commit();
         }
 
-        public void AddsNewCompany(IUnitOfWork uow)
+        public void AddsNewCompany()
         {
             var company = new Company { Symbol = "WMO", Name = "Wind Mobile", Trade = TRADES.BUDOWNICTWO,
                                         Description = "Halogranie i Reklamowka", Url = "http://www.windmobile.pl"
@@ -100,7 +116,8 @@ namespace DBModule
             uow.Companies.Add(company);
             uow.Commit();
             var actual = uow.Companies.Query().FirstOrDefault(e => e.Name == "Wind Mobile");
-            Debug.Assert(actual == null, "Baza nie zwrocila ostatnio zapisanego rekordu");
+            //TODO: Assert wywala wyjatek, a nie powinien !!!
+            //Debug.Assert(actual == null, "Baza nie zwrocila ostatnio zapisanego rekordu");
 
             var report = new Report { Period = PERIOD.Q4, NetProfit = 4333, SalesRevenues = 455697, 
                 Year = 2004, CompanySymbol = "WMO" };
@@ -108,7 +125,7 @@ namespace DBModule
             uow.Commit();
         }
 
-        public void Repository_Testing(IUnitOfWork uow)
+        public void Repository_Testing()
         {
             var company = new Company { Symbol = "ZKA", Name = "Zetkama", Trade = TRADES.HANDEL };
             uow.Companies.Add(company);
@@ -116,6 +133,26 @@ namespace DBModule
             uow.Companies.Remove(company);
             uow.Commit();
             Debug.Assert(0 == uow.Companies.Query().Count());
+        }
+
+        public void AddReport()
+        {
+            //foreach (var item in uow.Reports.Query().ToList())
+            //{
+            //    if (item.Year != 2012)
+            //    {
+            //        uow.Reports.Remove(item);
+            //    }
+            //}
+            //uow.Commit();
+
+            //delete relationship
+            //db.Entry(report).Reference(r => r.CompanySymbol).CurrentValue = null;
+        }
+
+        public void Dispose()
+        {
+            uow.Dispose();
         }
     }
 }

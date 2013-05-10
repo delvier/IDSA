@@ -1,4 +1,4 @@
-﻿namespace DBModule
+﻿namespace WindowsFormsApplication1
 {
     partial class DBView
     {

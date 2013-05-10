@@ -10,7 +10,7 @@ namespace WindowsFormsApplication1
         public TabbedViewProvider()
         {
             ServiceLocator.Instance.Register(new CsvView());
-            ServiceLocator.Instance.Register(new DBModule.DBView());
+            ServiceLocator.Instance.Register(new DBView());
         }
         public EProjectionType ProjectionType
         {
@@ -35,7 +35,7 @@ namespace WindowsFormsApplication1
                 {
                     Header = "Database Tables",
                     //View = null
-                    View = ServiceLocator.Instance.Resolve<DBModule.DBView>()
+                    View = ServiceLocator.Instance.Resolve<DBView>()
                 }
                 );
 

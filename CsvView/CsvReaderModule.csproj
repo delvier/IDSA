@@ -54,6 +54,12 @@
     <Compile Include="CsvView.Designer.cs">
       <DependentUpon>CsvView.cs</DependentUpon>
     </Compile>
+    <Compile Include="DBView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DBView.Designer.cs">
+      <DependentUpon>DBView.cs</DependentUpon>
+    </Compile>
     <Compile Include="EProjectionType.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -81,6 +87,9 @@
     </Compile>
     <EmbeddedResource Include="CsvView.resx">
       <DependentUpon>CsvView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DBView.resx">
+      <DependentUpon>DBView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
