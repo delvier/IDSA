@@ -10,6 +10,7 @@ namespace WindowsFormsApplication1
         public TabbedViewProvider()
         {
             ServiceLocator.Instance.Register(new CsvView());
+            ServiceLocator.Instance.Register(new DBModule.DBView());
         }
         public EProjectionType ProjectionType
         {
@@ -26,6 +27,15 @@ namespace WindowsFormsApplication1
                     Header = "csv_reader",
                     //View = null
                     View = ServiceLocator.Instance.Resolve<CsvView>()
+                }
+                );
+
+            lst.Add(
+                new ViewItemDescriptor()
+                {
+                    Header = "Database Tables",
+                    //View = null
+                    View = ServiceLocator.Instance.Resolve<DBModule.DBView>()
                 }
                 );
 
