@@ -47,16 +47,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CsvEnums.cs" />
-    <Compile Include="CsvView.cs">
+    <Compile Include="Views\CsvView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CsvView.Designer.cs">
+    <Compile Include="Views\CsvView.Designer.cs">
       <DependentUpon>CsvView.cs</DependentUpon>
     </Compile>
-    <Compile Include="DBView.cs">
+    <Compile Include="Views\DBView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DBView.Designer.cs">
+    <Compile Include="Views\DBView.Designer.cs">
       <DependentUpon>DBView.cs</DependentUpon>
     </Compile>
     <Compile Include="EProjectionType.cs">
@@ -68,10 +68,10 @@
     <Compile Include="ServiceLocator.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Shell.cs">
+    <Compile Include="Views\Shell.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Shell.Designer.cs">
+    <Compile Include="Views\Shell.Designer.cs">
       <DependentUpon>Shell.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -82,10 +82,10 @@
     <Compile Include="ViewItemDescriptor.cs">
       <SubType>Code</SubType>
     </Compile>
-    <EmbeddedResource Include="CsvView.resx">
+    <EmbeddedResource Include="Views\CsvView.resx">
       <DependentUpon>CsvView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DBView.resx">
+    <EmbeddedResource Include="Views\DBView.resx">
       <DependentUpon>DBView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -98,7 +98,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Shell.resx">
+    <EmbeddedResource Include="Views\Shell.resx">
       <DependentUpon>Shell.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
@@ -121,6 +121,9 @@
       <Project>{E3B83D68-C90C-4874-8E5F-DEC8D038BC7C}</Project>
       <Name>LumenWorks.Framework.IO</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
