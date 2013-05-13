@@ -10,6 +10,7 @@ using System.IO;
 
 using LumenWorks.Framework.IO.Csv;
 using CsvReaderModule;
+using DBModule;
 
 namespace WindowsFormsApplication1
 {
@@ -22,7 +23,7 @@ namespace WindowsFormsApplication1
 
         private void loadCsv_Click(object sender, EventArgs e)
         {
-            using ( var ofd = new OpenFileDialog())
+            using (var ofd = new OpenFileDialog())
             {
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
@@ -39,7 +40,7 @@ namespace WindowsFormsApplication1
                             // rozkodowanie kolumn.csv - > ENUM (V)
                             foreach (CsvEnums._company cmp in Enum.GetValues(typeof(CsvEnums._company)))
                             {
-                                csvDataGrid.Columns[(int) cmp].HeaderText = cmp.ToString();
+                                csvDataGrid.Columns[(int)cmp].HeaderText = cmp.ToString();
                             }
 
                             //foreach (DataGridViewColumn col in csvDataGrid.Columns)
@@ -47,8 +48,44 @@ namespace WindowsFormsApplication1
                             //    col.HeaderText = "test";
                             //    //csvDataGrid.Columns[0].HeaderText = "testName1";
                             //}
-                                
-                            
+
+
+                            //TODO: Maybe DbService should inherit after UnitOfWork??????
+
+                            //using (var uow = new EFUnitOfWork())
+                            //{
+                            //    foreach (var item in _csvReader.ToList())
+                            //    {
+                            //        var company = new Company()
+                            //        {
+                            //            Symbol = item[(int)CsvEnums._company.Shortcut],
+                            //            Name = item[(int)CsvEnums._company.Name],
+                            //            Description = item[(int)CsvEnums._company.Description],
+                            //            //Trade = item[(int)CsvEnums._company.Profile],
+                            //            Url = item[(int)CsvEnums._company.Href]
+                            //        };
+
+                            //        uow.Companies.Add(company);
+                            //    }
+                            //}
+
+                            //using (var dbService = new DbService())
+                            //{
+                            //    foreach (var item in _csvReader.ToList())
+                            //    {
+                            //        var company = new Company()
+                            //        {
+                            //            Symbol = item[(int)CsvEnums._company.Shortcut],
+                            //            Name = item[(int)CsvEnums._company.Name],
+                            //            Description = item[(int)CsvEnums._company.Description],
+                            //            //Trade = item[(int)CsvEnums._company.Profile],
+                            //            Url = item[(int)CsvEnums._company.Href]
+                            //        };
+
+                            //        dbService.AddsNewCompany();
+                            //    }
+                            //}
+
                             // select columns ? - > transfer to data base.
                             // zarzadzanie wyswietlaniem kolumn.
                             // filtracja po wybranych kolumnach

@@ -17,10 +17,15 @@ namespace DBModule
         private readonly DbContext context;
         private CompanyRepository companies;
         private ReportRepository reports;
-        
+
         #endregion
 
-        #region Ctor
+        #region Ctors
+
+        public EFUnitOfWork()
+        {
+            this.context = new Context();
+        }
 
         public EFUnitOfWork(DbContext context)
         {
@@ -29,9 +34,9 @@ namespace DBModule
 
             this.context = context;
         }
-        
+
         #endregion
-        
+
         //internal DbSet<E> GetDbSet<E>() where E : class
         //{
         //    return context.Set<E>();
@@ -40,7 +45,7 @@ namespace DBModule
         #region IUnitOfWork members
 
         public IRepository<Company> Companies
-        { 
+        {
             get
             {
                 if (companies == null)
@@ -63,16 +68,16 @@ namespace DBModule
         {
             context.SaveChanges();
         }
-        
+
         #endregion
 
         #region IDisposable members
-        
+
         public void Dispose()
         {
             context.Dispose();
-        } 
-        
+        }
+
         #endregion
     }
 }

@@ -18,8 +18,7 @@ namespace WindowsFormsApplication1
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            //TODO: Wait for dbService initialization complete :)
-            //dbService = new DbService();
+            Task.WaitAll();
             this.companyBindingSource.DataSource = dbService.GetAllCompanies();
         }
 

@@ -2,16 +2,18 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Data.Entity;
+using System;
 
 namespace DBModule
 {
-    public class DbService
+    public class DbService : IDisposable
     {
         private IUnitOfWork uow;
 
         public DbService()
         {
-            uow = new EFUnitOfWork(new Context());
+            uow = new EFUnitOfWork(new Context(new CreateDatabaseIfNotExists<Context>()));
             //TODO: Change in the future in this place !!!!!!!!!!!!
             if (!uow.Companies.Query().Any())
                 AddRecords();
