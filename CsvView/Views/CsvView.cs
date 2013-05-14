@@ -11,9 +11,15 @@ using System.IO;
 using LumenWorks.Framework.IO.Csv;
 using CsvReaderModule;
 using DBModule;
+using CsvReaderModule.Controllers;
 
 namespace WindowsFormsApplication1
 {
+    interface ICsvView
+    {
+        void SetControler(CsvViewController ctrl);
+        void LoadCsvFile();
+    }
     public partial class CsvView : UserControl
     {
         public CsvView()
@@ -53,20 +59,21 @@ namespace WindowsFormsApplication1
                             //TODO: Maybe DbService should inherit after UnitOfWork??????
 
                             //using (var uow = new EFUnitOfWork())
-                            //{
-                            //    foreach (var item in _csvReader.ToList())
-                            //    {
-                            //        var company = new Company()
-                            //        {
-                            //            Symbol = item[(int)CsvEnums._company.Shortcut],
-                            //            Name = item[(int)CsvEnums._company.Name],
-                            //            Description = item[(int)CsvEnums._company.Description],
-                            //            //Trade = item[(int)CsvEnums._company.Profile],
-                            //            Url = item[(int)CsvEnums._company.Href]
-                            //        };
+                                //{
+                                //    foreach (var item in _csvReader.ToList())
+                                //    {
+                                //        var company = new Company()
+                                //        {
+                                //            Symbol = item[(int)CsvEnums._company.Shortcut],
+                                //            Name = item[(int)CsvEnums._company.Name],
+                                //            Description = item[(int)CsvEnums._company.Description],
+                                //            //Trade = item[(int)CsvEnums._company.Profile],
+                                //            Url = item[(int)CsvEnums._company.Href]
+                                //        };
 
-                            //        uow.Companies.Add(company);
-                            //    }
+                                //        uow.Companies.Add(company);
+                                //    }
+                                //    uow.SaveChanges();
                             //}
 
                             //using (var dbService = new DbService())

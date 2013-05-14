@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CsvReaderModule.Controllers;
 
 namespace WindowsFormsApplication1
 {
@@ -10,6 +11,7 @@ namespace WindowsFormsApplication1
         public TabbedViewProvider()
         {
             ServiceLocator.Instance.Register(new CsvView());
+            ServiceLocator.Instance.Register(new CsvViewController(ServiceLocator.Instance.Resolve<CsvView>()));
             ServiceLocator.Instance.Register(new DBView());
         }
         public EProjectionType ProjectionType
