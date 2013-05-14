@@ -34,11 +34,32 @@ namespace WindowsFormsApplication1
 
         private void loadCsv_Click(object sender, EventArgs e)
         {
-            this._controller.LoadCsvFile();
+            using (var ofd = new OpenFileDialog())
+            {
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        using (var _csvReader = new CachedCsvReader(new StreamReader(ofd.FileName), false))
+                        {
+                            csvDataGrid.DataSource = _csvReader;
+                            // using use streamreader in object _csvReader.
+                            // exiting brackets destroys the obj streamreader. if returned crashes occurs.
+                        }
+                    }
+                    finally
+                    {
+
+                    }
+                }
+            }
+            // TODO: resolve problem using vs controller. crash of null stream obj. assertion occurs.
+            //csvDataGrid.DataSource = _controller.LoadCsvFile();
         }
 
         public void SetControler(CsvViewController ctr)
         {
+           
             _controller = ctr;
         }
 

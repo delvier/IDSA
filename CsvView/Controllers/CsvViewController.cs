@@ -5,6 +5,7 @@ using System.Text;
 using WindowsFormsApplication1;
 using System.IO;
 using LumenWorks.Framework.IO.Csv;
+using System.Windows.Forms;
 
 namespace CsvReaderModule.Controllers
 {
@@ -18,34 +19,37 @@ namespace CsvReaderModule.Controllers
             _view.SetControler(this);
         }
 
-        public void LoadCsvFile()
+        public CachedCsvReader LoadCsvFile()
         {
-            string fileName = _view.OpenDialog();
-                    try
-                    {
-                        using (var _csvReader = new CachedCsvReader(new StreamReader(fileName), false))
-                        {
-                            _view.BoxMsg("enter file reader...");
-                            //csvDataGrid.DataSource = _csvReader;
-                            ////set enums on collumns view.
-                            //if (Enum.GetNames(typeof(CsvEnums._company)).Length < csvDataGrid.Columns.Count)
-                            //{
-                            //    _view.BoxMsg("Mismatch enum.length != columns.count");
-                            //}
-                            //// rozkodowanie kolumn.csv - > ENUM (V)
-                            //foreach (CsvEnums._company cmp in Enum.GetValues(typeof(CsvEnums._company)))
-                            //{
-                            //    csvDataGrid.Columns[(int)cmp].HeaderText = cmp.ToString();
-                            //}
+            //string fileName = _view.OpenDialog();
+            try
+            {
+                var ofd = new OpenFileDialog();
+                if (ofd.ShowDialog() == DialogResult.OK)
+                { }
+                using (var _csvReader = new CachedCsvReader(new StreamReader(ofd.FileName), false))
+                {
+                    return _csvReader;
+                    //set enums on collumns view.
+                    //if (enum.getnames(typeof(csvenums._company)).length < csvdatagrid.columns.count)
+                    //{
+                    //    _view.BoxMsg("mismatch enum.length != columns.count");
+                    //}
+                    //// rozkodowanie kolumn.csv - > enum (v)
+                    //foreach (csvenums._company cmp in enum.getvalues(typeof(csvenums._company)))
+                    //{
+                    //    csvdatagrid.columns[(int)cmp].headertext = cmp.tostring();
+                    //}
 
-                        }
-                    }
-                    catch (IOException ex)
-                    {
-                        //show error message.
-                        _view.BoxMsg(ex.Message);
-                    }
-             
+                }
+            }
+            catch (IOException ex)
+            {
+                //show error message.
+                _view.BoxMsg(ex.Message);
+                return null;
+            }
+
             //implementation here.
         }
     }
