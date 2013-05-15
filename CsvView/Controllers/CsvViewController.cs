@@ -21,18 +21,23 @@ namespace CsvReaderModule.Controllers
             _view.SetControler(this);
         }
 
-        public IBindingList LoadCsvFile()
+        public CachedCsvReader LoadCsvFile()
         {
             //string fileName = _view.OpenDialog();
             try
             {
                 var ofd = new OpenFileDialog();
                 if (ofd.ShowDialog() == DialogResult.OK)
-                { }
-                using (var _csvReader = new CachedCsvReader(new StreamReader(ofd.FileName), false))
                 {
-                    //IBindingList test = _csvReader.AsEnumerable<IBindingList>();
+                    return (new CachedCsvReader(new StreamReader(ofd.FileName), false));
+
+                }
+                else
+                {
                     return null;
+                }
+                    //IBindingList test = _csvReader.AsEnumerable<IBindingList>();
+                    
                     //set enums on collumns view.
                     //if (enum.getnames(typeof(csvenums._company)).length < csvdatagrid.columns.count)
                     //{
@@ -44,7 +49,7 @@ namespace CsvReaderModule.Controllers
                     //    csvdatagrid.columns[(int)cmp].headertext = cmp.tostring();
                     //}
 
-                }
+                
             }
             catch (IOException ex)
             {
