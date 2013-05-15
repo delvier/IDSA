@@ -6,6 +6,7 @@ using WindowsFormsApplication1;
 using System.IO;
 using LumenWorks.Framework.IO.Csv;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace CsvReaderModule.Controllers
 {
@@ -19,7 +20,7 @@ namespace CsvReaderModule.Controllers
             _view.SetControler(this);
         }
 
-        public CachedCsvReader LoadCsvFile()
+        public IListSource LoadCsvFile()
         {
             //string fileName = _view.OpenDialog();
             try
@@ -29,7 +30,7 @@ namespace CsvReaderModule.Controllers
                 { }
                 using (var _csvReader = new CachedCsvReader(new StreamReader(ofd.FileName), false))
                 {
-                    return _csvReader;
+                    return (IListSource)_csvReader;
                     //set enums on collumns view.
                     //if (enum.getnames(typeof(csvenums._company)).length < csvdatagrid.columns.count)
                     //{
