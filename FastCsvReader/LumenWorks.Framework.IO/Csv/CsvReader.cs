@@ -1885,7 +1885,7 @@ namespace LumenWorks.Framework.IO.Csv
 		{
 			if ((validations & DataReaderValidations.IsInitialized) != 0 && !_initialized)
 				throw new InvalidOperationException(ExceptionMessage.NoCurrentRecord);
-
+             
 			if ((validations & DataReaderValidations.IsNotClosed) != 0 && _isDisposed)
 				throw new InvalidOperationException(ExceptionMessage.ReaderClosed);
 		}

@@ -34,6 +34,8 @@ namespace WindowsFormsApplication1
 
         private void loadCsv_Click(object sender, EventArgs e)
         {
+            csvDataGrid.DataSource = _controller.LoadCsvFile();
+
             using (var ofd = new OpenFileDialog())
             {
                 if (ofd.ShowDialog() == DialogResult.OK)
@@ -54,7 +56,7 @@ namespace WindowsFormsApplication1
                 }
             }
             // TODO: resolve problem using vs controller. crash of null stream obj. assertion occurs.
-            //csvDataGrid.DataSource = _controller.LoadCsvFile();
+           
         }
 
         public void SetControler(CsvViewController ctr)
