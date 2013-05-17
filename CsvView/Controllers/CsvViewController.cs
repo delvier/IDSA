@@ -20,7 +20,7 @@ namespace CsvReaderModule.Controllers
         // C : select collumns <listOfColumnsToSelect> -> remove or hide ?
         // C : giveOutData for View
         // C : HeaderBasedOnEnum ? V : ?
-        // V : refresh _csvModel (data)
+        // V : refresh view (data from _csvModel)
 
         public CsvViewController(ICsvView view)
         {
@@ -30,7 +30,7 @@ namespace CsvReaderModule.Controllers
 
         public void selectColumns(List<string> colHeaders)
         {
-
+           //
         }
 
         // Provide ListOf Enum Names.

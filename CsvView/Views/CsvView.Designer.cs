@@ -30,6 +30,7 @@
         {
             this.loadCsv = new System.Windows.Forms.Button();
             this.csvDataGrid = new System.Windows.Forms.DataGridView();
+            this.baseView = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.csvDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,10 +55,21 @@
             this.csvDataGrid.Size = new System.Drawing.Size(272, 116);
             this.csvDataGrid.TabIndex = 1;
             // 
+            // baseView
+            // 
+            this.baseView.Location = new System.Drawing.Point(84, 3);
+            this.baseView.Name = "baseView";
+            this.baseView.Size = new System.Drawing.Size(75, 23);
+            this.baseView.TabIndex = 2;
+            this.baseView.Text = "base";
+            this.baseView.UseVisualStyleBackColor = true;
+            this.baseView.Click += new System.EventHandler(this.baseView_Click);
+            // 
             // CsvView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.baseView);
             this.Controls.Add(this.csvDataGrid);
             this.Controls.Add(this.loadCsv);
             this.Name = "CsvView";
@@ -71,5 +83,6 @@
 
         private System.Windows.Forms.Button loadCsv;
         private System.Windows.Forms.DataGridView csvDataGrid;
+        private System.Windows.Forms.Button baseView;
     }
 }

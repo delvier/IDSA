@@ -21,6 +21,7 @@ namespace WindowsFormsApplication1
         //void LoadCsvFile();
         void BoxMsg(string s);
         string OpenDialog();
+        void RefreshView();
         //OpenFileDialog dialog { get; set; }
     }
 
@@ -73,12 +74,21 @@ namespace WindowsFormsApplication1
                 }
             }
         }
+
+        private void baseView_Click(object sender, EventArgs e)
+        {
+            //_controller.selectColumns();
+        }
         
         //public OpenFileDialog dialog
         //{
         //    get { return this.dialog; }
         //    set { this.dialog = (OpenFileDialog)value; }
         //}
-  
+
+        public void RefreshView()
+        {
+         //_controller.
+        }
     }
 }
