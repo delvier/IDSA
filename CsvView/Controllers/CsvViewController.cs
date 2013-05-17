@@ -15,10 +15,7 @@ namespace CsvReaderModule.Controllers
     {
         ICsvView _view;
         CachedCsvReader _csvModel; // controller model insight.
-        enum Tpye
-        {
-            //idea/?
-        }
+
         // IDEAS: 
         // C : select collumns <listOfColumnsToSelect> -> remove or hide ?
         // C : giveOutData for View
@@ -31,29 +28,21 @@ namespace CsvReaderModule.Controllers
             _view.SetControler(this);
         }
 
+        public void selectColumns(List<string> colHeaders)
+        {
+
+        }
+
+        // Provide ListOf Enum Names.
         public List<string> getHeaders<T> (int cols)
         {
             List<string> hList = new List<string>();
-
-            if (Enum.GetNames(typeof(T)).Length == cols)
+            if (Enum.GetNames(typeof(T)).Length == cols) // dummy check size ? check types ?
             {
-                foreach (T cmp in Enum.GetValues(typeof(T)))
-                {
-                    hList.Add(cmp.ToString());
-                }           
+                var arr = Enum.GetNames(typeof(T)); //array
+                hList =  arr.ToList<string>();
             }
-
             return hList;
-            //set enums on collumns view.
-            //if (enum.getnames(typeof(csvenums._company)).length < csvdatagrid.columns.count)
-            //{
-            //    _view.BoxMsg("mismatch enum.length != columns.count");
-            //}
-            //// rozkodowanie kolumn.csv - > enum (v)
-            //foreach (csvenums._company cmp in enum.getvalues(typeof(csvenums._company)))
-            //{
-            //    csvdatagrid.columns[(int)cmp].headertext = cmp.tostring();
-            //}           
         }
 
         public CachedCsvReader LoadCsvFile(string fname)
@@ -123,3 +112,14 @@ namespace CsvReaderModule.Controllers
 // select columns ? - > transfer to data base.
 // zarzadzanie wyswietlaniem kolumn.
 // filtracja po wybranych kolumnach
+
+
+//if (Enum.GetNames(typeof(T)).Length == cols)
+//{
+//    foreach (T cmp in Enum.GetValues(typeof(T)))
+//    {
+//        hList.Add(cmp.ToString());
+//    }           
+//}
+
+//return hList;         
