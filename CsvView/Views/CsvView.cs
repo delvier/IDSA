@@ -26,7 +26,7 @@ namespace WindowsFormsApplication1
 
     public partial class CsvView : UserControl, ICsvView
     {
-        CsvViewController _controller;
+        CsvViewController _controller;        
         public CsvView()
         {
             InitializeComponent();
@@ -34,18 +34,23 @@ namespace WindowsFormsApplication1
 
         private void loadCsv_Click(object sender, EventArgs e)
         {
-            var csv = _controller.LoadCsvFile();
+            var csv = _controller.LoadCsvFile(OpenDialog());
             if (csv != null)
             {
                 csvDataGrid.DataSource = csv;
-                csv.Dispose();    
+                csv.Dispose();
+
+                var collection = _controller.getHeaders<CsvEnums._company>(csvDataGrid.Columns.Count);
+                foreach (var element in collection)
+                {
+                    csvDataGrid.Columns[collection.IndexOf(element)].HeaderText = element.ToString();
+                }
             }
             // TODO: resolve problem using vs controller. crash of null stream obj. assertion occurs.
         }
 
         public void SetControler(CsvViewController ctr)
         {
-           
             _controller = ctr;
         }
 
@@ -64,7 +69,7 @@ namespace WindowsFormsApplication1
                 }
                 else
                 {
-                    return "";
+                    return null;
                 }
             }
         }

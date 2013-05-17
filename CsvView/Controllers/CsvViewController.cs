@@ -14,6 +14,16 @@ namespace CsvReaderModule.Controllers
     public class CsvViewController
     {
         ICsvView _view;
+        CachedCsvReader _csvModel; // controller model insight.
+        enum Tpye
+        {
+            //idea/?
+        }
+        // IDEAS: 
+        // C : select collumns <listOfColumnsToSelect> -> remove or hide ?
+        // C : giveOutData for View
+        // C : HeaderBasedOnEnum ? V : ?
+        // V : refresh _csvModel (data)
 
         public CsvViewController(ICsvView view)
         {
@@ -21,35 +31,40 @@ namespace CsvReaderModule.Controllers
             _view.SetControler(this);
         }
 
-        public CachedCsvReader LoadCsvFile()
+        public List<string> getHeaders<T> (int cols)
+        {
+            List<string> hList = new List<string>();
+
+            if (Enum.GetNames(typeof(T)).Length == cols)
+            {
+                foreach (T cmp in Enum.GetValues(typeof(T)))
+                {
+                    hList.Add(cmp.ToString());
+                }           
+            }
+
+            return hList;
+            //set enums on collumns view.
+            //if (enum.getnames(typeof(csvenums._company)).length < csvdatagrid.columns.count)
+            //{
+            //    _view.BoxMsg("mismatch enum.length != columns.count");
+            //}
+            //// rozkodowanie kolumn.csv - > enum (v)
+            //foreach (csvenums._company cmp in enum.getvalues(typeof(csvenums._company)))
+            //{
+            //    csvdatagrid.columns[(int)cmp].headertext = cmp.tostring();
+            //}           
+        }
+
+        public CachedCsvReader LoadCsvFile(string fname)
         {
             //string fileName = _view.OpenDialog();
+            if (fname == null)
+                return null;
             try
             {
-                var ofd = new OpenFileDialog();
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    return (new CachedCsvReader(new StreamReader(ofd.FileName), false));
-
-                }
-                else
-                {
-                    return null;
-                }
-                    //IBindingList test = _csvReader.AsEnumerable<IBindingList>();
-                    
-                    //set enums on collumns view.
-                    //if (enum.getnames(typeof(csvenums._company)).length < csvdatagrid.columns.count)
-                    //{
-                    //    _view.BoxMsg("mismatch enum.length != columns.count");
-                    //}
-                    //// rozkodowanie kolumn.csv - > enum (v)
-                    //foreach (csvenums._company cmp in enum.getvalues(typeof(csvenums._company)))
-                    //{
-                    //    csvdatagrid.columns[(int)cmp].headertext = cmp.tostring();
-                    //}
-
-                
+                    return (new CachedCsvReader(new StreamReader(fname), false));
+                    //IBindingList test = _csvReader.AsEnumerable<IBindingList>();     
             }
             catch (IOException ex)
             {
@@ -57,8 +72,6 @@ namespace CsvReaderModule.Controllers
                 _view.BoxMsg(ex.Message);
                 return null;
             }
-
-            //implementation here.
         }
     }
 }
