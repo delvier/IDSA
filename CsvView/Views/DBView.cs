@@ -2,32 +2,39 @@
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using DBModule;
+using CsvReaderModule.Controllers;
 
 namespace WindowsFormsApplication1
 {
-    public partial class DBView : UserControl
+    public interface IDbView
     {
-        DbService dbService;
+        //void Refresh();
+        //void AddCompany(Company company);
+        //void AddCompany(List<Company> companies)
+    }
+
+    public partial class DBView : UserControl, IDbView
+    {
+        private DbViewPresenter presenter;
         
         public DBView()
         {
             InitializeComponent();
-            Task.Factory.StartNew(() => dbService = new DbService());
+            ServiceLocator.Instance.Register(new DbViewPresenter(this));
+            presenter = ServiceLocator.Instance.Resolve<DbViewPresenter>();
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            Task.WaitAll();
-            this.companyBindingSource.DataSource = dbService.GetAllCompanies();
+            presenter.OnLoad();
+            this.companyBindingSource.DataSource = presenter.GetAllCompanies();
         }
 
         private void companyBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
+            // refresh
             this.Validate();
-
-            //dbService.AddReport();
-
             this.companyDataGridView.Refresh();
             this.reportsDataGridView.Refresh();
         }
@@ -35,12 +42,12 @@ namespace WindowsFormsApplication1
         public void Dispose()       //TODO: Dispose() hides dispose() from ComponentModel.Component ???
         {
             base.Dispose();
-            this.dbService.Dispose();
+            presenter.Dispose();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            dbService.AddsNewCompany();
+            presenter.AddsNewCompany();
         }
 
         //[TestMethod()]        //UNIT Tests

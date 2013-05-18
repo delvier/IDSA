@@ -56,7 +56,6 @@
     <Compile Include="Repository\OldRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataBase\Report.cs" />
-    <Compile Include="DataBase\DbService.cs" />
     <Compile Include="Repository\UnitOfWork.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
