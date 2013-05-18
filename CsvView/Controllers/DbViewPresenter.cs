@@ -19,11 +19,6 @@ namespace CsvReaderModule.Controllers
         public DbViewPresenter(IDbView view)
         {
             this.view = view;
-            // TODO: przeniesc register EFUnitOfWork do CsvView????
-            Task.Factory.StartNew(() => ServiceLocator.Instance.Register(
-                new EFUnitOfWork(
-                new Context(new CreateDatabaseIfNotExists<Context>())
-                )));
         }
 
         public void OnLoad()
@@ -44,15 +39,6 @@ namespace CsvReaderModule.Controllers
         public void AddCompany(Company company)
         {
             model.Companies.Add(company);
-            model.Commit();
-        }
-
-        public void AddCompany(List<Company> companies)
-        {
-            foreach (var company in companies)
-            {
-                model.Companies.Add(company);
-            }
             model.Commit();
         }
 

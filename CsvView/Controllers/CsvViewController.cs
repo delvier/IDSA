@@ -8,12 +8,16 @@ using LumenWorks.Framework.IO.Csv;
 using System.Windows.Forms;
 using System.ComponentModel;
 using System.Collections;
+using DBModule;
+using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace CsvReaderModule.Controllers
 {
     public class CsvViewController
     {
         private readonly ICsvView view;
+        private IUnitOfWork model;
         //CachedCsvReader _csvModel; // controller model insight.
 
         // IDEAS: 
@@ -25,9 +29,36 @@ namespace CsvReaderModule.Controllers
         public CsvViewController(ICsvView view)
         {
             this.view = view;
-            
+            Task.Factory.StartNew(() => ServiceLocator.Instance.Register(
+                new EFUnitOfWork(
+                new Context(new CreateDatabaseIfNotExists<Context>())
+                )));
             //TODO: Use delegate/event here ;)
             //view.SetControler(this);
+        }
+
+        public void AddCompany(List<string[]> companies)
+        {
+            // TODO: Use new Context object of EFUnit Of Work to this presenter.
+            // using( var context = ServiceLocator.Instance.Resolve<EFUnitOfWork>()) { ... }
+            Task.WaitAll();
+            model = ServiceLocator.Instance.Resolve<EFUnitOfWork>();
+            model.Companies.Query().Load();
+            
+            foreach (var item in companies)
+            {
+                var company = new Company()
+                {
+                    Symbol = item[(int)CsvEnums._company.Shortcut],
+                    Name = item[(int)CsvEnums._company.Name],
+                    Description = item[(int)CsvEnums._company.Description],
+                    //Trade = item[(int)CsvEnums._company.Profile],
+                    Url = item[(int)CsvEnums._company.Href]
+                };
+                model.Companies.Add(company);
+            }
+            // TODO: Commit in other Task??? Not necessary
+            model.Commit();
         }
 
         public void selectColumns(List<string> colHeaders)
@@ -64,6 +95,11 @@ namespace CsvReaderModule.Controllers
                 return null;
             }
         }
+        
+        public void Dispose()
+        {
+            model.Dispose();
+        }
     }
 }
 
@@ -71,44 +107,6 @@ namespace CsvReaderModule.Controllers
 //{
 //    col.HeaderText = "test";
 //    //csvDataGrid.Columns[0].HeaderText = "testName1";
-//}
-
-
-//TODO: Maybe DbService should inherit after UnitOfWork??????
-
-//using (var uow = new EFUnitOfWork())
-//{
-//    foreach (var item in _csvReader.ToList())
-//    {
-//        var company = new Company()
-//        {
-//            Symbol = item[(int)CsvEnums._company.Shortcut],
-//            Name = item[(int)CsvEnums._company.Name],
-//            Description = item[(int)CsvEnums._company.Description],
-//            //Trade = item[(int)CsvEnums._company.Profile],
-//            Url = item[(int)CsvEnums._company.Href]
-//        };
-
-//        uow.Companies.Add(company);
-//    }
-//    uow.SaveChanges();
-//}
-
-//using (var dbService = new DbService())
-//{
-//    foreach (var item in _csvReader.ToList())
-//    {
-//        var company = new Company()
-//        {
-//            Symbol = item[(int)CsvEnums._company.Shortcut],
-//            Name = item[(int)CsvEnums._company.Name],
-//            Description = item[(int)CsvEnums._company.Description],
-//            //Trade = item[(int)CsvEnums._company.Profile],
-//            Url = item[(int)CsvEnums._company.Href]
-//        };
-
-//        dbService.AddsNewCompany();
-//    }
 //}
 
 // select columns ? - > transfer to data base.

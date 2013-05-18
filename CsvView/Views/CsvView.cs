@@ -39,6 +39,7 @@ namespace WindowsFormsApplication1
 
         private void loadCsv_Click(object sender, EventArgs e)
         {
+            // TODO: Add use of Reports, not only Companies !!!!!!!!!!
             var csv = presenter.LoadCsvFile(OpenDialog());
             if (csv != null)
             {
@@ -50,6 +51,9 @@ namespace WindowsFormsApplication1
                 {
                     csvDataGrid.Columns[collection.IndexOf(element)].HeaderText = element.ToString();
                 }
+
+                // TODO: Add Companies in other Task ;)
+                presenter.AddCompany(csv.ToList());
             }
             // TODO: resolve problem using vs controller. crash of null stream obj. assertion occurs.
             // TODO: Przeniesc dane z OpenDialog() tutaj????
@@ -95,6 +99,12 @@ namespace WindowsFormsApplication1
         public void RefreshView()
         {
             //presenter.
+        }
+
+        public void Dispose()       //TODO: Dispose() hides dispose() from ComponentModel.Component ???
+        {
+            base.Dispose();
+            presenter.Dispose();
         }
     }
 }

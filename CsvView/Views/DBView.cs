@@ -39,12 +39,6 @@ namespace WindowsFormsApplication1
             this.reportsDataGridView.Refresh();
         }
 
-        public void Dispose()       //TODO: Dispose() hides dispose() from ComponentModel.Component ???
-        {
-            base.Dispose();
-            presenter.Dispose();
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             presenter.AddsNewCompany();

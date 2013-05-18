@@ -25,7 +25,7 @@ namespace WindowsFormsApplication1
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             base.OnClosing(e);
-            ServiceLocator.Instance.Resolve<DBView>().Dispose();
+            ServiceLocator.Instance.Resolve<CsvView>().Dispose();
             //without ServiceLocator, but Dispose() method then must be static ;) (or find other solution)
             //DBModule.DBView.Dispose();
         }
