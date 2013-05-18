@@ -37,7 +37,7 @@ namespace DBModule
 
         public abstract E GetById(int id);
 
-        public void Add(E entity)
+        public virtual void Add(E entity)
         {
             dbSet.Add(entity);
         }
@@ -67,6 +67,11 @@ namespace DBModule
             return dbSet.Local.ToBindingList();
         }
 
+        //public void Load()
+        //{
+        //    return dbSet.Load
+        //}
+
         #endregion
     }
 
@@ -84,11 +89,11 @@ namespace DBModule
             return dbSet.SingleOrDefault(x => x.Symbol == symbol);
         }
 
-        public void Add(Company company)
+        public override void Add(Company company)
         {
-            // TODO: My part is here
-
-            base.Add(company);
+            // TODO: Add Cashing Entites (.NET 4.5 contains in automatically)
+            if(dbSet.All(c => c.Symbol != company.Symbol)) //dbSet.Contains(company))
+                base.Add(company);
         }
     }
 
@@ -101,16 +106,13 @@ namespace DBModule
             return dbSet.SingleOrDefault(x => x.ID == id);
         }
 
-        public void Add(Report report)
+        public override void Add(Report report)
         {
-            // TODO: My part is here
-            //if report exists, then update
             //TODO: Add using ReportComparer
-            //if (base.Query().Contains(report))
-            //base.Update(report);
-            //else
-
-            base.Add(report);
+            if (dbSet.All(r => r.CompanySymbol == report.CompanySymbol))    // TODO: Add comparer functions
+                base.Update(report);
+            else
+                base.Add(report);
         }
     }
 
