@@ -36,12 +36,7 @@ namespace DBModule
         }
 
         #endregion
-
-        //internal DbSet<E> GetDbSet<E>() where E : class
-        //{
-        //    return context.Set<E>();
-        //}
-
+        
         #region IUnitOfWork members
 
         public IRepository<Company> Companies

@@ -11,7 +11,8 @@ namespace DBModule
         void Update(E entity);
         void Remove(E entity);
         IQueryable<E> Query();
-        BindingList<E> GetAll();    //Added
+        //DbSet<E> GetAll();    // TODO: problem with DbSet<E> ???
+        BindingList<E> GetAll();
     }
     
     public abstract class EFRepository<E> : IRepository<E>
@@ -28,10 +29,6 @@ namespace DBModule
         public EFRepository(DbContext context)
         {
             dbSet = context.Set<E>();
-            //var efUnitOfWork = unitOfWork as EFUnitOfWork;
-            //if (efUnitOfWork == null)
-            //    throw new Exception("Must be EFUnitOfWork");  //TODO: Typed Exception
-            //dbSet = efUnitOfWork.GetDbSet<E>();
         }
 
         #endregion
@@ -59,6 +56,11 @@ namespace DBModule
         {
             return dbSet;
         }
+
+        //public DbSet<E> GetAll()
+        //{
+        //    return dbSet;
+        //}
 
         public BindingList<E> GetAll()
         {
