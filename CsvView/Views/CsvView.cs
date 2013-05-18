@@ -33,8 +33,8 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
 
-            presenter = ServiceLocator.Instance.Resolve<CsvViewController>(); 
-            //presenter = new CsvViewController(this);
+            ServiceLocator.Instance.Register(new CsvViewController(this)); 
+            presenter = ServiceLocator.Instance.Resolve<CsvViewController>();
         }
 
         private void loadCsv_Click(object sender, EventArgs e)
