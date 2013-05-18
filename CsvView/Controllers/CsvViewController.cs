@@ -13,8 +13,8 @@ namespace CsvReaderModule.Controllers
 {
     public class CsvViewController
     {
-        ICsvView _view;
-        CachedCsvReader _csvModel; // controller model insight.
+        private readonly ICsvView view;
+        //CachedCsvReader _csvModel; // controller model insight.
 
         // IDEAS: 
         // C : select collumns <listOfColumnsToSelect> -> remove or hide ?
@@ -24,8 +24,10 @@ namespace CsvReaderModule.Controllers
 
         public CsvViewController(ICsvView view)
         {
-            _view = view;
-            _view.SetControler(this);
+            this.view = view;
+            
+            //TODO: Use delegate/event here ;)
+            //view.SetControler(this);
         }
 
         public void selectColumns(List<string> colHeaders)
@@ -58,7 +60,7 @@ namespace CsvReaderModule.Controllers
             catch (IOException ex)
             {
                 //show error message.
-                _view.BoxMsg(ex.Message);
+                view.BoxMsg(ex.Message);
                 return null;
             }
         }

@@ -17,7 +17,7 @@ namespace WindowsFormsApplication1
 {
     public interface ICsvView
     {
-        void SetControler(CsvViewController ctr);
+        //void SetControler(CsvViewController ctr);
         //void LoadCsvFile();
         void BoxMsg(string s);
         string OpenDialog();
@@ -27,33 +27,39 @@ namespace WindowsFormsApplication1
 
     public partial class CsvView : UserControl, ICsvView
     {
-        CsvViewController _controller;        
+        private CsvViewController presenter;
+        
         public CsvView()
         {
             InitializeComponent();
+
+            presenter = ServiceLocator.Instance.Resolve<CsvViewController>(); 
+            //presenter = new CsvViewController(this);
         }
 
         private void loadCsv_Click(object sender, EventArgs e)
         {
-            var csv = _controller.LoadCsvFile(OpenDialog());
+            var csv = presenter.LoadCsvFile(OpenDialog());
             if (csv != null)
             {
                 csvDataGrid.DataSource = csv;
                 csv.Dispose();
 
-                var collection = _controller.getHeaders<CsvEnums._company>(csvDataGrid.Columns.Count);
+                var collection = presenter.getHeaders<CsvEnums._company>(csvDataGrid.Columns.Count);
                 foreach (var element in collection)
                 {
                     csvDataGrid.Columns[collection.IndexOf(element)].HeaderText = element.ToString();
                 }
             }
             // TODO: resolve problem using vs controller. crash of null stream obj. assertion occurs.
+            // TODO: Przeniesc dane z OpenDialog() tutaj????
+            // chyba, ze OpenDIalog() bedzie wykorzystywany w tym view w wielu miejscach
         }
 
-        public void SetControler(CsvViewController ctr)
-        {
-            _controller = ctr;
-        }
+        //public void SetControler(CsvViewController ctr)
+        //{
+        //    presenter = ctr;
+        //}
 
         public void BoxMsg(string s)
         {
@@ -77,7 +83,7 @@ namespace WindowsFormsApplication1
 
         private void baseView_Click(object sender, EventArgs e)
         {
-            //_controller.selectColumns();
+            //presenter.selectColumns();
         }
         
         //public OpenFileDialog dialog
@@ -88,7 +94,7 @@ namespace WindowsFormsApplication1
 
         public void RefreshView()
         {
-         //_controller.
+            //presenter.
         }
     }
 }
