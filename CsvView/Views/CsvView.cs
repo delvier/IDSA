@@ -38,33 +38,38 @@ namespace WindowsFormsApplication1
             presenter = ServiceLocator.Instance.Resolve<CsvViewController>();
         }
 
-        private void loadCsv_Click(object sender, EventArgs e)
+
+        private void prepareGridHeaders<T>()
         {
-            // TODO: Add use of Reports, not only Companies !!!!!!!!!!
+            var collection = presenter.getHeaders<T>(csvDataGrid.Columns.Count);
+            foreach (var element in collection)
+            {
+                csvDataGrid.Columns[collection.IndexOf(element)].HeaderText = element.ToString();
+            }
+        }
+
+        // I dont know if passing type throw few function's and making it dependent on each other is good...
+        private void loadCsvData<T>()
+        {
             var csv = presenter.LoadCsvFile(OpenDialog());
             if (csv != null)
             {
                 csvDataGrid.DataSource = csv;
-                Task.Factory.StartNew(() => presenter.AddCompany(csv.ToList()));
-                // TODO: Add Companies in other Task ;)
+                //Task.Factory.StartNew(() => presenter.AddCompany(csv.ToList())); //dispose crash task, task runs 
+                                                                                   //infinite when app close some dispose problem occurs
+                prepareGridHeaders<T>();
                 csv.Dispose();
-
-                var collection = presenter.getHeaders<CsvEnums._company>(csvDataGrid.Columns.Count);
-                foreach (var element in collection)
-                {
-                    csvDataGrid.Columns[collection.IndexOf(element)].HeaderText = element.ToString();
-                }
-
-
             }
-            // TODO: resolve problem using vs controller. crash of null stream obj. assertion occurs.
-            // TODO: Przeniesc dane z OpenDialog() tutaj????
-            // chyba, ze OpenDIalog() bedzie wykorzystywany w tym view w wielu miejscach
+        }
+
+        private void loadCsv_Click(object sender, EventArgs e)
+        {
+            loadCsvData<CsvEnums._company>();
         }
 
         private void loadFinData_Click(object sender, EventArgs e)
         {
-
+            loadCsvData<CsvEnums._financialData>();
         }
 
         //public void SetControler(CsvViewController ctr)
@@ -106,6 +111,12 @@ namespace WindowsFormsApplication1
         {
             base.Dispose();
             presenter.Dispose();
+        }
+
+        private void saveDb_Click(object sender, EventArgs e)
+        {
+            //presenter.AddCompany(csv.ToList());
+            //presenter.saveDb<datatype>();
         }
     }
 }
