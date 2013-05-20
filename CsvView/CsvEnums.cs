@@ -54,13 +54,13 @@ namespace CsvReaderModule
             ColumnAN,
             Sales,                     //AO //RZiS
             OwnSaleCosts,              //AP
-            SalesCost1,                //AQ
+            SalesCost1,                //AQ - Sum.
             SalesCost2,                //AR
             EarningOnSales,            //AS
-            OtherOperationalActivity1, //AT
+            OtherOperationalActivity1, //AT - Sum.
             OtherOperationalActivity2, //AU
             EBIT,                      //AV
-            FinancialActivity1,        //AW
+            FinancialActivity1,        //AW - Sum.
             FinancialAcvitity2,        //AX
             OtherCostOrSales,          //AY
             SalesOnEconomicActivity,   //AZ
