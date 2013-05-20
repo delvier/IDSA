@@ -51,13 +51,17 @@ namespace WindowsFormsApplication1
                 {
                     csvDataGrid.Columns[collection.IndexOf(element)].HeaderText = element.ToString();
                 }
-
                 // TODO: Add Companies in other Task ;)
                 presenter.AddCompany(csv.ToList());
             }
             // TODO: resolve problem using vs controller. crash of null stream obj. assertion occurs.
             // TODO: Przeniesc dane z OpenDialog() tutaj????
             // chyba, ze OpenDIalog() bedzie wykorzystywany w tym view w wielu miejscach
+        }
+
+        private void loadFinData_Click(object sender, EventArgs e)
+        {
+
         }
 
         //public void SetControler(CsvViewController ctr)
@@ -89,12 +93,6 @@ namespace WindowsFormsApplication1
         {
             //presenter.selectColumns();
         }
-        
-        //public OpenFileDialog dialog
-        //{
-        //    get { return this.dialog; }
-        //    set { this.dialog = (OpenFileDialog)value; }
-        //}
 
         public void RefreshView()
         {
