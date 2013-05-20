@@ -12,6 +12,7 @@ using LumenWorks.Framework.IO.Csv;
 using CsvReaderModule;
 using DBModule;
 using CsvReaderModule.Controllers;
+using System.Threading.Tasks;
 
 namespace WindowsFormsApplication1
 {
@@ -44,6 +45,8 @@ namespace WindowsFormsApplication1
             if (csv != null)
             {
                 csvDataGrid.DataSource = csv;
+                Task.Factory.StartNew(() => presenter.AddCompany(csv.ToList()));
+                // TODO: Add Companies in other Task ;)
                 csv.Dispose();
 
                 var collection = presenter.getHeaders<CsvEnums._company>(csvDataGrid.Columns.Count);
@@ -51,8 +54,8 @@ namespace WindowsFormsApplication1
                 {
                     csvDataGrid.Columns[collection.IndexOf(element)].HeaderText = element.ToString();
                 }
-                // TODO: Add Companies in other Task ;)
-                presenter.AddCompany(csv.ToList());
+
+
             }
             // TODO: resolve problem using vs controller. crash of null stream obj. assertion occurs.
             // TODO: Przeniesc dane z OpenDialog() tutaj????
