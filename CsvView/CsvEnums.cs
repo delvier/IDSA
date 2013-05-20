@@ -52,25 +52,25 @@ namespace CsvReaderModule
             ColumnAL,
             ColumnAM,
             ColumnAN,
-            ColumnAO,
-            ColumnAP,
-            ColumnAQ,
-            ColumnAR,
-            ColumnAS,
-            ColumnAT,
-            ColumnAU,
-            ColumnAV,
-            ColumnAW,
-            ColumnAX,
-            ColumnAY,
-            ColumnAZ,
-            ColumnBA,
-            ColumnBB,
-            ColumnBC,
-            ColumnBD,
-            ColumnBE,
-            ColumnBF,
-            ColumnBG,
+            Sales,                     //AO //RZiS
+            OwnSaleCosts,              //AP
+            SalesCost1,                //AQ
+            SalesCost2,                //AR
+            EarningOnSales,            //AS
+            OtherOperationalActivity1, //AT
+            OtherOperationalActivity2, //AU
+            EBIT,                      //AV
+            FinancialActivity1,        //AW
+            FinancialAcvitity2,        //AX
+            OtherCostOrSales,          //AY
+            SalesOnEconomicActivity,   //AZ
+            ExceptionalOccurence,      //BA
+            EarningBeforeTaxes,        //BB
+            DiscontinuedOperations,    //BC
+            NetProfit,                 //BD
+            NetParentProfit,           //BE
+            ColumnBF, //? where is EBITDA
+            ColumnBG, //?
             ColumnBH,
             ColumnBI,
             ColumnBJ,
