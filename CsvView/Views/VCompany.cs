@@ -19,6 +19,8 @@ namespace CsvReaderModule.Views
             InitializeComponent();
             ServiceLocator.Instance.Register(new VCompanyPresenter(this));
             presenter = ServiceLocator.Instance.Resolve<VCompanyPresenter>();
+            //init Company Box
+            //CompanyBox.BindingContext = presenter.GetCompanies();
         }
     }
 }

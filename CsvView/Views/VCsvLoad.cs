@@ -28,14 +28,14 @@ namespace WindowsFormsApplication1
 
     public partial class VCsvLoad : UserControl, IVCsvLoad
     {
-        private CsvViewController presenter;
+        private VCsvLoadController presenter;
         private CachedCsvReader csv;
 
         public VCsvLoad()
         {
             InitializeComponent();
-            ServiceLocator.Instance.Register(new CsvViewController(this)); 
-            presenter = ServiceLocator.Instance.Resolve<CsvViewController>();
+            ServiceLocator.Instance.Register(new VCsvLoadController(this)); 
+            presenter = ServiceLocator.Instance.Resolve<VCsvLoadController>();
         }
 
         private void prepareGridHeaders<T>()

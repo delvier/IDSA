@@ -13,8 +13,9 @@ namespace WindowsFormsApplication1
     {
         public TabbedViewProvider()
         {
-            ServiceLocator.Instance.Register(new VCsvLoad());
+            
             ServiceLocator.Instance.Register(new DBView());
+            ServiceLocator.Instance.Register(new VCsvLoad());
             ServiceLocator.Instance.Register(new VCompany());
             Task.Factory.StartNew(() => ServiceLocator.Instance.Register(new EFUnitOfWork(/*new Context(new CreateDatabaseIfNotExists<Context>())*/)));
         }

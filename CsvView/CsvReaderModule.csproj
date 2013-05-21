@@ -51,7 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\CsvViewController.cs" />
+    <Compile Include="Controllers\VCsvLoadController.cs" />
     <Compile Include="Controllers\DbViewPresenter.cs" />
     <Compile Include="Controllers\VCompanyPresenter.cs" />
     <Compile Include="CsvEnums.cs" />

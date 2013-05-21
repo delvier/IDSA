@@ -14,7 +14,7 @@ using System.Data.Entity;
 
 namespace CsvReaderModule.Controllers
 {
-    public class CsvViewController
+    public class VCsvLoadController
     {
         private readonly IVCsvLoad view;
         private IUnitOfWork context;
@@ -26,7 +26,7 @@ namespace CsvReaderModule.Controllers
         // C : HeaderBasedOnEnum ? V : ?
         // V : refresh view (data from _csvModel)
 
-        public CsvViewController(IVCsvLoad view)
+        public VCsvLoadController(IVCsvLoad view)
         {
             this.view = view;
             //TODO: Use delegate/event here ;)
