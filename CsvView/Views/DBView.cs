@@ -29,6 +29,7 @@ namespace WindowsFormsApplication1
             base.OnLoad(e);
             presenter.OnLoad();
             this.companyBindingSource.DataSource = presenter.GetAllCompanies();
+            //this.reportsBindingSource.DataSource = presenter.GetRecords();
         }
 
         private void companyBindingNavigatorSaveItem_Click(object sender, EventArgs e)

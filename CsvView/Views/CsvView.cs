@@ -29,7 +29,8 @@ namespace WindowsFormsApplication1
     public partial class CsvView : UserControl, ICsvView
     {
         private CsvViewController presenter;
-        
+        private CachedCsvReader csv;
+
         public CsvView()
         {
             InitializeComponent();
@@ -37,7 +38,6 @@ namespace WindowsFormsApplication1
             ServiceLocator.Instance.Register(new CsvViewController(this)); 
             presenter = ServiceLocator.Instance.Resolve<CsvViewController>();
         }
-
 
         private void prepareGridHeaders<T>()
         {
@@ -51,14 +51,16 @@ namespace WindowsFormsApplication1
         // I dont know if passing type throw few function's and making it dependent on each other is good...
         private void loadCsvData<T>()
         {
-            var csv = presenter.LoadCsvFile(OpenDialog());
+            // TODO: Przeniesc dane z OpenDialog() tutaj, chyba ze  bedzie wykorzystywany w tym view w wielu miejscach
+            csv = presenter.LoadCsvFile(OpenDialog());
             if (csv != null)
             {
                 csvDataGrid.DataSource = csv;
                 //Task.Factory.StartNew(() => presenter.AddCompany(csv.ToList())); //dispose crash task, task runs 
                                                                                    //infinite when app close some dispose problem occurs
                 prepareGridHeaders<T>();
-                csv.Dispose();
+                //TODO: change place for Dispose()
+                //csv.Dispose();
             }
         }
 
@@ -71,11 +73,6 @@ namespace WindowsFormsApplication1
         {
             loadCsvData<CsvEnums._financialData>();
         }
-
-        //public void SetControler(CsvViewController ctr)
-        //{
-        //    presenter = ctr;
-        //}
 
         public void BoxMsg(string s)
         {
@@ -107,15 +104,11 @@ namespace WindowsFormsApplication1
             //presenter.
         }
 
-        public void Dispose()       //TODO: Dispose() hides dispose() from ComponentModel.Component ???
-        {
-            base.Dispose();
-            presenter.Dispose();
-        }
-
         private void saveDb_Click(object sender, EventArgs e)
         {
-            //presenter.AddCompany(csv.ToList());
+            Task.WaitAll();
+            Task csvTask = Task.Factory.StartNew(() => presenter.AddCompany(csv.ToList()));
+            csvTask.ContinueWith((o) => csv.Dispose());
             //presenter.saveDb<datatype>();
         }
     }

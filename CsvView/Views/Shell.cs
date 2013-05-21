@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using DBModule;
 using WindowsFormsApplication1;
 
 namespace WindowsFormsApplication1
@@ -25,7 +26,7 @@ namespace WindowsFormsApplication1
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             base.OnClosing(e);
-            ServiceLocator.Instance.Resolve<CsvView>().Dispose();
+            ServiceLocator.Instance.Resolve<EFUnitOfWork>().Dispose();
             //without ServiceLocator, but Dispose() method then must be static ;) (or find other solution)
             //DBModule.DBView.Dispose();
         }

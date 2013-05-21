@@ -17,9 +17,9 @@ namespace CsvReaderModule.Controllers
     public class CsvViewController
     {
         private readonly ICsvView view;
-        private IUnitOfWork model;
+        private IUnitOfWork context;
         //CachedCsvReader _csvModel; // controller model insight.
-
+        
         // IDEAS: 
         // C : select collumns <listOfColumnsToSelect> -> remove or hide ?
         // C : giveOutData for View
@@ -29,22 +29,14 @@ namespace CsvReaderModule.Controllers
         public CsvViewController(ICsvView view)
         {
             this.view = view;
-            Task.Factory.StartNew(() => ServiceLocator.Instance.Register(
-                new EFUnitOfWork(
-                new Context(new CreateDatabaseIfNotExists<Context>())
-                )));
             //TODO: Use delegate/event here ;)
-            //view.SetControler(this);
         }
 
         public void AddCompany(List<string[]> companies)
         {
-            // TODO: Use new Context object of EFUnit Of Work to this presenter.
-            // using( var context = ServiceLocator.Instance.Resolve<EFUnitOfWork>()) { ... }
-            Task.WaitAll();
-            model = ServiceLocator.Instance.Resolve<EFUnitOfWork>();
-            model.Companies.Query().Load();
+            context = ServiceLocator.Instance.Resolve<EFUnitOfWork>();
             
+            context.Companies.Query().Load();
             foreach (var item in companies)
             {
                 var company = new Company()
@@ -52,18 +44,39 @@ namespace CsvReaderModule.Controllers
                     Symbol = item[(int)CsvEnums._company.Shortcut],
                     Name = item[(int)CsvEnums._company.Name],
                     Description = item[(int)CsvEnums._company.Description],
-                    //Trade = item[(int)CsvEnums._company.Profile],
+                    //Trade = (TRADES)Enum.Parse(typeof(TRADES), item[(int)CsvEnums._company.Profile]),
                     Url = item[(int)CsvEnums._company.Href]
                 };
-                model.Companies.Add(company);
+                context.Companies.Add(company);
             }
-            // TODO: Commit in other Task??? Not necessary
-            model.Commit();
+            context.Commit();
+        }
+
+        public void AddReport(List<string[]> reports)
+        {
+            context = ServiceLocator.Instance.Resolve<EFUnitOfWork>();
+            
+            context.Reports.Query().Load();
+            foreach (var item in reports)
+            {
+                var report = new Report()
+                {
+                    //TODO: Problem with Company SYMBOL VS ID ???? KEY !!!!
+                    CompanySymbol = item[(int)CsvEnums._financialData.CmpId],
+                    //TODO: Problem with conversion from string into ENUM !!!!!!!
+                    //Period = item[(int)CsvEnums._financialData.Quater],
+                    Year = Convert.ToInt32(item[(int)CsvEnums._financialData.Year]),
+                    //NetProfit = item[(int)CsvEnums._financialData.ColumnC],
+                    //SalesRevenues = item[(int)CsvEnums._financialData.ColumnF]
+                };
+                context.Reports.Add(report);
+            }
+            context.Commit();
         }
 
         public void selectColumns(List<string> colHeaders)
         {
-           //
+            //
         }
 
         // Provide ListOf Enum Names.
@@ -94,11 +107,6 @@ namespace CsvReaderModule.Controllers
                 view.BoxMsg(ex.Message);
                 return null;
             }
-        }
-        
-        public void Dispose()
-        {
-            model.Dispose();
         }
     }
 }

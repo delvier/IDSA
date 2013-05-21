@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using CsvReaderModule.Controllers;
+using DBModule;
 
 namespace WindowsFormsApplication1
 {
@@ -12,6 +14,7 @@ namespace WindowsFormsApplication1
         {
             ServiceLocator.Instance.Register(new CsvView());
             ServiceLocator.Instance.Register(new DBView());
+            Task.Factory.StartNew(() => ServiceLocator.Instance.Register(new EFUnitOfWork(/*new Context(new CreateDatabaseIfNotExists<Context>())*/)));
         }
         public EProjectionType ProjectionType
         {
