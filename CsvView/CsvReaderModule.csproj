@@ -51,9 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\VCsvLoadController.cs" />
-    <Compile Include="Controllers\DbViewPresenter.cs" />
-    <Compile Include="Controllers\VCompanyPresenter.cs" />
+    <Compile Include="Presenters\VCsvLoadPresenter.cs" />
+    <Compile Include="Presenters\DbViewPresenter.cs" />
+    <Compile Include="Presenters\VCompanyPresenter.cs" />
     <Compile Include="CsvEnums.cs" />
     <Compile Include="Views\VCompany.cs">
       <SubType>UserControl</SubType>

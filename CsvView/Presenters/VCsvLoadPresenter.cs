@@ -14,7 +14,7 @@ using System.Data.Entity;
 
 namespace CsvReaderModule.Controllers
 {
-    public class VCsvLoadController
+    public class VCsvLoadPresenter
     {
         private readonly IVCsvLoad view;
         private IUnitOfWork context;
@@ -26,7 +26,7 @@ namespace CsvReaderModule.Controllers
         // C : HeaderBasedOnEnum ? V : ?
         // V : refresh view (data from _csvModel)
 
-        public VCsvLoadController(IVCsvLoad view)
+        public VCsvLoadPresenter(IVCsvLoad view)
         {
             this.view = view;
             //TODO: Use delegate/event here ;)
@@ -38,6 +38,7 @@ namespace CsvReaderModule.Controllers
             // i should provide data for model.
             context = ServiceLocator.Instance.Resolve<EFUnitOfWork>();
             
+            // BUG : CROSS THREAD OPERATIONS NOT ALLOWED.
             context.Companies.Query().Load();
             foreach (var item in companies)
             {
@@ -95,17 +96,14 @@ namespace CsvReaderModule.Controllers
 
         public CachedCsvReader LoadCsvFile(string fname)
         {
-            //string fileName = _view.OpenDialog();
             if (fname == null)
                 return null;
             try
             {
                     return (new CachedCsvReader(new StreamReader(fname), false));
-                    //IBindingList test = _csvReader.AsEnumerable<IBindingList>();     
             }
             catch (IOException ex)
             {
-                //show error message.
                 view.BoxMsg(ex.Message);
                 return null;
             }
