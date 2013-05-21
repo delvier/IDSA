@@ -28,35 +28,62 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.SuspendLayout();
+            this.CompanyContainer = new System.Windows.Forms.SplitContainer();
+            this.CompanyBox = new System.Windows.Forms.ListBox();
+            this.CompanyFilter = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.CompanyContainer)).BeginInit();
+            this.CompanyContainer.Panel1.SuspendLayout();
+            this.CompanyContainer.SuspendLayout();
             this.SuspendLayout();
             // 
-            // splitContainer1
+            // CompanyContainer
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Size = new System.Drawing.Size(508, 375);
-            this.splitContainer1.SplitterDistance = 169;
-            this.splitContainer1.TabIndex = 0;
+            this.CompanyContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CompanyContainer.Location = new System.Drawing.Point(0, 0);
+            this.CompanyContainer.Name = "CompanyContainer";
             // 
-            // Company
+            // CompanyContainer.Panel1
+            // 
+            this.CompanyContainer.Panel1.Controls.Add(this.CompanyFilter);
+            this.CompanyContainer.Panel1.Controls.Add(this.CompanyBox);
+            this.CompanyContainer.Size = new System.Drawing.Size(508, 375);
+            this.CompanyContainer.SplitterDistance = 169;
+            this.CompanyContainer.TabIndex = 0;
+            // 
+            // CompanyBox
+            // 
+            this.CompanyBox.FormattingEnabled = true;
+            this.CompanyBox.Location = new System.Drawing.Point(3, 25);
+            this.CompanyBox.Name = "CompanyBox";
+            this.CompanyBox.Size = new System.Drawing.Size(163, 342);
+            this.CompanyBox.TabIndex = 0;
+            // 
+            // CompanyFilter
+            // 
+            this.CompanyFilter.Location = new System.Drawing.Point(4, 4);
+            this.CompanyFilter.Name = "CompanyFilter";
+            this.CompanyFilter.Size = new System.Drawing.Size(162, 20);
+            this.CompanyFilter.TabIndex = 1;
+            // 
+            // VCompany
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.splitContainer1);
-            this.Name = "Company";
+            this.Controls.Add(this.CompanyContainer);
+            this.Name = "VCompany";
             this.Size = new System.Drawing.Size(508, 375);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            this.CompanyContainer.Panel1.ResumeLayout(false);
+            this.CompanyContainer.Panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.CompanyContainer)).EndInit();
+            this.CompanyContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer CompanyContainer;
+        private System.Windows.Forms.ListBox CompanyBox;
+        private System.Windows.Forms.TextBox CompanyFilter;
     }
 }
