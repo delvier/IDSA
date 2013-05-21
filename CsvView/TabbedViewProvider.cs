@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CsvReaderModule.Controllers;
 using DBModule;
+using CsvReaderModule.Views;
 
 namespace WindowsFormsApplication1
 {
@@ -14,6 +15,7 @@ namespace WindowsFormsApplication1
         {
             ServiceLocator.Instance.Register(new CsvView());
             ServiceLocator.Instance.Register(new DBView());
+            ServiceLocator.Instance.Register(new VCompany());
             Task.Factory.StartNew(() => ServiceLocator.Instance.Register(new EFUnitOfWork(/*new Context(new CreateDatabaseIfNotExists<Context>())*/)));
         }
         public EProjectionType ProjectionType
@@ -28,7 +30,7 @@ namespace WindowsFormsApplication1
             lst.Add(
                 new ViewItemDescriptor()
                 {
-                    Header = "csv_reader",
+                    Header = "Csv Upload",
                     //View = null
                     View = ServiceLocator.Instance.Resolve<CsvView>()
                 }
@@ -40,6 +42,14 @@ namespace WindowsFormsApplication1
                     Header = "Database Tables",
                     //View = null
                     View = ServiceLocator.Instance.Resolve<DBView>()
+                }
+                );
+
+            lst.Add(
+                new ViewItemDescriptor()
+                {
+                    Header = "Spółki",
+                    View = ServiceLocator.Instance.Resolve<VCompany>()
                 }
                 );
 

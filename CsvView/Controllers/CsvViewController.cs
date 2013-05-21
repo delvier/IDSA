@@ -34,6 +34,8 @@ namespace CsvReaderModule.Controllers
 
         public void AddCompany(List<string[]> companies)
         {
+            // that should do model it's not csv view controller job...
+            // i should provide data for model.
             context = ServiceLocator.Instance.Resolve<EFUnitOfWork>();
             
             context.Companies.Query().Load();
