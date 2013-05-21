@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApplication1
 {
-    public interface ICsvView
+    public interface IVCsvLoad
     {
         //void SetControler(CsvViewController ctr);
         //void LoadCsvFile();
@@ -26,15 +26,14 @@ namespace WindowsFormsApplication1
         //OpenFileDialog dialog { get; set; }
     }
 
-    public partial class CsvView : UserControl, ICsvView
+    public partial class VCsvLoad : UserControl, IVCsvLoad
     {
         private CsvViewController presenter;
         private CachedCsvReader csv;
 
-        public CsvView()
+        public VCsvLoad()
         {
             InitializeComponent();
-
             ServiceLocator.Instance.Register(new CsvViewController(this)); 
             presenter = ServiceLocator.Instance.Resolve<CsvViewController>();
         }

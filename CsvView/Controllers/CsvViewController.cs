@@ -16,7 +16,7 @@ namespace CsvReaderModule.Controllers
 {
     public class CsvViewController
     {
-        private readonly ICsvView view;
+        private readonly IVCsvLoad view;
         private IUnitOfWork context;
         //CachedCsvReader _csvModel; // controller model insight.
         
@@ -26,7 +26,7 @@ namespace CsvReaderModule.Controllers
         // C : HeaderBasedOnEnum ? V : ?
         // V : refresh view (data from _csvModel)
 
-        public CsvViewController(ICsvView view)
+        public CsvViewController(IVCsvLoad view)
         {
             this.view = view;
             //TODO: Use delegate/event here ;)

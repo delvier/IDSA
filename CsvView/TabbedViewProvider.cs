@@ -13,7 +13,7 @@ namespace WindowsFormsApplication1
     {
         public TabbedViewProvider()
         {
-            ServiceLocator.Instance.Register(new CsvView());
+            ServiceLocator.Instance.Register(new VCsvLoad());
             ServiceLocator.Instance.Register(new DBView());
             ServiceLocator.Instance.Register(new VCompany());
             Task.Factory.StartNew(() => ServiceLocator.Instance.Register(new EFUnitOfWork(/*new Context(new CreateDatabaseIfNotExists<Context>())*/)));
@@ -30,9 +30,17 @@ namespace WindowsFormsApplication1
             lst.Add(
                 new ViewItemDescriptor()
                 {
+                    Header = "Spółki",
+                    View = ServiceLocator.Instance.Resolve<VCompany>()
+                }
+                );
+
+            lst.Add(
+                new ViewItemDescriptor()
+                {
                     Header = "Csv Upload",
                     //View = null
-                    View = ServiceLocator.Instance.Resolve<CsvView>()
+                    View = ServiceLocator.Instance.Resolve<VCsvLoad>()
                 }
                 );
 
@@ -44,14 +52,7 @@ namespace WindowsFormsApplication1
                     View = ServiceLocator.Instance.Resolve<DBView>()
                 }
                 );
-
-            lst.Add(
-                new ViewItemDescriptor()
-                {
-                    Header = "Spółki",
-                    View = ServiceLocator.Instance.Resolve<VCompany>()
-                }
-                );
+            
 
             return lst;
         }

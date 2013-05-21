@@ -33,11 +33,13 @@
             this.CompanyFilter = new System.Windows.Forms.TextBox();
             this.FinDataGrid = new System.Windows.Forms.DataGridView();
             this.CompanyTitle = new System.Windows.Forms.Label();
+            this.eventLog1 = new System.Diagnostics.EventLog();
             ((System.ComponentModel.ISupportInitialize)(this.CompanyContainer)).BeginInit();
             this.CompanyContainer.Panel1.SuspendLayout();
             this.CompanyContainer.Panel2.SuspendLayout();
             this.CompanyContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FinDataGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).BeginInit();
             this.SuspendLayout();
             // 
             // CompanyContainer
@@ -91,10 +93,10 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.FinDataGrid.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             this.FinDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.FinDataGrid.Location = new System.Drawing.Point(-4, 60);
+            this.FinDataGrid.Location = new System.Drawing.Point(8, 60);
             this.FinDataGrid.Name = "FinDataGrid";
             this.FinDataGrid.ReadOnly = true;
-            this.FinDataGrid.Size = new System.Drawing.Size(355, 228);
+            this.FinDataGrid.Size = new System.Drawing.Size(343, 228);
             this.FinDataGrid.TabIndex = 0;
             // 
             // CompanyTitle
@@ -106,6 +108,10 @@
             this.CompanyTitle.Size = new System.Drawing.Size(49, 25);
             this.CompanyTitle.TabIndex = 1;
             this.CompanyTitle.Text = "Title";
+            // 
+            // eventLog1
+            // 
+            this.eventLog1.SynchronizingObject = this;
             // 
             // VCompany
             // 
@@ -121,6 +127,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.CompanyContainer)).EndInit();
             this.CompanyContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.FinDataGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.eventLog1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -132,5 +139,6 @@
         private System.Windows.Forms.TextBox CompanyFilter;
         private System.Windows.Forms.Label CompanyTitle;
         private System.Windows.Forms.DataGridView FinDataGrid;
+        private System.Diagnostics.EventLog eventLog1;
     }
 }

@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Controllers\CsvViewController.cs" />
     <Compile Include="Controllers\DbViewPresenter.cs" />
+    <Compile Include="Controllers\VCompanyPresenter.cs" />
     <Compile Include="CsvEnums.cs" />
     <Compile Include="Views\VCompany.cs">
       <SubType>UserControl</SubType>
@@ -60,11 +61,11 @@
     <Compile Include="Views\VCompany.Designer.cs">
       <DependentUpon>VCompany.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\CsvView.cs">
+    <Compile Include="Views\VCsvLoad.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\CsvView.Designer.cs">
-      <DependentUpon>CsvView.cs</DependentUpon>
+    <Compile Include="Views\VCsvLoad.Designer.cs">
+      <DependentUpon>VCsvLoad.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\DBView.cs">
       <SubType>UserControl</SubType>
@@ -98,8 +99,8 @@
     <EmbeddedResource Include="Views\VCompany.resx">
       <DependentUpon>VCompany.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\CsvView.resx">
-      <DependentUpon>CsvView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\VCsvLoad.resx">
+      <DependentUpon>VCsvLoad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\DBView.resx">
       <DependentUpon>DBView.cs</DependentUpon>

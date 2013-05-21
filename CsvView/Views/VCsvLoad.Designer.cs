@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApplication1
 {
-    partial class CsvView
+    partial class VCsvLoad
     {
         /// <summary> 
         /// Required designer variable.
@@ -79,6 +79,7 @@
             // 
             // saveDb
             // 
+            this.saveDb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.saveDb.Location = new System.Drawing.Point(299, 4);
             this.saveDb.Name = "saveDb";
             this.saveDb.Size = new System.Drawing.Size(75, 23);
@@ -87,7 +88,7 @@
             this.saveDb.UseVisualStyleBackColor = true;
             this.saveDb.Click += new System.EventHandler(this.saveDb_Click);
             // 
-            // CsvView
+            // VCsvLoad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -96,7 +97,7 @@
             this.Controls.Add(this.baseView);
             this.Controls.Add(this.csvDataGrid);
             this.Controls.Add(this.loadCsv);
-            this.Name = "CsvView";
+            this.Name = "VCsvLoad";
             this.Size = new System.Drawing.Size(377, 243);
             ((System.ComponentModel.ISupportInitialize)(this.csvDataGrid)).EndInit();
             this.ResumeLayout(false);
