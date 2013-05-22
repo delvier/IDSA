@@ -35,24 +35,8 @@ namespace IDSA.Views
 
         private void CompanyFilter_TextChanged(object sender, System.EventArgs e)
         {
-            var companyList = presenter.GetTestCompanies(); //return original data from Store
-            var showList = new BindingList<Company>();
             CompanyBox.BeginUpdate();
-
-            if (!string.IsNullOrEmpty(CompanyFilter.Text))
-            {
-                foreach (Company ele in companyList)
-                {
-                    if (ele.Name.Contains(CompanyFilter.Text))
-                    {
-                        showList.Add(ele);
-                    }
-                }
-                CompanyBox.DataSource = showList;
-            }
-            else
-                CompanyBox.DataSource = companyList; //there is no any filter string, so add all data we have in Store
-
+            CompanyBox.DataSource = presenter.GetFilterBox(CompanyFilter.Text);
             CompanyBox.EndUpdate();
         }
     }

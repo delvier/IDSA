@@ -67,5 +67,25 @@ namespace IDSA.Presenters
 
 
 
+
+        public IBindingList GetFilterBox(string lookForCompany)
+        {
+            var companyList = GetTestCompanies(); //return original data from Store
+            var showList = new BindingList<Company>();
+
+            if (!string.IsNullOrEmpty(lookForCompany))
+            {
+                foreach (Company ele in companyList)
+                {
+                    if (ele.Name.Contains(lookForCompany))
+                    {
+                        showList.Add(ele);
+                    }
+                }
+                return showList;
+            }
+            else
+                return companyList;
+        }
     }
 }
