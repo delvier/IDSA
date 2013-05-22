@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DBModule
 {
@@ -29,11 +30,11 @@ namespace DBModule
             this.Reports = new ObservableListSource<Report>();
         }
 
+        [Key][DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [Required]
         public string Name { get; set; }
-        [Key]
         [MaxLength(3)]
         public string Shortcut { get; set; }
         //public string ColumnB { get; set; }

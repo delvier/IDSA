@@ -27,9 +27,9 @@ namespace DBModule
         long NetParentProfit { get; set; }
     }
 
-    public class Report //: IReport
+    public class Report : IReport
     {
-        [Key]//[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key][DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         //public string ColumnC { get; set; }
         [Range(1900, 2500)]
