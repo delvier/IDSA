@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.CompanyContainer = new System.Windows.Forms.SplitContainer();
+            this.CompanyTypes = new System.Windows.Forms.ComboBox();
+            this.MarketType = new System.Windows.Forms.ComboBox();
             this.CompanyFilter = new System.Windows.Forms.TextBox();
             this.CompanyBox = new System.Windows.Forms.ListBox();
+            this.SharePriceLabel = new System.Windows.Forms.Label();
             this.CompanyTitle = new System.Windows.Forms.Label();
             this.FinDataGrid = new System.Windows.Forms.DataGridView();
             this.eventLog1 = new System.Diagnostics.EventLog();
-            this.MarketType = new System.Windows.Forms.ComboBox();
-            this.CompanyTypes = new System.Windows.Forms.ComboBox();
-            this.SharePriceLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.CompanyContainer)).BeginInit();
             this.CompanyContainer.Panel1.SuspendLayout();
             this.CompanyContainer.Panel2.SuspendLayout();
@@ -71,6 +71,28 @@
             this.CompanyContainer.SplitterDistance = 150;
             this.CompanyContainer.TabIndex = 0;
             // 
+            // CompanyTypes
+            // 
+            this.CompanyTypes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.CompanyTypes.FormattingEnabled = true;
+            this.CompanyTypes.Location = new System.Drawing.Point(4, 25);
+            this.CompanyTypes.Margin = new System.Windows.Forms.Padding(0);
+            this.CompanyTypes.Name = "CompanyTypes";
+            this.CompanyTypes.Size = new System.Drawing.Size(143, 21);
+            this.CompanyTypes.TabIndex = 3;
+            // 
+            // MarketType
+            // 
+            this.MarketType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.MarketType.FormattingEnabled = true;
+            this.MarketType.Location = new System.Drawing.Point(4, 4);
+            this.MarketType.Margin = new System.Windows.Forms.Padding(0);
+            this.MarketType.Name = "MarketType";
+            this.MarketType.Size = new System.Drawing.Size(143, 21);
+            this.MarketType.TabIndex = 2;
+            // 
             // CompanyFilter
             // 
             this.CompanyFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -80,6 +102,7 @@
             this.CompanyFilter.Name = "CompanyFilter";
             this.CompanyFilter.Size = new System.Drawing.Size(143, 20);
             this.CompanyFilter.TabIndex = 1;
+            this.CompanyFilter.TextChanged += new System.EventHandler(this.CompanyFilter_TextChanged);
             // 
             // CompanyBox
             // 
@@ -92,6 +115,17 @@
             this.CompanyBox.Name = "CompanyBox";
             this.CompanyBox.Size = new System.Drawing.Size(143, 303);
             this.CompanyBox.TabIndex = 0;
+            // 
+            // SharePriceLabel
+            // 
+            this.SharePriceLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SharePriceLabel.AutoSize = true;
+            this.SharePriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.SharePriceLabel.Location = new System.Drawing.Point(237, 4);
+            this.SharePriceLabel.Name = "SharePriceLabel";
+            this.SharePriceLabel.Size = new System.Drawing.Size(109, 25);
+            this.SharePriceLabel.TabIndex = 2;
+            this.SharePriceLabel.Text = "SharePrice";
             // 
             // CompanyTitle
             // 
@@ -120,39 +154,6 @@
             // eventLog1
             // 
             this.eventLog1.SynchronizingObject = this;
-            // 
-            // MarketType
-            // 
-            this.MarketType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.MarketType.FormattingEnabled = true;
-            this.MarketType.Location = new System.Drawing.Point(4, 4);
-            this.MarketType.Margin = new System.Windows.Forms.Padding(0);
-            this.MarketType.Name = "MarketType";
-            this.MarketType.Size = new System.Drawing.Size(143, 21);
-            this.MarketType.TabIndex = 2;
-            // 
-            // CompanyTypes
-            // 
-            this.CompanyTypes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.CompanyTypes.FormattingEnabled = true;
-            this.CompanyTypes.Location = new System.Drawing.Point(4, 25);
-            this.CompanyTypes.Margin = new System.Windows.Forms.Padding(0);
-            this.CompanyTypes.Name = "CompanyTypes";
-            this.CompanyTypes.Size = new System.Drawing.Size(143, 21);
-            this.CompanyTypes.TabIndex = 3;
-            // 
-            // SharePriceLabel
-            // 
-            this.SharePriceLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.SharePriceLabel.AutoSize = true;
-            this.SharePriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.SharePriceLabel.Location = new System.Drawing.Point(237, 4);
-            this.SharePriceLabel.Name = "SharePriceLabel";
-            this.SharePriceLabel.Size = new System.Drawing.Size(109, 25);
-            this.SharePriceLabel.TabIndex = 2;
-            this.SharePriceLabel.Text = "SharePrice";
             // 
             // VCompany
             // 
