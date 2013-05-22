@@ -1,4 +1,4 @@
-﻿namespace CsvReaderModule.Views
+﻿namespace IDSA.Views
 {
     partial class VCompany
     {

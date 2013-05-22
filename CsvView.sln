@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LumenWorks.Framework.IO", "FastCsvReader\LumenWorks.Framework.IO\LumenWorks.Framework.IO.csproj", "{E3B83D68-C90C-4874-8E5F-DEC8D038BC7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvReaderModule", "CsvView\CsvReaderModule.csproj", "{89ED0CBD-24A8-462D-B1AA-98F28C39B302}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDSA", "CsvView\IDSA.csproj", "{89ED0CBD-24A8-462D-B1AA-98F28C39B302}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBModule", "DBModule\DBModule.csproj", "{3E6CD6FA-788C-45CC-A6EA-886CEB0D5DCD}"
 EndProject

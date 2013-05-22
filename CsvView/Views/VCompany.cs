@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using CsvReaderModule.Controllers;
-using WindowsFormsApplication1;
-using DBModule;
+﻿using System.Windows.Forms;
+using IDSA.Presenters;
 
-namespace CsvReaderModule.Views
+namespace IDSA.Views
 {
     public partial class VCompany : UserControl
     {

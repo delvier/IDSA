@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using CsvReaderModule.Controllers;
 using DBModule;
-using CsvReaderModule.Views;
+using IDSA.Views;
 
-namespace WindowsFormsApplication1
+namespace IDSA
 {
     class TabbedViewProvider : IViewProvider
     {

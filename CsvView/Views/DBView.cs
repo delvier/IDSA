@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Threading.Tasks;
-using DBModule;
-using CsvReaderModule.Controllers;
+using IDSA.Presenters;
 
-namespace WindowsFormsApplication1
+namespace IDSA
 {
     public interface IDbView
     {

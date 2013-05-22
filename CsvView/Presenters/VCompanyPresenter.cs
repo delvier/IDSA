@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CsvReaderModule.Views;
-using WindowsFormsApplication1;
-using DBModule;
 using System.ComponentModel;
+using System.Linq;
+using DBModule;
+using IDSA.Views;
 
-namespace CsvReaderModule.Controllers
+namespace IDSA.Presenters
 {
     class VCompanyPresenter
     {

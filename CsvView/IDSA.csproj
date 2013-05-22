@@ -8,7 +8,7 @@
     <ProjectGuid>{89ED0CBD-24A8-462D-B1AA-98F28C39B302}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CsvReaderModule</RootNamespace>
+    <RootNamespace>IDSA</RootNamespace>
     <AssemblyName>CsvReader-Module</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>

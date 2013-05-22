@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WindowsFormsApplication1
+namespace IDSA
 {
     public interface IViewProvider
     {

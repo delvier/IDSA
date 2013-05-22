@@ -1,20 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.IO;
-
-using LumenWorks.Framework.IO.Csv;
-using CsvReaderModule;
-using DBModule;
-using CsvReaderModule.Controllers;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using IDSA.Presenters;
+using LumenWorks.Framework.IO.Csv;
 
-namespace WindowsFormsApplication1
+namespace IDSA
 {
     public interface IVCsvLoad
     {

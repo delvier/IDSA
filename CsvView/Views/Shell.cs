@@ -1,8 +1,7 @@
 ﻿using System.Windows.Forms;
 using DBModule;
-using WindowsFormsApplication1;
 
-namespace WindowsFormsApplication1
+namespace IDSA
 {
     public partial class Shell : Form
     {

@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using WindowsFormsApplication1;
-using System.IO;
-using LumenWorks.Framework.IO.Csv;
-using System.Windows.Forms;
-using System.ComponentModel;
-using System.Collections;
-using DBModule;
-using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Globalization;
+using System.IO;
+using System.Linq;
+using DBModule;
+using LumenWorks.Framework.IO.Csv;
 
-namespace CsvReaderModule.Controllers
+namespace IDSA.Presenters
 {
     public class VCsvLoadPresenter
     {
