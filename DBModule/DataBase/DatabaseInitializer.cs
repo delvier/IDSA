@@ -25,18 +25,14 @@ namespace DBModule
             var company = new Company
             {
                 Name = "Wawel",
-                Symbol = "WWL",
-                Url = "http://www.wawel.com.pl/",
-                Description = "",
-                Trade = TRADES.CUKIERNICTWO
+                Shortcut = "WWL",
+                Description = ""
             };
             var company2 = new Company
             {
                 Name = "Asseco Poland",
-                Symbol = "ACP",
-                Url = "http://www.asseco.com/pl/",
-                Description = "Najwieksza spolka IT w Polsce",
-                Trade = TRADES.INFORMATYKA
+                Shortcut = "ACP",
+                Description = "Najwieksza spolka IT w Polsce"
             };
 
             context.Companies.Add(company);
@@ -45,27 +41,21 @@ namespace DBModule
 
             var report = new Report
             {
-                CompanySymbol = "WWL",
+                //CompanySymbol = "WWL",
                 Year = 2011,
-                Period = PERIOD.Q1,
-                NetProfit = 1000,
-                SalesRevenues = 3809
+                NetProfit = 1000
             };
             var report2 = new Report
             {
-                CompanySymbol = context.Companies.SingleOrDefault(x => x.Symbol == "WWL").Symbol,
+                //CompanySymbol = context.Companies.SingleOrDefault(x => x.Symbol == "WWL").Symbol,
                 Year = 2012,
-                Period = PERIOD.Q1,
-                NetProfit = 3010,
-                SalesRevenues = 30000
+                NetProfit = 3010
             };
             var report3 = new Report
             {
-                CompanySymbol = "WWL",
+                //CompanySymbol = "WWL",
                 Year = 2012,
-                Period = PERIOD.Q2,
-                NetProfit = 3010,
-                SalesRevenues = 30000
+                NetProfit = 3010
             };
 
             context.Reports.Add(report);

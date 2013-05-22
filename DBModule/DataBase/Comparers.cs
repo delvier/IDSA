@@ -10,12 +10,12 @@ namespace DBModule.DataBase
     {
         public bool Equals(Report x, Report y)
         {
-            return (x.CompanySymbol == y.CompanySymbol && x.Year == y.Year && x.Period == y.Period);
+            return (x.CompanyId == y.CompanyId && x.Year == y.Year && x.Quarter == y.Quarter);
         }
 
         public int GetHashCode(Report obj)
         {
-            return obj.ID.GetHashCode();
+            return obj.Id.GetHashCode();
         }
     }
 }

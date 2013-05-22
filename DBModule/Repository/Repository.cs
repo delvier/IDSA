@@ -81,18 +81,18 @@ namespace DBModule
 
         public override Company GetById(int id)
         {
-            throw new NotImplementedException();
+            return dbSet.SingleOrDefault(x => x.Id == id);
         }
 
-        public Company GetBySymbol(string symbol)
+        public Company GetBySymbol(string shortcut)
         {
-            return dbSet.SingleOrDefault(x => x.Symbol == symbol);
+            return dbSet.SingleOrDefault(x => x.Shortcut == shortcut);
         }
 
         public override void Add(Company company)
         {
             // TODO: Add Cashing Entites (.NET 4.5 contains in automatically)
-            if(dbSet.All(c => c.Symbol != company.Symbol)) //dbSet.Contains(company))
+            if (dbSet.All(c => c.Shortcut != company.Shortcut)) //dbSet.Contains(company))
                 base.Add(company);
         }
     }
@@ -103,14 +103,16 @@ namespace DBModule
 
         public override Report GetById(int id)
         {
-            return dbSet.SingleOrDefault(x => x.ID == id);
+            return dbSet.SingleOrDefault(x => x.Id == id);
         }
 
         public override void Add(Report report)
         {
+            //if(dbSet.)
             //TODO: Add using ReportComparer
-            if (dbSet.All(r => r.CompanySymbol == report.CompanySymbol))    // TODO: Add comparer functions
-                base.Update(report);
+            if (dbSet.Any(r => r.CompanyId == report.CompanyId && r.Year == report.Year && r.Quarter == report.Quarter))    // TODO: Add comparer functions
+                throw new InvalidOperationException("Can not add existing report to the database");
+                // base.Update(report);    // TODO: Jakis fuck-up z update'owaniem raportow w bazie !!!!!!!
             else
                 base.Add(report);
         }

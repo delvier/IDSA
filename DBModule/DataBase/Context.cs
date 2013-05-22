@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 
 namespace DBModule
 {
@@ -20,6 +21,9 @@ namespace DBModule
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //base.OnModelCreating(modelBuilder);
+            
+            //modelBuilder.Entity<Report>().Property(a => a.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            //modelBuilder.Entity<Report>().Property(a => a.Id).HasKey(b => b.Id);
 
             //modelBuilder.Entity<Company>().Property(x => x.Reports = new ObservableListSource<String>());
         }
