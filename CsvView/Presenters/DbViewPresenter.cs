@@ -35,7 +35,7 @@ namespace CsvReaderModule.Controllers
         {
             return model.Companies.GetAll();
         }
-
+        
         public void AddCompany(Company company)
         {
             model.Companies.Add(company);
@@ -54,62 +54,29 @@ namespace CsvReaderModule.Controllers
             var company = new Company
             {
                 Name = "Wawel",
-                Symbol = "WWL",
-                Url = "http://www.wawel.com.pl/",
-                Description = "",
-                Trade = TRADES.CUKIERNICTWO
-            };
-            var company2 = new Company
-            {
-                Name = "Asseco Poland",
-                Symbol = "ACP",
-                Url = "http://www.asseco.com/pl/",
-                Description = "Najwieksza spolka IT w Polsce",
-                Trade = TRADES.INFORMATYKA
+                Shortcut = "WWL",
+                Href = "http://www.wawel.com.pl/",
+                Description = ""
             };
 
             model.Companies.Add(company);
-            model.Companies.Add(company2);
             model.Commit();
 
             var report = new Report
             {
-                CompanySymbol = "WWL",
+                //CompanyId = "WWL",
                 Year = 2011,
-                Period = PERIOD.Q1,
-                NetProfit = 1000,
-                SalesRevenues = 3809
+                NetProfit = 1000
             };
             var report2 = new Report
             {
-                CompanySymbol = model.Companies.Query().SingleOrDefault(x => x.Symbol == "WWL").Symbol,
+                CompanyId = model.Companies.Query().SingleOrDefault(x => x.Shortcut == "WWL").Id,
                 Year = 2012,
-                Period = PERIOD.Q1,
-                NetProfit = 3010,
-                SalesRevenues = 30000
-            };
-            var report3 = new Report
-            {
-                CompanySymbol = "WWL",
-                Year = 2012,
-                Period = PERIOD.Q2,
-                NetProfit = 3010,
-                SalesRevenues = 30000
-            };
-            var report4 = new Report
-            {
-                CompanySymbol = "ACP",
-                Year = 2012,
-                Period = PERIOD.Q3,
-                NetProfit = 3210,
-                SalesRevenues = 23001
+                NetProfit = 3010
             };
 
             model.Reports.Add(report);
             model.Reports.Add(report2);
-            model.Reports.Add(report3);
-            model.Reports.Add(report4);
-
             model.Commit();
         }
 
@@ -117,40 +84,25 @@ namespace CsvReaderModule.Controllers
         {
             var company = new Company
             {
-                Symbol = "WMO",
+                Shortcut = "WMO",
                 Name = "Wind Mobile",
-                Trade = TRADES.BUDOWNICTWO,
                 Description = "Halogranie i Reklamowka",
-                Url = "http://www.windmobile.pl"
+                Href = "http://www.windmobile.pl"
             };
             model.Companies.Add(company);
             model.Commit();
-            var actual = model.Companies.Query().FirstOrDefault(e => e.Name == "Wind Mobile");
-            //TODO: Assert wywala wyjatek, a nie powinien !!!
-            //Debug.Assert(actual == null, "Baza nie zwrocila ostatnio zapisanego rekordu");
 
             var report = new Report
             {
-                Period = PERIOD.Q4,
-                NetProfit = 4333,
-                SalesRevenues = 455697,
-                Year = 2004,
-                CompanySymbol = "WMO"
+                //CompanyId = "WMO",
+                Year = 2011,
+                NetProfit = 1000,
+                Quarter = 3
             };
             model.Reports.Add(report);
             model.Commit();
         }
-
-        public void Repository_Testing()
-        {
-            var company = new Company { Symbol = "ZKA", Name = "Zetkama", Trade = TRADES.HANDEL };
-            model.Companies.Add(company);
-            model.Commit();
-            model.Companies.Remove(company);
-            model.Commit();
-            Debug.Assert(0 == model.Companies.Query().Count());
-        }
-
+        
         public void AddReport()
         {
             //foreach (var item in uow.Reports.Query().ToList())

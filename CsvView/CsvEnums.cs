@@ -111,7 +111,7 @@ namespace CsvReaderModule
             FullName,
             HeadAccount,
             Profile,
-            Addrees,
+            Address,
             HrefStatus,
             ShareNumbers,
             Date2,

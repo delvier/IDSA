@@ -38,6 +38,12 @@ namespace WindowsFormsApplication1
             presenter = ServiceLocator.Instance.Resolve<VCsvLoadPresenter>();
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            presenter.OnLoad();
+        }
+
         private void prepareGridHeaders<T>()
         {
             var collection = presenter.getHeaders<T>(csvDataGrid.Columns.Count);
@@ -106,7 +112,13 @@ namespace WindowsFormsApplication1
         private void saveDb_Click(object sender, EventArgs e)
         {
             Task.WaitAll();
-            Task csvTask = Task.Factory.StartNew(() => presenter.AddCompany(csv.ToList()));
+            Task csvTask;
+            if (csv.FieldCount == Enum.GetNames(typeof(CsvEnums._company)).Length)
+            {
+                csvTask = Task.Factory.StartNew(() => presenter.AddCompany(csv.ToList()));
+            }
+            else
+                csvTask = Task.Factory.StartNew(() => presenter.AddReport(csv.ToList()));
             csvTask.ContinueWith((o) => csv.Dispose());
             //presenter.saveDb<datatype>();
         }

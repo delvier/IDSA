@@ -38,7 +38,6 @@
             this.netProfitDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.companySymbolDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.companyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.companyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.companyBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -53,26 +52,30 @@
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.companyBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.companyDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Shortcut = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SharePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ShareNumbers = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.reportsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.reportsDataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.companyBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CompanyId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quarter = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EBIT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Sales = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EarningOnSales = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.companyBindingNavigator)).BeginInit();
             this.companyBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.companyDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -132,10 +135,6 @@
             this.companyDataGridViewTextBoxColumn.DataPropertyName = "Company";
             this.companyDataGridViewTextBoxColumn.HeaderText = "Company";
             this.companyDataGridViewTextBoxColumn.Name = "companyDataGridViewTextBoxColumn";
-            // 
-            // companyBindingSource
-            // 
-            this.companyBindingSource.DataSource = typeof(DBModule.Company);
             // 
             // companyBindingNavigator
             // 
@@ -266,11 +265,13 @@
             this.companyDataGridView.AutoGenerateColumns = false;
             this.companyDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.companyDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
+            this.Column1,
             this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5});
+            this.Shortcut,
+            this.Date,
+            this.SharePrice,
+            this.ShareNumbers,
+            this.dataGridViewTextBoxColumn3});
             this.companyDataGridView.DataSource = this.companyBindingSource;
             this.companyDataGridView.Location = new System.Drawing.Point(9, 26);
             this.companyDataGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
@@ -279,37 +280,35 @@
             this.companyDataGridView.Size = new System.Drawing.Size(258, 277);
             this.companyDataGridView.TabIndex = 5;
             // 
-            // dataGridViewTextBoxColumn1
+            // Column1
             // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "Symbol";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Symbol";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.Column1.DataPropertyName = "Id";
+            this.Column1.HeaderText = "Id";
+            this.Column1.Name = "Column1";
             // 
-            // dataGridViewTextBoxColumn2
+            // Shortcut
             // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Name";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.Shortcut.DataPropertyName = "Shortcut";
+            this.Shortcut.HeaderText = "Shortcut";
+            this.Shortcut.Name = "Shortcut";
             // 
-            // dataGridViewTextBoxColumn3
+            // Date
             // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Description";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Description";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Visible = false;
+            this.Date.DataPropertyName = "Date";
+            this.Date.HeaderText = "Date";
+            this.Date.Name = "Date";
             // 
-            // dataGridViewTextBoxColumn4
+            // SharePrice
             // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Url";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Url";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.Visible = false;
+            this.SharePrice.DataPropertyName = "SharePrice";
+            this.SharePrice.HeaderText = "SharePrice";
+            this.SharePrice.Name = "SharePrice";
             // 
-            // dataGridViewTextBoxColumn5
+            // ShareNumbers
             // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "Trade";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Trade";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.ShareNumbers.DataPropertyName = "ShareNumbers";
+            this.ShareNumbers.HeaderText = "ShareNumbers";
+            this.ShareNumbers.Name = "ShareNumbers";
             // 
             // reportsBindingSource
             // 
@@ -321,13 +320,14 @@
             this.reportsDataGridView.AutoGenerateColumns = false;
             this.reportsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.reportsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn9,
+            this.Column2,
+            this.CompanyId,
             this.dataGridViewTextBoxColumn10,
-            this.dataGridViewTextBoxColumn11,
-            this.dataGridViewTextBoxColumn12,
-            this.dataGridViewTextBoxColumn13,
-            this.dataGridViewTextBoxColumn14,
-            this.dataGridViewTextBoxColumn15});
+            this.Quarter,
+            this.EBIT,
+            this.Sales,
+            this.EarningOnSales,
+            this.dataGridViewTextBoxColumn13});
             this.reportsDataGridView.DataSource = this.reportsBindingSource;
             this.reportsDataGridView.Location = new System.Drawing.Point(272, 26);
             this.reportsDataGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
@@ -336,11 +336,35 @@
             this.reportsDataGridView.Size = new System.Drawing.Size(409, 277);
             this.reportsDataGridView.TabIndex = 5;
             // 
-            // dataGridViewTextBoxColumn9
+            // companyBindingSource
             // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "ID";
-            this.dataGridViewTextBoxColumn9.HeaderText = "ID";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.companyBindingSource.DataSource = typeof(DBModule.Company);
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Name";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Description";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Description";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Visible = false;
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "Id";
+            this.Column2.HeaderText = "Id";
+            this.Column2.Name = "Column2";
+            // 
+            // CompanyId
+            // 
+            this.CompanyId.DataPropertyName = "CompanyId";
+            this.CompanyId.HeaderText = "CompanyId";
+            this.CompanyId.Name = "CompanyId";
             // 
             // dataGridViewTextBoxColumn10
             // 
@@ -348,17 +372,29 @@
             this.dataGridViewTextBoxColumn10.HeaderText = "Year";
             this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
             // 
-            // dataGridViewTextBoxColumn11
+            // Quarter
             // 
-            this.dataGridViewTextBoxColumn11.DataPropertyName = "Period";
-            this.dataGridViewTextBoxColumn11.HeaderText = "Period";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.Quarter.DataPropertyName = "Quarter";
+            this.Quarter.HeaderText = "Quarter";
+            this.Quarter.Name = "Quarter";
             // 
-            // dataGridViewTextBoxColumn12
+            // EBIT
             // 
-            this.dataGridViewTextBoxColumn12.DataPropertyName = "SalesRevenues";
-            this.dataGridViewTextBoxColumn12.HeaderText = "SalesRevenues";
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.EBIT.DataPropertyName = "EBIT";
+            this.EBIT.HeaderText = "EBIT";
+            this.EBIT.Name = "EBIT";
+            // 
+            // Sales
+            // 
+            this.Sales.DataPropertyName = "Sales";
+            this.Sales.HeaderText = "Sales";
+            this.Sales.Name = "Sales";
+            // 
+            // EarningOnSales
+            // 
+            this.EarningOnSales.DataPropertyName = "EarningOnSales";
+            this.EarningOnSales.HeaderText = "EarningOnSales";
+            this.EarningOnSales.Name = "EarningOnSales";
             // 
             // dataGridViewTextBoxColumn13
             // 
@@ -367,21 +403,9 @@
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.Visible = false;
             // 
-            // dataGridViewTextBoxColumn14
-            // 
-            this.dataGridViewTextBoxColumn14.DataPropertyName = "CompanySymbol";
-            this.dataGridViewTextBoxColumn14.HeaderText = "CompanySymbol";
-            this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
-            // 
-            // dataGridViewTextBoxColumn15
-            // 
-            this.dataGridViewTextBoxColumn15.DataPropertyName = "Company";
-            this.dataGridViewTextBoxColumn15.HeaderText = "Company";
-            this.dataGridViewTextBoxColumn15.Name = "dataGridViewTextBoxColumn15";
-            this.dataGridViewTextBoxColumn15.Visible = false;
-            // 
             // DBView
             // 
+            // DBView
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.reportsDataGridView);
@@ -392,13 +416,13 @@
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "DBView";
             this.Size = new System.Drawing.Size(696, 384);
-            ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.companyBindingNavigator)).EndInit();
             this.companyBindingNavigator.ResumeLayout(false);
             this.companyBindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.companyDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -433,19 +457,29 @@
         private System.Windows.Forms.ToolStripButton companyBindingNavigatorSaveItem;
         private System.Windows.Forms.DataGridView companyDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.BindingSource reportsBindingSource;
         private System.Windows.Forms.DataGridView reportsDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn15;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Shortcut;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SharePrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ShareNumbers;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CompanyId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Quarter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EBIT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Sales;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EarningOnSales;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
     }
 }
 

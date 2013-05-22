@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace WindowsFormsApplication1
             ServiceLocator.Instance.Register(new DBView());
             ServiceLocator.Instance.Register(new VCsvLoad());
             ServiceLocator.Instance.Register(new VCompany());
-            Task.Factory.StartNew(() => ServiceLocator.Instance.Register(new EFUnitOfWork(/*new Context(new CreateDatabaseIfNotExists<Context>())*/)));
+            Task.Factory.StartNew(() => ServiceLocator.Instance.Register(new EFUnitOfWork(new Context(new DropCreateDatabaseAlways<Context>()) /*new Context(new CreateDatabaseIfNotExists<Context>())*/)));
         }
         public EProjectionType ProjectionType
         {
