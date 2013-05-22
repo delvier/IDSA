@@ -21,8 +21,8 @@ namespace IDSA.Presenters
             model = ServiceLocator.Instance.Resolve<EFUnitOfWork>();
 
             //TODO: Change in the future in this place !!!!!!!!!!!!
-            if (!model.Companies.Query().Any())
-                AddRecords();
+            //if (!model.Companies.Query().Any())
+            //    AddRecords();
         }
 
         public BindingList<Company> GetAllCompanies()

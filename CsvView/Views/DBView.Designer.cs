@@ -40,6 +40,7 @@
             this.companyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.companyBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
+            this.companyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -53,15 +54,14 @@
             this.companyBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.companyDataGridView = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Shortcut = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SharePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ShareNumbers = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.reportsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.reportsDataGridView = new System.Windows.Forms.DataGridView();
-            this.companyBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CompanyId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -72,18 +72,18 @@
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.companyBindingNavigator)).BeginInit();
             this.companyBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.companyDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(80, 325);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Location = new System.Drawing.Point(784, 554);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(79, 26);
+            this.button1.Size = new System.Drawing.Size(105, 32);
             this.button1.TabIndex = 2;
             this.button1.Text = "AddCompany";
             this.button1.UseVisualStyleBackColor = true;
@@ -91,10 +91,10 @@
             // 
             // Select
             // 
-            this.Select.Location = new System.Drawing.Point(369, 325);
-            this.Select.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Select.Location = new System.Drawing.Point(1063, 554);
+            this.Select.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Select.Name = "Select";
-            this.Select.Size = new System.Drawing.Size(56, 26);
+            this.Select.Size = new System.Drawing.Size(75, 32);
             this.Select.TabIndex = 4;
             this.Select.Text = "Select";
             this.Select.UseVisualStyleBackColor = true;
@@ -162,7 +162,7 @@
             this.companyBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.companyBindingNavigator.Name = "companyBindingNavigator";
             this.companyBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.companyBindingNavigator.Size = new System.Drawing.Size(696, 25);
+            this.companyBindingNavigator.Size = new System.Drawing.Size(1315, 27);
             this.companyBindingNavigator.TabIndex = 5;
             this.companyBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -172,13 +172,17 @@
             this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
             this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 24);
             this.bindingNavigatorAddNewItem.Text = "Add new";
+            // 
+            // companyBindingSource
+            // 
+            this.companyBindingSource.DataSource = typeof(DBModule.Company);
             // 
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(45, 24);
             this.bindingNavigatorCountItem.Text = "of {0}";
             this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
             // 
@@ -188,7 +192,7 @@
             this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
             this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
             this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 24);
             this.bindingNavigatorDeleteItem.Text = "Delete";
             // 
             // bindingNavigatorMoveFirstItem
@@ -197,7 +201,7 @@
             this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
             this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 24);
             this.bindingNavigatorMoveFirstItem.Text = "Move first";
             // 
             // bindingNavigatorMovePreviousItem
@@ -206,27 +210,27 @@
             this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
             this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 24);
             this.bindingNavigatorMovePreviousItem.Text = "Move previous";
             // 
             // bindingNavigatorSeparator
             // 
             this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
+            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 27);
             // 
             // bindingNavigatorPositionItem
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(38, 23);
+            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(49, 27);
             this.bindingNavigatorPositionItem.Text = "0";
             this.bindingNavigatorPositionItem.ToolTipText = "Current position";
             // 
             // bindingNavigatorSeparator1
             // 
             this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
             // bindingNavigatorMoveNextItem
             // 
@@ -234,7 +238,7 @@
             this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
             this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 24);
             this.bindingNavigatorMoveNextItem.Text = "Move next";
             // 
             // bindingNavigatorMoveLastItem
@@ -243,20 +247,20 @@
             this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
             this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
+            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 24);
             this.bindingNavigatorMoveLastItem.Text = "Move last";
             // 
             // bindingNavigatorSeparator2
             // 
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 27);
             // 
             // companyBindingNavigatorSaveItem
             // 
             this.companyBindingNavigatorSaveItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.companyBindingNavigatorSaveItem.Image = ((System.Drawing.Image)(resources.GetObject("companyBindingNavigatorSaveItem.Image")));
             this.companyBindingNavigatorSaveItem.Name = "companyBindingNavigatorSaveItem";
-            this.companyBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
+            this.companyBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 24);
             this.companyBindingNavigatorSaveItem.Text = "Save Data";
             this.companyBindingNavigatorSaveItem.Click += new System.EventHandler(this.companyBindingNavigatorSaveItem_Click);
             // 
@@ -273,11 +277,11 @@
             this.ShareNumbers,
             this.dataGridViewTextBoxColumn3});
             this.companyDataGridView.DataSource = this.companyBindingSource;
-            this.companyDataGridView.Location = new System.Drawing.Point(9, 26);
-            this.companyDataGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.companyDataGridView.Location = new System.Drawing.Point(12, 32);
+            this.companyDataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.companyDataGridView.Name = "companyDataGridView";
             this.companyDataGridView.RowTemplate.Height = 24;
-            this.companyDataGridView.Size = new System.Drawing.Size(258, 277);
+            this.companyDataGridView.Size = new System.Drawing.Size(547, 545);
             this.companyDataGridView.TabIndex = 5;
             // 
             // Column1
@@ -285,6 +289,13 @@
             this.Column1.DataPropertyName = "Id";
             this.Column1.HeaderText = "Id";
             this.Column1.Name = "Column1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Name";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Visible = false;
             // 
             // Shortcut
             // 
@@ -310,6 +321,13 @@
             this.ShareNumbers.HeaderText = "ShareNumbers";
             this.ShareNumbers.Name = "ShareNumbers";
             // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Description";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Description";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Visible = false;
+            // 
             // reportsBindingSource
             // 
             this.reportsBindingSource.DataMember = "Reports";
@@ -329,30 +347,12 @@
             this.EarningOnSales,
             this.dataGridViewTextBoxColumn13});
             this.reportsDataGridView.DataSource = this.reportsBindingSource;
-            this.reportsDataGridView.Location = new System.Drawing.Point(272, 26);
-            this.reportsDataGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.reportsDataGridView.Location = new System.Drawing.Point(565, 32);
+            this.reportsDataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.reportsDataGridView.Name = "reportsDataGridView";
             this.reportsDataGridView.RowTemplate.Height = 24;
-            this.reportsDataGridView.Size = new System.Drawing.Size(409, 277);
+            this.reportsDataGridView.Size = new System.Drawing.Size(744, 518);
             this.reportsDataGridView.TabIndex = 5;
-            // 
-            // companyBindingSource
-            // 
-            this.companyBindingSource.DataSource = typeof(DBModule.Company);
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Name";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Description";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Description";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Visible = false;
             // 
             // Column2
             // 
@@ -405,24 +405,23 @@
             // 
             // DBView
             // 
-            // DBView
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.reportsDataGridView);
             this.Controls.Add(this.companyDataGridView);
             this.Controls.Add(this.companyBindingNavigator);
             this.Controls.Add(this.Select);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "DBView";
-            this.Size = new System.Drawing.Size(696, 384);
+            this.Size = new System.Drawing.Size(1315, 628);
             ((System.ComponentModel.ISupportInitialize)(this.companyBindingNavigator)).EndInit();
             this.companyBindingNavigator.ResumeLayout(false);
             this.companyBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.companyDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

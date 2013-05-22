@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using DBModule;
 using LumenWorks.Framework.IO.Csv;
 
@@ -29,22 +30,21 @@ namespace IDSA.Presenters
 
         public void OnLoad()
         {
-            //Task.WaitAll();
-            //model = ServiceLocator.Instance.Resolve<EFUnitOfWork>();
+            Task.WaitAll();
+            model = ServiceLocator.Instance.Resolve<EFUnitOfWork>();
         }
 
         public void AddCompany(List<string[]> companies)
         {
             // that should do model it's not csv view controller job...
             // i should provide data for model.
-            model = ServiceLocator.Instance.Resolve<EFUnitOfWork>();
             model.Companies.Query().Load();
             foreach (var item in companies.Take(25))
             {
                 string[] cos = item[(int)CsvEnums._company.Date].Split('-');
                 var company = new Company()
                 {
-                    Id = Convert.ToInt32(item[(int)CsvEnums._company.Id]),
+                    Id = int.Parse(item[(int)CsvEnums._company.Id]),
                     Name = item[(int)CsvEnums._company.Name],
                     Shortcut = item[(int)CsvEnums._company.Shortcut],
                     SharePrice = float.Parse(item[(int)CsvEnums._company.SharePrice], CultureInfo.InvariantCulture),
@@ -58,7 +58,7 @@ namespace IDSA.Presenters
                     Profile = item[(int)CsvEnums._company.Profile],
                     Address = item[(int)CsvEnums._company.Address],
                     HrefStatus = item[(int)CsvEnums._company.HrefStatus],
-                    ShareNumbers = Convert.ToInt64(item[(int)CsvEnums._company.ShareNumbers]),
+                    ShareNumbers = Int64.Parse(item[(int)CsvEnums._company.ShareNumbers]),
                     //Trade = (TRADES)Enum.Parse(typeof(TRADES), item[(int)CsvEnums._company.Profile]),
                 };
                 model.Companies.Add(company);
@@ -68,9 +68,9 @@ namespace IDSA.Presenters
 
         public void AddReport(List<string[]> reports)
         {
-            model = ServiceLocator.Instance.Resolve<EFUnitOfWork>();
             model.Reports.Query().Load();
-            foreach (var item in reports.Take(10))
+            long tempVal;
+            foreach (var item in reports.Take(30))
             {
                 var report = new Report()
                 {
@@ -78,28 +78,24 @@ namespace IDSA.Presenters
                     CompanyId = int.Parse(item[(int)CsvEnums._financialData.CmpId]),
                     Year = int.Parse(item[(int)CsvEnums._financialData.Year]),
                     Quarter = int.Parse(item[(int)CsvEnums._financialData.Quater]),
-                    //Sales = Int64.Parse(item[(int)CsvEnums._financialData.Sales]),
-                    //OwnSaleCosts = Int64.Parse(item[(int)CsvEnums._financialData.OwnSaleCosts]),
-                    //SalesCost1 = Int64.Parse(item[(int)CsvEnums._financialData.SalesCost1]),
-                    //SalesCost2 = Int64.Parse(item[(int)CsvEnums._financialData.SalesCost2]),
-                    //EarningOnSales = Int64.Parse(item[(int)CsvEnums._financialData.EarningOnSales]),
-                    //OtherOperationalActivity1 = Int64.Parse(item[(int)CsvEnums._financialData.OtherOperationalActivity1]),
-                    //OtherOperationalActivity2 = Int64.Parse(item[(int)CsvEnums._financialData.OtherOperationalActivity2]),
-                    //EBIT = Int64.Parse(item[(int)CsvEnums._financialData.EBIT]),
-                    //FinancialActivity1 = Int64.Parse(item[(int)CsvEnums._financialData.FinancialActivity1]),
-                    //FinancialActivity2 = Int64.Parse(item[(int)CsvEnums._financialData.FinancialAcvitity2]),
-                    //OtherCostOrSales = Int64.Parse(item[(int)CsvEnums._financialData.OtherCostOrSales]),
-                    //SalesOnEconomicActivity = Int64.Parse(item[(int)CsvEnums._financialData.SalesOnEconomicActivity]),
-                    //ExceptionalOccurence = Convert.ToInt64(item[(int)CsvEnums._financialData.ExceptionalOccurence]),
-                    //EarningBeforeTaxes = Int64.Parse(item[(int)CsvEnums._financialData.EarningBeforeTaxes]),
-                    //DiscontinuedOperations = Int64.Parse(item[(int)CsvEnums._financialData.DiscontinuedOperations]),
-                    //NetProfit = Int64.Parse(item[(int)CsvEnums._financialData.NetProfit]),
-                    //NetParentProfit = Int64.Parse(item[(int)CsvEnums._financialData.NetParentProfit]),
+                    Sales = Int64.TryParse(item[(int)CsvEnums._financialData.Sales], out tempVal) ? tempVal : 0,
+                    OwnSaleCosts = Int64.TryParse(item[(int)CsvEnums._financialData.OwnSaleCosts], out tempVal) ? tempVal : 0,
+                    SalesCost1 = Int64.TryParse(item[(int)CsvEnums._financialData.SalesCost1], out tempVal) ? tempVal : 0,
+                    SalesCost2 = Int64.TryParse(item[(int)CsvEnums._financialData.SalesCost2], out tempVal) ? tempVal : 0,
+                    EarningOnSales = Int64.TryParse(item[(int)CsvEnums._financialData.EarningOnSales], out tempVal) ? tempVal : 0,
+                    OtherOperationalActivity1 = Int64.TryParse(item[(int)CsvEnums._financialData.OtherOperationalActivity1], out tempVal) ? tempVal : 0,
+                    OtherOperationalActivity2 = Int64.TryParse(item[(int)CsvEnums._financialData.OtherOperationalActivity2], out tempVal) ? tempVal : 0,
+                    EBIT = Int64.TryParse(item[(int)CsvEnums._financialData.EBIT], out tempVal) ? tempVal : 0,
+                    FinancialActivity1 = Int64.TryParse(item[(int)CsvEnums._financialData.FinancialActivity1], out tempVal) ? tempVal : 0,
+                    FinancialActivity2 = Int64.TryParse(item[(int)CsvEnums._financialData.FinancialAcvitity2], out tempVal) ? tempVal : 0,
+                    OtherCostOrSales = Int64.TryParse(item[(int)CsvEnums._financialData.OtherCostOrSales], out tempVal) ? tempVal : 0,
+                    SalesOnEconomicActivity = Int64.TryParse(item[(int)CsvEnums._financialData.SalesOnEconomicActivity], out tempVal) ? tempVal : 0,
+                    ExceptionalOccurence = Int64.TryParse(item[(int)CsvEnums._financialData.ExceptionalOccurence], out tempVal) ? tempVal : 0,
+                    EarningBeforeTaxes = Int64.TryParse(item[(int)CsvEnums._financialData.EarningBeforeTaxes], out tempVal) ? tempVal : 0,
+                    DiscontinuedOperations = Int64.TryParse(item[(int)CsvEnums._financialData.DiscontinuedOperations], out tempVal) ? tempVal : 0,
+                    NetProfit = Int64.TryParse(item[(int)CsvEnums._financialData.NetProfit], out tempVal) ? tempVal : 0,
+                    NetParentProfit = Int64.TryParse(item[(int)CsvEnums._financialData.NetParentProfit], out tempVal) ? tempVal : 0,
                 };
-                // TODO: Change and add in this way??
-                long ExceptionalOccurence;
-                Int64.TryParse(item[(int)CsvEnums._financialData.ExceptionalOccurence], out ExceptionalOccurence);
-                report.ExceptionalOccurence = ExceptionalOccurence;
                 model.Reports.Add(report);
             }
             model.Commit();
