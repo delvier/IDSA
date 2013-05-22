@@ -77,11 +77,6 @@ namespace CsvReaderModule.Controllers
             context.Commit();
         }
 
-        public void selectColumns(List<string> colHeaders)
-        {
-            //
-        }
-
         // Provide ListOf Enum Names.
         public List<string> getHeaders<T> (int cols)
         {
@@ -110,24 +105,3 @@ namespace CsvReaderModule.Controllers
         }
     }
 }
-
-//foreach (DataGridViewColumn col in csvDataGrid.Columns)
-//{
-//    col.HeaderText = "test";
-//    //csvDataGrid.Columns[0].HeaderText = "testName1";
-//}
-
-// select columns ? - > transfer to data base.
-// zarzadzanie wyswietlaniem kolumn.
-// filtracja po wybranych kolumnach
-
-
-//if (Enum.GetNames(typeof(T)).Length == cols)
-//{
-//    foreach (T cmp in Enum.GetValues(typeof(T)))
-//    {
-//        hList.Add(cmp.ToString());
-//    }           
-//}
-
-//return hList;         
