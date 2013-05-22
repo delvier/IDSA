@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using CsvReaderModule.Controllers;
 using WindowsFormsApplication1;
+using DBModule;
 
 namespace CsvReaderModule.Views
 {
@@ -21,6 +22,22 @@ namespace CsvReaderModule.Views
             presenter = ServiceLocator.Instance.Resolve<VCompanyPresenter>();
             //init Company Box
             //CompanyBox.BindingContext = presenter.GetCompanies();
+            //TestOnly
+            this.InitListBox();
+            this.InitDropBoxs();
+        }
+        private void InitListBox ()
+        {
+            CompanyBox.DataSource = presenter.GetTestCompanies();
+            CompanyBox.DisplayMember = CsvEnums._company.Name.ToString();
+        }
+        private void InitDropBoxs ()
+        {
+            CompanyTypes.DataSource = presenter.GetTestBindList();
+            CompanyTypes.DisplayMember = CsvEnums._company.Name.ToString();
+
+            MarketType.DataSource = presenter.GetTestBindList();
+            MarketType.DisplayMember = CsvEnums._company.Name.ToString();
         }
     }
 }
