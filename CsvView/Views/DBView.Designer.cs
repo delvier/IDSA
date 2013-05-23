@@ -70,17 +70,31 @@
             this.Sales = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EarningOnSales = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.CreateDatabase = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.Info = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.companyBindingNavigator)).BeginInit();
             this.companyBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.companyDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(784, 554);
+            this.button1.Location = new System.Drawing.Point(245, 74);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(105, 32);
@@ -91,7 +105,7 @@
             // 
             // Select
             // 
-            this.Select.Location = new System.Drawing.Point(1063, 554);
+            this.Select.Location = new System.Drawing.Point(383, 73);
             this.Select.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Select.Name = "Select";
             this.Select.Size = new System.Drawing.Size(75, 32);
@@ -277,11 +291,12 @@
             this.ShareNumbers,
             this.dataGridViewTextBoxColumn3});
             this.companyDataGridView.DataSource = this.companyBindingSource;
-            this.companyDataGridView.Location = new System.Drawing.Point(12, 32);
+            this.companyDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.companyDataGridView.Location = new System.Drawing.Point(0, 0);
             this.companyDataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.companyDataGridView.Name = "companyDataGridView";
             this.companyDataGridView.RowTemplate.Height = 24;
-            this.companyDataGridView.Size = new System.Drawing.Size(547, 545);
+            this.companyDataGridView.Size = new System.Drawing.Size(564, 601);
             this.companyDataGridView.TabIndex = 5;
             // 
             // Column1
@@ -347,11 +362,12 @@
             this.EarningOnSales,
             this.dataGridViewTextBoxColumn13});
             this.reportsDataGridView.DataSource = this.reportsBindingSource;
-            this.reportsDataGridView.Location = new System.Drawing.Point(565, 32);
+            this.reportsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reportsDataGridView.Location = new System.Drawing.Point(0, 0);
             this.reportsDataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.reportsDataGridView.Name = "reportsDataGridView";
             this.reportsDataGridView.RowTemplate.Height = 24;
-            this.reportsDataGridView.Size = new System.Drawing.Size(744, 518);
+            this.reportsDataGridView.Size = new System.Drawing.Size(747, 433);
             this.reportsDataGridView.TabIndex = 5;
             // 
             // Column2
@@ -403,15 +419,88 @@
             this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
             this.dataGridViewTextBoxColumn13.Visible = false;
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 27);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.companyDataGridView);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Size = new System.Drawing.Size(1315, 601);
+            this.splitContainer1.SplitterDistance = 564;
+            this.splitContainer1.TabIndex = 6;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.progressBar);
+            this.splitContainer2.Panel1.Controls.Add(this.CreateDatabase);
+            this.splitContainer2.Panel1.Controls.Add(this.listView1);
+            this.splitContainer2.Panel1.Controls.Add(this.Info);
+            this.splitContainer2.Panel1.Controls.Add(this.button1);
+            this.splitContainer2.Panel1.Controls.Add(this.Select);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.reportsDataGridView);
+            this.splitContainer2.Size = new System.Drawing.Size(747, 601);
+            this.splitContainer2.SplitterDistance = 164;
+            this.splitContainer2.TabIndex = 6;
+            // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(229, 34);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(273, 23);
+            this.progressBar.TabIndex = 8;
+            this.progressBar.Visible = false;
+            // 
+            // CreateDatabase
+            // 
+            this.CreateDatabase.Location = new System.Drawing.Point(229, -1);
+            this.CreateDatabase.Name = "CreateDatabase";
+            this.CreateDatabase.Size = new System.Drawing.Size(273, 30);
+            this.CreateDatabase.TabIndex = 7;
+            this.CreateDatabase.Text = "Recreate + add Data(about 30sec long)";
+            this.CreateDatabase.UseVisualStyleBackColor = true;
+            this.CreateDatabase.Click += new System.EventHandler(this.CreateDatabase_Click);
+            // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(528, 16);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(37, 128);
+            this.listView1.TabIndex = 6;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // Info
+            // 
+            this.Info.AutoSize = true;
+            this.Info.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Info.Location = new System.Drawing.Point(3, 0);
+            this.Info.Name = "Info";
+            this.Info.Size = new System.Drawing.Size(173, 25);
+            this.Info.TabIndex = 5;
+            this.Info.Text = "DataBase sum up:";
+            // 
             // DBView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.reportsDataGridView);
-            this.Controls.Add(this.companyDataGridView);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.companyBindingNavigator);
-            this.Controls.Add(this.Select);
-            this.Controls.Add(this.button1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "DBView";
             this.Size = new System.Drawing.Size(1315, 628);
@@ -422,6 +511,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.companyDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsDataGridView)).EndInit();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel1.PerformLayout();
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -479,6 +577,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Sales;
         private System.Windows.Forms.DataGridViewTextBoxColumn EarningOnSales;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.Label Info;
+        private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Button CreateDatabase;
     }
 }
 

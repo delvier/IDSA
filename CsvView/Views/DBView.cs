@@ -26,6 +26,7 @@ namespace IDSA
         {
             base.OnLoad(e);
             presenter.OnLoad();
+            this.Info.Text = presenter.dbInfo();
             this.companyBindingSource.DataSource = presenter.GetAllCompanies();
             //this.reportsBindingSource.DataSource = presenter.GetRecords();
         }
@@ -36,6 +37,13 @@ namespace IDSA
             this.Validate();
             this.companyDataGridView.Refresh();
             this.reportsDataGridView.Refresh();
+        }
+
+        private void CreateDatabase_Click(object sender, EventArgs e)
+        {
+            this.progressBar.Visible = true;
+            presenter.CreateDatabase();
+            this.Info.Text = presenter.dbInfo();
         }
 
         private void button1_Click(object sender, EventArgs e)
