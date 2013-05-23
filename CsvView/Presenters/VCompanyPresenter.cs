@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using DBModule;
 using IDSA.Views;
+using IDSA.Services;
+using System.Collections;
 
 namespace IDSA.Presenters
 {
@@ -11,8 +13,13 @@ namespace IDSA.Presenters
     {
         VCompany view;
         private IUnitOfWork dbModel;
+        private readonly IDataService<Company> _companyDataService;
+
+        private IEnumerable<Company> _cmpData;
+
         public VCompanyPresenter(VCompany view)
         {
+            this._companyDataService = (IDataService<Company>)(new CompanyDataService());
             this.view = view;
         }
 
@@ -28,24 +35,10 @@ namespace IDSA.Presenters
         }
 
         #region Test Data Preapre.
-        public IBindingList GetTestCompanies()
+        public IEnumerable GetTestCompanies()
         {
-            var rnd = new Random();
-            var testCmps = new BindingList<Company>();
-            for (int i = 0; i < rnd.Next(20, 50); i++)
-            {
-                testCmps.Add(
-                    new Company
-                        {
-                            Name = string.Format("{0} {1}", "Test", i),
-                            Description = string.Format("{0} {1}", "Desc", i),
-                            Reports = null,
-                            Shortcut = string.Format("{0} {1}", "TT", i),
-                            Href = "No Url Need"
-                        });
-
-            }
-            return testCmps;
+            _cmpData = _companyDataService.GetData().Take(100).ToList();
+            return _cmpData;
         }
 
         public IBindingList GetTestBindList()
@@ -65,13 +58,10 @@ namespace IDSA.Presenters
 
         #endregion
 
-
-
-
-        public IBindingList GetFilterBox(string lookForCompany)
+        public IEnumerable GetFilterBox(string lookForCompany)
         {
             var companyList = GetTestCompanies(); //return original data from Store
-            var showList = new BindingList<Company>();
+            var showList = new List<Company>();
 
             if (!string.IsNullOrEmpty(lookForCompany))
             {
