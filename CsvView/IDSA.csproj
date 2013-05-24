@@ -54,12 +54,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Presenters\DataFromHtmlPresenter.cs" />
     <Compile Include="Presenters\VCsvLoadPresenter.cs" />
     <Compile Include="Presenters\DbViewPresenter.cs" />
     <Compile Include="Presenters\VCompanyPresenter.cs" />
     <Compile Include="CsvEnums.cs" />
     <Compile Include="Services\CompanyDataService.cs" />
     <Compile Include="Services\IDataService.cs" />
+    <Compile Include="Views\DataFromHtmlView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\DataFromHtmlView.Designer.cs">
+      <DependentUpon>DataFromHtmlView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\VCompany.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -101,6 +108,9 @@
     <Compile Include="ViewItemDescriptor.cs">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="Views\DataFromHtmlView.resx">
+      <DependentUpon>DataFromHtmlView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\VCompany.resx">
       <DependentUpon>VCompany.cs</DependentUpon>
     </EmbeddedResource>

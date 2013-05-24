@@ -14,6 +14,7 @@ namespace IDSA
             ServiceLocator.Instance.Register(new DBView());
             ServiceLocator.Instance.Register(new VCsvLoad());
             ServiceLocator.Instance.Register(new VCompany());
+            ServiceLocator.Instance.Register(new DataFromHtmlView());
             Task.Factory.StartNew(() => ServiceLocator.Instance.Register(new EFUnitOfWork(new Context(new DropCreateDatabaseAlways<Context>()) /*new Context(new CreateDatabaseIfNotExists<Context>())*/)));
         }
         public EProjectionType ProjectionType
@@ -50,6 +51,14 @@ namespace IDSA
                     View = ServiceLocator.Instance.Resolve<DBView>()
                 }
                 );
+
+            lst.Add(
+                new ViewItemDescriptor()
+                {
+                    Header = "Data from html",
+                    View = ServiceLocator.Instance.Resolve<DataFromHtmlView>()
+                }
+            );
             
 
             return lst;
