@@ -28,10 +28,17 @@ namespace IDSA.Views
         private string GetExchangeFromHtmlAddress(string companyId)
         {
             HtmlWeb hw = new HtmlWeb();
-            HtmlAgilityPack.HtmlDocument page = hw.Load(@"http://stooq.pl/q/?s=" + compIDTextBox.Text.ToLower());
-
-            string exchange = page.DocumentNode.SelectSingleNode("//span[@id='aq_" + companyId + "_c2|3']").InnerText;
-
+            HtmlAgilityPack.HtmlDocument page = hw.Load(@"http://stooq.pl/q/?s=" + companyId.ToLower());
+            string exchange;
+            try
+            {
+                exchange = page.DocumentNode.SelectSingleNode("//span[@id='aq_" + companyId.ToLower() + "_c2|3']").InnerText;
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("ID not found");
+                return "";
+            }
             return exchange;
         }
     }

@@ -78,7 +78,7 @@
             this.exchangeLabel.Name = "exchangeLabel";
             this.exchangeLabel.Size = new System.Drawing.Size(104, 17);
             this.exchangeLabel.TabIndex = 5;
-            this.exchangeLabel.Text = "exchangeLabel";
+            this.exchangeLabel.Text = "";
             // 
             // DataFromHtmlView
             // 
