@@ -36,6 +36,53 @@ namespace IDSA.Presenters
             model = ServiceLocator.Instance.Resolve<IUnitOfWork>();
         }
 
+        public bool ValidCsvModel ()
+        {
+            if (_csvModel == null)
+            {
+                return false;
+            }
+            return _csvModel.csvModelInitialized;
+        }
+
+        // Provide ListOf Enum Names.
+        public List<string> getHeaders()
+        {
+            List<string> hList = new List<string>();
+            if (Enum.GetNames(_csvModel.csvEnumType).Length == _csvModel.RowSize) // dummy check size ? check types ?
+            {
+                var arr = Enum.GetNames(_csvModel.csvEnumType); //array
+                hList = arr.ToList<string>();
+            }
+            else
+            {
+                view.BoxMsg("Size do not match");
+            }
+            return hList;
+        }
+
+        public bool LoadCsvFile(string fname, CsvEnums.DataType typeOf)
+        {
+            if (fname == null)
+                return false;
+            try
+            {
+                _csvModel = new CsvModel((new CachedCsvReader(new StreamReader(fname), false)), typeOf);
+                return true;  
+            }
+            catch (IOException ex)
+            {
+                view.BoxMsg(ex.Message);
+                return false;
+            }
+        }
+
+        public CachedCsvReader GetCsvData ()
+        {
+            return _csvModel.GetSourceData();
+        }
+
+        #region DataBase Operations.
         public void AddCompany(List<string[]> companies)
         {
             // that should do model it's not csv view controller job...
@@ -102,43 +149,8 @@ namespace IDSA.Presenters
             }
             model.Commit();
         }
-
-        // Provide ListOf Enum Names.
-        public List<string> getHeaders<T>()
-        {
-            List<string> hList = new List<string>();
-            if (Enum.GetNames(typeof(T)).Length == _csvModel.RowSize) // dummy check size ? check types ?
-            {
-                var arr = Enum.GetNames(typeof(T)); //array
-                hList = arr.ToList<string>();
-            }
-            else
-            {
-                view.BoxMsg("Size do not match");
-            }
-            return hList;
-        }
-
-        public bool LoadCsvFile(string fname, CsvEnums.DataType typeOf)
-        {
-            if (fname == null)
-                return false;
-            try
-            {
-                _csvModel = new CsvModel((new CachedCsvReader(new StreamReader(fname), false)), typeOf);
-                return true;  
-            }
-            catch (IOException ex)
-            {
-                view.BoxMsg(ex.Message);
-                return false;
-            }
-        }
-
-        public CachedCsvReader GetCsvData ()
-        {
-            return _csvModel.GetSourceData();
-        }
+        #endregion
+        
 
     }
 }

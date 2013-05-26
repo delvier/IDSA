@@ -34,33 +34,33 @@ namespace IDSA
             presenter.OnLoad();
         }
 
-        private void prepareGridHeaders<T>()
+        private void prepareGridHeaders()
         {
-            var collection = presenter.getHeaders<T>();
+            var collection = presenter.getHeaders();
             foreach (var element in collection)
             {
                 csvDataGrid.Columns[collection.IndexOf(element)].HeaderText = element.ToString();
             }
         }
 
-        private void loadCsvData<T>(CsvEnums.DataType typeOf)
+        private void loadCsvData(CsvEnums.DataType typeOf)
         {
             if (presenter.LoadCsvFile(OpenDialog(), typeOf)) // if file loaded successfull
             {
                 csvDataGrid.DataSource = presenter.GetCsvData();
-                this.prepareGridHeaders<T>();
+                this.prepareGridHeaders();
             }
         }
 
         private void loadCsv_Click(object sender, EventArgs e)
         {
             var DataType = (CsvEnums.DataType)Enum.Parse(typeof(CsvEnums.DataType), CsvDataTypeBox.SelectedItem.ToString());
-            this.loadCsvData<CsvEnums.company>(DataType);
+            this.loadCsvData(DataType);
         }
 
         private void loadFinData_Click(object sender, EventArgs e)
         {
-            this.loadCsvData<CsvEnums.financialData>(CsvEnums.DataType.Financial);
+            this.loadCsvData(CsvEnums.DataType.Financial);
         }
 
         public void BoxMsg(string s)
@@ -90,6 +90,11 @@ namespace IDSA
 
         private void saveDb_Click(object sender, EventArgs e)
         {
+            if (!presenter.ValidCsvModel()) //if InvalidModel.
+            {
+                BoxMsg("Model data invalid");
+                return;
+            }
             //Task.WaitAll();
             Task csvTask;
             if (presenter.dataType == CsvEnums.DataType.Company)
