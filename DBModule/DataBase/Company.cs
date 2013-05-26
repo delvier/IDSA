@@ -28,6 +28,7 @@ namespace DBModule
         public Company()
         {
             this.Reports = new ObservableListSource<Report>();
+            //Date = DateTime.Now;
         }
 
         [Key][DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -40,6 +41,8 @@ namespace DBModule
         //public string ColumnB { get; set; }
         //public string ColumnE { get; set; }
         public float SharePrice { get; set; }
+        
+        [System.ComponentModel.DefaultValue(typeof(DateTime), "")]
         public DateTime Date { get; set; }
         public string Description { get; set; }
         public string Href { get; set; }

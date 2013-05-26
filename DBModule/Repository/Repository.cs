@@ -92,7 +92,9 @@ namespace DBModule
         public override void Add(Company company)
         {
             // TODO: Add Cashing Entites (.NET 4.5 contains in automatically)
-            if (dbSet.All(c => c.Shortcut != company.Shortcut)) //dbSet.Contains(company))
+            if (dbSet.Any(c => c.Id == company.Id)) //dbSet.Contains(company))
+                throw new InvalidOperationException("Can not add existing report to the database");
+            else
                 base.Add(company);
         }
     }
