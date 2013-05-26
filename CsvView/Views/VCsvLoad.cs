@@ -20,7 +20,7 @@ namespace IDSA
     public partial class VCsvLoad : UserControl, IVCsvLoad
     {
         private VCsvLoadPresenter presenter;
-        private CachedCsvReader csv;
+        //private CachedCsvReader csv;
 
         public VCsvLoad()
         {
@@ -44,19 +44,12 @@ namespace IDSA
             }
         }
 
-        // I dont know if passing type throw few function's and making it dependent on each other is good...
         private void loadCsvData<T>()
         {
-            // TODO: Przeniesc dane z OpenDialog() tutaj, chyba ze  bedzie wykorzystywany w tym view w wielu miejscach
-            csv = presenter.LoadCsvFile(OpenDialog());
-            if (csv != null)
+            if (presenter.LoadCsvFile(OpenDialog())) // if file loaded successfull
             {
-                csvDataGrid.DataSource = csv;
-                //Task.Factory.StartNew(() => presenter.AddCompany(csv.ToList())); //dispose crash task, task runs 
-                                                                                   //infinite when app close some dispose problem occurs
+                csvDataGrid.DataSource = presenter.GetCsvModel();
                 prepareGridHeaders<T>();
-                //TODO: change place for Dispose()
-                //csv.Dispose();
             }
         }
 
@@ -104,19 +97,19 @@ namespace IDSA
         {
             //Task.WaitAll();
             Task csvTask;
-            if (csv.FieldCount == Enum.GetNames(typeof(CsvEnums._company)).Length)
+            if (presenter.GetCsvModel().FieldCount == Enum.GetNames(typeof(CsvEnums._company)).Length)
             {
                 csvTask = Task.Factory.StartNew(() =>
-                        presenter.AddCompany(csv.ToList()),
+                        presenter.AddCompany(presenter.GetCsvModel().ToList()),
                         System.Threading.CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext()
                     );
             }
             else
                 csvTask = Task.Factory.StartNew(() =>
-                        presenter.AddReport(csv.ToList()),
+                        presenter.AddReport(presenter.GetCsvModel().ToList()),
                         System.Threading.CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext()
                     );
-            csvTask.ContinueWith((o) => csv.Dispose());
+            csvTask.ContinueWith((o) => presenter.GetCsvModel().Dispose());
             //presenter.saveDb<datatype>();
         }
     }

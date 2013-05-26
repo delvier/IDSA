@@ -14,7 +14,7 @@ namespace IDSA.Presenters
     {
         private readonly IVCsvLoad view;
         private IUnitOfWork model;
-        //CachedCsvReader _csvModel; // controller model insight.
+        private CachedCsvReader _csvModel;
 
         // IDEAS: 
         // C : select collumns <listOfColumnsToSelect> -> remove or hide ?
@@ -113,20 +113,28 @@ namespace IDSA.Presenters
             return hList;
         }
 
-        public CachedCsvReader LoadCsvFile(string fname)
+        public bool LoadCsvFile(string fname)
         {
             if (fname == null)
-                return null;
+                return false;
             try
             {
-                return (new CachedCsvReader(new StreamReader(fname), false));
+                
+                _csvModel = (new CachedCsvReader(new StreamReader(fname), false));
+                return true;
                 //IBindingList test = _csvReader.AsEnumerable<IBindingList>();     
             }
             catch (IOException ex)
             {
                 view.BoxMsg(ex.Message);
-                return null;
+                return false;
             }
         }
+
+        public CachedCsvReader GetCsvModel ()
+        {
+            return _csvModel;
+        }
+
     }
 }
