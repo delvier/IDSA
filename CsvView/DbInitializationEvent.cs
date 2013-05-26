@@ -5,6 +5,46 @@ using System.Text;
 
 namespace IDSA
 {
+    public delegate void DbUpdateDelegate();
+
+    public class DbUpdate
+    {
+        public event DbUpdateDelegate DbUpdateDone;
+
+        public void Update()
+        {
+            FireUpdateEvent();
+        }
+
+        private void FireUpdateEvent()
+        {
+            if (null != DbUpdateDone)
+            {
+                DbUpdateDone();
+            }
+        }
+    }
+
+    public delegate void DbCreateDelegate();
+
+    public class DbCreate
+    {
+        public event DbCreateDelegate DbCreateDone;
+
+        public void Create()
+        {
+            FireCreationEvent();
+        }
+
+        private void FireCreationEvent()
+        {
+            if (null != DbCreateDone)
+            {
+                DbCreateDone();
+            }
+        }
+    }
+
     public delegate void DbInitializationDelegate(object sender, EventArgs e);
 
     public class DbInitialization : EventArgs

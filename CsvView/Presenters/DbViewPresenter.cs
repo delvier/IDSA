@@ -24,9 +24,12 @@ namespace IDSA.Presenters
         internal string dbInfo()
         {
             //Task.WaitAll(Program.dbCreate);
-            model = ServiceLocator.Instance.Resolve<IUnitOfWork>();
-            model.Companies.Query().Load();
-            model.Reports.Query().Load();
+            if (model == null)
+            {
+                model = ServiceLocator.Instance.Resolve<IUnitOfWork>();
+                model.Companies.Query().Load();
+                model.Reports.Query().Load();
+            }
             return dbChanged();
         }
 
@@ -121,7 +124,7 @@ namespace IDSA.Presenters
             }
             //ServiceLocator.Instance.Register<EFUnitOfWork>(model);
         }
-        
+
         #region Testing methods(TODO: delete on the end)
 
         public void AddRecords()
@@ -197,5 +200,18 @@ namespace IDSA.Presenters
         }
 
         #endregion
+
+        internal void CleanDatabase()
+        {
+            foreach (var company in model.Companies.Query().ToList())
+            {
+                model.Companies.Remove(company);
+            }
+
+            foreach (var report in model.Reports.Query().ToList())
+            {
+                model.Reports.Remove(report);
+            }
+        }
     }
 }
