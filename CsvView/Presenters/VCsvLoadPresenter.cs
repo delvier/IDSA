@@ -30,8 +30,8 @@ namespace IDSA.Presenters
 
         public void OnLoad()
         {
-            Task.WaitAll();
-            model = ServiceLocator.Instance.Resolve<EFUnitOfWork>();
+            Task.WaitAll(Program.dbCreate);
+            model = ServiceLocator.Instance.Resolve<IUnitOfWork>();
         }
 
         public void AddCompany(List<string[]> companies)

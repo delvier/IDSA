@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Globalization;
@@ -22,8 +23,8 @@ namespace IDSA.Presenters
 
         internal string dbInfo()
         {
-            Task.WaitAll();
-            model = ServiceLocator.Instance.Resolve<EFUnitOfWork>();
+            //Task.WaitAll(Program.dbCreate);
+            model = ServiceLocator.Instance.Resolve<IUnitOfWork>();
             model.Companies.Query().Load();
             model.Reports.Query().Load();
             return dbChanged();

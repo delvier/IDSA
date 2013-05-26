@@ -102,14 +102,20 @@ namespace IDSA
 
         private void saveDb_Click(object sender, EventArgs e)
         {
-            Task.WaitAll();
+            //Task.WaitAll();
             Task csvTask;
             if (csv.FieldCount == Enum.GetNames(typeof(CsvEnums._company)).Length)
             {
-                csvTask = Task.Factory.StartNew(() => presenter.AddCompany(csv.ToList()));
+                csvTask = Task.Factory.StartNew(() =>
+                        presenter.AddCompany(csv.ToList()),
+                        System.Threading.CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext()
+                    );
             }
             else
-                csvTask = Task.Factory.StartNew(() => presenter.AddReport(csv.ToList()));
+                csvTask = Task.Factory.StartNew(() =>
+                        presenter.AddReport(csv.ToList()),
+                        System.Threading.CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext()
+                    );
             csvTask.ContinueWith((o) => csv.Dispose());
             //presenter.saveDb<datatype>();
         }
