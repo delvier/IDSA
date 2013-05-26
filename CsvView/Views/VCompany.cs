@@ -22,15 +22,15 @@ namespace IDSA.Views
         private void InitListBox ()
         {
             CompanyBox.DataSource = presenter.GetTestCompanies();
-            CompanyBox.DisplayMember = CsvEnums._company.Name.ToString();
+            CompanyBox.DisplayMember = CsvEnums.company.Name.ToString();
         }
         private void InitDropBoxs ()
         {
             CompanyTypes.DataSource = presenter.GetTestBindList();
-            CompanyTypes.DisplayMember = CsvEnums._company.Name.ToString();
+            CompanyTypes.DisplayMember = CsvEnums.company.Name.ToString();
 
             MarketType.DataSource = presenter.GetTestBindList();
-            MarketType.DisplayMember = CsvEnums._company.Name.ToString();
+            MarketType.DisplayMember = CsvEnums.company.Name.ToString();
         }
 
         private void CompanyFilter_TextChanged(object sender, System.EventArgs e)

@@ -55,12 +55,12 @@ namespace IDSA
 
         private void loadCsv_Click(object sender, EventArgs e)
         {
-            loadCsvData<CsvEnums._company>();
+            loadCsvData<CsvEnums.company>();
         }
 
         private void loadFinData_Click(object sender, EventArgs e)
         {
-            loadCsvData<CsvEnums._financialData>();
+            loadCsvData<CsvEnums.financialData>();
         }
 
         public void BoxMsg(string s)
@@ -97,7 +97,7 @@ namespace IDSA
         {
             //Task.WaitAll();
             Task csvTask;
-            if (presenter.GetCsvModel().FieldCount == Enum.GetNames(typeof(CsvEnums._company)).Length)
+            if (presenter.GetCsvModel().FieldCount == Enum.GetNames(typeof(CsvEnums.company)).Length)
             {
                 csvTask = Task.Factory.StartNew(() =>
                         presenter.AddCompany(presenter.GetCsvModel().ToList()),

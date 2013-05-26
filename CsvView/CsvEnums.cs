@@ -3,10 +3,7 @@
     class CsvEnums
     {
 
-        public _company Company { get; set; }
-        public _financialData FinancialData { get; set; }
-
-        public enum _financialData
+        public enum financialData
         {
             Id,         //1
             CmpId,      //2
@@ -86,7 +83,7 @@
             ColumnBX    //76
         }
 
-        public enum _company
+        public enum company
         {
             Id,
             ColumnB,
