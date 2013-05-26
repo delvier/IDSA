@@ -30,9 +30,9 @@
         {
             this.loadCsv = new System.Windows.Forms.Button();
             this.csvDataGrid = new System.Windows.Forms.DataGridView();
-            this.baseView = new System.Windows.Forms.Button();
             this.loadFinData = new System.Windows.Forms.Button();
             this.saveDb = new System.Windows.Forms.Button();
+            this.CsvDataTypeBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.csvDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,7 +42,7 @@
             this.loadCsv.Name = "loadCsv";
             this.loadCsv.Size = new System.Drawing.Size(75, 23);
             this.loadCsv.TabIndex = 0;
-            this.loadCsv.Text = "loadCmp";
+            this.loadCsv.Text = "Csv Load";
             this.loadCsv.UseVisualStyleBackColor = true;
             this.loadCsv.Click += new System.EventHandler(this.loadCsv_Click);
             // 
@@ -54,18 +54,8 @@
             this.csvDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.csvDataGrid.Location = new System.Drawing.Point(4, 33);
             this.csvDataGrid.Name = "csvDataGrid";
-            this.csvDataGrid.Size = new System.Drawing.Size(373, 207);
+            this.csvDataGrid.Size = new System.Drawing.Size(413, 232);
             this.csvDataGrid.TabIndex = 1;
-            // 
-            // baseView
-            // 
-            this.baseView.Location = new System.Drawing.Point(165, 4);
-            this.baseView.Name = "baseView";
-            this.baseView.Size = new System.Drawing.Size(75, 23);
-            this.baseView.TabIndex = 2;
-            this.baseView.Text = "base";
-            this.baseView.UseVisualStyleBackColor = true;
-            this.baseView.Click += new System.EventHandler(this.baseView_Click);
             // 
             // loadFinData
             // 
@@ -80,7 +70,7 @@
             // saveDb
             // 
             this.saveDb.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.saveDb.Location = new System.Drawing.Point(299, 4);
+            this.saveDb.Location = new System.Drawing.Point(339, 4);
             this.saveDb.Name = "saveDb";
             this.saveDb.Size = new System.Drawing.Size(75, 23);
             this.saveDb.TabIndex = 4;
@@ -88,17 +78,25 @@
             this.saveDb.UseVisualStyleBackColor = true;
             this.saveDb.Click += new System.EventHandler(this.saveDb_Click);
             // 
+            // CsvDataTypeBox
+            // 
+            this.CsvDataTypeBox.FormattingEnabled = true;
+            this.CsvDataTypeBox.Location = new System.Drawing.Point(165, 6);
+            this.CsvDataTypeBox.Name = "CsvDataTypeBox";
+            this.CsvDataTypeBox.Size = new System.Drawing.Size(94, 21);
+            this.CsvDataTypeBox.TabIndex = 5;
+            // 
             // VCsvLoad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.CsvDataTypeBox);
             this.Controls.Add(this.saveDb);
             this.Controls.Add(this.loadFinData);
-            this.Controls.Add(this.baseView);
             this.Controls.Add(this.csvDataGrid);
             this.Controls.Add(this.loadCsv);
             this.Name = "VCsvLoad";
-            this.Size = new System.Drawing.Size(377, 243);
+            this.Size = new System.Drawing.Size(417, 268);
             ((System.ComponentModel.ISupportInitialize)(this.csvDataGrid)).EndInit();
             this.ResumeLayout(false);
 
@@ -108,8 +106,8 @@
 
         private System.Windows.Forms.Button loadCsv;
         private System.Windows.Forms.DataGridView csvDataGrid;
-        private System.Windows.Forms.Button baseView;
         private System.Windows.Forms.Button loadFinData;
         private System.Windows.Forms.Button saveDb;
+        private System.Windows.Forms.ComboBox CsvDataTypeBox;
     }
 }

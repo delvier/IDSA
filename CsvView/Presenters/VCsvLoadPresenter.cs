@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DBModule;
 using LumenWorks.Framework.IO.Csv;
+using IDSA.Models;
 
 namespace IDSA.Presenters
 {
@@ -14,7 +15,7 @@ namespace IDSA.Presenters
     {
         private readonly IVCsvLoad view;
         private IUnitOfWork model;
-        private CachedCsvReader _csvModel;
+        private CsvModel _csvModel;
 
         public CsvEnums.DataType dataType { get; set; }
         // IDEAS: 
@@ -103,23 +104,28 @@ namespace IDSA.Presenters
         }
 
         // Provide ListOf Enum Names.
-        public List<string> getHeaders<T>(int cols)
+        public List<string> getHeaders<T>()
         {
             List<string> hList = new List<string>();
-            if (Enum.GetNames(typeof(T)).Length == cols) // dummy check size ? check types ?
+            if (Enum.GetNames(typeof(T)).Length == _csvModel.RowSize) // dummy check size ? check types ?
             {
                 var arr = Enum.GetNames(typeof(T)); //array
                 hList = arr.ToList<string>();
             }
+            else
+            {
+                view.BoxMsg("Size do not match");
+            }
             return hList;
         }
-        public bool LoadCsvFile(string fname)
+
+        public bool LoadCsvFile(string fname, CsvEnums.DataType typeOf)
         {
             if (fname == null)
                 return false;
             try
             {
-                _csvModel = (new CachedCsvReader(new StreamReader(fname), false));
+                _csvModel = new CsvModel((new CachedCsvReader(new StreamReader(fname), false)), typeOf);
                 return true;  
             }
             catch (IOException ex)
@@ -129,9 +135,9 @@ namespace IDSA.Presenters
             }
         }
 
-        public CachedCsvReader GetCsvModel ()
+        public CachedCsvReader GetCsvData ()
         {
-            return _csvModel;
+            return _csvModel.GetSourceData();
         }
 
     }

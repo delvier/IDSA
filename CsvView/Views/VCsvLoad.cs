@@ -9,12 +9,10 @@ namespace IDSA
 {
     public interface IVCsvLoad
     {
-        //void SetControler(CsvViewController ctr);
-        //void LoadCsvFile();
         void BoxMsg(string s);
-        string OpenDialog();
         void RefreshView();
-        //OpenFileDialog dialog { get; set; }
+        string OpenDialog();
+        void InitCsvDataBox();
     }
 
     public partial class VCsvLoad : UserControl, IVCsvLoad
@@ -25,8 +23,9 @@ namespace IDSA
         public VCsvLoad()
         {
             InitializeComponent();
-            ServiceLocator.Instance.Register(new VCsvLoadPresenter(this)); 
+            ServiceLocator.Instance.Register(new VCsvLoadPresenter(this));
             presenter = ServiceLocator.Instance.Resolve<VCsvLoadPresenter>();
+            this.InitCsvDataBox(); // just init data type enum list
         }
 
         protected override void OnLoad(EventArgs e)
@@ -37,30 +36,31 @@ namespace IDSA
 
         private void prepareGridHeaders<T>()
         {
-            var collection = presenter.getHeaders<T>(csvDataGrid.Columns.Count);
+            var collection = presenter.getHeaders<T>();
             foreach (var element in collection)
             {
                 csvDataGrid.Columns[collection.IndexOf(element)].HeaderText = element.ToString();
             }
         }
 
-        private void loadCsvData<T>()
+        private void loadCsvData<T>(CsvEnums.DataType typeOf)
         {
-            if (presenter.LoadCsvFile(OpenDialog())) // if file loaded successfull
+            if (presenter.LoadCsvFile(OpenDialog(), typeOf)) // if file loaded successfull
             {
-                csvDataGrid.DataSource = presenter.GetCsvModel();
-                prepareGridHeaders<T>();
+                csvDataGrid.DataSource = presenter.GetCsvData();
+                this.prepareGridHeaders<T>();
             }
         }
 
         private void loadCsv_Click(object sender, EventArgs e)
         {
-            loadCsvData<CsvEnums.company>();
+            var DataType = (CsvEnums.DataType)Enum.Parse(typeof(CsvEnums.DataType), CsvDataTypeBox.SelectedItem.ToString());
+            this.loadCsvData<CsvEnums.company>(DataType);
         }
 
         private void loadFinData_Click(object sender, EventArgs e)
         {
-            loadCsvData<CsvEnums.financialData>();
+            this.loadCsvData<CsvEnums.financialData>(CsvEnums.DataType.Financial);
         }
 
         public void BoxMsg(string s)
@@ -83,34 +83,39 @@ namespace IDSA
             }
         }
 
-        private void baseView_Click(object sender, EventArgs e)
-        {
-            //presenter.selectColumns();
-        }
-
         public void RefreshView()
         {
-            //presenter.
+            csvDataGrid.DataSource = presenter.GetCsvData();
         }
 
         private void saveDb_Click(object sender, EventArgs e)
         {
             //Task.WaitAll();
             Task csvTask;
-            if (presenter.GetCsvModel().FieldCount == Enum.GetNames(typeof(CsvEnums.company)).Length)
+            if (presenter.dataType == CsvEnums.DataType.Company)
             {
                 csvTask = Task.Factory.StartNew(() =>
-                        presenter.AddCompany(presenter.GetCsvModel().ToList()),
+                        presenter.AddCompany(presenter.GetCsvData().ToList()),
                         System.Threading.CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext()
                     );
+                csvTask.ContinueWith((o) => presenter.GetCsvData().Dispose());
             }
-            else
+            else if (presenter.dataType == CsvEnums.DataType.Financial)
+            {
                 csvTask = Task.Factory.StartNew(() =>
-                        presenter.AddReport(presenter.GetCsvModel().ToList()),
-                        System.Threading.CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext()
-                    );
-            csvTask.ContinueWith((o) => presenter.GetCsvModel().Dispose());
+                    presenter.AddReport(presenter.GetCsvData().ToList()),
+                    System.Threading.CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext()
+                );
+                csvTask.ContinueWith((o) => presenter.GetCsvData().Dispose());    
+            }
+            
             //presenter.saveDb<datatype>();
+        }
+
+
+        public void InitCsvDataBox()
+        {
+            CsvDataTypeBox.DataSource = Enum.GetNames(typeof(CsvEnums.DataType));
         }
     }
 }
