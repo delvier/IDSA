@@ -101,6 +101,7 @@ namespace IDSA
             this.button1.TabIndex = 2;
             this.button1.Text = "AddCompany";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Select
@@ -296,7 +297,7 @@ namespace IDSA
             this.companyDataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.companyDataGridView.Name = "companyDataGridView";
             this.companyDataGridView.RowTemplate.Height = 24;
-            this.companyDataGridView.Size = new System.Drawing.Size(564, 601);
+            this.companyDataGridView.Size = new System.Drawing.Size(570, 601);
             this.companyDataGridView.TabIndex = 5;
             // 
             // Column1
@@ -367,7 +368,7 @@ namespace IDSA
             this.reportsDataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.reportsDataGridView.Name = "reportsDataGridView";
             this.reportsDataGridView.RowTemplate.Height = 24;
-            this.reportsDataGridView.Size = new System.Drawing.Size(747, 433);
+            this.reportsDataGridView.Size = new System.Drawing.Size(741, 433);
             this.reportsDataGridView.TabIndex = 5;
             // 
             // Column2
@@ -422,18 +423,21 @@ namespace IDSA
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 27);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.companyDataGridView);
+            this.splitContainer1.Panel1MinSize = 570;
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Panel2MinSize = 200;
             this.splitContainer1.Size = new System.Drawing.Size(1315, 601);
-            this.splitContainer1.SplitterDistance = 564;
+            this.splitContainer1.SplitterDistance = 570;
             this.splitContainer1.TabIndex = 6;
             // 
             // splitContainer2
@@ -455,7 +459,7 @@ namespace IDSA
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.reportsDataGridView);
-            this.splitContainer2.Size = new System.Drawing.Size(747, 601);
+            this.splitContainer2.Size = new System.Drawing.Size(741, 601);
             this.splitContainer2.SplitterDistance = 164;
             this.splitContainer2.TabIndex = 6;
             // 
