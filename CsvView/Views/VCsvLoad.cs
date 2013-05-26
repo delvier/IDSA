@@ -54,8 +54,8 @@ namespace IDSA
 
         private void loadCsv_Click(object sender, EventArgs e)
         {
-            var DataType = (CsvEnums.DataType)Enum.Parse(typeof(CsvEnums.DataType), CsvDataTypeBox.SelectedItem.ToString());
-            this.loadCsvData(DataType);
+            presenter.dataType = (CsvEnums.DataType)Enum.Parse(typeof(CsvEnums.DataType), CsvDataTypeBox.SelectedItem.ToString());
+            this.loadCsvData(presenter.dataType);
         }
 
         private void loadFinData_Click(object sender, EventArgs e)
