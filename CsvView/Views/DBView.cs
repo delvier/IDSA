@@ -14,21 +14,46 @@ namespace IDSA
     public partial class DBView : UserControl, IDbView
     {
         private DbViewPresenter presenter;
-        
+
         public DBView()
         {
             InitializeComponent();
             ServiceLocator.Instance.Register(new DbViewPresenter(this));
             presenter = ServiceLocator.Instance.Resolve<DbViewPresenter>();
+
+            //EventHandlerClass eventHanderClass = new EventHandlerClass();
+            Initialization initialization = ServiceLocator.Instance.Resolve<Initialization>();
+            //initialization.InitializationDone += eventHanderClass.DbInitializationComplete;
+            initialization.InitializationDone += dbInitialization;
+            //initialization.Initialize(false);
+
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            presenter.OnLoad();
+            //    this.Info.Text = "DB is still loading, please wait...";
+            //presenter.OnLoad();
+            //this.Info.Text = presenter.dbInfo();
+            //this.companyBindingSource.DataSource = presenter.GetAllCompanies();
+            //this.reportsBindingSource.DataSource = presenter.GetRecords();
+        }
+
+        private void dbInitialization(object sender, EventArgs e)
+        {
+            //DbInitialization dbInitialization = e as DbInitialization;
+            //presenter.OnLoad();
+            //Label.CheckForIllegalCrossThreadCalls = false;
             this.Info.Text = presenter.dbInfo();
             this.companyBindingSource.DataSource = presenter.GetAllCompanies();
-            //this.reportsBindingSource.DataSource = presenter.GetRecords();
+            this.button1.Visible = true;
+            this.button1.Refresh();
+        }
+
+        private void dbChanged(object sender, EventArgs e)
+        {
+            this.Info.Text = presenter.dbChanged();
+            this.companyBindingSource.DataSource = presenter.GetAllCompanies();
         }
 
         private void companyBindingNavigatorSaveItem_Click(object sender, EventArgs e)

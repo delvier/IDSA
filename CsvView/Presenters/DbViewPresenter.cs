@@ -20,17 +20,22 @@ namespace IDSA.Presenters
             this.view = view;
         }
 
-        public void OnLoad()
+        internal string dbInfo()
         {
             Task.WaitAll();
             model = ServiceLocator.Instance.Resolve<EFUnitOfWork>();
+            model.Companies.Query().Load();
+            model.Reports.Query().Load();
+            return dbChanged();
         }
 
-        public string dbInfo()
+        internal string dbChanged()
         {
+            //model.Companies.Query().Load();
+            //model.Reports.Query().Load();
             return "DataBase sum up:\n  Companies  = " +
-                model.Companies.Query().Count() + "\n  Reports     = " +
-                model.Reports.Query().Count();
+                    model.Companies.Query().Count() + "\n  Reports       = " +
+                    model.Reports.Query().Count();
         }
 
         public BindingList<Company> GetAllCompanies()
@@ -115,60 +120,58 @@ namespace IDSA.Presenters
             }
             //ServiceLocator.Instance.Register<EFUnitOfWork>(model);
         }
-
-        public void Dispose()
-        {
-            model.Dispose();
-        }
-
+        
         #region Testing methods(TODO: delete on the end)
 
         public void AddRecords()
         {
             var company = new Company
             {
+                Id = 9934,
                 Name = "Wawel",
                 Shortcut = "WWL",
                 Href = "http://www.wawel.com.pl/",
-                Description = ""
+                Description = "",
+                Date = new DateTime(2007, 12, 21),
+                Reports = new ObservableListSource<Report>() 
+                {
+                    new Report
+                    {
+                        Id = 9934,
+                        Year = 2011,
+                        NetProfit = 1000
+                    },
+                    new Report
+                    {
+                        Id = 9935,
+                        Year = 2012,
+                        NetProfit = 3010
+                    }
+                }
             };
 
             model.Companies.Add(company);
-            model.Commit();
-
-            var report = new Report
-            {
-                //CompanyId = "WWL",
-                Year = 2011,
-                NetProfit = 1000
-            };
-            var report2 = new Report
-            {
-                CompanyId = model.Companies.Query().SingleOrDefault(x => x.Shortcut == "WWL").Id,
-                Year = 2012,
-                NetProfit = 3010
-            };
-
-            model.Reports.Add(report);
-            model.Reports.Add(report2);
             model.Commit();
         }
 
         public void AddsNewCompany()
         {
+            //model.Companies.Query().Load();
             var company = new Company
             {
+                Id = 1234,
                 Shortcut = "WMO",
                 Name = "Wind Mobile",
                 Description = "Halogranie i Reklamowka",
-                Href = "http://www.windmobile.pl"
+                Href = "http://www.windmobile.pl",
+                Date = new DateTime(2007, 12, 21)
             };
             model.Companies.Add(company);
             model.Commit();
 
             var report = new Report
             {
-                //CompanyId = "WMO",
+                CompanyId = 1234,
                 Year = 2011,
                 NetProfit = 1000,
                 Quarter = 3
