@@ -1,7 +1,12 @@
 ﻿namespace IDSA
 {
-    class CsvEnums
+    public class CsvEnums
     {
+        public enum DataType
+        {
+            Company,
+            Financial
+        }
 
         public enum financialData
         {

@@ -13,8 +13,8 @@ namespace IDSA.Presenters
     {
         VCompany view;
         private IUnitOfWork dbModel;
-        private readonly IDataService<Company> _companyDataService;
 
+        private readonly IDataService<Company> _companyDataService;
         private IEnumerable<Company> _cmpData;
 
         public VCompanyPresenter(VCompany view)

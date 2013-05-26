@@ -16,6 +16,7 @@ namespace IDSA.Presenters
         private IUnitOfWork model;
         private CachedCsvReader _csvModel;
 
+        public CsvEnums.DataType dataType { get; set; }
         // IDEAS: 
         // C : select collumns <listOfColumnsToSelect> -> remove or hide ?
         // C : giveOutData for View
@@ -112,17 +113,14 @@ namespace IDSA.Presenters
             }
             return hList;
         }
-
         public bool LoadCsvFile(string fname)
         {
             if (fname == null)
                 return false;
             try
             {
-                
                 _csvModel = (new CachedCsvReader(new StreamReader(fname), false));
-                return true;
-                //IBindingList test = _csvReader.AsEnumerable<IBindingList>();     
+                return true;  
             }
             catch (IOException ex)
             {
