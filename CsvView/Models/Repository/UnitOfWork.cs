@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 
-namespace DBModule
+namespace IDSA.Models.Repository
 {
     public interface IUnitOfWork : IDisposable
     {

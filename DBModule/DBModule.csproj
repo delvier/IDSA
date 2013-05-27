@@ -47,16 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataBase\Company.cs" />
-    <Compile Include="DataBase\Comparers.cs" />
-    <Compile Include="DataBase\Context.cs" />
-    <Compile Include="DataBase\DatabaseInitializer.cs" />
-    <Compile Include="Repository\Repository.cs" />
-    <Compile Include="DataBase\ObservableListSource.cs" />
-    <Compile Include="Repository\OldRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DataBase\Report.cs" />
-    <Compile Include="Repository\UnitOfWork.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

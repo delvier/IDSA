@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-using DBModule;
+using IDSA.Models.Repository;
 
 namespace IDSA
 {

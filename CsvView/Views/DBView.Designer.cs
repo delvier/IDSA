@@ -192,7 +192,7 @@ namespace IDSA
             // 
             // companyBindingSource
             // 
-            this.companyBindingSource.DataSource = typeof(DBModule.Company);
+            this.companyBindingSource.DataSource = typeof(IDSA.Models.Company);
             // 
             // bindingNavigatorCountItem
             // 

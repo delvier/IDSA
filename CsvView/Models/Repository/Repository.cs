@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
 
-namespace DBModule
+namespace IDSA.Models.Repository
 {
     public interface IRepository<E>
     {

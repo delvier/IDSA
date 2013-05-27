@@ -1,7 +1,6 @@
 ﻿using System.Data.Entity;
-using System.Linq;
 
-namespace DBModule
+namespace IDSA.Models
 {
     public class ContextDatabaseInitializer : IDatabaseInitializer<Context>
     {

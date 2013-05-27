@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DBModule.DataBase
+namespace IDSA.Models
 {
     //TODO: pin to compare Reports
     public class ReportComparer : IEqualityComparer<Report>

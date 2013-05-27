@@ -1,7 +1,5 @@
 ﻿using System.Windows.Forms;
 using IDSA.Presenters;
-using System.ComponentModel;
-using DBModule;
 
 namespace IDSA.Views
 {

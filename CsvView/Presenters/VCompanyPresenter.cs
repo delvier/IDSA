@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using DBModule;
-using IDSA.Views;
+using IDSA.Models;
+using IDSA.Models.Repository;
 using IDSA.Services;
-using System.Collections;
+using IDSA.Views;
 
 namespace IDSA.Presenters
 {

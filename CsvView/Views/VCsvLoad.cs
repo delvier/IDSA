@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using IDSA.Presenters;
-using LumenWorks.Framework.IO.Csv;
 
 namespace IDSA
 {

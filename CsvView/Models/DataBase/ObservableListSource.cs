@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data.Entity;   //ToBindingList
 
-namespace DBModule
+namespace IDSA.Models
 {
     public class ObservableListSource<T> : ObservableCollection<T>, IListSource
         where T : class

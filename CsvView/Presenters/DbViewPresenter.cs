@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using DBModule;
+using IDSA.Models;
+using IDSA.Models.Repository;
 using LumenWorks.Framework.IO.Csv;
 
 namespace IDSA.Presenters

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 
-namespace DBModule
+namespace IDSA.Models
 {
     public class Context : DbContext
     {
