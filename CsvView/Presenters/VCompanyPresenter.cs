@@ -22,9 +22,11 @@ namespace IDSA.Presenters
         {
             this._companyDataService = (IDataService<Company>)(new CompanyDataService());
             this.view = view;
+            //delegates
+            ServiceLocator.Instance.Resolve<DbCreate>().DbCreateDone += view.RefreshView;
         }
 
-        public List<string> GetCompanies()
+        public List<string> GetDbCompanies()
         {
             dbModel = ServiceLocator.Instance.Resolve<EFUnitOfWork>();
             List<string> cmpList = new List<string>();

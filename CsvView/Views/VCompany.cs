@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using IDSA.Presenters;
+using System;
 
 namespace IDSA.Views
 {
@@ -11,15 +12,10 @@ namespace IDSA.Views
             InitializeComponent();
             ServiceLocator.Instance.Register(new VCompanyPresenter(this));
             presenter = ServiceLocator.Instance.Resolve<VCompanyPresenter>();
-            //init Company Box
-            //CompanyBox.BindingContext = presenter.GetCompanies();
-            //TestOnly
-            this.InitListBox();
-            this.InitDropBoxs();
         }
         private void InitListBox ()
         {
-            CompanyBox.DataSource = presenter.GetTestCompanies();
+            CompanyBox.DataSource = presenter.GetDbCompanies();
             CompanyBox.DisplayMember = CsvEnums.company.Name.ToString();
         }
         private void InitDropBoxs ()
@@ -36,6 +32,19 @@ namespace IDSA.Views
             CompanyBox.BeginUpdate();
             CompanyBox.DataSource = presenter.GetFilterBox(CompanyFilter.Text);
             CompanyBox.EndUpdate();
+        }
+
+        public void RefreshView()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() => RefreshView()));
+            }
+            else
+            {
+                this.InitListBox();
+                this.InitDropBoxs();
+            }
         }
     }
 }
