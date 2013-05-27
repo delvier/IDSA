@@ -8,6 +8,7 @@ namespace IDSA.Models.Repository
         IRepository<Company> Companies { get; }
         IRepository<Report> Reports { get; }
         void Commit();
+        void Load();
     }
 
     public class EFUnitOfWork : IUnitOfWork
@@ -62,6 +63,12 @@ namespace IDSA.Models.Repository
         public void Commit()
         {
             context.SaveChanges();
+        }
+
+        public void Load()
+        {
+            Companies.Query().Load();
+            Reports.Query().Load();
         }
 
         #endregion

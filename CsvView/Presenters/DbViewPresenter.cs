@@ -22,23 +22,26 @@ namespace IDSA.Presenters
 
         internal string dbInfo()
         {
-            //Task.WaitAll(Program.dbCreate);
             if (model == null)
             {
                 model = ServiceLocator.Instance.Resolve<IUnitOfWork>();
-                model.Companies.Query().Load();
-                model.Reports.Query().Load();
             }
             return dbChanged();
         }
 
         internal string dbChanged()
         {
-            //model.Companies.Query().Load();
-            //model.Reports.Query().Load();
+            model.Load();
             return "DataBase sum up:\n  Companies  = " +
-                    model.Companies.Query().Count() + "\n  Reports       = " +
+                    model.Companies.Query().Count() + "\n  Reports         = " +
                     model.Reports.Query().Count();
+        }
+
+        internal void CleanDatabase()
+        {
+            model.Companies.RemoveAll();
+            model.Reports.RemoveAll();
+            model.Commit();
         }
 
         public BindingList<Company> GetAllCompanies()
@@ -49,6 +52,11 @@ namespace IDSA.Presenters
         public void AddCompany(Company company)
         {
             model.Companies.Add(company);
+            model.Commit();
+        }
+
+        internal void SaveDatabase()
+        {
             model.Commit();
         }
 
@@ -199,18 +207,5 @@ namespace IDSA.Presenters
         }
 
         #endregion
-
-        internal void CleanDatabase()
-        {
-            foreach (var company in model.Companies.Query().ToList())
-            {
-                model.Companies.Remove(company);
-            }
-
-            foreach (var report in model.Reports.Query().ToList())
-            {
-                model.Reports.Remove(report);
-            }
-        }
     }
 }

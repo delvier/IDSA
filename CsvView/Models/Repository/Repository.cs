@@ -10,16 +10,16 @@ namespace IDSA.Models.Repository
         void Add(E entity);
         void Update(E entity);
         void Remove(E entity);
+        void RemoveAll();
         IQueryable<E> Query();
-        //DbSet<E> GetAll();    // TODO: problem with DbSet<E> ???
         BindingList<E> GetAll();
     }
-    
+
     public abstract class EFRepository<E> : IRepository<E>
         where E : class
     {
         #region Members
-        
+
         protected readonly DbSet<E> dbSet;
 
         #endregion
@@ -42,7 +42,7 @@ namespace IDSA.Models.Repository
             dbSet.Add(entity);
         }
 
-        public void Update(E entity)
+        public virtual void Update(E entity)
         {
             dbSet.Attach(entity);
         }
@@ -52,25 +52,23 @@ namespace IDSA.Models.Repository
             dbSet.Remove(entity);
         }
 
+        public void RemoveAll()
+        {
+            foreach (var item in dbSet.ToList())
+            {
+                this.Remove(item);
+            }
+        }
+
         public IQueryable<E> Query()
         {
             return dbSet;
         }
 
-        //public DbSet<E> GetAll()
-        //{
-        //    return dbSet;
-        //}
-
         public BindingList<E> GetAll()
         {
             return dbSet.Local.ToBindingList();
         }
-
-        //public void Load()
-        //{
-        //    return dbSet.Load
-        //}
 
         #endregion
     }
@@ -93,9 +91,19 @@ namespace IDSA.Models.Repository
         {
             // TODO: Add Cashing Entites (.NET 4.5 contains in automatically)
             if (dbSet.Any(c => c.Id == company.Id)) //dbSet.Contains(company))
-                throw new InvalidOperationException("Can not add existing report to the database");
+                this.Update(company);
             else
                 base.Add(company);
+        }
+
+        public override void Update(Company company)
+        {
+            using (var dbNew = new Context())
+            {
+                Company temp = dbNew.Companies.Find(company.Id);
+                dbNew.Entry<Company>(temp).CurrentValues.SetValues(company);
+                dbNew.SaveChanges();
+            }
         }
     }
 
@@ -110,13 +118,22 @@ namespace IDSA.Models.Repository
 
         public override void Add(Report report)
         {
-            //if(dbSet.)
             //TODO: Add using ReportComparer
-            if (dbSet.Any(r => r.CompanyId == report.CompanyId && r.Year == report.Year && r.Quarter == report.Quarter))    // TODO: Add comparer functions
-                throw new InvalidOperationException("Can not add existing report to the database");
-                // base.Update(report);    // TODO: Jakis fuck-up z update'owaniem raportow w bazie !!!!!!!
+            //if (dbSet.Any(r => r.CompanyId == report.CompanyId && r.Year == report.Year && r.Quarter == report.Quarter))    // TODO: Add comparer functions
+            if(dbSet.Any(r => r.Id == report.Id))
+                this.Update(report);
             else
                 base.Add(report);
+        }
+
+        public override void Update(Report report)
+        {
+            using (var dbNew = new Context())
+            {
+                Report temp = dbNew.Reports.Find(report.Id);
+                dbNew.Entry<Report>(temp).CurrentValues.SetValues(report);
+                dbNew.SaveChanges();
+            }
         }
     }
 

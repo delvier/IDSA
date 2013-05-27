@@ -90,10 +90,10 @@ namespace IDSA
 
         private void companyBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
-            // refresh
             this.Validate();
             this.companyDataGridView.Refresh();
             this.reportsDataGridView.Refresh();
+            presenter.SaveDatabase();
         }
 
         private void CreateDatabase_Click(object sender, EventArgs e)
