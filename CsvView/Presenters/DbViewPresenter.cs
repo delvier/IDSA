@@ -20,16 +20,16 @@ namespace IDSA.Presenters
             this.view = view;
         }
 
-        internal string dbInfo()
+        internal string dbCreateDone()
         {
             if (model == null)
             {
                 model = ServiceLocator.Instance.Resolve<IUnitOfWork>();
             }
-            return dbChanged();
+            return dbUpdateDone();
         }
 
-        internal string dbChanged()
+        internal string dbUpdateDone()
         {
             model.Load();
             return "DataBase sum up:\n  Companies  = " +

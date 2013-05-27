@@ -495,9 +495,9 @@ namespace IDSA
             this.Info.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Info.Location = new System.Drawing.Point(3, 0);
             this.Info.Name = "Info";
-            this.Info.Size = new System.Drawing.Size(173, 25);
+            this.Info.Size = new System.Drawing.Size(163, 50);
             this.Info.TabIndex = 5;
-            this.Info.Text = "DataBase sum up:";
+            this.Info.Text = "DB is still loading.\r\n... please wait ...\r\n";
             // 
             // DBView
             // 

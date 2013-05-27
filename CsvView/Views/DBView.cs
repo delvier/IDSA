@@ -34,6 +34,15 @@ namespace IDSA
             ServiceLocator.Instance.Resolve<DbUpdate>().DbUpdateDone += DBView_DbUpdateDone;
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            // change introduced only for testing purposes
+            this.CreateDatabase.Text = "Clean Database Now";
+        }
+
+        #region Delegates implementation
+
         private void DBView_DbCreateDone()
         {
             if (this.InvokeRequired)
@@ -42,14 +51,16 @@ namespace IDSA
             }
             else
             {
-                this.Info.Text = presenter.dbInfo();
+                // Instead of Invoke() we can add this below:
+                //Label.CheckForIllegalCrossThreadCalls = false;
+                this.Info.Text = presenter.dbCreateDone();
                 this.companyBindingSource.DataSource = presenter.GetAllCompanies();
                 this.button1.Visible = true;
                 this.button1.Refresh();
             }
         }
 
-        void DBView_DbUpdateDone()
+        private void DBView_DbUpdateDone()
         {
             if (this.InvokeRequired)
             {
@@ -57,36 +68,11 @@ namespace IDSA
             }
             else
             {
-                this.Info.Text = presenter.dbInfo();
+                this.Info.Text = presenter.dbUpdateDone();
             }
         }
 
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            //    this.Info.Text = "DB is still loading, please wait...";
-            //presenter.OnLoad();
-            //this.Info.Text = presenter.dbInfo();
-            //this.companyBindingSource.DataSource = presenter.GetAllCompanies();
-            //this.reportsBindingSource.DataSource = presenter.GetRecords();
-        }
-
-        private void dbInitialization(object sender, EventArgs e)
-        {
-            //DbInitialization dbInitialization = e as DbInitialization;
-            //presenter.OnLoad();
-            //Label.CheckForIllegalCrossThreadCalls = false;
-            this.Info.Text = presenter.dbInfo();
-            this.companyBindingSource.DataSource = presenter.GetAllCompanies();
-            this.button1.Visible = true;
-            this.button1.Refresh();
-        }
-
-        private void dbChanged(object sender, EventArgs e)
-        {
-            this.Info.Text = presenter.dbChanged();
-            this.companyBindingSource.DataSource = presenter.GetAllCompanies();
-        }
+        #endregion
 
         private void companyBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
@@ -102,15 +88,11 @@ namespace IDSA
             this.progressBar.Refresh();
             presenter.CleanDatabase();
             //presenter.CreateDatabase();
-            //this.Info.Text = presenter.dbInfo();
-            ServiceLocator.Instance.Resolve<DbUpdate>().Update();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             presenter.AddsNewCompany();
-            // TODO: Change place, where fire event ;)
-            ServiceLocator.Instance.Resolve<DbUpdate>().Update();
         }
 
         //[TestMethod()]        //UNIT Tests

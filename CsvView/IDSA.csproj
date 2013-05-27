@@ -57,7 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbInitializationEvent.cs" />
+    <Compile Include="Events.cs" />
     <Compile Include="Models\CsvModel.cs" />
     <Compile Include="Models\DataBase\Company.cs" />
     <Compile Include="Models\DataBase\Comparers.cs" />
