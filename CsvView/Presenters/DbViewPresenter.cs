@@ -43,6 +43,10 @@ namespace IDSA.Presenters
 
         internal void CleanDatabase()
         {
+            // faster way of cleaning database ;) NOT WORKING YET (other views lost connection to model, but it is faster)
+            //ServiceLocator.Instance.Resolve<IUnitOfWork>().Dispose();
+            //ServiceLocator.Instance.Register<IUnitOfWork>(new EFUnitOfWork(new Context(new DropCreateDatabaseAlways<Context>())));
+            //ServiceLocator.Instance.Resolve<DbCreate>().Create();
             model.Companies.RemoveAll();
             model.Reports.RemoveAll();
             model.Commit();
@@ -66,6 +70,8 @@ namespace IDSA.Presenters
 
         internal void CreateDatabase()
         {
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
             //TODO: Change this PATH in release: ..\\..\\..\\DataCsvExampales\\company.csv !!!!!!!!!!!!!
             using (CachedCsvReader csv = new CachedCsvReader(new StreamReader("..\\..\\..\\DataCsvExampales\\company.csv"), false))
             {
@@ -102,7 +108,6 @@ namespace IDSA.Presenters
                     }
                 }
                 model.Commit();
-                System.Threading.Thread.Sleep(1500);
             }
             using (CachedCsvReader csv = new CachedCsvReader(new StreamReader("..\\..\\..\\DataCsvExampales\\findata2.csv"), false))
             {
@@ -143,6 +148,10 @@ namespace IDSA.Presenters
                 }
                 model.Commit();
             }
+            sw.Stop();
+            var timeOverallMinutes = sw.Elapsed.Minutes;
+            var timeOverallSeconds = sw.Elapsed.Minutes;
+            view.UpdateLabel("\nMin: " + timeOverallMinutes.ToString() + " sec: " + timeOverallSeconds.ToString());
         }
 
         #region Testing methods(TODO: delete on the end)

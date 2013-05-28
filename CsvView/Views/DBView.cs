@@ -10,6 +10,7 @@ namespace IDSA
         //void AddCompany(Company company);
         //void AddCompany(List<Company> companies)
         void UpdateProgressBar(int percent);
+        void UpdateLabel(string p);
     }
 
     public partial class DBView : UserControl, IDbView
@@ -72,6 +73,11 @@ namespace IDSA
                 percent = 100;
             this.progressBar.Value = percent;
             this.progressBar.Refresh();
+        }
+
+        public void UpdateLabel(string text)
+        {
+            this.Info.Text += text;
         }
 
         private void companyBindingNavigatorSaveItem_Click(object sender, EventArgs e)
