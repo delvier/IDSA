@@ -28,7 +28,8 @@ namespace IDSA.Presenters
 
         public List<string> GetDbCompanies()
         {
-            dbModel = ServiceLocator.Instance.Resolve<EFUnitOfWork>();
+            if (dbModel == null)
+                dbModel = ServiceLocator.Instance.Resolve<IUnitOfWork>();
             List<string> cmpList = new List<string>();
             foreach (var el in dbModel.Companies.GetAll().ToList())
             {
