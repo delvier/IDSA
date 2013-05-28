@@ -46,5 +46,17 @@ namespace IDSA.Views
                 this.InitDropBoxs();
             }
         }
+        #region Chart usage methods
+
+        private void ChartPopulatingData()
+        {
+            // TODO: populate data from DB
+            double[] yval = { 5, 6, 4, 3, 7 };
+            string[] xval = { "A", "B", "C", "D", "E"};
+
+            //chart1.Series.Add("Sample data").AxisLabel.
+        }
+
+        #endregion
     }
 }
