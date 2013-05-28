@@ -9,6 +9,7 @@ namespace IDSA
         //void Refresh();
         //void AddCompany(Company company);
         //void AddCompany(List<Company> companies)
+        void UpdateProgressBar(int percent);
     }
 
     public partial class DBView : UserControl, IDbView
@@ -21,24 +22,15 @@ namespace IDSA
             ServiceLocator.Instance.Register(new DbViewPresenter(this));
             presenter = ServiceLocator.Instance.Resolve<DbViewPresenter>();
 
-            //EventHandlerClass eventHanderClass = new EventHandlerClass();
-            //Initialization initialization = ServiceLocator.Instance.Resolve<Initialization>();
-            //initialization.InitializationDone += eventHanderClass.DbInitializationComplete;
-            //initialization.InitializationDone += dbInitialization;
-            //initialization.Initialize(false);
-
-            //DbUpdate dbUpdate = ServiceLocator.Instance.Resolve<DbUpdate>();
-            //dbUpdate.DbUpdateDone += new DbUpdateDelegate(UpdateLabel);
-
             ServiceLocator.Instance.Resolve<DbCreate>().DbCreateDone += DBView_DbCreateDone;
-            ServiceLocator.Instance.Resolve<DbUpdate>().DbUpdateDone += DBView_DbUpdateDone;
+            ServiceLocator.Instance.Resolve<DbUpdate>().DbUpdateDone += new DbUpdateDelegate(DBView_DbUpdateDone);
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             // change introduced only for testing purposes
-            this.CreateDatabase.Text = "Clean Database Now";
+            this.Select.Text = "Clean";
         }
 
         #region Delegates implementation
@@ -74,6 +66,14 @@ namespace IDSA
 
         #endregion
 
+        public void UpdateProgressBar(int percent)
+        {
+            if (percent > 100)
+                percent = 100;
+            this.progressBar.Value = percent;
+            this.progressBar.Refresh();
+        }
+
         private void companyBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
             this.Validate();
@@ -87,7 +87,9 @@ namespace IDSA
             this.progressBar.Visible = true;
             this.progressBar.Refresh();
             presenter.CleanDatabase();
-            //presenter.CreateDatabase();
+            presenter.CreateDatabase();
+            this.progressBar.Visible = false;
+            this.progressBar.Refresh();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -95,9 +97,9 @@ namespace IDSA
             presenter.AddsNewCompany();
         }
 
-        //[TestMethod()]        //UNIT Tests
         private void Select_Click(object sender, EventArgs e)
         {
+            presenter.CleanDatabase();
             //var id = "WWL";
             //var query = db.Companies
             //            .Where(c => c.Symbol == id)

@@ -20,6 +20,8 @@ namespace IDSA.Presenters
             this.view = view;
         }
 
+        #region Delegates implementation(derivative)
+
         internal string dbCreateDone()
         {
             if (model == null)
@@ -36,6 +38,8 @@ namespace IDSA.Presenters
                     model.Companies.Query().Count() + "\n  Reports         = " +
                     model.Reports.Query().Count();
         }
+        
+        #endregion
 
         internal void CleanDatabase()
         {
@@ -44,12 +48,12 @@ namespace IDSA.Presenters
             model.Commit();
         }
 
-        public BindingList<Company> GetAllCompanies()
+        internal BindingList<Company> GetAllCompanies()
         {
             return model.Companies.GetAll();
         }
 
-        public void AddCompany(Company company)
+        internal void AddCompany(Company company)
         {
             model.Companies.Add(company);
             model.Commit();
@@ -62,14 +66,12 @@ namespace IDSA.Presenters
 
         internal void CreateDatabase()
         {
-            // TODO: Recreate Database in this place
-            //model = new EFUnitOfWork(new Context(new DropCreateDatabaseAlways<Context>()));
-            // progressBar actualize on Tasks
-
             //TODO: Change this PATH in release: ..\\..\\..\\DataCsvExampales\\company.csv !!!!!!!!!!!!!
             using (CachedCsvReader csv = new CachedCsvReader(new StreamReader("..\\..\\..\\DataCsvExampales\\company.csv"), false))
             {
-                foreach (var item in csv.ToList().Take(100))
+                //csv.Count();
+                int i = 0;
+                foreach (var item in csv.ToList())
                 {
                     string[] cos = item[(int)CsvEnums.company.Date].Split('-');
                     var company = new Company()
@@ -91,14 +93,22 @@ namespace IDSA.Presenters
                         ShareNumbers = Int64.Parse(item[(int)CsvEnums.company.ShareNumbers])
                     };
                     model.Companies.Add(company);
-                    // TODO: commit after Xth adding company occurence
+                    i++;
+                    if (i % 100 == 0)
+                    {
+                        view.UpdateProgressBar((int)(i/50));
+                        //System.Threading.Thread.Sleep(500);
+                        //model.Commit();
+                    }
                 }
                 model.Commit();
+                System.Threading.Thread.Sleep(1500);
             }
             using (CachedCsvReader csv = new CachedCsvReader(new StreamReader("..\\..\\..\\DataCsvExampales\\findata2.csv"), false))
             {
+                int i = 880;
                 long tempVal;
-                foreach (var item in csv.ToList().Take(100))
+                foreach (var item in csv.ToList())
                 {
                     var report = new Report()
                     {
@@ -125,11 +135,14 @@ namespace IDSA.Presenters
                         NetParentProfit = Int64.TryParse(item[(int)CsvEnums.financialData.NetParentProfit], out tempVal) ? tempVal : 0,
                     };
                     model.Reports.Add(report);
-                    // TODO: commit after Xth adding company occurence
+                    i++;
+                    if (i % 500 == 0)
+                    {
+                        view.UpdateProgressBar((int)(i / 170));
+                    }
                 }
                 model.Commit();
             }
-            //ServiceLocator.Instance.Register<EFUnitOfWork>(model);
         }
 
         #region Testing methods(TODO: delete on the end)
@@ -163,6 +176,8 @@ namespace IDSA.Presenters
 
             model.Companies.Add(company);
             model.Commit();
+            //delete relationship
+            //db.Entry(report).Reference(r => r.CompanySymbol).CurrentValue = null;
         }
 
         public void AddsNewCompany()
@@ -189,21 +204,6 @@ namespace IDSA.Presenters
             };
             model.Reports.Add(report);
             model.Commit();
-        }
-
-        public void AddReport()
-        {
-            //foreach (var item in uow.Reports.Query().ToList())
-            //{
-            //    if (item.Year != 2012)
-            //    {
-            //        uow.Reports.Remove(item);
-            //    }
-            //}
-            //uow.Commit();
-
-            //delete relationship
-            //db.Entry(report).Reference(r => r.CompanySymbol).CurrentValue = null;
         }
 
         #endregion
