@@ -39,6 +39,7 @@
             this.MarketType = new System.Windows.Forms.ComboBox();
             this.CompanyFilter = new System.Windows.Forms.TextBox();
             this.CompanyBox = new System.Windows.Forms.ListBox();
+            this.DateCmpLabel = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.SharePriceLabel = new System.Windows.Forms.Label();
             this.CompanyTitle = new System.Windows.Forms.Label();
@@ -71,6 +72,7 @@
             // 
             // CompanyContainer.Panel2
             // 
+            this.CompanyContainer.Panel2.Controls.Add(this.DateCmpLabel);
             this.CompanyContainer.Panel2.Controls.Add(this.chart1);
             this.CompanyContainer.Panel2.Controls.Add(this.SharePriceLabel);
             this.CompanyContainer.Panel2.Controls.Add(this.CompanyTitle);
@@ -126,20 +128,33 @@
             this.CompanyBox.TabIndex = 0;
             this.CompanyBox.SelectedIndexChanged += new System.EventHandler(this.CompanyBox_SelectedIndexChanged);
             // 
+            // DateCmpLabel
+            // 
+            this.DateCmpLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.DateCmpLabel.AutoSize = true;
+            this.DateCmpLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.DateCmpLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.DateCmpLabel.Location = new System.Drawing.Point(272, 31);
+            this.DateCmpLabel.Name = "DateCmpLabel";
+            this.DateCmpLabel.Size = new System.Drawing.Size(33, 15);
+            this.DateCmpLabel.TabIndex = 4;
+            this.DateCmpLabel.Text = "Date";
+            this.DateCmpLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
             // chart1
             // 
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(3, 226);
-            this.chart1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chart1.Location = new System.Drawing.Point(8, 297);
+            this.chart1.Margin = new System.Windows.Forms.Padding(2);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(344, 143);
+            this.chart1.Size = new System.Drawing.Size(337, 60);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "chart1";
             // 
@@ -148,11 +163,13 @@
             this.SharePriceLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.SharePriceLabel.AutoSize = true;
             this.SharePriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.SharePriceLabel.Location = new System.Drawing.Point(236, 4);
+            this.SharePriceLabel.ImageAlign = System.Drawing.ContentAlignment.TopRight;
+            this.SharePriceLabel.Location = new System.Drawing.Point(288, 4);
             this.SharePriceLabel.Name = "SharePriceLabel";
-            this.SharePriceLabel.Size = new System.Drawing.Size(109, 25);
+            this.SharePriceLabel.Size = new System.Drawing.Size(39, 25);
             this.SharePriceLabel.TabIndex = 2;
-            this.SharePriceLabel.Text = "SharePrice";
+            this.SharePriceLabel.Text = "SP";
+            this.SharePriceLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // CompanyTitle
             // 
@@ -199,7 +216,7 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.FinDataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.FinDataGrid.Size = new System.Drawing.Size(342, 155);
+            this.FinDataGrid.Size = new System.Drawing.Size(342, 218);
             this.FinDataGrid.TabIndex = 0;
             // 
             // eventLog1
@@ -238,5 +255,6 @@
         private System.Windows.Forms.ComboBox MarketType;
         private System.Windows.Forms.Label SharePriceLabel;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Label DateCmpLabel;
     }
 }
