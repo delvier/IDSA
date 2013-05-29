@@ -26,19 +26,16 @@ namespace IDSA.Presenters
             ServiceLocator.Instance.Resolve<DbCreate>().DbCreateDone += view.RefreshView;
         }
 
-        public List<string> GetDbCompanies()
+        public IBindingList GetDbCompanies()
         {
+            var cmpBindList = new BindingList<Company>();
             if (dbModel == null)
                 dbModel = ServiceLocator.Instance.Resolve<IUnitOfWork>();
-            List<string> cmpList = new List<string>();
-            foreach (var el in dbModel.Companies.GetAll().ToList())
-            {
-                cmpList.Add(el.Name);
-            }
-            return cmpList;
+            cmpBindList = dbModel.Companies.GetAll();
+            return cmpBindList;
         }
 
-        #region Test Data Preapre.
+        #region Test Data Generation
         public IEnumerable GetTestCompanies()
         {
             _cmpData = _companyDataService.GetData().Take(100).ToList();
@@ -62,16 +59,16 @@ namespace IDSA.Presenters
 
         #endregion
 
-        public IEnumerable GetFilterBox(string lookForCompany)
+        public IBindingList GetFilterBox(string lookForCompany)
         {
-            var companyList = GetTestCompanies(); //return original data from Store
-            var showList = new List<Company>();
+            var cmpBindList = dbModel.Companies.GetAll(); //return original data from Store
+            var showList = new BindingList<Company>();
 
             if (!string.IsNullOrEmpty(lookForCompany))
             {
-                foreach (Company ele in companyList)
+                foreach (Company ele in cmpBindList)
                 {
-                    if (ele.Name.Contains(lookForCompany))
+                    if (ele.Name.Contains(lookForCompany) || ele.Shortcut.Contains(lookForCompany))
                     {
                         showList.Add(ele);
                     }
@@ -79,7 +76,7 @@ namespace IDSA.Presenters
                 return showList;
             }
             else
-                return companyList;
+                return cmpBindList;
         }
     }
 }

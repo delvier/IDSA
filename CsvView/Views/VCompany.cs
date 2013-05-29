@@ -15,6 +15,7 @@ namespace IDSA.Views
         }
         private void InitListBox ()
         {
+            CompanyBox.Sorted = true;
             CompanyBox.DataSource = presenter.GetDbCompanies();
             CompanyBox.DisplayMember = CsvEnums.company.Name.ToString();
         }
