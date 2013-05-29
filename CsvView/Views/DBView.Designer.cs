@@ -94,10 +94,10 @@ namespace IDSA
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(245, 74);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1.Location = new System.Drawing.Point(184, 60);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(105, 32);
+            this.button1.Size = new System.Drawing.Size(79, 26);
             this.button1.TabIndex = 2;
             this.button1.Text = "AddCompany";
             this.button1.UseVisualStyleBackColor = true;
@@ -106,10 +106,10 @@ namespace IDSA
             // 
             // Select
             // 
-            this.Select.Location = new System.Drawing.Point(383, 73);
-            this.Select.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Select.Location = new System.Drawing.Point(287, 59);
+            this.Select.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Select.Name = "Select";
-            this.Select.Size = new System.Drawing.Size(75, 32);
+            this.Select.Size = new System.Drawing.Size(56, 26);
             this.Select.TabIndex = 4;
             this.Select.Text = "Select";
             this.Select.UseVisualStyleBackColor = true;
@@ -177,7 +177,7 @@ namespace IDSA
             this.companyBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.companyBindingNavigator.Name = "companyBindingNavigator";
             this.companyBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.companyBindingNavigator.Size = new System.Drawing.Size(1315, 27);
+            this.companyBindingNavigator.Size = new System.Drawing.Size(986, 25);
             this.companyBindingNavigator.TabIndex = 5;
             this.companyBindingNavigator.Text = "bindingNavigator1";
             // 
@@ -187,7 +187,7 @@ namespace IDSA
             this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
             this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 24);
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorAddNewItem.Text = "Add new";
             // 
             // companyBindingSource
@@ -197,7 +197,7 @@ namespace IDSA
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(45, 24);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
             this.bindingNavigatorCountItem.Text = "of {0}";
             this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
             // 
@@ -207,7 +207,7 @@ namespace IDSA
             this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
             this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
             this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 24);
+            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorDeleteItem.Text = "Delete";
             // 
             // bindingNavigatorMoveFirstItem
@@ -216,7 +216,7 @@ namespace IDSA
             this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
             this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 24);
+            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorMoveFirstItem.Text = "Move first";
             // 
             // bindingNavigatorMovePreviousItem
@@ -225,27 +225,27 @@ namespace IDSA
             this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
             this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 24);
+            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorMovePreviousItem.Text = "Move previous";
             // 
             // bindingNavigatorSeparator
             // 
             this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 27);
+            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
             // 
             // bindingNavigatorPositionItem
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
-            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(49, 27);
+            this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(38, 23);
             this.bindingNavigatorPositionItem.Text = "0";
             this.bindingNavigatorPositionItem.ToolTipText = "Current position";
             // 
             // bindingNavigatorSeparator1
             // 
             this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 27);
+            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // bindingNavigatorMoveNextItem
             // 
@@ -253,7 +253,7 @@ namespace IDSA
             this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
             this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 24);
+            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorMoveNextItem.Text = "Move next";
             // 
             // bindingNavigatorMoveLastItem
@@ -262,20 +262,20 @@ namespace IDSA
             this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
             this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 24);
+            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorMoveLastItem.Text = "Move last";
             // 
             // bindingNavigatorSeparator2
             // 
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 27);
+            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // companyBindingNavigatorSaveItem
             // 
             this.companyBindingNavigatorSaveItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.companyBindingNavigatorSaveItem.Image = ((System.Drawing.Image)(resources.GetObject("companyBindingNavigatorSaveItem.Image")));
             this.companyBindingNavigatorSaveItem.Name = "companyBindingNavigatorSaveItem";
-            this.companyBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 24);
+            this.companyBindingNavigatorSaveItem.Size = new System.Drawing.Size(23, 22);
             this.companyBindingNavigatorSaveItem.Text = "Save Data";
             this.companyBindingNavigatorSaveItem.Click += new System.EventHandler(this.companyBindingNavigatorSaveItem_Click);
             // 
@@ -294,10 +294,10 @@ namespace IDSA
             this.companyDataGridView.DataSource = this.companyBindingSource;
             this.companyDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.companyDataGridView.Location = new System.Drawing.Point(0, 0);
-            this.companyDataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.companyDataGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.companyDataGridView.Name = "companyDataGridView";
             this.companyDataGridView.RowTemplate.Height = 24;
-            this.companyDataGridView.Size = new System.Drawing.Size(570, 601);
+            this.companyDataGridView.Size = new System.Drawing.Size(570, 485);
             this.companyDataGridView.TabIndex = 5;
             // 
             // Column1
@@ -365,10 +365,10 @@ namespace IDSA
             this.reportsDataGridView.DataSource = this.reportsBindingSource;
             this.reportsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.reportsDataGridView.Location = new System.Drawing.Point(0, 0);
-            this.reportsDataGridView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.reportsDataGridView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.reportsDataGridView.Name = "reportsDataGridView";
             this.reportsDataGridView.RowTemplate.Height = 24;
-            this.reportsDataGridView.Size = new System.Drawing.Size(741, 433);
+            this.reportsDataGridView.Size = new System.Drawing.Size(413, 350);
             this.reportsDataGridView.TabIndex = 5;
             // 
             // Column2
@@ -424,7 +424,8 @@ namespace IDSA
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.IsSplitterFixed = true;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 27);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 25);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -436,14 +437,16 @@ namespace IDSA
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Panel2MinSize = 200;
-            this.splitContainer1.Size = new System.Drawing.Size(1315, 601);
+            this.splitContainer1.Size = new System.Drawing.Size(986, 485);
             this.splitContainer1.SplitterDistance = 570;
+            this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 6;
             // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -459,23 +462,26 @@ namespace IDSA
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.reportsDataGridView);
-            this.splitContainer2.Size = new System.Drawing.Size(741, 601);
-            this.splitContainer2.SplitterDistance = 164;
+            this.splitContainer2.Size = new System.Drawing.Size(413, 485);
+            this.splitContainer2.SplitterDistance = 132;
+            this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 6;
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(229, 34);
+            this.progressBar.Location = new System.Drawing.Point(172, 28);
+            this.progressBar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(273, 23);
+            this.progressBar.Size = new System.Drawing.Size(205, 19);
             this.progressBar.TabIndex = 8;
             this.progressBar.Visible = false;
             // 
             // CreateDatabase
             // 
-            this.CreateDatabase.Location = new System.Drawing.Point(229, -1);
+            this.CreateDatabase.Location = new System.Drawing.Point(172, -1);
+            this.CreateDatabase.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.CreateDatabase.Name = "CreateDatabase";
-            this.CreateDatabase.Size = new System.Drawing.Size(273, 30);
+            this.CreateDatabase.Size = new System.Drawing.Size(205, 24);
             this.CreateDatabase.TabIndex = 7;
             this.CreateDatabase.Text = "Add ALL data(take about 15min!!!)";
             this.CreateDatabase.UseVisualStyleBackColor = true;
@@ -483,9 +489,10 @@ namespace IDSA
             // 
             // listView1
             // 
-            this.listView1.Location = new System.Drawing.Point(528, 16);
+            this.listView1.Location = new System.Drawing.Point(396, 13);
+            this.listView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(37, 128);
+            this.listView1.Size = new System.Drawing.Size(29, 105);
             this.listView1.TabIndex = 6;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -493,21 +500,22 @@ namespace IDSA
             // 
             this.Info.AutoSize = true;
             this.Info.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Info.Location = new System.Drawing.Point(3, 0);
+            this.Info.Location = new System.Drawing.Point(2, 0);
+            this.Info.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.Info.Name = "Info";
-            this.Info.Size = new System.Drawing.Size(163, 50);
+            this.Info.Size = new System.Drawing.Size(132, 40);
             this.Info.TabIndex = 5;
             this.Info.Text = "DB is still loading.\r\n... please wait ...\r\n";
             // 
             // DBView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.companyBindingNavigator);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "DBView";
-            this.Size = new System.Drawing.Size(1315, 628);
+            this.Size = new System.Drawing.Size(986, 510);
             ((System.ComponentModel.ISupportInitialize)(this.companyBindingNavigator)).EndInit();
             this.companyBindingNavigator.ResumeLayout(false);
             this.companyBindingNavigator.PerformLayout();

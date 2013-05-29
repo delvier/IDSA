@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using IDSA.Presenters;
 using System;
+using IDSA.Models;
 
 namespace IDSA.Views
 {
@@ -59,5 +60,11 @@ namespace IDSA.Views
         }
 
         #endregion
+
+        private void CompanyBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Company selectCmp = (Company)CompanyBox.SelectedItem;
+            FinDataGrid.DataSource = selectCmp.Reports;
+        }
     }
 }
