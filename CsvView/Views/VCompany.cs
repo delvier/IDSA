@@ -63,8 +63,12 @@ namespace IDSA.Views
 
         private void CompanyBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Company selectCmp = (Company)CompanyBox.SelectedItem;
-            FinDataGrid.DataSource = selectCmp.Reports;
+            if (CompanyBox.SelectedItem != null)
+            {
+                Company selectCmp = (Company)CompanyBox.SelectedItem;
+                FinDataGrid.DataSource = selectCmp.Reports;
+            }
+            
         }
     }
 }
