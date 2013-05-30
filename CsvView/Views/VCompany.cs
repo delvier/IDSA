@@ -107,6 +107,11 @@ namespace IDSA.Views
             }
         }
 
+        public void BoxMsg (string s)
+        {
+            MessageBox.Show(s);
+        }
+
         #region Chart usage methods
 
         private void ChartPopulatingData()

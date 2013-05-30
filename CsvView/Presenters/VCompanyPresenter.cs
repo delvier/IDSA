@@ -80,9 +80,33 @@ namespace IDSA.Presenters
                 return dbModel.Companies.GetAll(); ;
         }
 
+        public void FinDataDivide()
+        {
+            try
+            {
+                var propList = typeof(Report).GetProperties();
+                foreach (Report rep in _cmpSelected.Reports)
+                {
+                    foreach (var propElement in propList)
+                    {
+                        if (propElement.PropertyType == typeof(Int64))
+                        {
+                            var val = rep.GetType().GetProperty(propElement.Name).GetValue(rep, null);
+                            rep.GetType().GetProperty(propElement.Name).SetValue(rep, (Int64)val/1000000, null);    
+                        }
+                    }
+                }
+            }
+            catch (NullReferenceException e)
+            {
+                view.BoxMsg(e.Message);
+            }
+        }
+
         public void SetCmpSelected(Company company)
         {
             _cmpSelected = company;
+            FinDataDivide();
             UpdatePanel2();
         }
 
