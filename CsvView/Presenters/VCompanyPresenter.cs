@@ -17,6 +17,7 @@ namespace IDSA.Presenters
 
         private readonly IDataService<Company> _companyDataService;
         private IEnumerable<Company> _cmpData;
+        private Company _cmpSelected { get; set; }
 
         public VCompanyPresenter(VCompany view)
         {
@@ -61,12 +62,12 @@ namespace IDSA.Presenters
 
         public IBindingList GetFilterBox(string lookForCompany)
         {
-            var cmpBindList = dbModel.Companies.GetAll(); //return original data from Store
+            var cmpBoxElements = view.GetCmpBoxItems();
             var showList = new BindingList<Company>();
 
             if (!string.IsNullOrEmpty(lookForCompany))
             {
-                foreach (Company ele in cmpBindList)
+                foreach (Company ele in cmpBoxElements)
                 {
                     if (ele.Name.Contains(lookForCompany) || ele.Shortcut.Contains(lookForCompany))
                     {
@@ -76,7 +77,18 @@ namespace IDSA.Presenters
                 return showList;
             }
             else
-                return cmpBindList;
+                return dbModel.Companies.GetAll(); ;
+        }
+
+        public void SetCmpSelected(Company company)
+        {
+            _cmpSelected = company;
+            UpdatePanel2();
+        }
+
+        private void UpdatePanel2 ()
+        {
+            view.RefreshView_Panel2(_cmpSelected);
         }
     }
 }

@@ -15,17 +15,17 @@ namespace IDSA.Views
             InitializeComponent();
             ServiceLocator.Instance.Register(new VCompanyPresenter(this));
             presenter = ServiceLocator.Instance.Resolve<VCompanyPresenter>();
-            
+
         }
 
-        private void InitListBox ()
+        private void InitListBox()
         {
             CompanyBox.Sorted = true;
             CompanyBox.DataSource = presenter.GetDbCompanies();
             CompanyBox.DisplayMember = CsvEnums.company.Name.ToString();
         }
 
-        private void InitGridOptions ()
+        private void InitGridOptions()
         {
             DataGridViewRow row = this.FinDataGrid.RowTemplate;
             row.DefaultCellStyle.BackColor = Color.AliceBlue;
@@ -34,11 +34,12 @@ namespace IDSA.Views
 
             FinDataGrid.Height = 15 * 15;
             HideFinDataColumns();
-            
+
         }
 
-        private void HideFinDataColumns ()
+        private void HideFinDataColumns()
         {
+            // TO-OPT - i dont like this solution, pure data on view side.
             var hideList = new List<string>
             {
                 "Id",
@@ -54,7 +55,7 @@ namespace IDSA.Views
             }
         }
 
-        private void InitDropBoxs ()
+        private void InitDropBoxs()
         {
             CompanyTypes.DataSource = presenter.GetTestBindList();
             CompanyTypes.DisplayMember = CsvEnums.company.Name.ToString();
@@ -70,6 +71,11 @@ namespace IDSA.Views
             CompanyBox.EndUpdate();
         }
 
+        public System.Windows.Forms.ListBox.ObjectCollection GetCmpBoxItems()
+        {
+            return CompanyBox.Items;
+        }
+
         public void RefreshView()
         {
             if (this.InvokeRequired)
@@ -83,30 +89,37 @@ namespace IDSA.Views
                 this.InitGridOptions();
             }
         }
+
+        public void RefreshView_Panel2(Company cmp)
+        {
+            FinDataGrid.DataSource = cmp.Reports;
+            SharePriceLabel.Text = cmp.SharePrice.ToString();
+            DateCmpLabel.Text = String.Format("{0}", ((System.DateTime)cmp.Date).ToShortDateString());
+            // conversion should be done on presenter side
+            CompanyTitle.Text = cmp.FullName.ToString();
+        }
+
+        private void CompanyBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CompanyBox.SelectedItem != null)
+            {
+                presenter.SetCmpSelected((Company)CompanyBox.SelectedItem);
+            }
+        }
+
         #region Chart usage methods
 
         private void ChartPopulatingData()
         {
             // TODO: populate data from DB
             double[] yval = { 5, 6, 4, 3, 7 };
-            string[] xval = { "A", "B", "C", "D", "E"};
+            string[] xval = { "A", "B", "C", "D", "E" };
 
             //chart1.Series.Add("Sample data").AxisLabel.
         }
 
         #endregion
 
-        private void CompanyBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (CompanyBox.SelectedItem != null)
-            {
-                Company selectCmp = (Company)CompanyBox.SelectedItem;
-                FinDataGrid.DataSource = selectCmp.Reports;
-                SharePriceLabel.Text = String.Format("{0}", selectCmp.SharePrice);
-                DateCmpLabel.Text = String.Format("{0}", ((System.DateTime)selectCmp.Date).ToShortDateString());
-                CompanyTitle.Text = selectCmp.FullName.ToString();
-            }
-            
-        }
+        
     }
 }
