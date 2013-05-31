@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System;
 
 namespace IDSA.Models
 {
@@ -27,7 +28,7 @@ namespace IDSA.Models
         long NetParentProfit { get; set; }
     }
 
-    public class Report : IReport
+    public class Report : IReport, ICloneable
     {
         [Key][DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
@@ -58,5 +59,15 @@ namespace IDSA.Models
         public int CompanyId { get; set; }
 
         public virtual Company Company { get; set; }
+
+        public Report Clone()
+        {
+            return (Report)this.MemberwiseClone();
+        }
+
+        object ICloneable.Clone()
+        {
+            return this.Clone();
+        }
     }
 }

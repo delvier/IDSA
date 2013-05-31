@@ -77,7 +77,7 @@ namespace IDSA.Presenters
                 return showList;
             }
             else
-                return dbModel.Companies.GetAll(); ;
+               return dbModel.Companies.GetAll(); ;
         }
 
         public void FinDataDivide()
