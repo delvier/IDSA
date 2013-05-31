@@ -106,7 +106,7 @@ namespace IDSA.Presenters
         public void SetCmpSelected(Company company)
         {
             _cmpSelected = company;
-            FinDataDivide();
+            //FinDataDivide(); obj.data should be somehow protected from data manipulation.
             UpdatePanel2();
         }
 

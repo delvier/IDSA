@@ -27,13 +27,33 @@ namespace IDSA.Views
 
         private void InitGridOptions()
         {
+            FinDataSortBy("Id");
             DataGridViewRow row = this.FinDataGrid.RowTemplate;
             row.DefaultCellStyle.BackColor = Color.AliceBlue;
+            row.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             row.Height = 15;
             row.MinimumHeight = 15;
-
-            FinDataGrid.Height = 15 * 15;
+            FinDataGrid.Height = 15 * 15; // 4*3 Quaters.
             HideFinDataColumns();
+            SetFinDataDisplayStyle();
+        }
+
+        private void FinDataSortBy (string name)
+        {
+            this.FinDataGrid.Sort(FinDataGrid.Columns[name], System.ComponentModel.ListSortDirection.Descending);
+        }
+
+        private void SetFinDataDisplayStyle()
+        {
+            DataGridViewCellStyle bigNumberCellStyle = new DataGridViewCellStyle();
+            bigNumberCellStyle.Format = "#,##0, k";
+            bigNumberCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            //long numbers into thousands.
+            var propList = typeof(Report).GetProperties();
+            foreach (var ePro in propList)
+                if (ePro.PropertyType == typeof(Int64))
+                    FinDataGrid.Columns[ePro.Name].DefaultCellStyle = bigNumberCellStyle;   
 
         }
 
@@ -93,6 +113,7 @@ namespace IDSA.Views
         public void RefreshView_Panel2(Company cmp)
         {
             FinDataGrid.DataSource = cmp.Reports;
+            FinDataSortBy("Id");
             SharePriceLabel.Text = cmp.SharePrice.ToString();
             DateCmpLabel.Text = String.Format("{0}", ((System.DateTime)cmp.Date).ToShortDateString());
             // conversion should be done on presenter side
