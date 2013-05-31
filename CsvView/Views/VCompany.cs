@@ -27,7 +27,7 @@ namespace IDSA.Views
 
         private void InitGridOptions()
         {
-            FinDataSortBy("Id");
+            FinDataSortBy("Year");
             DataGridViewRow row = this.FinDataGrid.RowTemplate;
             row.DefaultCellStyle.BackColor = Color.AliceBlue;
             row.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -40,7 +40,7 @@ namespace IDSA.Views
 
         private void FinDataSortBy (string name)
         {
-            this.FinDataGrid.Sort(FinDataGrid.Columns[name], System.ComponentModel.ListSortDirection.Descending);
+            this.FinDataGrid.Sort(FinDataGrid.Columns[name], System.ComponentModel.ListSortDirection.Descending);   
         }
 
         private void SetFinDataDisplayStyle()
@@ -113,7 +113,7 @@ namespace IDSA.Views
         public void RefreshView_Panel2(Company cmp)
         {
             FinDataGrid.DataSource = cmp.Reports;
-            FinDataSortBy("Id");
+            FinDataSortBy("Year");
             SharePriceLabel.Text = cmp.SharePrice.ToString();
             DateCmpLabel.Text = String.Format("{0}", ((System.DateTime)cmp.Date).ToShortDateString());
             // conversion should be done on presenter side
