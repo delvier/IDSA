@@ -69,6 +69,8 @@
     <Compile Include="Models\Repository\OldRepository.cs" />
     <Compile Include="Models\Repository\Repository.cs" />
     <Compile Include="Models\Repository\UnitOfWork.cs" />
+    <Compile Include="Models\Utilities\MultiSortableBindingListView.cs" />
+    <Compile Include="Models\Utilities\PropertyComparer.cs" />
     <Compile Include="Presenters\DataFromHtmlPresenter.cs" />
     <Compile Include="Presenters\VCsvLoadPresenter.cs" />
     <Compile Include="Presenters\DbViewPresenter.cs" />
@@ -171,6 +173,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
