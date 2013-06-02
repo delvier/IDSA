@@ -29,7 +29,7 @@ namespace IDSA.Views
         {
             FinDataSortBy();
             DataGridViewRow row = this.FinDataGrid.RowTemplate;
-            row.DefaultCellStyle.BackColor = Color.AliceBlue;
+            row.DefaultCellStyle.BackColor = Color.White;
             row.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             row.Height = 15;
             row.MinimumHeight = 15;
@@ -45,7 +45,11 @@ namespace IDSA.Views
 
         private void FinDataSortBy (string name)
         {
-            this.FinDataGrid.Sort(FinDataGrid.Columns[name], System.ComponentModel.ListSortDirection.Descending);
+            BindingSource trySort = new BindingSource();
+            trySort.DataSource = FinDataGrid.DataSource;
+            // TODO : FIGHT WITH SORTING ISSUE YEAR & QUARTER.
+            trySort.Sort = "Year DESC, Quarter DESC";            
+            //this.FinDataGrid.Sort(FinDataGrid.Columns[name], System.ComponentModel.ListSortDirection.Descending);
         }
 
         private void SetFinDataDisplayStyle()
@@ -117,8 +121,7 @@ namespace IDSA.Views
 
         public void RefreshView_Panel2(Company cmp)
         {
-            FinDataGrid.DataSource = cmp.Reports;
-            FinDataSortBy();
+            FinDataGrid.DataSource = presenter.GetSelectedCmpReports();
             SharePriceLabel.Text = cmp.SharePrice.ToString();
             DateCmpLabel.Text = String.Format("{0}", ((System.DateTime)cmp.Date).ToShortDateString());
             // conversion should be done on presenter side

@@ -36,30 +36,6 @@ namespace IDSA.Presenters
             return cmpBindList;
         }
 
-        #region Test Data Generation
-        public IEnumerable GetTestCompanies()
-        {
-            _cmpData = _companyDataService.GetData().Take(100).ToList();
-            return _cmpData;
-        }
-
-        public IBindingList GetTestBindList()
-        {
-            var rnd = new Random();
-            var testData = new BindingList<Company>();
-            for (int i = 0; i < rnd.Next(5, 15); i++)
-            {
-                testData.Add(
-                    new Company
-                    {
-                        Name = "Types" + i
-                    });
-            }
-            return testData;
-        }
-
-        #endregion
-
         public IBindingList GetFilterBox(string lookForCompany)
         {
             var cmpBoxElements = view.GetCmpBoxItems();
@@ -113,6 +89,44 @@ namespace IDSA.Presenters
         private void UpdatePanel2 ()
         {
             view.RefreshView_Panel2(_cmpSelected);
+        }
+
+
+        #region Test Data Generation
+        public IEnumerable GetTestCompanies()
+        {
+            _cmpData = _companyDataService.GetData().Take(100).ToList();
+            return _cmpData;
+        }
+
+        public IBindingList GetTestBindList()
+        {
+            var rnd = new Random();
+            var testData = new BindingList<Company>();
+            for (int i = 0; i < rnd.Next(5, 15); i++)
+            {
+                testData.Add(
+                    new Company
+                    {
+                        Name = "Types" + i
+                    });
+            }
+            return testData;
+        }
+
+        #endregion
+
+
+        public IList GetSelectedCmpReports()
+        {
+            if (dbModel != null)
+                return dbModel.Reports.Query()
+                     .Where(r => r.CompanyId == _cmpSelected.Id)
+                     .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
+                     .ThenByDescending(r => r.Quarter)
+                     .ToList();
+            else
+                return (new List<Report>());
         }
     }
 }

@@ -17,6 +17,12 @@ public class MultipleSortableBindingListView<T> : BindingList<T>, IBindingListVi
 
     private List<PropertyComparer<T>> comparers;
 
+    public MultipleSortableBindingListView()
+        : base()
+    {
+
+    }
+
     public MultipleSortableBindingListView(BindingList<T> lst) : base(lst)
     {
 
@@ -80,26 +86,16 @@ public class MultipleSortableBindingListView<T> : BindingList<T>, IBindingListVi
     }
 
 
-    public string Filter
-    {
-        get
-        {
-            throw new NotImplementedException();
-        }
-        set
-        {
-            throw new NotImplementedException();
-        }
-    }
+    public string Filter { get; set; }
 
     public void RemoveFilter()
     {
-        throw new NotImplementedException();
+        this.Filter = "";
     }
 
     public bool SupportsFiltering
     {
-        get { throw new NotImplementedException(); }
+        get { return true; }
     }
 }
 }
