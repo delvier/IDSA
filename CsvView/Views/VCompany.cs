@@ -48,6 +48,9 @@ namespace IDSA.Views
             BindingSource trySort = new BindingSource();
             trySort.DataSource = FinDataGrid.DataSource;
             // TODO : FIGHT WITH SORTING ISSUE YEAR & QUARTER.
+            //Exception: Sort string contains a property that is not in the IBindingList.
+            // Exception occures only on empty DB.Add check if db is empty:if (this.FinDataGrid.ColumnCount != 0)
+            // I do not know, if if should be in this place, or somwhere higher ;)
             trySort.Sort = "Year DESC, Quarter DESC";            
             //this.FinDataGrid.Sort(FinDataGrid.Columns[name], System.ComponentModel.ListSortDirection.Descending);
         }
@@ -59,11 +62,13 @@ namespace IDSA.Views
             bigNumberCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             //long numbers into thousands.
-            var propList = typeof(Report).GetProperties();
-            foreach (var ePro in propList)
-                if (ePro.PropertyType == typeof(Int64))
-                    FinDataGrid.Columns[ePro.Name].DefaultCellStyle = bigNumberCellStyle;   
-
+            if (this.FinDataGrid.ColumnCount != 0)
+            {
+                var propList = typeof(Report).GetProperties();
+                foreach (var ePro in propList)
+                    if (ePro.PropertyType == typeof(Int64))
+                        FinDataGrid.Columns[ePro.Name].DefaultCellStyle = bigNumberCellStyle;        
+            }
         }
 
         private void HideFinDataColumns()
