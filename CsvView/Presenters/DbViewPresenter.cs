@@ -70,6 +70,12 @@ namespace IDSA.Presenters
 
         internal void CreateDatabase()
         {
+            AddCompanies(870);
+            AddReports(16000);
+        }
+
+        internal void AddCompanies(int count)
+        {
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();
             //TODO: Change this PATH in release: ..\\..\\..\\DataCsvExampales\\company.csv !!!!!!!!!!!!!
@@ -77,7 +83,7 @@ namespace IDSA.Presenters
             {
                 //csv.Count();
                 int i = 0;
-                foreach (var item in csv.ToList())
+                foreach (var item in csv.ToList().Take(count))
                 {
                     string[] cos = item[(int)CsvEnums.company.Date].Split('-');
                     var company = new Company()
@@ -100,20 +106,29 @@ namespace IDSA.Presenters
                     };
                     model.Companies.Add(company);
                     i++;
-                    if (i % 100 == 0)
+                    if ((i*20)%count == 0)
                     {
-                        view.UpdateProgressBar((int)(i/50));
+                        view.UpdateProgressBar((int)(i/count*100));
                         //System.Threading.Thread.Sleep(500);
                         //model.Commit();
                     }
                 }
                 model.Commit();
             }
+            sw.Stop();
+            view.UpdateLabel("\nCompanies min: " + sw.Elapsed.Minutes.ToString() + " sec: " + sw.Elapsed.Minutes.ToString());
+        }
+
+        internal void AddReports(int count)
+        {
+            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            sw.Start();
+            //TODO: Change this PATH in release: ..\\..\\..\\DataCsvExampales\\company.csv !!!!!!!!!!!!!
             using (CachedCsvReader csv = new CachedCsvReader(new StreamReader("..\\..\\..\\DataCsvExampales\\findata2.csv"), false))
             {
                 int i = 880;
                 long tempVal;
-                foreach (var item in csv.ToList())
+                foreach (var item in csv.ToList().Take(count))
                 {
                     var report = new Report()
                     {
@@ -143,15 +158,13 @@ namespace IDSA.Presenters
                     i++;
                     if (i % 500 == 0)
                     {
-                        view.UpdateProgressBar((int)(i / 170));
+                        view.UpdateProgressBar((int)(i / 150));
                     }
                 }
                 model.Commit();
             }
             sw.Stop();
-            var timeOverallMinutes = sw.Elapsed.Minutes;
-            var timeOverallSeconds = sw.Elapsed.Minutes;
-            view.UpdateLabel("\nMin: " + timeOverallMinutes.ToString() + " sec: " + timeOverallSeconds.ToString());
+            view.UpdateLabel("\nReports min: " + sw.Elapsed.Minutes.ToString() + " sec: " + sw.Elapsed.Minutes.ToString());
         }
 
         #region Testing methods(TODO: delete on the end)

@@ -69,9 +69,7 @@ namespace IDSA
 
         public void UpdateProgressBar(int percent)
         {
-            if (percent > 100)
-                percent = 100;
-            this.progressBar.Value = percent;
+            this.progressBar.Value = (percent > 100) ? 100: percent;
             this.progressBar.Refresh();
         }
 
@@ -90,17 +88,33 @@ namespace IDSA
 
         private void CreateDatabase_Click(object sender, EventArgs e)
         {
-            this.progressBar.Visible = true;
-            this.progressBar.Refresh();
+            RefreshProgessBar();
             presenter.CleanDatabase();
             presenter.CreateDatabase();
-            this.progressBar.Visible = false;
-            this.progressBar.Refresh();
+            RefreshProgessBar();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            presenter.AddsNewCompany();
+            RefreshProgessBar();
+            if (this.checkBox1.Checked)
+                presenter.AddReports(this.trackBar1.Value);
+            else
+                presenter.AddCompanies(this.trackBar1.Value);
+            RefreshProgessBar();
+        }
+
+        private void RefreshProgessBar()
+        {
+            this.progressBar.Visible = this.progressBar.Visible ? false : true;
+            this.progressBar.Refresh();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            this.button1.Text = this.checkBox1.Checked ? "Add reports" : "Add companies";
+            this.trackBar1.Maximum = this.checkBox1.Checked ? 16000 : 870;
+            this.toolTip1.SetToolTip(this.trackBar1, this.trackBar1.Value.ToString());
         }
 
         private void Select_Click(object sender, EventArgs e)
