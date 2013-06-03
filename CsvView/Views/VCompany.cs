@@ -27,7 +27,6 @@ namespace IDSA.Views
 
         private void InitGridOptions()
         {
-            FinDataSortBy();
             DataGridViewRow row = this.FinDataGrid.RowTemplate;
             row.DefaultCellStyle.BackColor = Color.White;
             row.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -36,23 +35,6 @@ namespace IDSA.Views
             FinDataGrid.Height = 15 * 15; // 4*3 Quaters.
             HideFinDataColumns();
             SetFinDataDisplayStyle();
-        }
-
-        private void FinDataSortBy ()
-        {
-            FinDataSortBy("Year");
-        }
-
-        private void FinDataSortBy (string name)
-        {
-            BindingSource trySort = new BindingSource();
-            trySort.DataSource = FinDataGrid.DataSource;
-            // TODO : FIGHT WITH SORTING ISSUE YEAR & QUARTER.
-            //Exception: Sort string contains a property that is not in the IBindingList.
-            // Exception occures only on empty DB.Add check if db is empty:if (this.FinDataGrid.ColumnCount != 0)
-            // I do not know, if if should be in this place, or somwhere higher ;)
-            trySort.Sort = "Year DESC, Quarter DESC";            
-            //this.FinDataGrid.Sort(FinDataGrid.Columns[name], System.ComponentModel.ListSortDirection.Descending);
         }
 
         private void SetFinDataDisplayStyle()

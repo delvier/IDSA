@@ -56,6 +56,9 @@ namespace IDSA.Presenters
                return dbModel.Companies.GetAll(); ;
         }
 
+        //Unused method - wrong conception, view should change the display number type
+        //                no calculation on data need to be done.
+        //                if need should be somehow defend from unwanted over-writen.
         public void FinDataDivide()
         {
             try
@@ -91,6 +94,20 @@ namespace IDSA.Presenters
             view.RefreshView_Panel2(_cmpSelected);
         }
 
+        #region DataModel Queries
+        public IList GetSelectedCmpReports()
+        {
+            if (dbModel != null)
+                return dbModel.Reports.Query()
+                     .Where(r => r.CompanyId == _cmpSelected.Id)
+                     .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
+                     .ThenByDescending(r => r.Quarter)
+                     .ToList();
+            else
+                return (new List<Report>());
+        }
+        #endregion
+        
 
         #region Test Data Generation
         public IEnumerable GetTestCompanies()
@@ -117,16 +134,6 @@ namespace IDSA.Presenters
         #endregion
 
 
-        public IList GetSelectedCmpReports()
-        {
-            if (dbModel != null)
-                return dbModel.Reports.Query()
-                     .Where(r => r.CompanyId == _cmpSelected.Id)
-                     .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
-                     .ThenByDescending(r => r.Quarter)
-                     .ToList();
-            else
-                return (new List<Report>());
-        }
+        
     }
 }
