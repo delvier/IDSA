@@ -4,6 +4,7 @@ using System;
 using IDSA.Models;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Data;
 
 namespace IDSA.Views
 {
@@ -109,10 +110,32 @@ namespace IDSA.Views
         public void RefreshView_Panel2(Company cmp)
         {
             FinDataGrid.DataSource = presenter.GetSelectedCmpReports();
+            //FinDataGrid.DataSource = presenter.GetSelectedCmpReports(IDSA.Presenters.VCompanyPresenter.FinDataRequestViewType.BASE);
             SharePriceLabel.Text = cmp.SharePrice.ToString();
             DateCmpLabel.Text = String.Format("{0}", ((System.DateTime)cmp.Date).ToShortDateString());
             // conversion should be done on presenter side
             CompanyTitle.Text = cmp.FullName.ToString();
+        }
+
+        public void TransposeFinDataGrid ()
+        {
+            DataTable oldTable = new DataTable();
+            DataTable newTable = new DataTable();
+
+            newTable.Columns.Add("Field Name");
+            for (int i = 0; i < FinDataGrid.Rows.Count; i++)
+	            newTable.Columns.Add();
+
+            for (int i = 0; i < FinDataGrid.Columns.Count; i++)
+            {
+	            DataRow newRow = newTable.NewRow();
+	            newRow[0] = FinDataGrid.Columns[i].HeaderCell;
+	            for (int j = 0; j < FinDataGrid.Rows.Count; j++)
+		            newRow[j+1] = oldTable.Rows[j][i];
+	            newTable.Rows.Add(newRow);
+            }
+
+            FinDataGrid.DataSource = newTable;
         }
 
         private void CompanyBox_SelectedIndexChanged(object sender, EventArgs e)

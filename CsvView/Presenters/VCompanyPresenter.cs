@@ -53,7 +53,7 @@ namespace IDSA.Presenters
                 return showList;
             }
             else
-               return dbModel.Companies.GetAll(); ;
+                return dbModel.Companies.GetAll(); ;
         }
 
         //Unused method - wrong conception, view should change the display number type
@@ -71,7 +71,7 @@ namespace IDSA.Presenters
                         if (propElement.PropertyType == typeof(Int64))
                         {
                             var val = rep.GetType().GetProperty(propElement.Name).GetValue(rep, null);
-                            rep.GetType().GetProperty(propElement.Name).SetValue(rep, (Int64)val/1000000, null);    
+                            rep.GetType().GetProperty(propElement.Name).SetValue(rep, (Int64)val / 1000000, null);
                         }
                     }
                 }
@@ -89,7 +89,7 @@ namespace IDSA.Presenters
             UpdatePanel2();
         }
 
-        private void UpdatePanel2 ()
+        private void UpdatePanel2()
         {
             view.RefreshView_Panel2(_cmpSelected);
         }
@@ -107,7 +107,34 @@ namespace IDSA.Presenters
                 return (new List<Report>());
         }
         #endregion
-        
+
+        #region Reports Other View Required Procedures.
+        public IList GetSelectedCmpReports(FinDataRequestViewType viewType)
+        {
+            var rtnDataList = new List<Report>();
+            var crntList =  dbModel.Reports.Query()
+                                 .Where(r => r.CompanyId == _cmpSelected.Id)
+                                 .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
+                                 .ThenByDescending(r => r.Quarter)
+                                 .ToArray();
+            if (viewType == FinDataRequestViewType.BASE)
+            {
+                foreach (var singleReport in crntList)
+                {
+                   
+                }
+            }
+            return null;
+        }
+        #endregion
+
+        public enum FinDataRequestViewType
+        {
+            BASE,
+            EXTEND,
+            NULL
+
+        }
 
         #region Test Data Generation
         public IEnumerable GetTestCompanies()
@@ -134,6 +161,6 @@ namespace IDSA.Presenters
         #endregion
 
 
-        
+
     }
 }
