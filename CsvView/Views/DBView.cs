@@ -67,9 +67,36 @@ namespace IDSA
 
         #endregion
 
+        #region Inside Events behaviour
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            this.button1.Text = this.checkBox1.Checked ? "Add reports" : "Add companies";
+            this.trackBar1.Maximum = this.checkBox1.Checked ? 16000 : 952;
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            this.textBox1.Text = "" + this.trackBar1.Value;
+            this.toolTip1.SetToolTip(this.trackBar1, this.trackBar1.Value.ToString());
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            // TODO: there should be check value in textBox
+            if (this.textBox1.Text != "")
+                this.trackBar1.Value = int.Parse(this.textBox1.Text);
+        }
+        #endregion
+
         public void UpdateProgressBar(int percent)
         {
-            this.progressBar.Value = (percent > 100) ? 100: percent;
+            this.progressBar.Value = (percent > 100) ? 100 : percent;
+            this.progressBar.Refresh();
+        }
+
+        private void RefreshProgessBar()
+        {
+            this.progressBar.Visible = this.progressBar.Visible ? false : true;
             this.progressBar.Refresh();
         }
 
@@ -78,6 +105,7 @@ namespace IDSA
             this.Info.Text += text;
         }
 
+        #region Buttons service
         private void companyBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
             this.Validate();
@@ -103,20 +131,7 @@ namespace IDSA
                 presenter.AddCompanies(this.trackBar1.Value);
             RefreshProgessBar();
         }
-
-        private void RefreshProgessBar()
-        {
-            this.progressBar.Visible = this.progressBar.Visible ? false : true;
-            this.progressBar.Refresh();
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            this.button1.Text = this.checkBox1.Checked ? "Add reports" : "Add companies";
-            this.trackBar1.Maximum = this.checkBox1.Checked ? 16000 : 870;
-            this.toolTip1.SetToolTip(this.trackBar1, this.trackBar1.Value.ToString());
-        }
-
+        
         private void Select_Click(object sender, EventArgs e)
         {
             presenter.CleanDatabase();
@@ -139,5 +154,6 @@ namespace IDSA
 
             //var query = db.Companies.Include("Reports").Where(c => c.Symbol == id);
         }
+        #endregion
     }
 }
