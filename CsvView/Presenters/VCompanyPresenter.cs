@@ -25,8 +25,6 @@ namespace IDSA.Presenters
         {
             this._companyDataService = (IDataService<Company>)(new CompanyDataService());
             this.view = view;
-            //delegates
-            ServiceLocator.Instance.Resolve<DbCreate>().DbCreateDone += view.RefreshView;
         }
 
         public IBindingList GetDbCompanies()

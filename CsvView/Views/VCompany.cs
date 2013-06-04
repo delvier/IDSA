@@ -17,6 +17,7 @@ namespace IDSA.Views
             ServiceLocator.Instance.Register(new VCompanyPresenter(this));
             presenter = ServiceLocator.Instance.Resolve<VCompanyPresenter>();
 
+            ServiceLocator.Instance.Resolve<DbCreate>().DbCreateDone += RefreshView;
         }
 
         private void InitListBox()
@@ -100,7 +101,8 @@ namespace IDSA.Views
             return CompanyBox.Items;
         }
 
-        public void RefreshView()
+        #region Delegates Implementation
+        private void RefreshView()
         {
             if (this.InvokeRequired)
             {
@@ -113,6 +115,7 @@ namespace IDSA.Views
                 this.InitGridOptions();
             }
         }
+        #endregion
 
         public void RefreshView_Panel2(Company cmp)
         {
@@ -125,22 +128,22 @@ namespace IDSA.Views
             CompanyTitle.Text = cmp.FullName.ToString();
         }
 
-        public void TransposeFinDataGrid ()
+        public void TransposeFinDataGrid()
         {
             DataTable oldTable = VCompanyPresenter.DataGridView2DataTable(FinDataGrid, "oldTable");
             DataTable newTable = new DataTable();
 
             newTable.Columns.Add("Field Name");
             for (int i = 0; i < oldTable.Rows.Count; i++)
-	            newTable.Columns.Add();
+                newTable.Columns.Add();
 
             for (int i = 0; i < oldTable.Columns.Count; i++)
             {
-	            DataRow newRow = newTable.NewRow();
-	            newRow[0] = oldTable.Columns[i].Caption;
-	            for (int j = 0; j < FinDataGrid.Rows.Count; j++)
-		            newRow[j+1] = oldTable.Rows[j][i];
-	            newTable.Rows.Add(newRow);
+                DataRow newRow = newTable.NewRow();
+                newRow[0] = oldTable.Columns[i].Caption;
+                for (int j = 0; j < FinDataGrid.Rows.Count; j++)
+                    newRow[j + 1] = oldTable.Rows[j][i];
+                newTable.Rows.Add(newRow);
             }
 
             FinDataGrid.DataSource = newTable;
@@ -154,7 +157,7 @@ namespace IDSA.Views
             }
         }
 
-        public void BoxMsg (string s)
+        public void BoxMsg(string s)
         {
             MessageBox.Show(s);
         }
