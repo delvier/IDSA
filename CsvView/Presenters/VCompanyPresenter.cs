@@ -106,6 +106,17 @@ namespace IDSA.Presenters
             else
                 return (new List<Report>());
         }
+        public IList GetSelectedCmpReports1()
+        {
+            if (dbModel != null)
+                return dbModel.Reports.Query()
+                     .Where(r => r.CompanyId == _cmpSelected.Id)
+                     .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
+                     .ThenByDescending(r => r.Quarter).Select(x => x.Sales)
+                     .ToList();
+            else
+                return (new List<Report>());
+        }
         #endregion
 
 

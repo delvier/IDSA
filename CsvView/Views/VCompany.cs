@@ -113,6 +113,7 @@ namespace IDSA.Views
                 this.InitListBox();
                 this.InitDropBoxs();
                 this.InitGridOptions();
+                this.ChartPopulatingData();
             }
         }
         #endregion
@@ -166,15 +167,34 @@ namespace IDSA.Views
 
         private void ChartPopulatingData()
         {
-            // TODO: populate data from DB
+            // TODO: 2 ways of drawing charts -> populate data from DB(slower in execution)
+            //-> populate data from dataGridView(harder to done, I think)
+            // WHICH TO MAKE?
+
             double[] yval = { 5, 6, 4, 3, 7 };
             string[] xval = { "A", "B", "C", "D", "E" };
 
-            //chart1.Series.Add("Sample data").AxisLabel.
+
+            //TODO: return Year and quarter from DB to X axies
+            var reports = presenter.GetSelectedCmpReports1();
+            //chart1.Series["Sales"].Points.DataBindXY(xval, reports);
+
+            for (int i = 0; i < reports.Count; i++)
+            {
+                chart1.Series["Series1"].Points.AddXY(xval[i], reports[i]);
+            }
+            chart1.Series["Series1"].Name = "Sales";
+
+            //var xxx = FinDataGrid.Rows[3].Cells[1].FormattedValue;
+            ////chart1.Series["Series1"].Points.DataBindXY(xval, FinDataGrid.Rows[4].Cells.GetEnumerator());
+
+            //for (int i = 1; i < FinDataGrid.ColumnCount; i++)
+            //{
+            //    chart1.Series["Series2"].Points.AddXY(xval[i], FinDataGrid.Rows[4].Cells[i].FormattedValue);
+            //}
+            //chart1.Series["Series2"].Name = FinDataGrid.Rows[3].Cells[0].FormattedValue.ToString();
         }
 
         #endregion
-
-        
     }
 }
