@@ -7,6 +7,8 @@ using IDSA.Models;
 using IDSA.Models.Repository;
 using IDSA.Services;
 using IDSA.Views;
+using System.Data;
+using System.Windows.Forms;
 
 namespace IDSA.Presenters
 {
@@ -108,23 +110,14 @@ namespace IDSA.Presenters
         }
         #endregion
 
+
         #region Reports Other View Required Procedures.
         public IList GetSelectedCmpReports(FinDataRequestViewType viewType)
         {
-            var rtnDataList = new List<Report>();
-            var crntList =  dbModel.Reports.Query()
-                                 .Where(r => r.CompanyId == _cmpSelected.Id)
-                                 .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
-                                 .ThenByDescending(r => r.Quarter)
-                                 .ToArray();
             if (viewType == FinDataRequestViewType.BASE)
-            {
-                foreach (var singleReport in crntList)
-                {
-                   
-                }
-            }
-            return null;
+                return GetSelectedCmpReports();
+            else
+                return null;
         }
         #endregion
 
@@ -136,6 +129,43 @@ namespace IDSA.Presenters
 
         }
 
+        //Converts the DataGridView to DataTable
+        public static DataTable DataGridView2DataTable(DataGridView dgv, String tblName, int minRow = 0)
+        {
+
+            DataTable dt = new DataTable(tblName);
+
+            // Header columns
+            foreach (DataGridViewColumn column in dgv.Columns)
+            {
+                DataColumn dc = new DataColumn(column.Name.ToString());
+                dt.Columns.Add(dc);
+            }
+
+            // Data cells
+            for (int i = 0; i < dgv.Rows.Count; i++)
+            {
+                DataGridViewRow row = dgv.Rows[i];
+                DataRow dr = dt.NewRow();
+                for (int j = 0; j < dgv.Columns.Count; j++)
+                {
+                    dr[j] = (row.Cells[j].Value == null) ? "" : row.Cells[j].Value.ToString(); // this is evil we lost our type ! which we figth for.
+                }
+                dt.Rows.Add(dr);
+            }
+
+            // Related to the bug arround min size when using ExcelLibrary for export
+            for (int i = dgv.Rows.Count; i < minRow; i++)
+            {
+                DataRow dr = dt.NewRow();
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    dr[j] = "  ";
+                }
+                dt.Rows.Add(dr);
+            }
+            return dt;
+        }
         #region Test Data Generation
         public IEnumerable GetTestCompanies()
         {

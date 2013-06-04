@@ -45,12 +45,19 @@ namespace IDSA.Views
             bigNumberCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             //long numbers into thousands.
-            if (this.FinDataGrid.ColumnCount != 0)
+            if (this.FinDataGrid.RowCount != 0)
             {
                 var propList = typeof(Report).GetProperties();
+                int i = 0;
                 foreach (var ePro in propList)
                     if (ePro.PropertyType == typeof(Int64))
-                        FinDataGrid.Columns[ePro.Name].DefaultCellStyle = bigNumberCellStyle;        
+                        FinDataGrid.Rows[i++].DefaultCellStyle = bigNumberCellStyle;
+                        //FinDataGrid.Rows[ePro.Name].DefaultCellStyle = bigNumberCellStyle;
+
+                foreach (DataGridViewColumn cols in FinDataGrid.Columns)
+                {
+                    cols.DefaultCellStyle = bigNumberCellStyle;
+                }
             }
         }
 
@@ -109,8 +116,9 @@ namespace IDSA.Views
 
         public void RefreshView_Panel2(Company cmp)
         {
-            FinDataGrid.DataSource = presenter.GetSelectedCmpReports();
-            //FinDataGrid.DataSource = presenter.GetSelectedCmpReports(IDSA.Presenters.VCompanyPresenter.FinDataRequestViewType.BASE);
+            //FinDataGrid.DataSource = presenter.GetSelectedCmpReports();
+            FinDataGrid.DataSource = presenter.GetSelectedCmpReports(IDSA.Presenters.VCompanyPresenter.FinDataRequestViewType.BASE);
+            this.TransposeFinDataGrid();
             SharePriceLabel.Text = cmp.SharePrice.ToString();
             DateCmpLabel.Text = String.Format("{0}", ((System.DateTime)cmp.Date).ToShortDateString());
             // conversion should be done on presenter side
@@ -119,17 +127,17 @@ namespace IDSA.Views
 
         public void TransposeFinDataGrid ()
         {
-            DataTable oldTable = new DataTable();
+            DataTable oldTable = VCompanyPresenter.DataGridView2DataTable(FinDataGrid, "oldTable");
             DataTable newTable = new DataTable();
 
             newTable.Columns.Add("Field Name");
-            for (int i = 0; i < FinDataGrid.Rows.Count; i++)
+            for (int i = 0; i < oldTable.Rows.Count; i++)
 	            newTable.Columns.Add();
 
-            for (int i = 0; i < FinDataGrid.Columns.Count; i++)
+            for (int i = 0; i < oldTable.Columns.Count; i++)
             {
 	            DataRow newRow = newTable.NewRow();
-	            newRow[0] = FinDataGrid.Columns[i].HeaderCell;
+	            newRow[0] = oldTable.Columns[i].Caption;
 	            for (int j = 0; j < FinDataGrid.Rows.Count; j++)
 		            newRow[j+1] = oldTable.Rows[j][i];
 	            newTable.Rows.Add(newRow);
