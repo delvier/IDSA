@@ -134,20 +134,34 @@ namespace IDSA.Views
             DataTable oldTable = VCompanyPresenter.DataGridView2DataTable(FinDataGrid, "oldTable");
             DataTable newTable = new DataTable();
 
-            newTable.Columns.Add("Field Name");
+            newTable.Columns.Add("Header");
             for (int i = 0; i < oldTable.Rows.Count; i++)
+            { 
                 newTable.Columns.Add();
+                //here get year quater [i] from old table. and put into caption columns.
+                //newTable.Columns[i].Caption = 
+            }
+	          
 
             for (int i = 0; i < oldTable.Columns.Count; i++)
             {
                 DataRow newRow = newTable.NewRow();
+
                 newRow[0] = oldTable.Columns[i].Caption;
+
                 for (int j = 0; j < FinDataGrid.Rows.Count; j++)
                     newRow[j + 1] = oldTable.Rows[j][i];
                 newTable.Rows.Add(newRow);
             }
 
             FinDataGrid.DataSource = newTable;
+
+            // headerCell bind by col[i]
+            for (int i = 0; i < FinDataGrid.Rows.Count; i++)
+			{
+                FinDataGrid.Rows[i].HeaderCell.Value = newTable.Rows[i][0];
+			}
+            
         }
 
         private void CompanyBox_SelectedIndexChanged(object sender, EventArgs e)

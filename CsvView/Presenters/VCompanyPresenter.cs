@@ -148,6 +148,7 @@ namespace IDSA.Presenters
             foreach (DataGridViewColumn column in dgv.Columns)
             {
                 DataColumn dc = new DataColumn(column.Name.ToString());
+                dc.DataType = column.ValueType;
                 dt.Columns.Add(dc);
             }
 
@@ -158,7 +159,8 @@ namespace IDSA.Presenters
                 DataRow dr = dt.NewRow();
                 for (int j = 0; j < dgv.Columns.Count; j++)
                 {
-                    dr[j] = (row.Cells[j].Value == null) ? "" : row.Cells[j].Value.ToString(); // this is evil we lost our type ! which we figth for.
+                    //Type theType = row.Cells[j].Value.GetType();
+                    dr[j] = (row.Cells[j].Value == null) ? "" : row.Cells[j].Value; // this is evil we lost our type ! which we figth for.
                 }
                 dt.Rows.Add(dr);
             }
