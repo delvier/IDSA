@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+using System.Windows.Forms;
 using IDSA.Presenters;
 using System;
 using IDSA.Models;
@@ -184,6 +184,22 @@ namespace IDSA.Views
             // TODO: 2 ways of drawing charts -> populate data from DB(slower in execution)
             //-> populate data from dataGridView(harder to done, I think)
             // WHICH TO MAKE?
+            
+            // I think more important is coneception about how to do it flexible, for all possible views,
+            // that we will get into the futer. For now, is easy to get dataTable from data grid, presenter of view can provide this action, although
+            // we must be flexible and be able to visualise the data that user want to see.
+            // -> user choose the data on the view (Ebit, sales) -> advanced(multiselection EBIT,SALES at once).
+            // -> user confirms he want the chart by (submenu (rightmouseclick)
+            // -> presenter get the event action (eventagregator from prism ?)
+            // -> presenter nows that the user select on view this data by the event,
+            // -> presenter lunch the ChartServiceProvider (DataInput.)
+            // -> chart service provider do all the data stuff
+            // -> presenter informs view that chart is ready to display
+            // -> view (shows) the chart.
+            
+            // -> evry database action make sense if we lunch thread on it and we do not slow down our app.
+            // -> i have this problem during filterBox :) , although this is optimalization topic for me now.
+            
 
             double[] yval = { 5, 6, 4, 3, 7 };
             string[] xval = { "A", "B", "C", "D", "E" };
