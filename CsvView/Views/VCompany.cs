@@ -50,9 +50,9 @@ namespace IDSA.Views
             {
                 var propList = typeof(Report).GetProperties();
                 int i = 0;
-                foreach (var ePro in propList)
-                    if (ePro.PropertyType == typeof(Int64))
-                        FinDataGrid.Rows[i++].DefaultCellStyle = bigNumberCellStyle;
+                //foreach (var ePro in propList)
+                    //if (ePro.PropertyType == typeof(Int64))
+                        //FinDataGrid.Rows[i++].DefaultCellStyle = bigNumberCellStyle;
                         //FinDataGrid.Rows[ePro.Name].DefaultCellStyle = bigNumberCellStyle;
 
                 foreach (DataGridViewColumn cols in FinDataGrid.Columns)

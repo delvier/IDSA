@@ -102,6 +102,19 @@ namespace IDSA.Presenters
                      .Where(r => r.CompanyId == _cmpSelected.Id)
                      .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
                      .ThenByDescending(r => r.Quarter)
+                     .Select(r => new
+                     {
+                         r.Year,
+                         r.Quarter,
+                         r.Sales,
+                         r.OwnSaleCosts,
+                         r.EarningOnSales,
+                         r.EarningBeforeTaxes,
+                         r.EBIT,
+                         r.NetParentProfit,
+                         r.NetProfit
+                     }
+                     )
                      .ToList();
             else
                 return (new List<Report>());
