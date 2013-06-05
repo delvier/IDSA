@@ -122,7 +122,11 @@ namespace IDSA.Views
         {
             //FinDataGrid.DataSource = presenter.GetSelectedCmpReports();
             FinDataGrid.DataSource = presenter.GetSelectedCmpReports(IDSA.Presenters.VCompanyPresenter.FinDataRequestViewType.BASE);
-            this.TransposeFinDataGrid();
+            //to avoid ArgumentOutOfRangeException, when company does not have reports
+            if (FinDataGrid.RowCount > 0)
+            {
+                this.TransposeFinDataGrid();
+            }
             SharePriceLabel.Text = cmp.SharePrice.ToString();
             DateCmpLabel.Text = String.Format("{0}", ((System.DateTime)cmp.Date).ToShortDateString());
             // conversion should be done on presenter side
