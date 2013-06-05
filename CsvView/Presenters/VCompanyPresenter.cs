@@ -97,25 +97,26 @@ namespace IDSA.Presenters
         #region DataModel Queries
         public IList GetSelectedCmpReports()
         {
-            if (dbModel != null)
-                return dbModel.Reports.Query()
-                     .Where(r => r.CompanyId == _cmpSelected.Id)
-                     .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
-                     .ThenByDescending(r => r.Quarter)
-                     .Select(r => new
-                     {
-                         r.Year,
-                         r.Quarter,
-                         r.Sales,
-                         r.OwnSaleCosts,
-                         r.EarningOnSales,
-                         r.EarningBeforeTaxes,
-                         r.EBIT,
-                         r.NetParentProfit,
-                         r.NetProfit
-                     }
-                     )
-                     .ToList();
+            // CodeRestructure, instead of database new query used _cmpselected.Reports -IEnumerable and LINQ it.
+            if (!_cmpSelected.Equals(null))
+                return _cmpSelected.Reports
+                            .Where(r => r.CompanyId == _cmpSelected.Id)
+                            .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
+                            .ThenByDescending(r => r.Quarter)
+                            .Select(r => new
+                            {
+                                r.Year, // how to export this to some types ?
+                                r.Quarter,
+                                r.Sales,
+                                r.OwnSaleCosts,
+                                r.EarningOnSales,
+                                r.EarningBeforeTaxes,
+                                r.EBIT,
+                                r.NetParentProfit,
+                                r.NetProfit
+                            }
+                            )
+                            .ToList();
             else
                 return (new List<Report>());
         }
