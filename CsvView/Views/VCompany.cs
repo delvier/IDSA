@@ -141,7 +141,7 @@ namespace IDSA.Views
                 //here get year quater [i] from old table. and put into caption columns.
                 //newTable.Columns[i].Caption = 
             }
-	          
+              
 
             for (int i = 0; i < oldTable.Columns.Count; i++)
             {
@@ -154,14 +154,21 @@ namespace IDSA.Views
                 newTable.Rows.Add(newRow);
             }
 
-            FinDataGrid.DataSource = newTable;
+            // this should be seperate code... function... extension ?
+            var lst = new List<string>(); //getHeaders from column 0
+            for (int i = 0; i < newTable.Rows.Count; i++)
+            {
+                lst.Add(newTable.Rows[i][0].ToString());
+            }
+            newTable.Columns.Remove(newTable.Columns[0]); //removeTrashHeaderColumn
 
-            // headerCell bind by col[i]
-            for (int i = 0; i < FinDataGrid.Rows.Count; i++)
-			{
-                FinDataGrid.Rows[i].HeaderCell.Value = newTable.Rows[i][0];
-			}
-            
+            FinDataGrid.DataSource = newTable;
+            // row header by lst.
+            foreach (var header in lst)
+            {
+                 FinDataGrid.Rows[lst.IndexOf(header)].HeaderCell.Value = header;
+            }
+            //FinDataGrid.Columns[0].Visible = false; // ?
         }
 
         private void CompanyBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -211,7 +218,8 @@ namespace IDSA.Views
 
             for (int i = 0; i < reports.Count; i++)
             {
-                chart1.Series["Series1"].Points.AddXY(xval[i], reports[i]);
+                // out of range expection on reports[i] // remember i transpose the tabless etc. i do comment it...
+                // chart1.Series["Series1"].Points.AddXY(xval[i], reports[i]);
             }
             chart1.Series["Series1"].Name = "Sales";
 
