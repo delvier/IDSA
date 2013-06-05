@@ -123,7 +123,7 @@ namespace IDSA.Presenters
         public IList GetSelectedCmpReports1()
         {
             if (dbModel != null)
-                return dbModel.Reports.Query()
+                return _cmpSelected.Reports
                      .Where(r => r.CompanyId == _cmpSelected.Id)
                      .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
                      .ThenByDescending(r => r.Quarter).Select(x => x.Sales)
