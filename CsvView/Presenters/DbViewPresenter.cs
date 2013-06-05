@@ -116,7 +116,7 @@ namespace IDSA.Presenters
                 model.Commit();
             }
             sw.Stop();
-            view.UpdateLabel("\nCompanies min: " + sw.Elapsed.Minutes.ToString() + " sec: " + sw.Elapsed.Minutes.ToString());
+            view.UpdateLabel("\nComp min: " + sw.Elapsed.Minutes.ToString() + " sec: " + sw.Elapsed.Minutes.ToString());
         }
 
         internal void AddReports(int count)
@@ -164,7 +164,7 @@ namespace IDSA.Presenters
                 model.Commit();
             }
             sw.Stop();
-            view.UpdateLabel("\nReports min: " + sw.Elapsed.Minutes.ToString() + " sec: " + sw.Elapsed.Minutes.ToString());
+            view.UpdateLabel("\nRep min: " + sw.Elapsed.Minutes.ToString() + " sec: " + sw.Elapsed.Minutes.ToString());
         }
 
         #region Testing methods(TODO: delete on the end)
