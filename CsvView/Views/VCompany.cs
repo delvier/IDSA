@@ -160,8 +160,9 @@ namespace IDSA.Views
             {
                 lst.Add(newTable.Rows[i][0].ToString());
             }
-            newTable.Columns.Remove(newTable.Columns[0]); //removeTrashHeaderColumn
 
+            newTable.Columns.Remove(newTable.Columns[0]); //removeTrashHeaderColumn
+            
             FinDataGrid.DataSource = newTable;
             // row header by lst.
             foreach (var header in lst)
