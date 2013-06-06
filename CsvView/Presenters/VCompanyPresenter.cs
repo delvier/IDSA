@@ -17,9 +17,10 @@ namespace IDSA.Presenters
         VCompany view;
         private IUnitOfWork dbModel;
 
-        private readonly IDataService<Company> _companyDataService;
-        private IEnumerable<Company> _cmpData;
+        private readonly IDataService<ICompany> _companyDataService;
+        private IEnumerable<ICompany> _cmpData;
         private Company _cmpSelected { get; set; }
+        private IList _cmpSelectedReportsList { get; set; }
 
         public VCompanyPresenter(VCompany view)
         {
@@ -56,40 +57,14 @@ namespace IDSA.Presenters
                 return dbModel.Companies.GetAll(); ;
         }
 
-        //Unused method - wrong conception, view should change the display number type
-        //                no calculation on data need to be done.
-        //                if need should be somehow defend from unwanted over-writen.
-        public void FinDataDivide()
-        {
-            try
-            {
-                var propList = typeof(Report).GetProperties();
-                foreach (Report rep in _cmpSelected.Reports)
-                {
-                    foreach (var propElement in propList)
-                    {
-                        if (propElement.PropertyType == typeof(Int64))
-                        {
-                            var val = rep.GetType().GetProperty(propElement.Name).GetValue(rep, null);
-                            rep.GetType().GetProperty(propElement.Name).SetValue(rep, (Int64)val / 1000000, null);
-                        }
-                    }
-                }
-            }
-            catch (NullReferenceException e)
-            {
-                view.BoxMsg(e.Message);
-            }
-        }
-
         public void SetCmpSelected(Company company)
         {
             _cmpSelected = company;
-            //FinDataDivide(); obj.data should be somehow protected from data manipulation.
+            _cmpSelectedReportsList = GetBaseSelectCmpReports();
             UpdatePanel2();
         }
 
-        private void UpdatePanel2()
+        public void UpdatePanel2()
         {
             view.RefreshView_Panel2(_cmpSelected);
         }
@@ -103,7 +78,33 @@ namespace IDSA.Presenters
             //    .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
             //    .ThenByDescending(r => r.Quarter);
         }
-        public IList GetSelectedCmpReports()
+        public void SetFullReports()
+        {
+            _cmpSelectedReportsList = GetBaseSelectCmpReports();
+        }
+        public void SetLast4QReports()
+        {
+            _cmpSelectedReportsList = _cmpSelected.Reports
+                                        .Where(r => r.CompanyId == _cmpSelected.Id)
+                                        .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
+                                        .ThenByDescending(r => r.Quarter)
+                                        .Take(4)
+                                        .Select(r => new
+                                        {
+                                            r.Year, // how to export this to some types ?
+                                            r.Quarter,
+                                            r.Sales,
+                                            r.OwnSaleCosts,
+                                            r.EarningOnSales,
+                                            r.EarningBeforeTaxes,
+                                            r.EBIT,
+                                            r.NetParentProfit,
+                                            r.NetProfit
+                                        }
+                                        )
+                                        .ToList();
+        }
+        public IList GetBaseSelectCmpReports()
         {
             // CodeRestructure, instead of database new query used _cmpselected.Reports -IEnumerable and LINQ it.
             if (!_cmpSelected.Equals(null))
@@ -141,23 +142,9 @@ namespace IDSA.Presenters
         }
         #endregion
 
-
-        #region Reports Other View Required Procedures.
-        public IList GetSelectedCmpReports(FinDataRequestViewType viewType)
+        public IList GetSelectedCmpReports()
         {
-            if (viewType == FinDataRequestViewType.BASE)
-                return GetSelectedCmpReports();
-            else
-                return null;
-        }
-        #endregion
-
-        public enum FinDataRequestViewType
-        {
-            BASE,
-            EXTEND,
-            NULL
-
+            return _cmpSelectedReportsList;
         }
 
         //Converts the DataGridView to DataTable

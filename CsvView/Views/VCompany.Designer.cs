@@ -46,6 +46,8 @@
             this.CompanyTitle = new System.Windows.Forms.Label();
             this.FinDataGrid = new System.Windows.Forms.DataGridView();
             this.eventLog1 = new System.Diagnostics.EventLog();
+            this.filterFinDataBtn = new System.Windows.Forms.Button();
+            this.fullFinDataBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.CompanyContainer)).BeginInit();
             this.CompanyContainer.Panel1.SuspendLayout();
             this.CompanyContainer.Panel2.SuspendLayout();
@@ -73,14 +75,16 @@
             // 
             // CompanyContainer.Panel2
             // 
+            this.CompanyContainer.Panel2.Controls.Add(this.fullFinDataBtn);
+            this.CompanyContainer.Panel2.Controls.Add(this.filterFinDataBtn);
             this.CompanyContainer.Panel2.Controls.Add(this.DateCmpLabel);
             this.CompanyContainer.Panel2.Controls.Add(this.chart1);
             this.CompanyContainer.Panel2.Controls.Add(this.SharePriceLabel);
             this.CompanyContainer.Panel2.Controls.Add(this.CompanyTitle);
             this.CompanyContainer.Panel2.Controls.Add(this.FinDataGrid);
             this.CompanyContainer.Panel2MinSize = 350;
-            this.CompanyContainer.Size = new System.Drawing.Size(534, 701);
-            this.CompanyContainer.SplitterDistance = 157;
+            this.CompanyContainer.Size = new System.Drawing.Size(634, 701);
+            this.CompanyContainer.SplitterDistance = 187;
             this.CompanyContainer.TabIndex = 0;
             // 
             // CompanyTypes
@@ -91,7 +95,7 @@
             this.CompanyTypes.Location = new System.Drawing.Point(4, 25);
             this.CompanyTypes.Margin = new System.Windows.Forms.Padding(0);
             this.CompanyTypes.Name = "CompanyTypes";
-            this.CompanyTypes.Size = new System.Drawing.Size(150, 21);
+            this.CompanyTypes.Size = new System.Drawing.Size(180, 21);
             this.CompanyTypes.TabIndex = 3;
             // 
             // MarketType
@@ -102,7 +106,7 @@
             this.MarketType.Location = new System.Drawing.Point(4, 4);
             this.MarketType.Margin = new System.Windows.Forms.Padding(0);
             this.MarketType.Name = "MarketType";
-            this.MarketType.Size = new System.Drawing.Size(150, 21);
+            this.MarketType.Size = new System.Drawing.Size(180, 21);
             this.MarketType.TabIndex = 2;
             // 
             // CompanyFilter
@@ -112,7 +116,7 @@
             this.CompanyFilter.Location = new System.Drawing.Point(4, 46);
             this.CompanyFilter.Margin = new System.Windows.Forms.Padding(0);
             this.CompanyFilter.Name = "CompanyFilter";
-            this.CompanyFilter.Size = new System.Drawing.Size(150, 20);
+            this.CompanyFilter.Size = new System.Drawing.Size(180, 20);
             this.CompanyFilter.TabIndex = 1;
             this.CompanyFilter.TextChanged += new System.EventHandler(this.CompanyFilter_TextChanged);
             // 
@@ -125,7 +129,7 @@
             this.CompanyBox.Location = new System.Drawing.Point(4, 66);
             this.CompanyBox.Margin = new System.Windows.Forms.Padding(0);
             this.CompanyBox.Name = "CompanyBox";
-            this.CompanyBox.Size = new System.Drawing.Size(150, 628);
+            this.CompanyBox.Size = new System.Drawing.Size(180, 628);
             this.CompanyBox.TabIndex = 0;
             this.CompanyBox.SelectedIndexChanged += new System.EventHandler(this.CompanyBox_SelectedIndexChanged);
             // 
@@ -135,7 +139,7 @@
             this.DateCmpLabel.AutoSize = true;
             this.DateCmpLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.DateCmpLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.DateCmpLabel.Location = new System.Drawing.Point(291, 31);
+            this.DateCmpLabel.Location = new System.Drawing.Point(361, 31);
             this.DateCmpLabel.Name = "DateCmpLabel";
             this.DateCmpLabel.Size = new System.Drawing.Size(33, 15);
             this.DateCmpLabel.TabIndex = 4;
@@ -169,7 +173,7 @@
             this.SharePriceLabel.AutoSize = true;
             this.SharePriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.SharePriceLabel.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.SharePriceLabel.Location = new System.Drawing.Point(307, 4);
+            this.SharePriceLabel.Location = new System.Drawing.Point(377, 4);
             this.SharePriceLabel.Name = "SharePriceLabel";
             this.SharePriceLabel.Size = new System.Drawing.Size(39, 25);
             this.SharePriceLabel.TabIndex = 2;
@@ -210,7 +214,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.FinDataGrid.DefaultCellStyle = dataGridViewCellStyle2;
-            this.FinDataGrid.Location = new System.Drawing.Point(3, 66);
+            this.FinDataGrid.Location = new System.Drawing.Point(3, 92);
             this.FinDataGrid.Name = "FinDataGrid";
             this.FinDataGrid.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -221,12 +225,32 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.FinDataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.FinDataGrid.Size = new System.Drawing.Size(368, 424);
+            this.FinDataGrid.Size = new System.Drawing.Size(438, 398);
             this.FinDataGrid.TabIndex = 0;
             // 
             // eventLog1
             // 
             this.eventLog1.SynchronizingObject = this;
+            // 
+            // filterFinDataBtn
+            // 
+            this.filterFinDataBtn.Location = new System.Drawing.Point(84, 66);
+            this.filterFinDataBtn.Name = "filterFinDataBtn";
+            this.filterFinDataBtn.Size = new System.Drawing.Size(75, 23);
+            this.filterFinDataBtn.TabIndex = 5;
+            this.filterFinDataBtn.Text = "Last 4Q";
+            this.filterFinDataBtn.UseVisualStyleBackColor = true;
+            this.filterFinDataBtn.Click += new System.EventHandler(this.filterFinDataBtn_Click);
+            // 
+            // fullFinDataBtn
+            // 
+            this.fullFinDataBtn.Location = new System.Drawing.Point(3, 66);
+            this.fullFinDataBtn.Name = "fullFinDataBtn";
+            this.fullFinDataBtn.Size = new System.Drawing.Size(75, 23);
+            this.fullFinDataBtn.TabIndex = 6;
+            this.fullFinDataBtn.Text = "Normal";
+            this.fullFinDataBtn.UseVisualStyleBackColor = true;
+            this.fullFinDataBtn.Click += new System.EventHandler(this.fullFinDataBtn_Click);
             // 
             // VCompany
             // 
@@ -234,7 +258,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.CompanyContainer);
             this.Name = "VCompany";
-            this.Size = new System.Drawing.Size(534, 701);
+            this.Size = new System.Drawing.Size(634, 701);
             this.CompanyContainer.Panel1.ResumeLayout(false);
             this.CompanyContainer.Panel1.PerformLayout();
             this.CompanyContainer.Panel2.ResumeLayout(false);
@@ -261,5 +285,7 @@
         private System.Windows.Forms.Label SharePriceLabel;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Label DateCmpLabel;
+        private System.Windows.Forms.Button filterFinDataBtn;
+        private System.Windows.Forms.Button fullFinDataBtn;
     }
 }

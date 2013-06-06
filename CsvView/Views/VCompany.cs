@@ -121,10 +121,9 @@ namespace IDSA.Views
         }
         #endregion
 
-        public void RefreshView_Panel2(Company cmp)
+        public void RefreshView_Panel2(ICompany cmp)
         {
-            //FinDataGrid.DataSource = presenter.GetSelectedCmpReports();
-            FinDataGrid.DataSource = presenter.GetSelectedCmpReports(IDSA.Presenters.VCompanyPresenter.FinDataRequestViewType.BASE);
+            FinDataGrid.DataSource = presenter.GetSelectedCmpReports();
             //to avoid ArgumentOutOfRangeException, when company does not have reports
             if (FinDataGrid.RowCount > 0)
             {
@@ -132,7 +131,6 @@ namespace IDSA.Views
             }
             SharePriceLabel.Text = cmp.SharePrice.ToString();
             DateCmpLabel.Text = String.Format("{0}", ((System.DateTime)cmp.Date).ToShortDateString());
-            // conversion should be done on presenter side
             CompanyTitle.Text = cmp.FullName.ToString();
         }
 
@@ -242,5 +240,19 @@ namespace IDSA.Views
         }
 
         #endregion
+
+        #region FinDataGrid Menu Btns
+        #endregion
+        private void filterFinDataBtn_Click(object sender, EventArgs e)
+        {
+            presenter.SetLast4QReports(); ;
+            presenter.UpdatePanel2();
+        }
+
+        private void fullFinDataBtn_Click(object sender, EventArgs e)
+        {
+            presenter.SetFullReports();
+            presenter.UpdatePanel2();
+        }
     }
 }
