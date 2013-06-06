@@ -79,53 +79,53 @@
             this.CompanyContainer.Panel2.Controls.Add(this.CompanyTitle);
             this.CompanyContainer.Panel2.Controls.Add(this.FinDataGrid);
             this.CompanyContainer.Panel2MinSize = 350;
-            this.CompanyContainer.Size = new System.Drawing.Size(508, 375);
-            this.CompanyContainer.SplitterDistance = 150;
+            this.CompanyContainer.Size = new System.Drawing.Size(534, 701);
+            this.CompanyContainer.SplitterDistance = 157;
             this.CompanyContainer.TabIndex = 0;
             // 
             // CompanyTypes
             // 
-            this.CompanyTypes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CompanyTypes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.CompanyTypes.FormattingEnabled = true;
             this.CompanyTypes.Location = new System.Drawing.Point(4, 25);
             this.CompanyTypes.Margin = new System.Windows.Forms.Padding(0);
             this.CompanyTypes.Name = "CompanyTypes";
-            this.CompanyTypes.Size = new System.Drawing.Size(143, 21);
+            this.CompanyTypes.Size = new System.Drawing.Size(150, 21);
             this.CompanyTypes.TabIndex = 3;
             // 
             // MarketType
             // 
-            this.MarketType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MarketType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.MarketType.FormattingEnabled = true;
             this.MarketType.Location = new System.Drawing.Point(4, 4);
             this.MarketType.Margin = new System.Windows.Forms.Padding(0);
             this.MarketType.Name = "MarketType";
-            this.MarketType.Size = new System.Drawing.Size(143, 21);
+            this.MarketType.Size = new System.Drawing.Size(150, 21);
             this.MarketType.TabIndex = 2;
             // 
             // CompanyFilter
             // 
-            this.CompanyFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CompanyFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.CompanyFilter.Location = new System.Drawing.Point(4, 46);
             this.CompanyFilter.Margin = new System.Windows.Forms.Padding(0);
             this.CompanyFilter.Name = "CompanyFilter";
-            this.CompanyFilter.Size = new System.Drawing.Size(143, 20);
+            this.CompanyFilter.Size = new System.Drawing.Size(150, 20);
             this.CompanyFilter.TabIndex = 1;
             this.CompanyFilter.TextChanged += new System.EventHandler(this.CompanyFilter_TextChanged);
             // 
             // CompanyBox
             // 
-            this.CompanyBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CompanyBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.CompanyBox.FormattingEnabled = true;
             this.CompanyBox.Location = new System.Drawing.Point(4, 66);
             this.CompanyBox.Margin = new System.Windows.Forms.Padding(0);
             this.CompanyBox.Name = "CompanyBox";
-            this.CompanyBox.Size = new System.Drawing.Size(143, 303);
+            this.CompanyBox.Size = new System.Drawing.Size(150, 628);
             this.CompanyBox.TabIndex = 0;
             this.CompanyBox.SelectedIndexChanged += new System.EventHandler(this.CompanyBox_SelectedIndexChanged);
             // 
@@ -135,7 +135,7 @@
             this.DateCmpLabel.AutoSize = true;
             this.DateCmpLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.DateCmpLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.DateCmpLabel.Location = new System.Drawing.Point(272, 31);
+            this.DateCmpLabel.Location = new System.Drawing.Point(291, 31);
             this.DateCmpLabel.Name = "DateCmpLabel";
             this.DateCmpLabel.Size = new System.Drawing.Size(33, 15);
             this.DateCmpLabel.TabIndex = 4;
@@ -148,7 +148,7 @@
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(8, 297);
+            this.chart1.Location = new System.Drawing.Point(2, 495);
             this.chart1.Margin = new System.Windows.Forms.Padding(2);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
@@ -159,7 +159,7 @@
             series2.Name = "Series2";
             this.chart1.Series.Add(series1);
             this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(401, 161);
+            this.chart1.Size = new System.Drawing.Size(363, 199);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "chart1";
             // 
@@ -169,7 +169,7 @@
             this.SharePriceLabel.AutoSize = true;
             this.SharePriceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.SharePriceLabel.ImageAlign = System.Drawing.ContentAlignment.TopRight;
-            this.SharePriceLabel.Location = new System.Drawing.Point(288, 4);
+            this.SharePriceLabel.Location = new System.Drawing.Point(307, 4);
             this.SharePriceLabel.Name = "SharePriceLabel";
             this.SharePriceLabel.Size = new System.Drawing.Size(39, 25);
             this.SharePriceLabel.TabIndex = 2;
@@ -190,8 +190,8 @@
             // 
             this.FinDataGrid.AllowUserToAddRows = false;
             this.FinDataGrid.AllowUserToDeleteRows = false;
-            this.FinDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FinDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.FinDataGrid.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -221,7 +221,7 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.FinDataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.FinDataGrid.Size = new System.Drawing.Size(342, 218);
+            this.FinDataGrid.Size = new System.Drawing.Size(368, 424);
             this.FinDataGrid.TabIndex = 0;
             // 
             // eventLog1
@@ -234,7 +234,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.CompanyContainer);
             this.Name = "VCompany";
-            this.Size = new System.Drawing.Size(508, 375);
+            this.Size = new System.Drawing.Size(534, 701);
             this.CompanyContainer.Panel1.ResumeLayout(false);
             this.CompanyContainer.Panel1.PerformLayout();
             this.CompanyContainer.Panel2.ResumeLayout(false);

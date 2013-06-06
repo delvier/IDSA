@@ -29,12 +29,14 @@ namespace IDSA.Views
 
         private void InitGridOptions()
         {
+            FinDataGrid.BackgroundColor = Color.White;
+            FinDataGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
             DataGridViewRow row = this.FinDataGrid.RowTemplate;
             row.DefaultCellStyle.BackColor = Color.White;
             row.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            row.Height = 15;
-            row.MinimumHeight = 15;
-            FinDataGrid.Height = 15 * 15; // 4*3 Quaters.
+            row.Height = 18;
+            row.MinimumHeight = 18;
+            //FinDataGrid.Height = 15 * 15; // 4*3 Quaters.
             HideFinDataColumns();
             SetFinDataDisplayStyle();
         }
@@ -57,6 +59,7 @@ namespace IDSA.Views
 
                 foreach (DataGridViewColumn cols in FinDataGrid.Columns)
                 {
+                    if (cols.ValueType == typeof(long))
                     cols.DefaultCellStyle = bigNumberCellStyle;
                 }
             }
@@ -125,7 +128,7 @@ namespace IDSA.Views
             //to avoid ArgumentOutOfRangeException, when company does not have reports
             if (FinDataGrid.RowCount > 0)
             {
-                this.TransposeFinDataGrid();
+                //this.TransposeFinDataGrid();
             }
             SharePriceLabel.Text = cmp.SharePrice.ToString();
             DateCmpLabel.Text = String.Format("{0}", ((System.DateTime)cmp.Date).ToShortDateString());

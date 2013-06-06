@@ -95,6 +95,14 @@ namespace IDSA.Presenters
         }
 
         #region DataModel Queries
+        public IQueryable GetBaseReportQuery()
+        {
+            return null;
+            //return _cmpSelected.Reports
+            //    .Where(r => r.CompanyId == _cmpSelected.Id)
+            //    .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
+            //    .ThenByDescending(r => r.Quarter);
+        }
         public IList GetSelectedCmpReports()
         {
             // CodeRestructure, instead of database new query used _cmpselected.Reports -IEnumerable and LINQ it.
