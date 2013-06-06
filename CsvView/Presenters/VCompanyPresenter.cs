@@ -20,12 +20,14 @@ namespace IDSA.Presenters
         private readonly IDataService<ICompany> _companyDataService;
         private IEnumerable<ICompany> _cmpData;
         private Company _cmpSelected { get; set; }
-        private IList _cmpSelectedReportsList { get; set; }
+        public IList _cmpSelectedReportsList { get; set; }
+        public ObservableListSource<IList> _cmpSelectedReportsObsList { get; set;}
 
         public VCompanyPresenter(VCompany view)
         {
             this._companyDataService = (IDataService<Company>)(new CompanyDataService());
             this.view = view;
+            this._cmpSelectedReportsObsList = new ObservableListSource<IList>();
         }
 
         public IBindingList GetDbCompanies()
@@ -60,8 +62,8 @@ namespace IDSA.Presenters
         public void SetCmpSelected(Company company)
         {
             _cmpSelected = company;
-            _cmpSelectedReportsList = GetBaseSelectCmpReports();
-            UpdatePanel2();
+            this.SetFullReports();
+            this.UpdatePanel2();
         }
 
         public void UpdatePanel2()
@@ -80,7 +82,7 @@ namespace IDSA.Presenters
         }
         public void SetFullReports()
         {
-            _cmpSelectedReportsList = GetBaseSelectCmpReports();
+            _cmpSelectedReportsObsList.Add(GetBaseSelectCmpReports());
         }
         public void SetLast4QReports()
         {
@@ -103,6 +105,7 @@ namespace IDSA.Presenters
                                         }
                                         )
                                         .ToList();
+                                        
         }
         public IList GetBaseSelectCmpReports()
         {
@@ -144,7 +147,7 @@ namespace IDSA.Presenters
 
         public IList GetSelectedCmpReports()
         {
-            return _cmpSelectedReportsList;
+            return _cmpSelectedReportsObsList.ToList();
         }
 
         //Converts the DataGridView to DataTable

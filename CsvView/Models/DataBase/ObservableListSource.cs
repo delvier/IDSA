@@ -11,14 +11,12 @@ namespace IDSA.Models
         where T : class
     {
         private IBindingList _bindingList;
-        //private MultipleSortableBindingListView<T> _bindingList;
 
         bool IListSource.ContainsListCollection { get { return false; } }
 
         IList IListSource.GetList()
         {
             return _bindingList ?? (_bindingList = this.ToBindingList());
-            //return _bindingList ?? (_bindingList = new MultipleSortableBindingListView<T>(this.ToBindingList<T>()));
         }
     }
 }
