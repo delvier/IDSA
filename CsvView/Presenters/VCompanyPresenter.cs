@@ -174,10 +174,6 @@ namespace IDSA.Presenters
         }
         #endregion
 
-        public IList GetSelectedCmpReports()
-        {
-            return _cmpSelectedReportsList;
-        }
         #region Some Presenter Utilities Procedure
 
         //Converts the DataGridView to DataTable
