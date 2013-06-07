@@ -8,7 +8,12 @@ using System.Data;
 
 namespace IDSA.Views
 {
-    public partial class VCompany : UserControl
+    public interface IVCompany
+    {
+        void SelectedCmpReportsChanged(object sender, SelectedCmpReportsChangedEventArgs e);
+    }
+
+    public partial class VCompany : UserControl, IVCompany
     {
         VCompanyPresenter presenter;
         public VCompany()
@@ -123,7 +128,7 @@ namespace IDSA.Views
 
         public void RefreshView_Panel2(ICompany cmp)
         {
-            FinDataGrid.DataSource = presenter._cmpSelectedReportsObsList;
+            FinDataGrid.DataSource = presenter._cmpSelectedReportsList;
             //to avoid ArgumentOutOfRangeException, when company does not have reports
             if (FinDataGrid.RowCount > 0)
             {
@@ -177,13 +182,7 @@ namespace IDSA.Views
             //FinDataGrid.Columns[0].Visible = false; // ?
         }
 
-        private void CompanyBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (CompanyBox.SelectedItem != null)
-            {
-                presenter.SetCmpSelected((Company)CompanyBox.SelectedItem);
-            }
-        }
+        
 
         public void BoxMsg(string s)
         {
@@ -241,16 +240,33 @@ namespace IDSA.Views
 
         #endregion
 
-        #region FinDataGrid Menu Btns
-        #endregion
+        #region Events Functions.
+        public void SelectedCmpReportsChanged(object sender, SelectedCmpReportsChangedEventArgs e)
+        {
+            presenter.UpdatePanel2();
+        }
+
         private void filterFinDataBtn_Click(object sender, EventArgs e)
         {
-            presenter.SetLast4QReports(); ;
+            presenter.RaiseSelectedCmpChange(this, new SelectedCmpReportsChangedEventArgs(4));
+            //presenter.SetLast4QReports(); ;
         }
 
         private void fullFinDataBtn_Click(object sender, EventArgs e)
         {
-            presenter.SetFullReports();
+            presenter.RaiseSelectedCmpChange(this, new SelectedCmpReportsChangedEventArgs());
+            //presenter.SetFullReports();
         }
+
+        private void CompanyBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CompanyBox.SelectedItem != null)
+            {
+                presenter.SetCmpSelected((Company)CompanyBox.SelectedItem);
+                presenter.RaiseSelectedCmpChange(this, new SelectedCmpReportsChangedEventArgs());
+            }
+        }
+        #endregion
+       
     }
 }

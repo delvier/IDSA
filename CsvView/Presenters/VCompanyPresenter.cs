@@ -21,13 +21,17 @@ namespace IDSA.Presenters
         private IEnumerable<ICompany> _cmpData;
         private Company _cmpSelected { get; set; }
         public IList _cmpSelectedReportsList { get; set; }
-        public ObservableListSource<IList> _cmpSelectedReportsObsList { get; set;}
+        public ObservableListSource<IList> _cmpSelectedReportsObsList { get; set; }
 
         public VCompanyPresenter(VCompany view)
         {
             this._companyDataService = (IDataService<Company>)(new CompanyDataService());
             this.view = view;
             this._cmpSelectedReportsObsList = new ObservableListSource<IList>();
+
+            //delegateConstruct
+            this.SelectedCmpReportsChangedEvent += new SelectedCmpReportsChangedDelegate(this.SelectProperReports);
+            this.SelectedCmpReportsChangedEvent += view.SelectedCmpReportsChanged;
         }
 
         public IBindingList GetDbCompanies()
@@ -71,6 +75,23 @@ namespace IDSA.Presenters
             view.RefreshView_Panel2(_cmpSelected);
         }
 
+
+        #region Presenter - Model ChangedEvent & Delegates
+        public delegate void SelectedCmpReportsChangedDelegate(object sender, SelectedCmpReportsChangedEventArgs e);
+        public event SelectedCmpReportsChangedDelegate SelectedCmpReportsChangedEvent;
+        public void SelectProperReports(object sender, SelectedCmpReportsChangedEventArgs e)
+        {
+            if (e != null)
+            {
+                SelectReports(e.selectQuantity);
+            }
+        }
+        public void RaiseSelectedCmpChange(VCompany sender, SelectedCmpReportsChangedEventArgs e)
+        {
+                SelectedCmpReportsChangedEvent(sender, e);
+        }
+        #endregion
+
         #region DataModel Queries
         public IQueryable GetBaseReportQuery()
         {
@@ -84,13 +105,15 @@ namespace IDSA.Presenters
         {
             _cmpSelectedReportsObsList.Add(GetBaseSelectCmpReports());
         }
-        public void SetLast4QReports()
+        public void SelectReports(int takeNumber)
         {
-            _cmpSelectedReportsList = _cmpSelected.Reports
+            if (takeNumber > 0)
+            {
+                _cmpSelectedReportsList = _cmpSelected.Reports
                                         .Where(r => r.CompanyId == _cmpSelected.Id)
                                         .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
                                         .ThenByDescending(r => r.Quarter)
-                                        .Take(4)
+                                        .Take(takeNumber)
                                         .Select(r => new
                                         {
                                             r.Year, // how to export this to some types ?
@@ -104,9 +127,15 @@ namespace IDSA.Presenters
                                             r.NetProfit
                                         }
                                         )
-                                        .ToList();
-                                        
+                                        .ToList();    
+            }
+            else
+            {
+                _cmpSelectedReportsList = GetBaseSelectCmpReports();
+            }
+
         }
+
         public IList GetBaseSelectCmpReports()
         {
             // CodeRestructure, instead of database new query used _cmpselected.Reports -IEnumerable and LINQ it.
@@ -147,8 +176,9 @@ namespace IDSA.Presenters
 
         public IList GetSelectedCmpReports()
         {
-            return _cmpSelectedReportsObsList.ToList();
+            return _cmpSelectedReportsList;
         }
+        #region Some Presenter Utilities Procedure
 
         //Converts the DataGridView to DataTable
         public static DataTable DataGridView2DataTable(DataGridView dgv, String tblName, int minRow = 0)
@@ -189,6 +219,8 @@ namespace IDSA.Presenters
             }
             return dt;
         }
+
+        #endregion
         #region Test Data Generation
         public IEnumerable GetTestCompanies()
         {
@@ -212,8 +244,20 @@ namespace IDSA.Presenters
         }
 
         #endregion
-
-
-
     }
+
+    #region PresenterChangedEventArgs - Classes
+    public class SelectedCmpReportsChangedEventArgs
+    {
+        //public IList selectedCmpReportsList { get; set; }
+        public int selectQuantity { get; set; }
+
+        public SelectedCmpReportsChangedEventArgs() { }
+        public SelectedCmpReportsChangedEventArgs(int selectQuantity)
+        {
+            this.selectQuantity = selectQuantity;
+        }
+    }
+    #endregion
+
 }
