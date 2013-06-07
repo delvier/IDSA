@@ -25,6 +25,7 @@ namespace IDSA.Views
             ServiceLocator.Instance.Resolve<DbCreate>().DbCreateDone += RefreshView;
         }
 
+        #region Init & Display Options
         private void InitListBox()
         {
             CompanyBox.Sorted = true;
@@ -42,7 +43,6 @@ namespace IDSA.Views
             row.Height = 18;
             row.MinimumHeight = 18;
             //FinDataGrid.Height = 15 * 15; // 4*3 Quaters.
-            HideFinDataColumns();
             SetFinDataDisplayStyle();
         }
 
@@ -55,35 +55,10 @@ namespace IDSA.Views
             //long numbers into thousands.
             if (this.FinDataGrid.RowCount != 0)
             {
-                var propList = typeof(Report).GetProperties();
-                int i = 0;
-                //foreach (var ePro in propList)
-                    //if (ePro.PropertyType == typeof(Int64))
-                        //FinDataGrid.Rows[i++].DefaultCellStyle = bigNumberCellStyle;
-                        //FinDataGrid.Rows[ePro.Name].DefaultCellStyle = bigNumberCellStyle;
-
                 foreach (DataGridViewColumn cols in FinDataGrid.Columns)
                 {
                     if (cols.ValueType == typeof(long))
-                    cols.DefaultCellStyle = bigNumberCellStyle;
-                }
-            }
-        }
-
-        private void HideFinDataColumns()
-        {
-            // TO-OPT - i dont like this solution, pure data on view side.
-            var hideList = new List<string>
-            {
-                "Id",
-                "CompanyId",
-                "Company"
-            };
-            foreach (DataGridViewColumn finColum in FinDataGrid.Columns)
-            {
-                if (hideList.Contains(finColum.Name))
-                {
-                    finColum.Visible = false;
+                        cols.DefaultCellStyle = bigNumberCellStyle;
                 }
             }
         }
@@ -97,19 +72,14 @@ namespace IDSA.Views
             MarketType.DisplayMember = CsvEnums.company.Name.ToString();
         }
 
-        private void CompanyFilter_TextChanged(object sender, System.EventArgs e)
-        {
-            CompanyBox.BeginUpdate();
-            CompanyBox.DataSource = presenter.GetFilterBox(CompanyFilter.Text);
-            CompanyBox.EndUpdate();
-        }
-
         public System.Windows.Forms.ListBox.ObjectCollection GetCmpBoxItems()
         {
             return CompanyBox.Items;
         }
+        #endregion
+        
 
-        #region Delegates Implementation
+        #region View Refresh Update / Init
         private void RefreshView()
         {
             if (this.InvokeRequired)
@@ -124,7 +94,6 @@ namespace IDSA.Views
                 this.ChartPopulatingData();
             }
         }
-        #endregion
 
         public void RefreshView_Panel2(ICompany cmp)
         {
@@ -138,6 +107,10 @@ namespace IDSA.Views
             DateCmpLabel.Text = String.Format("{0}", ((System.DateTime)cmp.Date).ToShortDateString());
             CompanyTitle.Text = cmp.FullName.ToString();
         }
+        #endregion
+
+      
+        #region  Block of Utils
 
         public void TransposeFinDataGrid()
         {
@@ -146,12 +119,12 @@ namespace IDSA.Views
 
             newTable.Columns.Add("Header");
             for (int i = 0; i < oldTable.Rows.Count; i++)
-            { 
+            {
                 newTable.Columns.Add();
                 //here get year quater [i] from old table. and put into caption columns.
                 //newTable.Columns[i].Caption = 
             }
-              
+
 
             for (int i = 0; i < oldTable.Columns.Count; i++)
             {
@@ -172,22 +145,23 @@ namespace IDSA.Views
             }
 
             newTable.Columns.Remove(newTable.Columns[0]); //removeTrashHeaderColumn
-            
+
             FinDataGrid.DataSource = newTable;
             // row header by lst.
             foreach (var header in lst)
             {
-                 FinDataGrid.Rows[lst.IndexOf(header)].HeaderCell.Value = header;
+                FinDataGrid.Rows[lst.IndexOf(header)].HeaderCell.Value = header;
             }
             //FinDataGrid.Columns[0].Visible = false; // ?
         }
 
-        
+
 
         public void BoxMsg(string s)
         {
             MessageBox.Show(s);
-        }
+        }		 
+	#endregion
 
         #region Chart usage methods
 
@@ -240,7 +214,7 @@ namespace IDSA.Views
 
         #endregion
 
-        #region Events Functions.
+        #region Events Handlers Block.
         public void SelectedCmpReportsChanged(object sender, SelectedCmpReportsChangedEventArgs e)
         {
             presenter.UpdatePanel2();
@@ -265,6 +239,13 @@ namespace IDSA.Views
                 presenter.SetCmpSelected((Company)CompanyBox.SelectedItem);
                 presenter.RaiseSelectedCmpChange(this, new SelectedCmpReportsChangedEventArgs());
             }
+        }
+
+        private void CompanyFilter_TextChanged(object sender, System.EventArgs e)
+        {
+            CompanyBox.BeginUpdate();
+            CompanyBox.DataSource = presenter.GetFilterBox(CompanyFilter.Text);
+            CompanyBox.EndUpdate();
         }
         #endregion
        
