@@ -88,7 +88,7 @@ namespace IDSA.Presenters
         }
         public void RaiseSelectedCmpChange(VCompany sender, SelectedCmpReportsChangedEventArgs e)
         {
-                SelectedCmpReportsChangedEvent(sender, e);
+            SelectedCmpReportsChangedEvent(sender, e);
         }
         #endregion
 
@@ -127,7 +127,7 @@ namespace IDSA.Presenters
                                             r.NetProfit
                                         }
                                         )
-                                        .ToList();    
+                                        .ToList();
             }
             else
             {
