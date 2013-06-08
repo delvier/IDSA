@@ -40,6 +40,7 @@ namespace IDSA
             this.companyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.companyBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
+            this.companyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -52,14 +53,20 @@ namespace IDSA
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.companyBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.companyDataGridView = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Shortcut = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.reportsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.reportsDataGridView = new System.Windows.Forms.DataGridView();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CompanyId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Quarter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EBIT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Sales = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EarningOnSales = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -69,15 +76,9 @@ namespace IDSA
             this.CreateDatabase = new System.Windows.Forms.Button();
             this.Info = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Shortcut = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.companyBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.companyBindingNavigator)).BeginInit();
             this.companyBindingNavigator.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.companyDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsDataGridView)).BeginInit();
@@ -90,7 +91,6 @@ namespace IDSA
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -190,6 +190,10 @@ namespace IDSA
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorAddNewItem.Text = "Add new";
+            // 
+            // companyBindingSource
+            // 
+            this.companyBindingSource.DataSource = typeof(IDSA.Models.Company);
             // 
             // bindingNavigatorCountItem
             // 
@@ -294,6 +298,36 @@ namespace IDSA
             this.companyDataGridView.Size = new System.Drawing.Size(350, 485);
             this.companyDataGridView.TabIndex = 5;
             // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "Id";
+            this.Column1.HeaderText = "Id";
+            this.Column1.Name = "Column1";
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column1.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Name";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // Shortcut
+            // 
+            this.Shortcut.DataPropertyName = "Shortcut";
+            this.Shortcut.HeaderText = "Shortcut";
+            this.Shortcut.Name = "Shortcut";
+            this.Shortcut.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Shortcut.Width = 60;
+            // 
+            // Date
+            // 
+            this.Date.DataPropertyName = "Date";
+            this.Date.HeaderText = "Date";
+            this.Date.Name = "Date";
+            this.Date.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Date.Width = 80;
+            // 
             // reportsBindingSource
             // 
             this.reportsBindingSource.DataMember = "Reports";
@@ -333,6 +367,12 @@ namespace IDSA
             this.CompanyId.HeaderText = "CompanyId";
             this.CompanyId.Name = "CompanyId";
             // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.DataPropertyName = "Year";
+            this.dataGridViewTextBoxColumn10.HeaderText = "Year";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            // 
             // Quarter
             // 
             this.Quarter.DataPropertyName = "Quarter";
@@ -356,6 +396,13 @@ namespace IDSA
             this.EarningOnSales.DataPropertyName = "EarningOnSales";
             this.EarningOnSales.HeaderText = "EarningOnSales";
             this.EarningOnSales.Name = "EarningOnSales";
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            this.dataGridViewTextBoxColumn13.DataPropertyName = "NetProfit";
+            this.dataGridViewTextBoxColumn13.HeaderText = "NetProfit";
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            this.dataGridViewTextBoxColumn13.Visible = false;
             // 
             // splitContainer1
             // 
@@ -470,53 +517,6 @@ namespace IDSA
             this.Info.TabIndex = 5;
             this.Info.Text = "DB is still loading.\r\n... please wait ...\r\n";
             // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "Id";
-            this.Column1.HeaderText = "Id";
-            this.Column1.Name = "Column1";
-            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Column1.Width = 50;
-            // 
-            // Shortcut
-            // 
-            this.Shortcut.DataPropertyName = "Shortcut";
-            this.Shortcut.HeaderText = "Shortcut";
-            this.Shortcut.Name = "Shortcut";
-            this.Shortcut.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Shortcut.Width = 60;
-            // 
-            // Date
-            // 
-            this.Date.DataPropertyName = "Date";
-            this.Date.HeaderText = "Date";
-            this.Date.Name = "Date";
-            this.Date.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Date.Width = 80;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Name";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
-            // companyBindingSource
-            // 
-            this.companyBindingSource.DataSource = typeof(IDSA.Models.Company);
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.DataPropertyName = "Year";
-            this.dataGridViewTextBoxColumn10.HeaderText = "Year";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            // 
-            // dataGridViewTextBoxColumn13
-            // 
-            this.dataGridViewTextBoxColumn13.DataPropertyName = "NetProfit";
-            this.dataGridViewTextBoxColumn13.HeaderText = "NetProfit";
-            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
-            this.dataGridViewTextBoxColumn13.Visible = false;
-            // 
             // DBView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -529,6 +529,7 @@ namespace IDSA
             ((System.ComponentModel.ISupportInitialize)(this.companyBindingNavigator)).EndInit();
             this.companyBindingNavigator.ResumeLayout(false);
             this.companyBindingNavigator.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.companyDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsDataGridView)).EndInit();
@@ -542,7 +543,6 @@ namespace IDSA
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -551,8 +551,6 @@ namespace IDSA
         #endregion
 
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.Button Clean;
         private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn keyIdDataGridViewTextBoxColumn;
@@ -560,7 +558,6 @@ namespace IDSA
         private System.Windows.Forms.DataGridViewTextBoxColumn netProfitDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn companySymbolDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn companyDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.BindingSource companyBindingSource;
         private System.Windows.Forms.BindingNavigator companyBindingNavigator;
         private System.Windows.Forms.ToolStripButton bindingNavigatorAddNewItem;
@@ -576,15 +573,8 @@ namespace IDSA
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.ToolStripButton companyBindingNavigatorSaveItem;
         private System.Windows.Forms.DataGridView companyDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.BindingSource reportsBindingSource;
         private System.Windows.Forms.DataGridView reportsDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn CompanyId;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
