@@ -63,7 +63,7 @@ namespace IDSA.Models.Repository
         public void Commit()
         {
             context.SaveChanges();
-            ServiceLocator.Instance.Resolve<DbUpdate>().Update();
+            ServiceLocator.Instance.Resolve<EventDbUpdate>().RaiseEventDbUpdate();
         }
 
         public void Load()

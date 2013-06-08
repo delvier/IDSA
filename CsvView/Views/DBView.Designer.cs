@@ -31,7 +31,7 @@ namespace IDSA
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DBView));
             this.button1 = new System.Windows.Forms.Button();
-            this.Select = new System.Windows.Forms.Button();
+            this.Clean = new System.Windows.Forms.Button();
             this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.keyIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.salesRevenuesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,11 +52,6 @@ namespace IDSA
             this.bindingNavigatorSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.companyBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.companyDataGridView = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Shortcut = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SharePrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ShareNumbers = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.reportsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.reportsDataGridView = new System.Windows.Forms.DataGridView();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,16 +62,17 @@ namespace IDSA
             this.EarningOnSales = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.addReportsCheckBox = new System.Windows.Forms.CheckBox();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.CreateDatabase = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.Info = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Shortcut = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.companyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -109,16 +105,16 @@ namespace IDSA
             this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // Select
+            // Clean
             // 
-            this.Select.Location = new System.Drawing.Point(190, 91);
-            this.Select.Margin = new System.Windows.Forms.Padding(2);
-            this.Select.Name = "Select";
-            this.Select.Size = new System.Drawing.Size(69, 26);
-            this.Select.TabIndex = 4;
-            this.Select.Text = "Clean DB";
-            this.Select.UseVisualStyleBackColor = true;
-            this.Select.Click += new System.EventHandler(this.Select_Click);
+            this.Clean.Location = new System.Drawing.Point(190, 91);
+            this.Clean.Margin = new System.Windows.Forms.Padding(2);
+            this.Clean.Name = "Clean";
+            this.Clean.Size = new System.Drawing.Size(69, 26);
+            this.Clean.TabIndex = 4;
+            this.Clean.Text = "Clean DB";
+            this.Clean.UseVisualStyleBackColor = true;
+            this.Clean.Click += new System.EventHandler(this.Clean_Click);
             // 
             // iDDataGridViewTextBoxColumn
             // 
@@ -288,48 +284,15 @@ namespace IDSA
             this.Column1,
             this.dataGridViewTextBoxColumn2,
             this.Shortcut,
-            this.Date,
-            this.SharePrice,
-            this.ShareNumbers,
-            this.dataGridViewTextBoxColumn3});
+            this.Date});
             this.companyDataGridView.DataSource = this.companyBindingSource;
             this.companyDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.companyDataGridView.Location = new System.Drawing.Point(0, 0);
             this.companyDataGridView.Margin = new System.Windows.Forms.Padding(2);
             this.companyDataGridView.Name = "companyDataGridView";
             this.companyDataGridView.RowTemplate.Height = 24;
-            this.companyDataGridView.Size = new System.Drawing.Size(570, 485);
+            this.companyDataGridView.Size = new System.Drawing.Size(350, 485);
             this.companyDataGridView.TabIndex = 5;
-            // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "Id";
-            this.Column1.HeaderText = "Id";
-            this.Column1.Name = "Column1";
-            // 
-            // Shortcut
-            // 
-            this.Shortcut.DataPropertyName = "Shortcut";
-            this.Shortcut.HeaderText = "Shortcut";
-            this.Shortcut.Name = "Shortcut";
-            // 
-            // Date
-            // 
-            this.Date.DataPropertyName = "Date";
-            this.Date.HeaderText = "Date";
-            this.Date.Name = "Date";
-            // 
-            // SharePrice
-            // 
-            this.SharePrice.DataPropertyName = "SharePrice";
-            this.SharePrice.HeaderText = "SharePrice";
-            this.SharePrice.Name = "SharePrice";
-            // 
-            // ShareNumbers
-            // 
-            this.ShareNumbers.DataPropertyName = "ShareNumbers";
-            this.ShareNumbers.HeaderText = "ShareNumbers";
-            this.ShareNumbers.Name = "ShareNumbers";
             // 
             // reportsBindingSource
             // 
@@ -355,7 +318,7 @@ namespace IDSA
             this.reportsDataGridView.Margin = new System.Windows.Forms.Padding(2);
             this.reportsDataGridView.Name = "reportsDataGridView";
             this.reportsDataGridView.RowTemplate.Height = 24;
-            this.reportsDataGridView.Size = new System.Drawing.Size(413, 350);
+            this.reportsDataGridView.Size = new System.Drawing.Size(633, 350);
             this.reportsDataGridView.TabIndex = 5;
             // 
             // Column2
@@ -397,6 +360,7 @@ namespace IDSA
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.IsSplitterFixed = true;
             this.splitContainer1.Location = new System.Drawing.Point(0, 25);
             this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
@@ -405,14 +369,14 @@ namespace IDSA
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.companyDataGridView);
-            this.splitContainer1.Panel1MinSize = 570;
+            this.splitContainer1.Panel1MinSize = 0;
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Panel2MinSize = 200;
+            this.splitContainer1.Panel2MinSize = 0;
             this.splitContainer1.Size = new System.Drawing.Size(986, 485);
-            this.splitContainer1.SplitterDistance = 570;
+            this.splitContainer1.SplitterDistance = 350;
             this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 6;
             // 
@@ -427,33 +391,42 @@ namespace IDSA
             // splitContainer2.Panel1
             // 
             this.splitContainer2.Panel1.Controls.Add(this.textBox1);
-            this.splitContainer2.Panel1.Controls.Add(this.checkBox1);
+            this.splitContainer2.Panel1.Controls.Add(this.addReportsCheckBox);
             this.splitContainer2.Panel1.Controls.Add(this.trackBar1);
             this.splitContainer2.Panel1.Controls.Add(this.progressBar);
             this.splitContainer2.Panel1.Controls.Add(this.CreateDatabase);
-            this.splitContainer2.Panel1.Controls.Add(this.listView1);
             this.splitContainer2.Panel1.Controls.Add(this.Info);
             this.splitContainer2.Panel1.Controls.Add(this.button1);
-            this.splitContainer2.Panel1.Controls.Add(this.Select);
+            this.splitContainer2.Panel1.Controls.Add(this.Clean);
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.reportsDataGridView);
-            this.splitContainer2.Size = new System.Drawing.Size(413, 485);
+            this.splitContainer2.Size = new System.Drawing.Size(633, 485);
             this.splitContainer2.SplitterDistance = 132;
             this.splitContainer2.SplitterWidth = 3;
             this.splitContainer2.TabIndex = 6;
             // 
-            // checkBox1
+            // textBox1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(290, 97);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(80, 17);
-            this.checkBox1.TabIndex = 10;
-            this.checkBox1.Text = "Add reports";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.textBox1.Location = new System.Drawing.Point(202, 66);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(46, 20);
+            this.textBox1.TabIndex = 11;
+            this.textBox1.Text = "400";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // addReportsCheckBox
+            // 
+            this.addReportsCheckBox.AutoSize = true;
+            this.addReportsCheckBox.Location = new System.Drawing.Point(290, 97);
+            this.addReportsCheckBox.Name = "addReportsCheckBox";
+            this.addReportsCheckBox.Size = new System.Drawing.Size(80, 17);
+            this.addReportsCheckBox.TabIndex = 10;
+            this.addReportsCheckBox.Text = "Add reports";
+            this.addReportsCheckBox.UseVisualStyleBackColor = true;
+            this.addReportsCheckBox.CheckedChanged += new System.EventHandler(this.addReportsCheckBox1_CheckedChanged);
             // 
             // trackBar1
             // 
@@ -486,15 +459,6 @@ namespace IDSA
             this.CreateDatabase.UseVisualStyleBackColor = true;
             this.CreateDatabase.Click += new System.EventHandler(this.CreateDatabase_Click);
             // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(396, 13);
-            this.listView1.Margin = new System.Windows.Forms.Padding(2);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(29, 105);
-            this.listView1.TabIndex = 6;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            // 
             // Info
             // 
             this.Info.AutoSize = true;
@@ -506,29 +470,35 @@ namespace IDSA
             this.Info.TabIndex = 5;
             this.Info.Text = "DB is still loading.\r\n... please wait ...\r\n";
             // 
-            // textBox1
+            // Column1
             // 
-            this.textBox1.Location = new System.Drawing.Point(202, 66);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(46, 20);
-            this.textBox1.TabIndex = 11;
-            this.textBox1.Text = "400";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.Column1.DataPropertyName = "Id";
+            this.Column1.HeaderText = "Id";
+            this.Column1.Name = "Column1";
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column1.Width = 50;
+            // 
+            // Shortcut
+            // 
+            this.Shortcut.DataPropertyName = "Shortcut";
+            this.Shortcut.HeaderText = "Shortcut";
+            this.Shortcut.Name = "Shortcut";
+            this.Shortcut.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Shortcut.Width = 60;
+            // 
+            // Date
+            // 
+            this.Date.DataPropertyName = "Date";
+            this.Date.HeaderText = "Date";
+            this.Date.Name = "Date";
+            this.Date.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Date.Width = 80;
             // 
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "Name";
             this.dataGridViewTextBoxColumn2.HeaderText = "Name";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Description";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Description";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Visible = false;
             // 
             // companyBindingSource
             // 
@@ -583,7 +553,7 @@ namespace IDSA
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.Button Select;
+        private System.Windows.Forms.Button Clean;
         private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn keyIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn salesRevenuesDataGridViewTextBoxColumn;
@@ -615,13 +585,6 @@ namespace IDSA
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn14;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Shortcut;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SharePrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ShareNumbers;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn CompanyId;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
@@ -632,14 +595,17 @@ namespace IDSA
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.Label Info;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Button CreateDatabase;
         private System.Windows.Forms.TrackBar trackBar1;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox addReportsCheckBox;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Shortcut;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
     }
 }
 

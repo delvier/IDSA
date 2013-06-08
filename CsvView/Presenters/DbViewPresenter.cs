@@ -12,15 +12,23 @@ namespace IDSA.Presenters
 {
     public class DbViewPresenter
     {
+        #region Fields and Props
+        
         private IDbView view;
         private IUnitOfWork model;
+        
+        #endregion
 
+        #region Ctors
+        
         public DbViewPresenter(IDbView view)
         {
             this.view = view;
         }
+        
+        #endregion
 
-        #region Delegates implementation(derivative)
+        #region Event Handlers
 
         internal string dbCreateDone()
         {
@@ -41,16 +49,7 @@ namespace IDSA.Presenters
         
         #endregion
 
-        internal void CleanDatabase()
-        {
-            // faster way of cleaning database ;) NOT WORKING YET (other views lost connection to model, but it is faster)
-            //ServiceLocator.Instance.Resolve<IUnitOfWork>().Dispose();
-            //ServiceLocator.Instance.Register<IUnitOfWork>(new EFUnitOfWork(new Context(new DropCreateDatabaseAlways<Context>())));
-            //ServiceLocator.Instance.Resolve<DbCreate>().Create();
-            model.Companies.RemoveAll();
-            model.Reports.RemoveAll();
-            model.Commit();
-        }
+        #region Internal Methods
 
         internal BindingList<Company> GetAllCompanies()
         {
@@ -61,17 +60,6 @@ namespace IDSA.Presenters
         {
             model.Companies.Add(company);
             model.Commit();
-        }
-
-        internal void SaveDatabase()
-        {
-            model.Commit();
-        }
-
-        internal void CreateDatabase()
-        {
-            AddCompanies(870);
-            AddReports(16000);
         }
 
         internal void AddCompanies(int count)
@@ -106,9 +94,9 @@ namespace IDSA.Presenters
                     };
                     model.Companies.Add(company);
                     i++;
-                    if ((i*20)%count == 0)
+                    if ((i * 20) % count == 0)
                     {
-                        view.UpdateProgressBar((int)(i/count*100));
+                        view.UpdateProgressBar((int)(i / count * 100));
                         //System.Threading.Thread.Sleep(500);
                         //model.Commit();
                     }
@@ -166,6 +154,30 @@ namespace IDSA.Presenters
             sw.Stop();
             view.UpdateLabel("\nRep min: " + sw.Elapsed.Minutes.ToString() + " sec: " + sw.Elapsed.Minutes.ToString());
         }
+
+        internal void SaveDatabase()
+        {
+            model.Commit();
+        }
+
+        internal void CreateDatabase()
+        {
+            AddCompanies(870);
+            AddReports(16000);
+        }
+
+        internal void CleanDatabase()
+        {
+            // faster way of cleaning database ;) NOT WORKING YET (other views lost connection to model, but it is faster)
+            //ServiceLocator.Instance.Resolve<IUnitOfWork>().Dispose();
+            //ServiceLocator.Instance.Register<IUnitOfWork>(new EFUnitOfWork(new Context(new DropCreateDatabaseAlways<Context>())));
+            //ServiceLocator.Instance.Resolve<DbCreate>().Create();
+            model.Companies.RemoveAll();
+            model.Reports.RemoveAll();
+            model.Commit();
+        }
+
+        #endregion
 
         #region Testing methods(TODO: delete on the end)
 

@@ -6,16 +6,19 @@ namespace IDSA
 {
     public interface IDbView
     {
-        //void Refresh();
-        //void AddCompany(Company company);
-        //void AddCompany(List<Company> companies)
+        void UpdateLabel(string p); 
         void UpdateProgressBar(int percent);
-        void UpdateLabel(string p);
     }
 
     public partial class DBView : UserControl, IDbView
     {
+        #region Fields and Props
+
         private DbViewPresenter presenter;
+
+        #endregion
+
+        #region Ctor and OnLoad
 
         public DBView()
         {
@@ -23,16 +26,16 @@ namespace IDSA
             ServiceLocator.Instance.Register(new DbViewPresenter(this));
             presenter = ServiceLocator.Instance.Resolve<DbViewPresenter>();
 
-            ServiceLocator.Instance.Resolve<DbCreate>().DbCreateDone += DBView_DbCreateDone;
-            ServiceLocator.Instance.Resolve<DbUpdate>().DbUpdateDone += new DbUpdateDelegate(DBView_DbUpdateDone);
+            ServiceLocator.Instance.Resolve<EventDbCreate>().DbCreateDone += DBView_DbCreateDone;
+            ServiceLocator.Instance.Resolve<EventDbUpdate>().DbUpdateDone += DBView_DbUpdateDone;
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            // change introduced only for testing purposes
-            this.Select.Text = "Clean";
         }
+
+        #endregion
 
         #region Delegates implementation
 
@@ -66,43 +69,28 @@ namespace IDSA
         }
 
         #endregion
-
-        #region Inside Events behaviour
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        
+        #region Public Methods
+        
+        public void UpdateLabel(string text)
         {
-            this.button1.Text = this.checkBox1.Checked ? "Add reports" : "Add companies";
-            this.trackBar1.Maximum = this.checkBox1.Checked ? 16000 : 952;
+            this.Info.Text += text;
         }
-
-        private void trackBar1_ValueChanged(object sender, EventArgs e)
-        {
-            this.textBox1.Text = "" + this.trackBar1.Value;
-            this.toolTip1.SetToolTip(this.trackBar1, this.trackBar1.Value.ToString());
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            // TODO: there should be check value in textBox
-            if (this.textBox1.Text != "")
-                this.trackBar1.Value = int.Parse(this.textBox1.Text);
-        }
-        #endregion
-
+        
         public void UpdateProgressBar(int percent)
         {
             this.progressBar.Value = (percent > 100) ? 100 : percent;
             this.progressBar.Refresh();
         }
 
+        #endregion
+
+        #region Private Methods
+
         private void RefreshProgessBar()
         {
             this.progressBar.Visible = this.progressBar.Visible ? false : true;
             this.progressBar.Refresh();
-        }
-
-        public void UpdateLabel(string text)
-        {
-            this.Info.Text += text;
         }
 
         #region Buttons service
@@ -125,14 +113,14 @@ namespace IDSA
         private void button1_Click(object sender, EventArgs e)
         {
             RefreshProgessBar();
-            if (this.checkBox1.Checked)
+            if (this.addReportsCheckBox.Checked)
                 presenter.AddReports(this.trackBar1.Value);
             else
                 presenter.AddCompanies(this.trackBar1.Value);
             RefreshProgessBar();
         }
-        
-        private void Select_Click(object sender, EventArgs e)
+
+        private void Clean_Click(object sender, EventArgs e)
         {
             presenter.CleanDatabase();
             //var id = "WWL";
@@ -146,14 +134,33 @@ namespace IDSA
             //                    raport.NetProfit
             //                });
 
-            //var companies = query.ToList();
-            //foreach (var item in companies)
-            //{
-            //    //TODO:
-            //}
-
             //var query = db.Companies.Include("Reports").Where(c => c.Symbol == id);
         }
+        #endregion
+
+        #region Inside Events behaviour
+        private void addReportsCheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            this.button1.Text = this.addReportsCheckBox.Checked ? "Add reports" : "Add companies";
+            this.trackBar1.Maximum = this.addReportsCheckBox.Checked ? 16000 : 952;
+            if (this.trackBar1.Value >= this.trackBar1.Maximum)
+                this.textBox1.Text = "" + this.trackBar1.Value;
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            this.textBox1.Text = "" + this.trackBar1.Value;
+            this.toolTip1.SetToolTip(this.trackBar1, this.trackBar1.Value.ToString());
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            // TODO: there should be check value in textBox
+            if (this.textBox1.Text != "")
+                this.trackBar1.Value = int.Parse(this.textBox1.Text);
+        }
+        #endregion
+
         #endregion
     }
 }

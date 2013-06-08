@@ -4,11 +4,11 @@ namespace IDSA
 {
     public delegate void DbUpdateDelegate();
 
-    public class DbUpdate
+    public class EventDbUpdate
     {
         public event DbUpdateDelegate DbUpdateDone;
 
-        public void Update()
+        public void RaiseEventDbUpdate()
         {
             FireUpdateEvent();
         }
@@ -24,11 +24,11 @@ namespace IDSA
 
     public delegate void DbCreateDelegate();
 
-    public class DbCreate
+    public class EventDbCreate
     {
         public event DbCreateDelegate DbCreateDone;
 
-        public void Create()
+        public void RaiseEventDbCreate()
         {
             FireCreationEvent();
         }

@@ -16,8 +16,8 @@ namespace IDSA
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            ServiceLocator.Instance.Register(new DbCreate());
-            ServiceLocator.Instance.Register(new DbUpdate());
+            ServiceLocator.Instance.Register(new EventDbCreate());
+            ServiceLocator.Instance.Register(new EventDbUpdate());
             ServiceLocator.Instance.Register<IViewProvider>(new TabbedViewProvider());
             ServiceLocator.Instance.Register(new DBView());
             ServiceLocator.Instance.Register(new VCsvLoad());
@@ -26,7 +26,7 @@ namespace IDSA
             ServiceLocator.Instance.Register(new Shell(ServiceLocator.Instance.Resolve<IViewProvider>()));
             dbCreate = Task.Factory.StartNew(() => ServiceLocator.Instance.Register<IUnitOfWork>(new EFUnitOfWork(/*new Context(new CreateDatabaseIfNotExists<Context>())*/)));
             dbCreate.ContinueWith((t) =>
-                    ServiceLocator.Instance.Resolve<DbCreate>().Create(),
+                    ServiceLocator.Instance.Resolve<EventDbCreate>().RaiseEventDbCreate(),
                     System.Threading.CancellationToken.None, TaskContinuationOptions.NotOnFaulted, TaskScheduler.FromCurrentSynchronizationContext()
                 );
             

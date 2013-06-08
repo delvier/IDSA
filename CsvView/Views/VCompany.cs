@@ -22,7 +22,7 @@ namespace IDSA.Views
             ServiceLocator.Instance.Register(new VCompanyPresenter(this));
             presenter = ServiceLocator.Instance.Resolve<VCompanyPresenter>();
 
-            ServiceLocator.Instance.Resolve<DbCreate>().DbCreateDone += RefreshView;
+            ServiceLocator.Instance.Resolve<EventDbCreate>().DbCreateDone += RefreshView;
         }
 
         #region Init & Display Options
