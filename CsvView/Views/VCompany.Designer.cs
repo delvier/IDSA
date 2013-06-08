@@ -40,14 +40,14 @@
             this.MarketType = new System.Windows.Forms.ComboBox();
             this.CompanyFilter = new System.Windows.Forms.TextBox();
             this.CompanyBox = new System.Windows.Forms.ListBox();
+            this.fullFinDataBtn = new System.Windows.Forms.Button();
+            this.filterFinDataBtn = new System.Windows.Forms.Button();
             this.DateCmpLabel = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.SharePriceLabel = new System.Windows.Forms.Label();
             this.CompanyTitle = new System.Windows.Forms.Label();
             this.FinDataGrid = new System.Windows.Forms.DataGridView();
             this.eventLog1 = new System.Diagnostics.EventLog();
-            this.filterFinDataBtn = new System.Windows.Forms.Button();
-            this.fullFinDataBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.CompanyContainer)).BeginInit();
             this.CompanyContainer.Panel1.SuspendLayout();
             this.CompanyContainer.Panel2.SuspendLayout();
@@ -89,8 +89,8 @@
             // 
             // CompanyTypes
             // 
-            this.CompanyTypes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.CompanyTypes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CompanyTypes.FormattingEnabled = true;
             this.CompanyTypes.Location = new System.Drawing.Point(4, 25);
             this.CompanyTypes.Margin = new System.Windows.Forms.Padding(0);
@@ -100,8 +100,8 @@
             // 
             // MarketType
             // 
-            this.MarketType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.MarketType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.MarketType.FormattingEnabled = true;
             this.MarketType.Location = new System.Drawing.Point(4, 4);
             this.MarketType.Margin = new System.Windows.Forms.Padding(0);
@@ -111,8 +111,8 @@
             // 
             // CompanyFilter
             // 
-            this.CompanyFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.CompanyFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CompanyFilter.Location = new System.Drawing.Point(4, 46);
             this.CompanyFilter.Margin = new System.Windows.Forms.Padding(0);
             this.CompanyFilter.Name = "CompanyFilter";
@@ -122,9 +122,9 @@
             // 
             // CompanyBox
             // 
-            this.CompanyBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.CompanyBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CompanyBox.FormattingEnabled = true;
             this.CompanyBox.Location = new System.Drawing.Point(4, 66);
             this.CompanyBox.Margin = new System.Windows.Forms.Padding(0);
@@ -132,6 +132,26 @@
             this.CompanyBox.Size = new System.Drawing.Size(180, 628);
             this.CompanyBox.TabIndex = 0;
             this.CompanyBox.SelectedIndexChanged += new System.EventHandler(this.CompanyBox_SelectedIndexChanged);
+            // 
+            // fullFinDataBtn
+            // 
+            this.fullFinDataBtn.Location = new System.Drawing.Point(3, 66);
+            this.fullFinDataBtn.Name = "fullFinDataBtn";
+            this.fullFinDataBtn.Size = new System.Drawing.Size(75, 23);
+            this.fullFinDataBtn.TabIndex = 6;
+            this.fullFinDataBtn.Text = "Normal";
+            this.fullFinDataBtn.UseVisualStyleBackColor = true;
+            this.fullFinDataBtn.Click += new System.EventHandler(this.fullFinDataBtn_Click);
+            // 
+            // filterFinDataBtn
+            // 
+            this.filterFinDataBtn.Location = new System.Drawing.Point(84, 66);
+            this.filterFinDataBtn.Name = "filterFinDataBtn";
+            this.filterFinDataBtn.Size = new System.Drawing.Size(75, 23);
+            this.filterFinDataBtn.TabIndex = 5;
+            this.filterFinDataBtn.Text = "Last 4Q";
+            this.filterFinDataBtn.UseVisualStyleBackColor = true;
+            this.filterFinDataBtn.Click += new System.EventHandler(this.filterFinDataBtn_Click);
             // 
             // DateCmpLabel
             // 
@@ -152,7 +172,7 @@
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(2, 495);
+            this.chart1.Location = new System.Drawing.Point(8, 381);
             this.chart1.Margin = new System.Windows.Forms.Padding(2);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
@@ -163,7 +183,7 @@
             series2.Name = "Series2";
             this.chart1.Series.Add(series1);
             this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(363, 199);
+            this.chart1.Size = new System.Drawing.Size(776, 244);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "chart1";
             // 
@@ -194,8 +214,8 @@
             // 
             this.FinDataGrid.AllowUserToAddRows = false;
             this.FinDataGrid.AllowUserToDeleteRows = false;
-            this.FinDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.FinDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.FinDataGrid.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -225,32 +245,14 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.FinDataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.FinDataGrid.Size = new System.Drawing.Size(438, 398);
+            this.FinDataGrid.Size = new System.Drawing.Size(438, 284);
             this.FinDataGrid.TabIndex = 0;
+            this.FinDataGrid.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.FinDataGrid_CellEnter);
+            this.FinDataGrid.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.FinDataGrid_RowEnter);
             // 
             // eventLog1
             // 
             this.eventLog1.SynchronizingObject = this;
-            // 
-            // filterFinDataBtn
-            // 
-            this.filterFinDataBtn.Location = new System.Drawing.Point(84, 66);
-            this.filterFinDataBtn.Name = "filterFinDataBtn";
-            this.filterFinDataBtn.Size = new System.Drawing.Size(75, 23);
-            this.filterFinDataBtn.TabIndex = 5;
-            this.filterFinDataBtn.Text = "Last 4Q";
-            this.filterFinDataBtn.UseVisualStyleBackColor = true;
-            this.filterFinDataBtn.Click += new System.EventHandler(this.filterFinDataBtn_Click);
-            // 
-            // fullFinDataBtn
-            // 
-            this.fullFinDataBtn.Location = new System.Drawing.Point(3, 66);
-            this.fullFinDataBtn.Name = "fullFinDataBtn";
-            this.fullFinDataBtn.Size = new System.Drawing.Size(75, 23);
-            this.fullFinDataBtn.TabIndex = 6;
-            this.fullFinDataBtn.Text = "Normal";
-            this.fullFinDataBtn.UseVisualStyleBackColor = true;
-            this.fullFinDataBtn.Click += new System.EventHandler(this.fullFinDataBtn_Click);
             // 
             // VCompany
             // 

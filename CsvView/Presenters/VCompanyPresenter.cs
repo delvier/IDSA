@@ -161,13 +161,15 @@ namespace IDSA.Presenters
             else
                 return (new List<Report>());
         }
-        public IList GetSelectedCmpReports1()
+        public IList<Report> GetSelectedCmpReports1()
         {
+            if (!_cmpSelected.Equals(null))
+                return _cmpSelected.Reports.ToList();
             if (dbModel != null)
                 return _cmpSelected.Reports
                      .Where(r => r.CompanyId == _cmpSelected.Id)
                      .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
-                     .ThenByDescending(r => r.Quarter).Select(x => x.Sales)
+                     .ThenByDescending(r => r.Quarter).Select(r => r)
                      .ToList();
             else
                 return (new List<Report>());
