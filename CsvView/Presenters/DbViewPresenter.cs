@@ -71,7 +71,7 @@ namespace IDSA.Presenters
             {
                 //csv.Count();
                 int i = 0;
-                foreach (var item in csv.ToList().Take(count))
+                foreach (var item in csv.ToList().Skip(model.Companies.Query().Count()).Take(count))
                 {
                     string[] cos = item[(int)CsvEnums.company.Date].Split('-');
                     var company = new Company()
@@ -116,7 +116,7 @@ namespace IDSA.Presenters
             {
                 int i = 880;
                 long tempVal;
-                foreach (var item in csv.ToList().Take(count))
+                foreach (var item in csv.ToList().Skip(model.Reports.Query().Count()).Take(count))
                 {
                     var report = new Report()
                     {
