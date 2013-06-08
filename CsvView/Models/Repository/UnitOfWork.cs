@@ -67,7 +67,7 @@ namespace IDSA.Models.Repository
         }
 
         public void Load()
-        {
+        { 
             Companies.Query().Load();
             Reports.Query().Load();
         }
