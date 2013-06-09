@@ -34,11 +34,13 @@ namespace IDSA.Presenters
             this.finDataViewMode = ViewModeType.Seperate;
 
             //delegateConstruct
-            this.SelectedCmpReportsChangedEvent += new SelectedCmpReportsChangedDelegate(this.SelectProperReports);
+            this.SelectedCmpReportsChangedEvent += this.SelectProperReports;
+            this.SelectedCmpReportsChangedEvent += this.ReportsRecalculationIfNeeded;
             this.SelectedCmpReportsChangedEvent += view.SelectedCmpReportsChanged;
             this.SelectedCmpReportsChangedEvent += this.ChartChange;
             this.DataRecalculationRequestEvent += this.SelectedCmpReportsCalucalte;
             this.DataRecalculationRequestEvent += view.SelectedCmpReportsChanged;
+            this.ViewModeChangeEvent += this.ViewModeChange;
         }
 
         #region Internal Chart Methods
@@ -106,17 +108,30 @@ namespace IDSA.Presenters
         }
 
 
-        #region Presenter - Model ChangedEvent & Delegates
+        #region ChangedEvent & Delegates
 
         public delegate void SelectedCmpReportsChangedDelegate(object sender, SelectedCmpReportsChangedEventArgs e);
+        public delegate void ViewModeChangeDelegate(object sender, RaiseViewModeChangeEventArgs e);
         public delegate void DataRecalculationRequestDelegate(object sender, EventArgs e);
         public event SelectedCmpReportsChangedDelegate SelectedCmpReportsChangedEvent;
         public event DataRecalculationRequestDelegate DataRecalculationRequestEvent;
+        public event ViewModeChangeDelegate ViewModeChangeEvent;
         public void SelectProperReports(object sender, SelectedCmpReportsChangedEventArgs e)
         {
             if (e != null)
             {
                 SelectReports(e.selectQuantity);
+            }
+        }
+        public void ViewModeChange (object sender, RaiseViewModeChangeEventArgs e)
+        {
+            this.finDataViewMode = e._viewMode;
+        }
+        public void ReportsRecalculationIfNeeded(object sender, SelectedCmpReportsChangedEventArgs e)
+        {
+            if (finDataViewMode == ViewModeType.Seperate)
+            {
+                SelectedCmpReportsCalucalte(sender, new EventArgs());
             }
         }
         public void SelectedCmpReportsCalucalte(object sender, EventArgs e)
@@ -133,6 +148,11 @@ namespace IDSA.Presenters
         public void RaiseDataRecalculation(VCompany sender, EventArgs e)
         {
             DataRecalculationRequestEvent(sender, e);
+        }
+
+        internal void RaiseViewModeChange(VCompany sender, RaiseViewModeChangeEventArgs e)
+        {
+            ViewModeChangeEvent(sender, e);
         }
         #endregion
 
@@ -260,12 +280,6 @@ namespace IDSA.Presenters
         }
 
         #endregion
-
-
-        internal void RaiseViewModeChange(object sender, RaiseViewModeChangeEventArgs raiseViewModeChangeEventArgs)
-        {
-            throw new NotImplementedException();
-        }
     }
 
     #region PresenterChangedEventArgs - Classes
@@ -283,7 +297,7 @@ namespace IDSA.Presenters
     public class RaiseViewModeChangeEventArgs
     {
         public ViewModeType _viewMode { get; set; }
-        public RaiseViewModeChangeEventArgs ()
+        public RaiseViewModeChangeEventArgs()
         {
             this._viewMode = ViewModeType.Seperate;
         }

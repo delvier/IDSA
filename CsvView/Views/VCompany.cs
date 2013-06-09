@@ -195,7 +195,7 @@ namespace IDSA.Views
                 _viewModeType = ViewModeType.Cumulative;
             else
                 _viewModeType = ViewModeType.Seperate;
-            presenter.RaiseViewModeChange(sender, new RaiseViewModeChangeEventArgs(_viewModeType));
+            presenter.RaiseViewModeChange(this, new RaiseViewModeChangeEventArgs(_viewModeType));
                 
         }
 
