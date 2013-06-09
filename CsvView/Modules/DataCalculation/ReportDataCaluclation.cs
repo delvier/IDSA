@@ -19,9 +19,14 @@ namespace IDSA.Modules.DataCalculation
 
         public override void CalculationPerform()
         {
-            foreach (RzisBase element in Data)
+            RzisBase prevRzis = new RzisBase();
+            foreach (RzisBase curRzis in Data)
 	        {
-                element.EBIT = 0;
+                if (prevRzis != null)
+                {
+                    prevRzis -= curRzis;
+                }
+                prevRzis = curRzis;
 	        }       
         }
     }
