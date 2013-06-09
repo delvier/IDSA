@@ -9,7 +9,7 @@ namespace IDSA.Modules.DataCalculation
 {
     public class DataCalculation : IDataCalculation
     {
-        #region private prop
+        #region prop
         private IList _data { get; set; }
         public IList Data
         {

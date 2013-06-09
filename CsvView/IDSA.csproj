@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events.cs" />
+    <Compile Include="Models\RzisBase.cs" />
     <Compile Include="Models\CsvModel.cs" />
     <Compile Include="Models\DataBase\Company.cs" />
     <Compile Include="Models\DataBase\Comparers.cs" />

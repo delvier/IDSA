@@ -22,14 +22,12 @@ namespace IDSA.Presenters
         private IEnumerable<ICompany> _cmpData;
         private Company _cmpSelected { get; set; }
         public IList _cmpSelectedReportsList { get; set; }
-        public ObservableListSource<IList> _cmpSelectedReportsObsList { get; set; }
         public IDataCalculation _dataCalculationService { get; set; }
 
         public VCompanyPresenter(VCompany view)
         {
             this._companyDataService = (IDataService<Company>)(new CompanyDataService());
             this.view = view;
-            this._cmpSelectedReportsObsList = new ObservableListSource<IList>();
             this._dataCalculationService = new DataCalculation();
 
             //delegateConstruct
@@ -72,7 +70,6 @@ namespace IDSA.Presenters
         public void SetCmpSelected(Company company)
         {
             _cmpSelected = company;
-            this.SetFullReports();
             this.UpdatePanel2();
         }
 
@@ -83,6 +80,7 @@ namespace IDSA.Presenters
 
 
         #region Presenter - Model ChangedEvent & Delegates
+
         public delegate void SelectedCmpReportsChangedDelegate(object sender, SelectedCmpReportsChangedEventArgs e);
         public delegate void DataRecalculationRequestDelegate(object sender, EventArgs e);
         public event SelectedCmpReportsChangedDelegate SelectedCmpReportsChangedEvent;
@@ -112,41 +110,28 @@ namespace IDSA.Presenters
         #endregion
 
         #region DataModel Queries
-        public IQueryable GetBaseReportQuery()
-        {
-            return null;
-            //return _cmpSelected.Reports
-            //    .Where(r => r.CompanyId == _cmpSelected.Id)
-            //    .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
-            //    .ThenByDescending(r => r.Quarter);
-        }
-        public void SetFullReports()
-        {
-            _cmpSelectedReportsObsList.Add(GetBaseSelectCmpReports());
-        }
+
         public void SelectReports(int takeNumber)
         {
             if (takeNumber > 0)
             {
                 _cmpSelectedReportsList = _cmpSelected.Reports
-                                        .Where(r => r.CompanyId == _cmpSelected.Id)
                                         .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
                                         .ThenByDescending(r => r.Quarter)
                                         .Take(takeNumber)
-                                        .Select(r => new
+                                        .Select(r => new RzisBase
                                         {
-                                            r.Year, // how to export this to some types ?
-                                            r.Quarter,
-                                            r.Sales,
-                                            r.OwnSaleCosts,
-                                            r.EarningOnSales,
-                                            r.EarningBeforeTaxes,
-                                            r.EBIT,
-                                            r.NetParentProfit,
-                                            r.NetProfit
+                                            Year = r.Year,
+                                            Quarter = r.Quarter,
+                                            Sales = r.Sales,
+                                            OwnSaleCosts = r.OwnSaleCosts,
+                                            EarningOnSales = r.EarningOnSales,
+                                            EarningBeforeTaxes = r.EarningBeforeTaxes,
+                                            EBIT = r.EBIT,
+                                            NetProfit = r.NetProfit
                                         }
                                         )
-                                        .ToList();
+                                        .ToList<RzisBase>();
             }
             else
             {
@@ -160,23 +145,21 @@ namespace IDSA.Presenters
             // CodeRestructure, instead of database new query used _cmpselected.Reports -IEnumerable and LINQ it.
             if (!_cmpSelected.Equals(null))
                 return _cmpSelected.Reports
-                            .Where(r => r.CompanyId == _cmpSelected.Id)
                             .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
                             .ThenByDescending(r => r.Quarter)
-                            .Select(r => new
+                            .Select(r => new RzisBase
                             {
-                                r.Year, // how to export this to some types ?
-                                r.Quarter,
-                                r.Sales,
-                                r.OwnSaleCosts,
-                                r.EarningOnSales,
-                                r.EarningBeforeTaxes,
-                                r.EBIT,
-                                r.NetParentProfit,
-                                r.NetProfit
+                                Year = r.Year,
+                                Quarter = r.Quarter,
+                                Sales = r.Sales,
+                                OwnSaleCosts = r.OwnSaleCosts,
+                                EarningOnSales = r.EarningOnSales,
+                                EarningBeforeTaxes = r.EarningBeforeTaxes,
+                                EBIT = r.EBIT,
+                                NetProfit = r.NetProfit
                             }
                             )
-                            .ToList();
+                            .ToList<RzisBase>();
             else
                 return (new List<Report>());
         }
