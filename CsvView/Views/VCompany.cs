@@ -161,49 +161,6 @@ namespace IDSA.Views
         }
         #endregion
 
-        #region Chart usage methods
-
-        private void ChartPopulatingData()
-        {
-            // TODO: populate data from CompanyBox.SelectedItem ;)
-
-            // I think more important is coneception about how to do it flexible, for all possible views,
-            // that we will get into the futer. For now, is easy to get dataTable from data grid, presenter of view can provide this action, although
-            // we must be flexible and be able to visualise the data that user want to see.
-            // -> user choose the data on the view (Ebit, sales) -> advanced(multiselection EBIT,SALES at once).
-            // -> user confirms he want the chart by (submenu (rightmouseclick)
-            // -> presenter get the event action (eventagregator from prism ?)
-            // -> presenter knows that the user select on view this data by the event,
-            // -> presenter lunch the ChartServiceProvider (DataInput.)
-            // -> chart service provider do all the data stuff
-            // -> presenter informs view that chart is ready to display
-            // -> view (shows) the chart.
-        }
-
-        internal void ChartDataRefresh(IList<Report> rep)
-        {
-            //var rep = ((Company)CompanyBox.SelectedItem).Reports.ToList();
-
-            //chart1.Series["Sales"].Points.DataBindXY(rep.)
-        }
-
-        internal void ChartDataRefresh(IEnumerable xvalues, string name1, IEnumerable[] yvalues)
-        {
-            chart1.Series["Series1"].Points.DataBindXY(xvalues, yvalues);
-            chart1.Series["Series1"].Name = name1;
-        }
-
-        internal void ChartDataRefresh(IList<String> xvalue, string name1, IList<Int64> yvalues)
-        {
-            for (int i = 0; i < yvalues.Count; i++)
-            {
-                chart1.Series["Series1"].Points.AddXY(xvalue[i], yvalues[i]);
-            }
-            chart1.Series["Series1"].Name = name1;
-        }
-
-        #endregion
-
         #region Events Handlers Block.
         public void SelectedCmpReportsChanged(object sender, EventArgs e)
         {
@@ -259,21 +216,9 @@ namespace IDSA.Views
         }
         #endregion
 
-        private void FinDataGrid_RowEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            //ChartDataRefresh();
-            //var selectedReport = this.FinDataGrid.Rows[e.RowIndex].Cells;
-
-            ////selectedReport.HeaderCell[]
-            ////selectedReport.Cells.Take(3);
-            //IEnumerable<DataGridViewRow> selectedRows = 
-            //                                    this.FinDataGrid.SelectedCells
-            //                                   .Select(cell => cell.OwningRow)
-            //                                   .Distinct();
-        }
+        #region Chart usage methods
 
         private int selectedColumnIndex = 0;
-        private int selectedRowIndex = 0;
         private List<String> xValues = new List<String>();
 
         private void FinDataGrid_CellEnter(object sender, DataGridViewCellEventArgs e)
@@ -302,6 +247,6 @@ namespace IDSA.Views
             chart1.Series[header].Points.DataBindXY(xVals, yVals);
         }
 
-
+        #endregion
     }
 }

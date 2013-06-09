@@ -20,15 +20,12 @@ namespace IDSA.Services
     {
         private IList<String> xVals;
         private IList<Int64> yVals;
-        private String headerName;
         private IList<Report> rep;
-        //private System.Windows.Forms.DataVisualization.Charting.Chart chart;
-
+        
         public ChartService()
         {
             xVals = new List<String>();
             yVals = new List<Int64>();
-            //this.chart = chart;
         }
 
         public IList<String> GetxValues()

@@ -41,12 +41,12 @@ namespace IDSA.Presenters
             this.DataRecalculationRequestEvent += view.SelectedCmpReportsChanged;
         }
 
+        #region Internal Chart Methods
+
         internal void ChartChange(object sender, SelectedCmpReportsChangedEventArgs e)
         {
             if (e.selectQuantity != 0)
             {
-                // TODO: Do not working with 4Q button yet :(
-                // TODO: Sort them, or take only few...
                 chartService.RecalcXValues(_cmpSelected.Reports
                                         .OrderByDescending(r => r.Year)
                                         .ThenByDescending(r => r.Quarter)
@@ -62,6 +62,8 @@ namespace IDSA.Presenters
             chartService.RecalcYValues(headerName);
             view.ChartRedraw(chartService.GetxValues(), chartService.GetyValues());
         }
+
+        #endregion
 
         public IBindingList GetDbCompanies()
         {
@@ -188,19 +190,7 @@ namespace IDSA.Presenters
             else
                 return (new List<RzisBase>());
         }
-        public IList<Report> GetSelectedCmpReports1()
-        {
-            if (!_cmpSelected.Equals(null))
-                return _cmpSelected.Reports.ToList();
-            if (dbModel != null)
-                return _cmpSelected.Reports
-                     .Where(r => r.CompanyId == _cmpSelected.Id)
-                     .OrderByDescending(r => r.Year) // orderBy  Year-Quarter. - best overView.
-                     .ThenByDescending(r => r.Quarter).Select(r => r)
-                     .ToList();
-            else
-                return (new List<Report>());
-        }
+
         #endregion
 
         #region Some Presenter Utilities Procedure

@@ -262,7 +262,6 @@
             this.FinDataGrid.Size = new System.Drawing.Size(438, 284);
             this.FinDataGrid.TabIndex = 0;
             this.FinDataGrid.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.FinDataGrid_CellEnter);
-            this.FinDataGrid.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.FinDataGrid_RowEnter);
             // 
             // eventLog1
             // 
