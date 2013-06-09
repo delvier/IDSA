@@ -22,13 +22,13 @@ namespace IDSA.Presenters
         private IEnumerable<ICompany> _cmpData;
         private Company _cmpSelected { get; set; }
         public IList _cmpSelectedReportsList { get; set; }
-        public IDataCalculation _dataCalculationService { get; set; }
+        public IDataCalculation<RzisBase> _dataCalculationService { get; set; }
 
         public VCompanyPresenter(VCompany view)
         {
             this._companyDataService = (IDataService<Company>)(new CompanyDataService());
             this.view = view;
-            this._dataCalculationService = new DataCalculation();
+            this._dataCalculationService = new ReportDataCaluclation<RzisBase>();
 
             //delegateConstruct
             this.SelectedCmpReportsChangedEvent += new SelectedCmpReportsChangedDelegate(this.SelectProperReports);
@@ -221,6 +221,7 @@ namespace IDSA.Presenters
         }
 
         #endregion
+
         #region Test Data Generation
         public IEnumerable GetTestCompanies()
         {

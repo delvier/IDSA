@@ -6,12 +6,12 @@ using System.Collections;
 
 namespace IDSA.Modules.DataCalculation
 {
-    public interface IDataCalculation
+    public interface IDataCalculation<T>
     {
-         IList Data { get;}
+         IList<T> Data { get;}
 
-         void SetData(IList data);
+         void SetData(IList<T> data);
          void CalculationPerform();
-         IList GetData();
+         IList<T> GetData();
     }
 }

@@ -74,6 +74,7 @@
     <Compile Include="Models\Utilities\PropertyComparer.cs" />
     <Compile Include="Modules\DataCalculation\DataCalculation.cs" />
     <Compile Include="Modules\DataCalculation\IDataCalculation.cs" />
+    <Compile Include="Modules\DataCalculation\ReportDataCaluclation.cs" />
     <Compile Include="Presenters\DataFromHtmlPresenter.cs" />
     <Compile Include="Presenters\VCsvLoadPresenter.cs" />
     <Compile Include="Presenters\DbViewPresenter.cs" />

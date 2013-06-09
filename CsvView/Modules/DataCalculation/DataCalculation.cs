@@ -7,11 +7,11 @@ using IDSA.Models;
 
 namespace IDSA.Modules.DataCalculation
 {
-    public class DataCalculation : IDataCalculation
+    public abstract class DataCalculation<T> : IDataCalculation<T>
     {
         #region prop
-        private IList _data { get; set; }
-        public IList Data
+        private IList<T> _data { get; set; }
+        public IList<T> Data
         {
             get { return _data; }
         }
@@ -20,26 +20,23 @@ namespace IDSA.Modules.DataCalculation
         #region Ctor
         public DataCalculation()
         {
-            this._data = new List<string>();
+            this._data = new List<T>();
         }
-        public DataCalculation(IList data)
+        public DataCalculation(IList<T> data)
         {
             this._data = data;
         }
         #endregion
 
         #region public methods
-        public void SetData(IList data)
+        public void SetData(IList<T> data)
         {
             this._data = data;
         }
 
-        public void CalculationPerform()
-        {
-            //to raw data to handle.
-        }
+        public abstract void CalculationPerform();
 
-        public IList GetData()
+        public IList<T> GetData()
         {
             return _data;
         }
