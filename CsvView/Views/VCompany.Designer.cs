@@ -48,6 +48,7 @@
             this.CompanyTitle = new System.Windows.Forms.Label();
             this.FinDataGrid = new System.Windows.Forms.DataGridView();
             this.eventLog1 = new System.Diagnostics.EventLog();
+            this.calculationFinDataBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.CompanyContainer)).BeginInit();
             this.CompanyContainer.Panel1.SuspendLayout();
             this.CompanyContainer.Panel2.SuspendLayout();
@@ -75,6 +76,7 @@
             // 
             // CompanyContainer.Panel2
             // 
+            this.CompanyContainer.Panel2.Controls.Add(this.calculationFinDataBtn);
             this.CompanyContainer.Panel2.Controls.Add(this.fullFinDataBtn);
             this.CompanyContainer.Panel2.Controls.Add(this.filterFinDataBtn);
             this.CompanyContainer.Panel2.Controls.Add(this.DateCmpLabel);
@@ -89,8 +91,8 @@
             // 
             // CompanyTypes
             // 
-            this.CompanyTypes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CompanyTypes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.CompanyTypes.FormattingEnabled = true;
             this.CompanyTypes.Location = new System.Drawing.Point(4, 25);
             this.CompanyTypes.Margin = new System.Windows.Forms.Padding(0);
@@ -100,8 +102,8 @@
             // 
             // MarketType
             // 
-            this.MarketType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MarketType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.MarketType.FormattingEnabled = true;
             this.MarketType.Location = new System.Drawing.Point(4, 4);
             this.MarketType.Margin = new System.Windows.Forms.Padding(0);
@@ -111,8 +113,8 @@
             // 
             // CompanyFilter
             // 
-            this.CompanyFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CompanyFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.CompanyFilter.Location = new System.Drawing.Point(4, 46);
             this.CompanyFilter.Margin = new System.Windows.Forms.Padding(0);
             this.CompanyFilter.Name = "CompanyFilter";
@@ -122,9 +124,9 @@
             // 
             // CompanyBox
             // 
-            this.CompanyBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CompanyBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.CompanyBox.FormattingEnabled = true;
             this.CompanyBox.Location = new System.Drawing.Point(4, 66);
             this.CompanyBox.Margin = new System.Windows.Forms.Padding(0);
@@ -214,8 +216,8 @@
             // 
             this.FinDataGrid.AllowUserToAddRows = false;
             this.FinDataGrid.AllowUserToDeleteRows = false;
-            this.FinDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FinDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.FinDataGrid.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -254,6 +256,16 @@
             // 
             this.eventLog1.SynchronizingObject = this;
             // 
+            // calculationFinDataBtn
+            // 
+            this.calculationFinDataBtn.Location = new System.Drawing.Point(165, 66);
+            this.calculationFinDataBtn.Name = "calculationFinDataBtn";
+            this.calculationFinDataBtn.Size = new System.Drawing.Size(75, 23);
+            this.calculationFinDataBtn.TabIndex = 7;
+            this.calculationFinDataBtn.Text = "Calculate!";
+            this.calculationFinDataBtn.UseVisualStyleBackColor = true;
+            this.calculationFinDataBtn.Click += new System.EventHandler(this.calculationFinDataBtn_Click);
+            // 
             // VCompany
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -289,5 +301,6 @@
         private System.Windows.Forms.Label DateCmpLabel;
         private System.Windows.Forms.Button filterFinDataBtn;
         private System.Windows.Forms.Button fullFinDataBtn;
+        private System.Windows.Forms.Button calculationFinDataBtn;
     }
 }

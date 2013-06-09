@@ -71,6 +71,8 @@
     <Compile Include="Models\Repository\UnitOfWork.cs" />
     <Compile Include="Models\Utilities\MultiSortableBindingListView.cs" />
     <Compile Include="Models\Utilities\PropertyComparer.cs" />
+    <Compile Include="Modules\DataCalculation\DataCalculation.cs" />
+    <Compile Include="Modules\DataCalculation\IDataCalculation.cs" />
     <Compile Include="Presenters\DataFromHtmlPresenter.cs" />
     <Compile Include="Presenters\VCsvLoadPresenter.cs" />
     <Compile Include="Presenters\DbViewPresenter.cs" />

@@ -80,7 +80,6 @@ namespace IDSA.Views
         }
         #endregion
         
-
         #region View Refresh Update / Init
         private void RefreshView()
         {
@@ -111,7 +110,6 @@ namespace IDSA.Views
         }
         #endregion
 
-      
         #region  Block of Utils
 
         public void TransposeFinDataGrid()
@@ -236,6 +234,10 @@ namespace IDSA.Views
         #endregion
 
         #region Events Handlers Block.
+        public void SelectedCmpReportsChanged(object sender, EventArgs e)
+        {
+            presenter.UpdatePanel2();
+        }
         public void SelectedCmpReportsChanged(object sender, SelectedCmpReportsChangedEventArgs e)
         {
             presenter.UpdatePanel2();
@@ -251,6 +253,11 @@ namespace IDSA.Views
         {
             presenter.RaiseSelectedCmpChange(this, new SelectedCmpReportsChangedEventArgs());
             //presenter.SetFullReports();
+        }
+
+        private void calculationFinDataBtn_Click(object sender, EventArgs e)
+        {
+            presenter.DataRecalculationRequest(this, e);
         }
 
         private void CompanyBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -322,5 +329,7 @@ namespace IDSA.Views
             chart1.Series.Add(header);
             chart1.Series[header].Points.DataBindXY(xValues, yValues);
         }
+
+       
     }
 }

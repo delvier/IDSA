@@ -9,6 +9,7 @@ using IDSA.Services;
 using IDSA.Views;
 using System.Data;
 using System.Windows.Forms;
+using IDSA.Modules.DataCalculation;
 
 namespace IDSA.Presenters
 {
@@ -22,16 +23,21 @@ namespace IDSA.Presenters
         private Company _cmpSelected { get; set; }
         public IList _cmpSelectedReportsList { get; set; }
         public ObservableListSource<IList> _cmpSelectedReportsObsList { get; set; }
+        public IDataCalculation _dataCalculationService { get; set; }
 
         public VCompanyPresenter(VCompany view)
         {
             this._companyDataService = (IDataService<Company>)(new CompanyDataService());
             this.view = view;
             this._cmpSelectedReportsObsList = new ObservableListSource<IList>();
+            this._dataCalculationService = new DataCalculation();
 
             //delegateConstruct
             this.SelectedCmpReportsChangedEvent += new SelectedCmpReportsChangedDelegate(this.SelectProperReports);
             this.SelectedCmpReportsChangedEvent += view.SelectedCmpReportsChanged;
+
+            this.DataRecalculationRequestEvent += this.SelectedCmpReportsCalucalte;
+            this.DataRecalculationRequestEvent += view.SelectedCmpReportsChanged;
         }
 
         public IBindingList GetDbCompanies()
@@ -78,7 +84,9 @@ namespace IDSA.Presenters
 
         #region Presenter - Model ChangedEvent & Delegates
         public delegate void SelectedCmpReportsChangedDelegate(object sender, SelectedCmpReportsChangedEventArgs e);
+        public delegate void DataRecalculationRequestDelegate(object sender, EventArgs e);
         public event SelectedCmpReportsChangedDelegate SelectedCmpReportsChangedEvent;
+        public event DataRecalculationRequestDelegate DataRecalculationRequestEvent;
         public void SelectProperReports(object sender, SelectedCmpReportsChangedEventArgs e)
         {
             if (e != null)
@@ -86,9 +94,20 @@ namespace IDSA.Presenters
                 SelectReports(e.selectQuantity);
             }
         }
+        public void SelectedCmpReportsCalucalte(object sender, EventArgs e)
+        {
+            _dataCalculationService.SetData(_cmpSelectedReportsList);
+            _dataCalculationService.CalculationPerform();
+            _cmpSelectedReportsList = _dataCalculationService.GetData();
+        }
         public void RaiseSelectedCmpChange(VCompany sender, SelectedCmpReportsChangedEventArgs e)
         {
             SelectedCmpReportsChangedEvent(sender, e);
+        }
+
+        public void DataRecalculationRequest(VCompany sender, EventArgs e)
+        {
+            DataRecalculationRequestEvent(sender, e);
         }
         #endregion
 
@@ -242,6 +261,7 @@ namespace IDSA.Presenters
         }
 
         #endregion
+
     }
 
     #region PresenterChangedEventArgs - Classes
