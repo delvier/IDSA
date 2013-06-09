@@ -313,7 +313,7 @@ namespace IDSA.Views
 
             // Get x and y values
             for (int i = 0; i < rep.Count; i++)
-            {
+            { 
                 xValues.Add(rep.ElementAt(i).Quarter.ToString() + " " + rep.ElementAt(i).Year.ToString());
                 yValues.Add(Int64.Parse(this.FinDataGrid.Rows[i].Cells[headerIdx].Value.ToString()));
                 //chart1.Series[header].Points.AddXY(xValues.ElementAt(i), yValues.ElementAt(i));
