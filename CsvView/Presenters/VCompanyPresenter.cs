@@ -23,6 +23,7 @@ namespace IDSA.Presenters
         private Company _cmpSelected { get; set; }
         public IList<RzisBase> _cmpSelectedReportsList { get; set; }
         public IDataCalculation<RzisBase> _dataCalculationService { get; set; }
+        private ViewModeType finDataViewMode { get; set; } // maybe add view mode into dataCalulationService?
 
         public VCompanyPresenter(VCompany view)
         {
@@ -30,6 +31,7 @@ namespace IDSA.Presenters
             this.view = view;
             this._dataCalculationService = new ReportDataCaluclation();
             this.chartService = new ChartService();
+            this.finDataViewMode = ViewModeType.Seperate;
 
             //delegateConstruct
             this.SelectedCmpReportsChangedEvent += new SelectedCmpReportsChangedDelegate(this.SelectProperReports);
@@ -126,7 +128,7 @@ namespace IDSA.Presenters
             SelectedCmpReportsChangedEvent(sender, e);
         }
 
-        public void DataRecalculationRequest(VCompany sender, EventArgs e)
+        public void RaiseDataRecalculation(VCompany sender, EventArgs e)
         {
             DataRecalculationRequestEvent(sender, e);
         }
@@ -269,6 +271,11 @@ namespace IDSA.Presenters
 
         #endregion
 
+
+        internal void RaiseViewModeChange(object sender, RaiseViewModeChangeEventArgs raiseViewModeChangeEventArgs)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     #region PresenterChangedEventArgs - Classes
@@ -282,6 +289,23 @@ namespace IDSA.Presenters
         {
             this.selectQuantity = selectQuantity;
         }
+    }
+    public class RaiseViewModeChangeEventArgs
+    {
+        public ViewModeType _viewMode { get; set; }
+        public RaiseViewModeChangeEventArgs ()
+        {
+            this._viewMode = ViewModeType.Seperate;
+        }
+        public RaiseViewModeChangeEventArgs(ViewModeType viewMode)
+        {
+            this._viewMode = viewMode;
+        }
+    }
+    public enum ViewModeType
+    {
+        Seperate,
+        Cumulative
     }
     #endregion
 

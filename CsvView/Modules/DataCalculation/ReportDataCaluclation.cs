@@ -8,7 +8,6 @@ namespace IDSA.Modules.DataCalculation
 {
     class ReportDataCaluclation : DataCalculation<RzisBase>
     {
-
         public ReportDataCaluclation()
         {
         }
@@ -24,10 +23,13 @@ namespace IDSA.Modules.DataCalculation
 	        {
                 if (prevRzis != null)
                 {
-                    prevRzis -= curRzis;
+                    if (prevRzis.Quarter > 1)
+                    {
+                        prevRzis -= curRzis;    
+                    }
                 }
                 prevRzis = curRzis;
-	        }       
+	        }
         }
     }
 }

@@ -228,7 +228,18 @@ namespace IDSA.Views
 
         private void calculationFinDataBtn_Click(object sender, EventArgs e)
         {
-            presenter.DataRecalculationRequest(this, e);
+            presenter.RaiseDataRecalculation(this, e);
+        }
+
+        private void modeFinDataCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            ViewModeType _viewModeType;
+            if (modeFinDataCheckBox.Checked)
+                _viewModeType = ViewModeType.Cumulative;
+            else
+                _viewModeType = ViewModeType.Seperate;
+            presenter.RaiseViewModeChange(sender, new RaiseViewModeChangeEventArgs(_viewModeType));
+                
         }
 
         private void CompanyBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -275,7 +286,7 @@ namespace IDSA.Views
             }
             selectedColumnIndex = e.ColumnIndex;
             var headerName = this.FinDataGrid.Columns[selectedColumnIndex].HeaderText;
-            
+
             presenter.ChartChangeNow(headerName);
 
             // Get y values in view
@@ -290,5 +301,7 @@ namespace IDSA.Views
             chart1.Series.Add(header);
             chart1.Series[header].Points.DataBindXY(xVals, yVals);
         }
+
+
     }
 }

@@ -40,6 +40,7 @@
             this.MarketType = new System.Windows.Forms.ComboBox();
             this.CompanyFilter = new System.Windows.Forms.TextBox();
             this.CompanyBox = new System.Windows.Forms.ListBox();
+            this.calculationFinDataBtn = new System.Windows.Forms.Button();
             this.fullFinDataBtn = new System.Windows.Forms.Button();
             this.filterFinDataBtn = new System.Windows.Forms.Button();
             this.DateCmpLabel = new System.Windows.Forms.Label();
@@ -48,7 +49,7 @@
             this.CompanyTitle = new System.Windows.Forms.Label();
             this.FinDataGrid = new System.Windows.Forms.DataGridView();
             this.eventLog1 = new System.Diagnostics.EventLog();
-            this.calculationFinDataBtn = new System.Windows.Forms.Button();
+            this.modeFinDataCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.CompanyContainer)).BeginInit();
             this.CompanyContainer.Panel1.SuspendLayout();
             this.CompanyContainer.Panel2.SuspendLayout();
@@ -76,6 +77,7 @@
             // 
             // CompanyContainer.Panel2
             // 
+            this.CompanyContainer.Panel2.Controls.Add(this.modeFinDataCheckBox);
             this.CompanyContainer.Panel2.Controls.Add(this.calculationFinDataBtn);
             this.CompanyContainer.Panel2.Controls.Add(this.fullFinDataBtn);
             this.CompanyContainer.Panel2.Controls.Add(this.filterFinDataBtn);
@@ -134,6 +136,16 @@
             this.CompanyBox.Size = new System.Drawing.Size(180, 628);
             this.CompanyBox.TabIndex = 0;
             this.CompanyBox.SelectedIndexChanged += new System.EventHandler(this.CompanyBox_SelectedIndexChanged);
+            // 
+            // calculationFinDataBtn
+            // 
+            this.calculationFinDataBtn.Location = new System.Drawing.Point(165, 66);
+            this.calculationFinDataBtn.Name = "calculationFinDataBtn";
+            this.calculationFinDataBtn.Size = new System.Drawing.Size(75, 23);
+            this.calculationFinDataBtn.TabIndex = 7;
+            this.calculationFinDataBtn.Text = "Calculate!";
+            this.calculationFinDataBtn.UseVisualStyleBackColor = true;
+            this.calculationFinDataBtn.Click += new System.EventHandler(this.calculationFinDataBtn_Click);
             // 
             // fullFinDataBtn
             // 
@@ -256,15 +268,16 @@
             // 
             this.eventLog1.SynchronizingObject = this;
             // 
-            // calculationFinDataBtn
+            // modeFinDataCheckBox
             // 
-            this.calculationFinDataBtn.Location = new System.Drawing.Point(165, 66);
-            this.calculationFinDataBtn.Name = "calculationFinDataBtn";
-            this.calculationFinDataBtn.Size = new System.Drawing.Size(75, 23);
-            this.calculationFinDataBtn.TabIndex = 7;
-            this.calculationFinDataBtn.Text = "Calculate!";
-            this.calculationFinDataBtn.UseVisualStyleBackColor = true;
-            this.calculationFinDataBtn.Click += new System.EventHandler(this.calculationFinDataBtn_Click);
+            this.modeFinDataCheckBox.AutoSize = true;
+            this.modeFinDataCheckBox.Location = new System.Drawing.Point(247, 71);
+            this.modeFinDataCheckBox.Name = "modeFinDataCheckBox";
+            this.modeFinDataCheckBox.Size = new System.Drawing.Size(77, 17);
+            this.modeFinDataCheckBox.TabIndex = 8;
+            this.modeFinDataCheckBox.Text = "cumulative";
+            this.modeFinDataCheckBox.UseVisualStyleBackColor = true;
+            this.modeFinDataCheckBox.CheckedChanged += new System.EventHandler(this.modeFinDataCheckBox_CheckedChanged);
             // 
             // VCompany
             // 
@@ -302,5 +315,6 @@
         private System.Windows.Forms.Button filterFinDataBtn;
         private System.Windows.Forms.Button fullFinDataBtn;
         private System.Windows.Forms.Button calculationFinDataBtn;
+        private System.Windows.Forms.CheckBox modeFinDataCheckBox;
     }
 }
