@@ -21,14 +21,14 @@ namespace IDSA.Presenters
         private readonly IDataService<ICompany> _companyDataService;
         private IEnumerable<ICompany> _cmpData;
         private Company _cmpSelected { get; set; }
-        public IList _cmpSelectedReportsList { get; set; }
+        public IList<RzisBase> _cmpSelectedReportsList { get; set; }
         public IDataCalculation<RzisBase> _dataCalculationService { get; set; }
 
         public VCompanyPresenter(VCompany view)
         {
             this._companyDataService = (IDataService<Company>)(new CompanyDataService());
             this.view = view;
-            this._dataCalculationService = new ReportDataCaluclation<RzisBase>();
+            this._dataCalculationService = new ReportDataCaluclation();
 
             //delegateConstruct
             this.SelectedCmpReportsChangedEvent += new SelectedCmpReportsChangedDelegate(this.SelectProperReports);
@@ -140,7 +140,7 @@ namespace IDSA.Presenters
 
         }
 
-        public IList GetBaseSelectCmpReports()
+        public IList<RzisBase> GetBaseSelectCmpReports()
         {
             // CodeRestructure, instead of database new query used _cmpselected.Reports -IEnumerable and LINQ it.
             if (!_cmpSelected.Equals(null))
@@ -161,7 +161,7 @@ namespace IDSA.Presenters
                             )
                             .ToList<RzisBase>();
             else
-                return (new List<Report>());
+                return (new List<RzisBase>());
         }
         public IList<Report> GetSelectedCmpReports1()
         {

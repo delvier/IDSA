@@ -19,9 +19,9 @@ namespace IDSA.Modules.DataCalculation
 
         public override void CalculationPerform()
         {
-            foreach (RzisBase element in base.GetData())
+            foreach (RzisBase element in Data)
 	        {
-                
+                element.EBIT = 0;
 	        }       
         }
     }
