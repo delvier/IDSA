@@ -79,7 +79,7 @@ namespace IDSA.Views
             return CompanyBox.Items;
         }
         #endregion
-        
+
         #region View Refresh Update / Init
         private void RefreshView()
         {
@@ -155,64 +155,35 @@ namespace IDSA.Views
             //FinDataGrid.Columns[0].Visible = false; // ?
         }
 
-
-
         public void BoxMsg(string s)
         {
             MessageBox.Show(s);
-        }		 
-	#endregion
+        }
+        #endregion
 
         #region Chart usage methods
 
         private void ChartPopulatingData()
         {
             // TODO: populate data from CompanyBox.SelectedItem ;)
-            
+
             // I think more important is coneception about how to do it flexible, for all possible views,
             // that we will get into the futer. For now, is easy to get dataTable from data grid, presenter of view can provide this action, although
             // we must be flexible and be able to visualise the data that user want to see.
             // -> user choose the data on the view (Ebit, sales) -> advanced(multiselection EBIT,SALES at once).
             // -> user confirms he want the chart by (submenu (rightmouseclick)
             // -> presenter get the event action (eventagregator from prism ?)
-            // -> presenter nows that the user select on view this data by the event,
+            // -> presenter knows that the user select on view this data by the event,
             // -> presenter lunch the ChartServiceProvider (DataInput.)
             // -> chart service provider do all the data stuff
             // -> presenter informs view that chart is ready to display
             // -> view (shows) the chart.
-            
-            // -> evry database action make sense if we lunch thread on it and we do not slow down our app.
-            // -> i have this problem during filterBox :) , although this is optimalization topic for me now.
-            
-            //THANKS, NOW I HAVE VISION(SOLUTION) :) TIME TO IMPLEMENT THIS
-            double[] yval = { 5, 6, 4, 3, 7 };
-            string[] xval = { "A", "B", "C", "D", "E" };
-
-
-            //TODO: return Year and quarter from DB to X axies
-            IList<Report> reports = presenter.GetSelectedCmpReports1();
-            //chart1.Series["Sales"].Points.DataBindXY(xval, reports);
-
-            for (int i = 0; i < reports.Count; i++)
-            {
-                // out of range expection on reports[i] // remember i transpose the tabless etc. i do comment it...
-                //chart1.Series["Series1"].Points.AddXY(xval[i], reports[i]);
-            }
-            //chart1.Series["Series1"].Name = "Sales";
-
-            //var xxx = FinDataGrid.Rows[3].Cells[1].FormattedValue;
-            ////chart1.Series["Series1"].Points.DataBindXY(xval, FinDataGrid.Rows[4].Cells.GetEnumerator());
-
-            //for (int i = 1; i < FinDataGrid.ColumnCount; i++)
-            //{
-            //    chart1.Series["Series2"].Points.AddXY(xval[i], FinDataGrid.Rows[4].Cells[i].FormattedValue);
-            //}
-            //chart1.Series["Series2"].Name = FinDataGrid.Rows[3].Cells[0].FormattedValue.ToString();
         }
 
-        private void ChartDataRefresh()
+        internal void ChartDataRefresh(IList<Report> rep)
         {
-            var rep = ((Company)CompanyBox.SelectedItem).Reports;
+            //var rep = ((Company)CompanyBox.SelectedItem).Reports.ToList();
+
             //chart1.Series["Sales"].Points.DataBindXY(rep.)
         }
 
@@ -222,9 +193,9 @@ namespace IDSA.Views
             chart1.Series["Series1"].Name = name1;
         }
 
-        internal void ChartDataRefresh(object[] xvalue, string name1, object[] yvalues)
+        internal void ChartDataRefresh(IList<String> xvalue, string name1, IList<Int64> yvalues)
         {
-            for (int i = 0; i < yvalues.Length; i++)
+            for (int i = 0; i < yvalues.Count; i++)
             {
                 chart1.Series["Series1"].Points.AddXY(xvalue[i], yvalues[i]);
             }
@@ -281,7 +252,7 @@ namespace IDSA.Views
         {
             //ChartDataRefresh();
             //var selectedReport = this.FinDataGrid.Rows[e.RowIndex].Cells;
-            
+
             ////selectedReport.HeaderCell[]
             ////selectedReport.Cells.Take(3);
             //IEnumerable<DataGridViewRow> selectedRows = 
@@ -290,46 +261,34 @@ namespace IDSA.Views
             //                                   .Distinct();
         }
 
-        private int oldColumnIndex = 0;
+        private int selectedColumnIndex = 0;
+        private int selectedRowIndex = 0;
+        private List<String> xValues = new List<String>();
 
         private void FinDataGrid_CellEnter(object sender, DataGridViewCellEventArgs e)
         {
-            var header = this.FinDataGrid.Columns[e.ColumnIndex].HeaderText;
-            
             //Column Year or Quarter = no changes on chart
-            if (e.ColumnIndex < 2 || e.ColumnIndex == oldColumnIndex)
+            if (e.ColumnIndex < 2 || e.ColumnIndex == selectedColumnIndex)
             {
                 //TODO: (empty chart only with xValues)
-                chart1.Series.Clear();
-                chart1.Series.Add(header);
-                chart1.Series[header].Points.DataBindXY(new int[] { 0, 0, 0 }, new int[] { 0, 0, 0 });
                 return;
             }
-            oldColumnIndex = e.ColumnIndex;
-            var headerIdx = this.FinDataGrid.CurrentCell.ColumnIndex;
+            selectedColumnIndex = e.ColumnIndex;
+            var headerName = this.FinDataGrid.Columns[selectedColumnIndex].HeaderText;
+            
+            presenter.ChartChangeNow(headerName);
 
-            //TODO: If selected company does not change, not execute below line of code!!!!
-            // ALSO: xValues are the same!!!! do not recalculate it again!!!
-            //TODO: Do not working with 4Q button yet :(
-            IList<Report> rep = presenter.GetSelectedCmpReports1();
-            // it is for doing it in view
-            //IList<Report> rep = ((Company)CompanyBox.SelectedItem).Reports.ToList();
-
-            var xValues = new List<string>();
-            var yValues = new List<Int64>();
-
-            // Get x and y values
-            for (int i = 0; i < rep.Count; i++)
-            { 
-                xValues.Add(rep.ElementAt(i).Quarter.ToString() + " " + rep.ElementAt(i).Year.ToString());
-                yValues.Add(Int64.Parse(this.FinDataGrid.Rows[i].Cells[headerIdx].Value.ToString()));
-                //chart1.Series[header].Points.AddXY(xValues.ElementAt(i), yValues.ElementAt(i));
-            }
-            chart1.Series.Clear();
-            chart1.Series.Add(header);
-            chart1.Series[header].Points.DataBindXY(xValues, yValues);
+            // Get y values in view
+            //var headerIdx = this.FinDataGrid.CurrentCell.ColumnIndex;
+            //yValues.Add(Int64.Parse(this.FinDataGrid.Rows[i].Cells[headerIdx].Value.ToString()));
         }
 
-       
+        internal void ChartRedraw(IList<String> xVals, IList<Int64> yVals)
+        {
+            var header = this.FinDataGrid.Columns[selectedColumnIndex].HeaderText;
+            chart1.Series.Clear();
+            chart1.Series.Add(header);
+            chart1.Series[header].Points.DataBindXY(xVals, yVals);
+        }
     }
 }

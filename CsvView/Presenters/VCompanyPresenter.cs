@@ -17,7 +17,7 @@ namespace IDSA.Presenters
     {
         VCompany view;
         private IUnitOfWork dbModel;
-
+        private IChartService chartService;
         private readonly IDataService<ICompany> _companyDataService;
         private IEnumerable<ICompany> _cmpData;
         private Company _cmpSelected { get; set; }
@@ -29,13 +29,36 @@ namespace IDSA.Presenters
             this._companyDataService = (IDataService<Company>)(new CompanyDataService());
             this.view = view;
             this._dataCalculationService = new ReportDataCaluclation();
+            this.chartService = new ChartService();
 
             //delegateConstruct
             this.SelectedCmpReportsChangedEvent += new SelectedCmpReportsChangedDelegate(this.SelectProperReports);
             this.SelectedCmpReportsChangedEvent += view.SelectedCmpReportsChanged;
-
+            this.SelectedCmpReportsChangedEvent += this.ChartChange;
             this.DataRecalculationRequestEvent += this.SelectedCmpReportsCalucalte;
             this.DataRecalculationRequestEvent += view.SelectedCmpReportsChanged;
+        }
+
+        internal void ChartChange(object sender, SelectedCmpReportsChangedEventArgs e)
+        {
+            if (e.selectQuantity != 0)
+            {
+                // TODO: Do not working with 4Q button yet :(
+                // TODO: Sort them, or take only few...
+                chartService.RecalcXValues(_cmpSelected.Reports
+                                        .OrderByDescending(r => r.Year)
+                                        .ThenByDescending(r => r.Quarter)
+                                        .Take(e.selectQuantity).ToList());
+            }
+            else
+                chartService.RecalcXValues(_cmpSelected.Reports.ToList());
+            this.ChartChangeNow("Sales");
+        }
+
+        internal void ChartChangeNow(String headerName)
+        {
+            chartService.RecalcYValues(headerName);
+            view.ChartRedraw(chartService.GetxValues(), chartService.GetyValues());
         }
 
         public IBindingList GetDbCompanies()
