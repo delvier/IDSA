@@ -11,6 +11,7 @@ namespace IDSA.Modules.DataCalculation
          IList<T> Data { get;}
 
          void SetData(IList<T> data);
+         float CalculateTerminalValue(long shareNumbers);
          void CalculationPerform();
          IList<T> GetData();
     }

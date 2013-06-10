@@ -77,6 +77,7 @@
     <Compile Include="Modules\DataCalculation\ICalculationFormula.cs" />
     <Compile Include="Modules\DataCalculation\IDataCalculation.cs" />
     <Compile Include="Modules\DataCalculation\ReportDataCaluclation.cs" />
+    <Compile Include="Modules\DataCalculation\TvCalculationFormula.cs" />
     <Compile Include="Presenters\DataFromHtmlPresenter.cs" />
     <Compile Include="Presenters\VCsvLoadPresenter.cs" />
     <Compile Include="Presenters\DbViewPresenter.cs" />

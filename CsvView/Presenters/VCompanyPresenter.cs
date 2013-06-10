@@ -36,6 +36,7 @@ namespace IDSA.Presenters
             //delegateConstruct
             this.SelectedCmpReportsChangedEvent += this.SelectProperReports;
             this.SelectedCmpReportsChangedEvent += this.ReportsRecalculationIfNeeded;
+            this.SelectedCmpReportsChangedEvent += this.RaiseTvCalculationPerform;
             this.SelectedCmpReportsChangedEvent += view.SelectedCmpReportsChanged;
             this.SelectedCmpReportsChangedEvent += this.ChartChange;
             this.DataRecalculationRequestEvent += this.SelectedCmpReportsCalucalte;
@@ -133,6 +134,15 @@ namespace IDSA.Presenters
             {
                 SelectedCmpReportsCalucalte(sender, new EventArgs());
             }
+        }
+        public void RaiseTvCalculationPerform(object sender, SelectedCmpReportsChangedEventArgs e)
+        {
+            if (finDataViewMode == ViewModeType.Seperate)
+                TvCalculationPerform(sender, e);
+        }
+        public void TvCalculationPerform(object sender, SelectedCmpReportsChangedEventArgs e)
+        {
+            _dataCalculationService.CalculateTerminalValue(_cmpSelected.ShareNumbers);
         }
         public void SelectedCmpReportsCalucalte(object sender, EventArgs e)
         {

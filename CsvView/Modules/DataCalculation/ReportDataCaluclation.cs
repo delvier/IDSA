@@ -12,24 +12,36 @@ namespace IDSA.Modules.DataCalculation
         {
         }
 
-        public ReportDataCaluclation (List<RzisBase> data) : base(data) 
+        public ReportDataCaluclation(List<RzisBase> data)
+            : base(data)
         {
+        }
+
+        public override float CalculateTerminalValue(long shareNumbers)
+        {
+            var tvCalculationFormula = new TvCalculationFormula(
+                Data.Take(4).Select(a => a.EBIT).ToList(),
+                0,
+                0,
+                shareNumbers
+                );
+            return tvCalculationFormula.Calculate();
         }
 
         public override void CalculationPerform()
         {
             RzisBase prevRzis = new RzisBase();
             foreach (RzisBase curRzis in Data)
-	        {
+            {
                 if (prevRzis != null)
                 {
                     if (prevRzis.Quarter > 1)
                     {
-                        prevRzis -= curRzis;    
+                        prevRzis -= curRzis;
                     }
                 }
                 prevRzis = curRzis;
-	        }
+            }
         }
     }
 }
