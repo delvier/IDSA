@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using IDSA.Models.Repository;
 using IDSA.Views;
+using Microsoft.Practices.Prism.Events;
 
 namespace IDSA
 {
@@ -16,6 +17,8 @@ namespace IDSA
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            // TODO: Should be .InSingletonScope()
+            ServiceLocator.Instance.Register<IEventAggregator>(new EventAggregator());
             ServiceLocator.Instance.Register(new EventDbCreate());
             ServiceLocator.Instance.Register(new EventDbUpdate());
             ServiceLocator.Instance.Register<IViewProvider>(new TabbedViewProvider());

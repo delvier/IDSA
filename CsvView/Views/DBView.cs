@@ -1,6 +1,9 @@
 using System;
 using System.Windows.Forms;
 using IDSA.Presenters;
+using Microsoft.Practices.Prism.Events;
+using IDSA;
+using IDSA.Events;
 
 namespace IDSA.Views
 {
@@ -15,6 +18,7 @@ namespace IDSA.Views
         #region Fields and Props
 
         private readonly DbViewPresenter presenter;
+        private readonly IEventAggregator eventAggregator;
 
         #endregion
 
@@ -25,7 +29,10 @@ namespace IDSA.Views
             InitializeComponent();
             ServiceLocator.Instance.Register(new DbViewPresenter(this));
             presenter = ServiceLocator.Instance.Resolve<DbViewPresenter>();
+            eventAggregator = ServiceLocator.Instance.Resolve<IEventAggregator>();
 
+            eventAggregator.GetEvent<DatabaseCreatedEvent>()
+                .Subscribe(DatabaseCreatedAction);
             ServiceLocator.Instance.Resolve<EventDbCreate>().DbCreateDone += DBView_DbCreateDone;
             ServiceLocator.Instance.Resolve<EventDbUpdate>().DbUpdateDone += DBView_DbUpdateDone;
         }
@@ -33,6 +40,11 @@ namespace IDSA.Views
         #endregion
 
         #region Delegates implementation
+
+        private void DatabaseCreatedAction(bool isCreated)
+        {
+            DBView_DbCreateDone();
+        }
 
         private void DBView_DbCreateDone()
         {
@@ -136,6 +148,7 @@ namespace IDSA.Views
         #region Inside Events behaviour
         private void addReportsCheckBox1_CheckedChanged(object sender, EventArgs e)
         {
+            eventAggregator.GetEvent<DatabaseCreatedEvent>().Publish(this.addReportsCheckBox.Checked);
             this.button1.Text = this.addReportsCheckBox.Checked ? "Add reports" : "Add companies";
             this.trackBar1.Maximum = this.addReportsCheckBox.Checked ? 16000 : 952;
             if (this.trackBar1.Value >= this.trackBar1.Maximum)
