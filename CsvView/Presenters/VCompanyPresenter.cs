@@ -111,7 +111,7 @@ namespace IDSA.Presenters
 
         public string GetTerminalValue()
         {
-            return String.Format("{0:F3}", _terminalValue); 
+            return String.Format("TV: {0:F3}", _terminalValue); 
         }
 
         #region ChangedEvent & Delegates

@@ -94,7 +94,7 @@
             ColumnB,
             Name,
             Shortcut,
-            ColumnE,
+            ShareNumbers,
             SharePrice, //F
             Date,
             Description,
@@ -110,7 +110,7 @@
             Profile,
             Address,
             HrefStatus,
-            ShareNumbers,
+            VoteNumbers,
             Date2,
             ColumnW,
             ColumnX,
