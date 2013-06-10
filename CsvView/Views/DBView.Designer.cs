@@ -1,4 +1,4 @@
-namespace IDSA
+namespace IDSA.Views
 {
     partial class DBView
     {

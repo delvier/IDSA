@@ -2,7 +2,7 @@ using System;
 using System.Windows.Forms;
 using IDSA.Presenters;
 
-namespace IDSA
+namespace IDSA.Views
 {
     public interface IDbView
     {
@@ -14,7 +14,7 @@ namespace IDSA
     {
         #region Fields and Props
 
-        private DbViewPresenter presenter;
+        private readonly DbViewPresenter presenter;
 
         #endregion
 
@@ -28,11 +28,6 @@ namespace IDSA
 
             ServiceLocator.Instance.Resolve<EventDbCreate>().DbCreateDone += DBView_DbCreateDone;
             ServiceLocator.Instance.Resolve<EventDbUpdate>().DbUpdateDone += DBView_DbUpdateDone;
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
         }
 
         #endregion
