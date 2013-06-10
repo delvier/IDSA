@@ -104,6 +104,7 @@ namespace IDSA.Views
             {
                 //this.TransposeFinDataGrid();
             }
+            tvLabel.Text = presenter.GetTerminalValue();
             SharePriceLabel.Text = cmp.SharePrice.ToString();
             DateCmpLabel.Text = String.Format("{0}", ((System.DateTime)cmp.Date).ToShortDateString());
             CompanyTitle.Text = cmp.FullName.ToString();

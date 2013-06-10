@@ -24,6 +24,7 @@ namespace IDSA.Presenters
         public IList<RzisBase> _cmpSelectedReportsList { get; set; }
         public IDataCalculation<RzisBase> _dataCalculationService { get; set; }
         private ViewModeType finDataViewMode { get; set; } // maybe add view mode into dataCalulationService?
+        private float _terminalValue { get; set; }
 
         public VCompanyPresenter(VCompany view)
         {
@@ -108,6 +109,10 @@ namespace IDSA.Presenters
             view.RefreshView_Panel2(_cmpSelected);
         }
 
+        public string GetTerminalValue()
+        {
+            return String.Format("{0:F3}", _terminalValue); 
+        }
 
         #region ChangedEvent & Delegates
 
@@ -142,7 +147,7 @@ namespace IDSA.Presenters
         }
         public void TvCalculationPerform(object sender, SelectedCmpReportsChangedEventArgs e)
         {
-            _dataCalculationService.CalculateTerminalValue(_cmpSelected.ShareNumbers);
+            _terminalValue = _dataCalculationService.CalculateTerminalValue(_cmpSelected.ShareNumbers);
         }
         public void SelectedCmpReportsCalucalte(object sender, EventArgs e)
         {
@@ -290,6 +295,8 @@ namespace IDSA.Presenters
         }
 
         #endregion
+
+        
     }
 
     #region PresenterChangedEventArgs - Classes
