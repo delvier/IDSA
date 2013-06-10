@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using IDSA.Models.Repository;
 using IDSA.Views;
 using Microsoft.Practices.Prism.Events;
+using IDSA.Events;
 
 namespace IDSA
 {
@@ -17,6 +18,9 @@ namespace IDSA
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            
+            //TODO: Implement Ninject Kernel + CommonServiceLocator(kernel) + ServiceLocation
+
             // TODO: Should be .InSingletonScope()
             ServiceLocator.Instance.Register<IEventAggregator>(new EventAggregator());
             //ServiceLocator.Instance.Register(new EventDbCreate());
