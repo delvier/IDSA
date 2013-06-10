@@ -33,7 +33,7 @@ namespace IDSA.Views
 
             eventAggregator.GetEvent<DatabaseCreatedEvent>()
                 .Subscribe(DatabaseCreatedAction);
-            ServiceLocator.Instance.Resolve<EventDbCreate>().DbCreateDone += DBView_DbCreateDone;
+            //ServiceLocator.Instance.Resolve<EventDbCreate>().DbCreateDone += DBView_DbCreateDone;
             ServiceLocator.Instance.Resolve<EventDbUpdate>().DbUpdateDone += DBView_DbUpdateDone;
         }
 

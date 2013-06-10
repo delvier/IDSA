@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Collections;
 using System.Linq;
+using IDSA.Events;
+using Microsoft.Practices.Prism.Events;
 
 namespace IDSA.Views
 {
@@ -18,13 +20,17 @@ namespace IDSA.Views
     public partial class VCompany : UserControl, IVCompany
     {
         VCompanyPresenter presenter;
-        public VCompany()
+        private readonly IEventAggregator _eventAggregator;
+
+        public VCompany(IEventAggregator eventAggregator)
         {
             InitializeComponent();
             ServiceLocator.Instance.Register(new VCompanyPresenter(this));
             presenter = ServiceLocator.Instance.Resolve<VCompanyPresenter>();
 
-            ServiceLocator.Instance.Resolve<EventDbCreate>().DbCreateDone += RefreshView;
+            _eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<DatabaseCreatedEvent>()
+                .Subscribe(RefreshView);
         }
 
         #region Init & Display Options
@@ -81,11 +87,11 @@ namespace IDSA.Views
         #endregion
 
         #region View Refresh Update / Init
-        private void RefreshView()
+        private void RefreshView(bool isCreated)
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new Action(() => RefreshView()));
+                this.Invoke(new Action(() => RefreshView(isCreated)));
             }
             else
             {
