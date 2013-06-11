@@ -147,7 +147,7 @@ namespace IDSA.Views
         {
             //eventAggregator.GetEvent<DatabaseCreatedEvent>().Publish(this.addReportsCheckBox.Checked);
             this.button1.Text = this.addReportsCheckBox.Checked ? "Add reports" : "Add companies";
-            this.trackBar1.Maximum = this.addReportsCheckBox.Checked ? 16000 : 952;
+            this.trackBar1.Maximum = this.addReportsCheckBox.Checked ? 16408 : 886;
             if (this.trackBar1.Value >= this.trackBar1.Maximum)
                 this.textBox1.Text = "" + this.trackBar1.Value;
         }

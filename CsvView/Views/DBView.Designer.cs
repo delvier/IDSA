@@ -478,7 +478,7 @@ namespace IDSA.Views
             // trackBar1
             // 
             this.trackBar1.Location = new System.Drawing.Point(174, 47);
-            this.trackBar1.Maximum = 958;
+            this.trackBar1.Maximum = 886; // TODO: ADD INTELIGENT LOGIC PASS THE REAL CSV COUNT ROW NUMBER....
             this.trackBar1.Minimum = 1;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(104, 45);

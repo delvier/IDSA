@@ -72,7 +72,7 @@ namespace IDSA.Presenters
             {
                 //csv.Count();
                 int i = 0;
-                foreach (var item in csv.ToList().Skip(model.Companies.Query().Count()).Take(count))
+                foreach (var item in csv.ToList().Skip(model.Reports.Query().Count()).Take(count))
                 {
                     string[] cos = item[(int)CsvEnums.company.Date].Split('-');
                     var company = new Company()
@@ -95,9 +95,9 @@ namespace IDSA.Presenters
                     };
                     model.Companies.Add(company);
                     i++;
-                    if ((i * 20) % count == 0)
+                    if ((i * 10) % 50 == 0)
                     {
-                        view.UpdateProgressBar((int)(i / count * 100));
+                        view.UpdateProgressBar((int)(i * 100 / count));
                         //System.Threading.Thread.Sleep(500);
                         //model.Commit();
                     }
@@ -115,8 +115,9 @@ namespace IDSA.Presenters
             //TODO: Change this PATH in release: ..\\..\\..\\DataCsvExampales\\company.csv !!!!!!!!!!!!!
             using (CachedCsvReader csv = new CachedCsvReader(new StreamReader("..\\..\\..\\DataCsvExampales\\findata2.csv"), false))
             {
-                int i = 880;
+                int i = 0;
                 long tempVal;
+                //int OverallCount = csv.ToList().Count;
                 foreach (var item in csv.ToList().Skip(model.Reports.Query().Count()).Take(count))
                 {
                     var report = new Report()
@@ -143,11 +144,12 @@ namespace IDSA.Presenters
                         NetProfit = Int64.TryParse(item[(int)CsvEnums.financialData.NetProfit], out tempVal) ? tempVal : 0,
                         NetParentProfit = Int64.TryParse(item[(int)CsvEnums.financialData.NetParentProfit], out tempVal) ? tempVal : 0,
                     };
-                    model.Reports.Add(report);
+                    model.Reports.Add(report); //we need to check if cmp id exist in db otherwise ignore add.
                     i++;
-                    if (i % 500 == 0)
+                    if (i % 100 == 0)
                     {
-                        view.UpdateProgressBar((int)(i / 150));
+                        model.Commit();
+                        view.UpdateProgressBar((int)(i * 100 / count ));
                     }
                 }
                 model.Commit();
