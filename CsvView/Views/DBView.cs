@@ -33,24 +33,21 @@ namespace IDSA.Views
 
             eventAggregator.GetEvent<DatabaseCreatedEvent>()
                 .Subscribe(DatabaseCreatedAction);
+            eventAggregator.GetEvent<DatabaseUpdatedEvent>()
+                .Subscribe(DatabaseUpdatedAction);
             //ServiceLocator.Instance.Resolve<EventDbCreate>().DbCreateDone += DBView_DbCreateDone;
-            ServiceLocator.Instance.Resolve<EventDbUpdate>().DbUpdateDone += DBView_DbUpdateDone;
+            //ServiceLocator.Instance.Resolve<EventDbUpdate>().DbUpdateDone += DBView_DbUpdateDone;
         }
 
         #endregion
 
-        #region Delegates implementation
+        #region Event Delegates implementation
 
         private void DatabaseCreatedAction(bool isCreated)
         {
-            DBView_DbCreateDone();
-        }
-
-        private void DBView_DbCreateDone()
-        {
             if (this.InvokeRequired)
             {
-                this.Invoke(new Action(() => DBView_DbCreateDone()));
+                this.Invoke(new Action(() => DatabaseCreatedAction(isCreated)));
             }
             else
             {
@@ -63,11 +60,11 @@ namespace IDSA.Views
             }
         }
 
-        private void DBView_DbUpdateDone()
+        private void DatabaseUpdatedAction(bool isUpdated)
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new Action(() => DBView_DbUpdateDone()));
+                this.Invoke(new Action(() => DatabaseUpdatedAction(isUpdated)));
             }
             else
             {
@@ -148,7 +145,7 @@ namespace IDSA.Views
         #region Inside Events behaviour
         private void addReportsCheckBox1_CheckedChanged(object sender, EventArgs e)
         {
-            eventAggregator.GetEvent<DatabaseCreatedEvent>().Publish(this.addReportsCheckBox.Checked);
+            //eventAggregator.GetEvent<DatabaseCreatedEvent>().Publish(this.addReportsCheckBox.Checked);
             this.button1.Text = this.addReportsCheckBox.Checked ? "Add reports" : "Add companies";
             this.trackBar1.Maximum = this.addReportsCheckBox.Checked ? 16000 : 952;
             if (this.trackBar1.Value >= this.trackBar1.Maximum)

@@ -23,8 +23,7 @@ namespace IDSA
 
             // TODO: Should be .InSingletonScope()
             ServiceLocator.Instance.Register<IEventAggregator>(new EventAggregator());
-            //ServiceLocator.Instance.Register(new EventDbCreate());
-            ServiceLocator.Instance.Register(new EventDbUpdate());
+            //ServiceLocator.Instance.Register(new EventDbUpdate());
             ServiceLocator.Instance.Register<IViewProvider>(new TabbedViewProvider());
             ServiceLocator.Instance.Register(new DBView());
             ServiceLocator.Instance.Register(new VCsvLoad());

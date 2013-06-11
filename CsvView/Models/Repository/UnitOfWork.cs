@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IDSA.Events;
+using Microsoft.Practices.Prism.Events;
+using System;
 using System.Data.Entity;
 
 namespace IDSA.Models.Repository
@@ -63,7 +65,8 @@ namespace IDSA.Models.Repository
         public void Commit()
         {
             context.SaveChanges();
-            ServiceLocator.Instance.Resolve<EventDbUpdate>().RaiseEventDbUpdate();
+            ServiceLocator.Instance.Resolve<IEventAggregator>()
+                .GetEvent<DatabaseUpdatedEvent>().Publish(true);
         }
 
         public void Load()

@@ -28,7 +28,8 @@ namespace IDSA.Views
             ServiceLocator.Instance.Register(new VCompanyPresenter(this));
             presenter = ServiceLocator.Instance.Resolve<VCompanyPresenter>();
 
-            _eventAggregator = eventAggregator;
+            //ServiceLocator.Instance.Resolve<EventDbCreate>().DbCreateDone += RefreshView;
+            _eventAggregator = eventAggregator;// ServiceLocator.Instance.Resolve<IEventAggregator>();
             _eventAggregator.GetEvent<DatabaseCreatedEvent>()
                 .Subscribe(RefreshView);
         }
@@ -208,6 +209,8 @@ namespace IDSA.Views
 
         private void CompanyBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //TODO: After application start, before user interaction, there are many events raised (SelectedIndexChanged)
+            //TODO: We should ignore them
             if (CompanyBox.SelectedItem != null)
             {
                 presenter.SetCmpSelected((Company)CompanyBox.SelectedItem);
