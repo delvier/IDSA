@@ -74,6 +74,7 @@ namespace IDSA.Presenters
             var cmpBindList = new BindingList<Company>();
             if (dbModel == null)
                 dbModel = ServiceLocator.Instance.Resolve<IUnitOfWork>();
+            dbModel.Load();
             cmpBindList = dbModel.Companies.GetAll();
             return cmpBindList;
         }
