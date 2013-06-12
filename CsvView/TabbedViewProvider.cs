@@ -21,7 +21,7 @@ namespace IDSA
                 new ViewItemDescriptor()
                 {
                     Header = "Spółki",
-                    View = ServiceLocator.Instance.Resolve<VCompany>()
+                    View = typeof(VCompany)
                 }
                 );
 
@@ -30,7 +30,8 @@ namespace IDSA
                 {
                     Header = "Csv Upload",
                     //View = null
-                    View = ServiceLocator.Instance.Resolve<VCsvLoad>()
+                    //View = ServiceLocator.Instance.Resolve<VCsvLoad>()
+                    View = typeof(VCsvLoad)
                 }
                 );
 
@@ -39,7 +40,8 @@ namespace IDSA
                 {
                     Header = "Database Tables",
                     //View = null
-                    View = ServiceLocator.Instance.Resolve<DBView>()
+                    //View = ServiceLocator.Instance.Resolve<DBView>()
+                    View = typeof(DBView)
                 }
                 );
 
@@ -47,7 +49,8 @@ namespace IDSA
                 new ViewItemDescriptor()
                 {
                     Header = "Data from html",
-                    View = ServiceLocator.Instance.Resolve<DataFromHtmlView>()
+                    //View = ServiceLocator.Instance.Resolve<DataFromHtmlView>()
+                    View = typeof(DataFromHtmlView)
                 }
             );
 

@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using IDSA.Models.Repository;
+using Microsoft.Practices.ServiceLocation;
 
 namespace IDSA
 {
@@ -14,9 +15,10 @@ namespace IDSA
 
                 foreach (var vd in viewProvider.GetViews())
                 {
-                    vd.View.Dock = DockStyle.Fill;
+                    var view = (Control)ServiceLocator.Current.GetInstance(vd.View);
+                    view.Dock = DockStyle.Fill;
                     var tp = new TabPage(vd.Header);
-                    tp.Controls.Add(vd.View);
+                    tp.Controls.Add(view);
                     tabControl1.TabPages.Add(tp);
                 }
             }
@@ -26,7 +28,10 @@ namespace IDSA
         {
             base.OnClosing(e);
             //Program.dbCreate.Dispose();
-            ServiceLocator.Instance.Resolve<IUnitOfWork>().Dispose();
+
+            ServiceLocator.Current.GetInstance<EFUnitOfWork>().Dispose();
+            //ServiceLocator.Instance.Resolve<IUnitOfWork>().Dispose();
+
             //without ServiceLocator, but Dispose() method then must be static ;) (or find other solution)
             //DBModule.DBView.Dispose();
         }

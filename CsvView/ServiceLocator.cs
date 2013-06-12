@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IDSA
+namespace IDSA.OldServiceLocator
 {
     interface IServiceLocator
     {
