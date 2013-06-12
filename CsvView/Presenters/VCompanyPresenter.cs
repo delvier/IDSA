@@ -17,8 +17,8 @@ namespace IDSA.Presenters
     class VCompanyPresenter
     {
         VCompany view;
-        private IUnitOfWork dbModel;
-        private IChartService chartService;
+        private readonly IUnitOfWork dbModel;
+        private readonly IChartService chartService;
         private readonly IDataService<ICompany> _companyDataService;
         private IEnumerable<ICompany> _cmpData;
         private Company _cmpSelected { get; set; }
@@ -27,12 +27,12 @@ namespace IDSA.Presenters
         private ViewModeType finDataViewMode { get; set; } // maybe add view mode into dataCalulationService?
         private float _terminalValue { get; set; }
 
-        public VCompanyPresenter(VCompany view, IUnitOfWork uow)
+        public VCompanyPresenter(VCompany view, IUnitOfWork uow, IChartService chartService)
         {
             this._companyDataService = (IDataService<Company>)(new CompanyDataService());
             this.view = view;
             this._dataCalculationService = new ReportDataCaluclation();
-            this.chartService = new ChartService();
+            this.chartService = chartService;
             this.finDataViewMode = ViewModeType.Seperate;
             dbModel = uow;
 
@@ -74,8 +74,8 @@ namespace IDSA.Presenters
         public IBindingList GetDbCompanies()
         {
             var cmpBindList = new BindingList<Company>();
-            if (dbModel == null)
-                dbModel = ServiceLocator.Current.GetInstance<EFUnitOfWork>();
+            //if (dbModel == null)
+            //    dbModel = ServiceLocator.Current.GetInstance<EFUnitOfWork>();
             dbModel.Load();
             cmpBindList = dbModel.Companies.GetAll();
             return cmpBindList;

@@ -1,16 +1,14 @@
-using System.Windows.Forms;
-using IDSA.Presenters;
-using System;
+using IDSA.Events;
 using IDSA.Models;
-using System.Drawing;
+using IDSA.Models.Repository;
+using IDSA.Presenters;
+using IDSA.Services;
+using Microsoft.Practices.Prism.Events;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Collections;
-using System.Linq;
-using IDSA.Events;
-using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.ServiceLocation;
-using IDSA.Models.Repository;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace IDSA.Views
 {
@@ -24,15 +22,13 @@ namespace IDSA.Views
         VCompanyPresenter presenter;
         private readonly IEventAggregator _eventAggregator;
 
-        public VCompany(IEventAggregator eventAggregator)
+        public VCompany(IEventAggregator eventAggregator, IUnitOfWork uow, IChartService chart)
         {
-            presenter = new VCompanyPresenter(this, ServiceLocator.Current.GetInstance<EFUnitOfWork>());
+            presenter = new VCompanyPresenter(this, uow, chart);
+            //ServiceLocator.Current.GetInstance<EFUnitOfWork>()
             _eventAggregator = eventAggregator;
-            //ServiceLocator.Instance.Register(new VCompanyPresenter(this));
-            //presenter = ServiceLocator.Instance.Resolve<VCompanyPresenter>();
 
-            _eventAggregator.GetEvent<DatabaseCreatedEvent>()
-                .Subscribe(RefreshView);
+            _eventAggregator.GetEvent<DatabaseCreatedEvent>().Subscribe(RefreshView);
             InitializeComponent();
         }
 
@@ -49,6 +45,7 @@ namespace IDSA.Views
             CompanyBox.DisplayMember = CsvEnums.company.Name.ToString();
         }
 
+        //TODO: This options should be set in visualiser?
         private void InitGridOptions()
         {
             FinDataGrid.BackgroundColor = Color.White;
@@ -106,7 +103,6 @@ namespace IDSA.Views
                 this.InitListBox();
                 this.InitDropBoxs();
                 this.InitGridOptions();
-                //this.ChartPopulatingData();
             }
         }
 
@@ -211,12 +207,12 @@ namespace IDSA.Views
             else
                 _viewModeType = ViewModeType.Seperate;
             presenter.RaiseViewModeChange(this, new RaiseViewModeChangeEventArgs(_viewModeType));
-                
+
         }
 
         private void CompanyBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //TODO: After application start, before user interaction, there are many events raised (SelectedIndexChanged)
+            //TODO: After application start, before user interaction, there are 2 unnecessary events raised (SelectedIndexChanged)
             //TODO: We should ignore them
             if (CompanyBox.SelectedItem != null)
             {

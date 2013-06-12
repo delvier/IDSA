@@ -27,13 +27,7 @@ namespace IDSA
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             base.OnClosing(e);
-            //Program.dbCreate.Dispose();
-
             ServiceLocator.Current.GetInstance<EFUnitOfWork>().Dispose();
-            //ServiceLocator.Instance.Resolve<IUnitOfWork>().Dispose();
-
-            //without ServiceLocator, but Dispose() method then must be static ;) (or find other solution)
-            //DBModule.DBView.Dispose();
         }
     }
 }
