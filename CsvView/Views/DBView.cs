@@ -18,25 +18,24 @@ namespace IDSA.Views
         #region Fields and Props
 
         private readonly DbViewPresenter presenter;
-        private readonly IEventAggregator eventAggregator;
+        private readonly IEventAggregator _eventAggregator;
 
         #endregion
 
-        #region Ctor and OnLoad
+        #region Ctor
 
-        public DBView()
+        public DBView(IEventAggregator eventAggregator)
         {
-            InitializeComponent();
-            ServiceLocator.Instance.Register(new DbViewPresenter(this));
-            presenter = ServiceLocator.Instance.Resolve<DbViewPresenter>();
-            eventAggregator = ServiceLocator.Instance.Resolve<IEventAggregator>();
-
-            eventAggregator.GetEvent<DatabaseCreatedEvent>()
+            presenter = new DbViewPresenter(this);
+            _eventAggregator = eventAggregator;
+            
+            _eventAggregator.GetEvent<DatabaseCreatedEvent>()
                 .Subscribe(DatabaseCreatedAction);
-            eventAggregator.GetEvent<DatabaseUpdatedEvent>()
+            _eventAggregator.GetEvent<DatabaseUpdatedEvent>()
                 .Subscribe(DatabaseUpdatedAction);
             //ServiceLocator.Instance.Resolve<EventDbCreate>().DbCreateDone += DBView_DbCreateDone;
             //ServiceLocator.Instance.Resolve<EventDbUpdate>().DbUpdateDone += DBView_DbUpdateDone;
+            InitializeComponent();
         }
 
         #endregion

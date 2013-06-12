@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using IDSA.Models;
 using IDSA.Models.Repository;
 using LumenWorks.Framework.IO.Csv;
+using Microsoft.Practices.ServiceLocation;
 
 namespace IDSA.Presenters
 {
@@ -32,8 +33,9 @@ namespace IDSA.Presenters
 
         public void OnLoad()
         {
-            Task.WaitAll(Program.dbCreate);
-            model = ServiceLocator.Instance.Resolve<IUnitOfWork>();
+            //Task.WaitAll(Program.dbCreate);
+            if (model == null)
+                model = ServiceLocator.Current.GetInstance<EFUnitOfWork>();
         }
 
         public bool ValidCsvModel ()

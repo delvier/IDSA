@@ -1,5 +1,6 @@
 ﻿using IDSA.Events;
 using Microsoft.Practices.Prism.Events;
+using Microsoft.Practices.ServiceLocation;
 using System;
 using System.Data.Entity;
 
@@ -39,7 +40,7 @@ namespace IDSA.Models.Repository
         }
 
         #endregion
-        
+
         #region IUnitOfWork members
 
         public IRepository<Company> Companies
@@ -65,12 +66,12 @@ namespace IDSA.Models.Repository
         public void Commit()
         {
             context.SaveChanges();
-            ServiceLocator.Instance.Resolve<IEventAggregator>()
+            ServiceLocator.Current.GetInstance<EventAggregator>()
                 .GetEvent<DatabaseUpdatedEvent>().Publish(true);
         }
 
         public void Load()
-        { 
+        {
             Companies.Query().Load();
             Reports.Query().Load();
         }

@@ -9,6 +9,8 @@ using System.Collections;
 using System.Linq;
 using IDSA.Events;
 using Microsoft.Practices.Prism.Events;
+using Microsoft.Practices.ServiceLocation;
+using IDSA.Models.Repository;
 
 namespace IDSA.Views
 {
@@ -24,14 +26,19 @@ namespace IDSA.Views
 
         public VCompany(IEventAggregator eventAggregator)
         {
-            InitializeComponent();
-            ServiceLocator.Instance.Register(new VCompanyPresenter(this));
-            presenter = ServiceLocator.Instance.Resolve<VCompanyPresenter>();
+            presenter = new VCompanyPresenter(this, ServiceLocator.Current.GetInstance<EFUnitOfWork>());
+            _eventAggregator = eventAggregator;
+            //ServiceLocator.Instance.Register(new VCompanyPresenter(this));
+            //presenter = ServiceLocator.Instance.Resolve<VCompanyPresenter>();
 
-            //ServiceLocator.Instance.Resolve<EventDbCreate>().DbCreateDone += RefreshView;
-            _eventAggregator = eventAggregator;// ServiceLocator.Instance.Resolve<IEventAggregator>();
             _eventAggregator.GetEvent<DatabaseCreatedEvent>()
                 .Subscribe(RefreshView);
+            InitializeComponent();
+        }
+
+        private void VCompany_Load(object sender, EventArgs e)
+        {
+            _eventAggregator.GetEvent<DatabaseCreatedEvent>().Publish(true);
         }
 
         #region Init & Display Options
@@ -258,5 +265,6 @@ namespace IDSA.Views
         }
 
         #endregion
+
     }
 }

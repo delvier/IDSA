@@ -21,9 +21,10 @@ namespace IDSA
 
         public VCsvLoad()
         {
+            presenter = new VCsvLoadPresenter(this);
             InitializeComponent();
-            ServiceLocator.Instance.Register(new VCsvLoadPresenter(this));
-            presenter = ServiceLocator.Instance.Resolve<VCsvLoadPresenter>();
+            //ServiceLocator.Instance.Register(new VCsvLoadPresenter(this));
+            //presenter = ServiceLocator.Instance.Resolve<VCsvLoadPresenter>();
             this.InitCsvDataBox(); // just init data type enum list
         }
 

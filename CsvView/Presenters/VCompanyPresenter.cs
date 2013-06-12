@@ -10,6 +10,7 @@ using IDSA.Views;
 using System.Data;
 using System.Windows.Forms;
 using IDSA.Modules.DataCalculation;
+using Microsoft.Practices.ServiceLocation;
 
 namespace IDSA.Presenters
 {
@@ -26,13 +27,14 @@ namespace IDSA.Presenters
         private ViewModeType finDataViewMode { get; set; } // maybe add view mode into dataCalulationService?
         private float _terminalValue { get; set; }
 
-        public VCompanyPresenter(VCompany view)
+        public VCompanyPresenter(VCompany view, IUnitOfWork uow)
         {
             this._companyDataService = (IDataService<Company>)(new CompanyDataService());
             this.view = view;
             this._dataCalculationService = new ReportDataCaluclation();
             this.chartService = new ChartService();
             this.finDataViewMode = ViewModeType.Seperate;
+            dbModel = uow;
 
             //delegateConstruct
             this.SelectedCmpReportsChangedEvent += this.SelectProperReports;
@@ -73,7 +75,7 @@ namespace IDSA.Presenters
         {
             var cmpBindList = new BindingList<Company>();
             if (dbModel == null)
-                dbModel = ServiceLocator.Instance.Resolve<IUnitOfWork>();
+                dbModel = ServiceLocator.Current.GetInstance<EFUnitOfWork>();
             dbModel.Load();
             cmpBindList = dbModel.Companies.GetAll();
             return cmpBindList;

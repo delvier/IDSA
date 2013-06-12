@@ -8,6 +8,7 @@ using IDSA.Models;
 using IDSA.Models.Repository;
 using LumenWorks.Framework.IO.Csv;
 using IDSA.Views;
+using Microsoft.Practices.ServiceLocation;
 
 namespace IDSA.Presenters
 {
@@ -35,7 +36,7 @@ namespace IDSA.Presenters
         {
             if (model == null)
             {
-                model = ServiceLocator.Instance.Resolve<IUnitOfWork>();
+                model = ServiceLocator.Current.GetInstance<EFUnitOfWork>();
             }
             return dbUpdateDone();
         }
@@ -72,7 +73,10 @@ namespace IDSA.Presenters
             {
                 //csv.Count();
                 int i = 0;
-                foreach (var item in csv.ToList().Skip(model.Reports.Query().Count()).Take(count))
+                int compAmount = model.Companies.Query().Count();
+                if (compAmount + count > 886)
+                    count = 886 - compAmount;
+                foreach (var item in csv.ToList().Skip(compAmount).Take(count))
                 {
                     string[] cos = item[(int)CsvEnums.company.Date].Split('-');
                     var company = new Company()
@@ -95,7 +99,7 @@ namespace IDSA.Presenters
                     };
                     model.Companies.Add(company);
                     i++;
-                    if ((i * 10) % 50 == 0)
+                    if (i == (int)(count/20))
                     {
                         view.UpdateProgressBar((int)(i * 100 / count));
                         //System.Threading.Thread.Sleep(500);
@@ -165,7 +169,7 @@ namespace IDSA.Presenters
 
         internal void CreateDatabase()
         {
-            AddCompanies(870);
+            AddCompanies(886);
             AddReports(16000);
         }
 

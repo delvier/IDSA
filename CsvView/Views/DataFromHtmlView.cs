@@ -14,9 +14,10 @@ namespace IDSA.Views
 
         public DataFromHtmlView()
         {
+            presenter = new DataFromHtmlPresenter(this);
             InitializeComponent();
-            ServiceLocator.Instance.Register(new DataFromHtmlPresenter(this));
-            presenter = ServiceLocator.Instance.Resolve<DataFromHtmlPresenter>();
+            //ServiceLocator.Instance.Register(new DataFromHtmlPresenter(this));
+            //presenter = ServiceLocator.Instance.Resolve<DataFromHtmlPresenter>();
         }
 
         private void searchExchangeBtn_Click(object sender, EventArgs e)
