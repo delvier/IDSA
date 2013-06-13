@@ -21,6 +21,7 @@ namespace IDSA.Models
         string Address { get; set; }
         string HrefStatus { get; set; }
         long ShareNumbers { get; set; }
+        int Volumen20 { get; set; } 
     }
 
     public class Company : ICompany, ICloneable
