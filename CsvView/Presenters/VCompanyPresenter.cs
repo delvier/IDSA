@@ -39,9 +39,10 @@ namespace IDSA.Presenters
             this.finDataViewMode = ViewModeType.Seperate;
   
             //delegateConstruct
-            this.SelectedCmpReportsChangedEvent += this.SelectProperReports;
+            this.SelectedCmpReportsChangedEvent += this.SelectAllReports;
             this.SelectedCmpReportsChangedEvent += this.ReportsRecalculationIfNeeded;
             this.SelectedCmpReportsChangedEvent += this.RaiseTvCalculationPerform;
+            this.SelectedCmpReportsChangedEvent += this.SelectFilterOnReports;
             this.SelectedCmpReportsChangedEvent += view.SelectedCmpReportsChanged;
             this.SelectedCmpReportsChangedEvent += this.ChartChange;
             this.DataRecalculationRequestEvent += this.SelectedCmpReportsCalucalte;
@@ -127,6 +128,21 @@ namespace IDSA.Presenters
         public event SelectedCmpReportsChangedDelegate SelectedCmpReportsChangedEvent;
         public event DataRecalculationRequestDelegate DataRecalculationRequestEvent;
         public event ViewModeChangeDelegate ViewModeChangeEvent;
+
+        public void SelectFilterOnReports(object sender, SelectedCmpReportsChangedEventArgs e)
+        {
+            if (e != null)
+            {
+                FilterSelectReports(e.selectQuantity);
+            }
+        }
+        public void SelectAllReports(object sender, SelectedCmpReportsChangedEventArgs e)
+        {
+            if (e != null)
+            {
+                SelectReports(0);
+            }
+        }
         public void SelectProperReports(object sender, SelectedCmpReportsChangedEventArgs e)
         {
             if (e != null)
@@ -177,8 +193,16 @@ namespace IDSA.Presenters
         }
         #endregion
 
-        #region DataModel Queries
-
+        #region dbModel & _privateData Queries
+        public void FilterSelectReports(int numberToShow)
+        {
+            if (numberToShow != 0)
+            {
+                _cmpSelectedReportsList = _cmpSelectedReportsList.Take(numberToShow)
+                                                                 .ToList<RzisBase>();
+                                            // how to force the type into <> _cmpSelectedReportsList.GetType().Name
+            }
+        }
         public void SelectReports(int takeNumber)
         {
             if (takeNumber > 0)
