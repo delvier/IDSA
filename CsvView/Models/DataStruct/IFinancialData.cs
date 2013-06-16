@@ -13,7 +13,7 @@ namespace IDSA.Models.DataStruct
         CashFlowData CashFlow              { get; set; }
         // Potential of "Segmenty" Data
     }
-    class FinancialData : IFinancialData
+    public class FinancialData : IFinancialData
     {
         public BaseFinData Base { get; set; }
         public BalanceData Balance {get;set;}
