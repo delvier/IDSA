@@ -12,8 +12,8 @@ namespace IDSA.Models
         public long Sales { get; set; }
         public long OwnSaleCosts { get; set; }
         public long EarningOnSales { get; set; }
-        public long EarningBeforeTaxes { get; set; }
         public long EBIT { get; set; }
+        public long EarningBeforeTaxes { get; set; }
         public long NetProfit { get; set; }
 
         public static RzisBase operator -(RzisBase obj1, RzisBase obj2)
