@@ -17,17 +17,6 @@ namespace IDSA.Modules.DataCalculation
         {
         }
 
-        public override float CalculateTerminalValue(long shareNumbers)
-        {
-            var tvCalculationFormula = new TvCalculationFormula(
-                Data.Take(4).Select(a => a.EBIT).ToList(),
-                0,
-                0,
-                shareNumbers
-                );
-            return tvCalculationFormula.Calculate();
-        }
-
         public override void CalculationPerform()
         {
             RzisBase prevRzis = new RzisBase();
@@ -43,5 +32,17 @@ namespace IDSA.Modules.DataCalculation
                 prevRzis = curRzis;
             }
         }
+
+        public float CalculateTerminalValue(long shareNumbers)
+        {
+            var tvCalculationFormula = new TvCalculationFormula(
+                Data.Take(4).Select(a => a.EBIT).ToList(),
+                0,
+                0,
+                shareNumbers
+                );
+            return tvCalculationFormula.Calculate();
+        }
+
     }
 }

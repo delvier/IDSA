@@ -34,7 +34,6 @@ namespace IDSA.Modules.DataCalculation
             this._data = data;
         }
 
-        public abstract float CalculateTerminalValue(long shareNumbers);
         public abstract void CalculationPerform();
 
         public IList<T> GetData()

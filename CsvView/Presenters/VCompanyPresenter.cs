@@ -20,10 +20,11 @@ namespace IDSA.Presenters
         private readonly IUnitOfWork dbModel;
         private readonly IChartService chartService;
         private readonly IDataService<ICompany> _companyDataService;
-        private IEnumerable<ICompany> _cmpData;
+        public IDataCalculation<RzisBase> _dataCalculationService { get; set; }
+
+        //Cached Data - active operations on it. -> IDEA: Prepare seperate class for Cached Data ?
         private Company _cmpSelected { get; set; }
         public IList<RzisBase> _cmpSelectedReportsList { get; set; }
-        public IDataCalculation<RzisBase> _dataCalculationService { get; set; }
         private ViewModeType finDataViewMode { get; set; } // maybe add view mode into dataCalulationService?
         private float _terminalValue { get; set; }
 
@@ -31,11 +32,12 @@ namespace IDSA.Presenters
         {
             this._companyDataService = (IDataService<Company>)(new CompanyDataService());
             this.view = view;
+            dbModel = uow;
+
             this._dataCalculationService = new ReportDataCaluclation();
             this.chartService = chartService;
             this.finDataViewMode = ViewModeType.Seperate;
-            dbModel = uow;
-
+  
             //delegateConstruct
             this.SelectedCmpReportsChangedEvent += this.SelectProperReports;
             this.SelectedCmpReportsChangedEvent += this.ReportsRecalculationIfNeeded;
@@ -150,7 +152,8 @@ namespace IDSA.Presenters
         }
         public void TvCalculationPerform(object sender, SelectedCmpReportsChangedEventArgs e)
         {
-            _terminalValue = _dataCalculationService.CalculateTerminalValue(_cmpSelected.ShareNumbers);
+            _terminalValue = ((ReportDataCaluclation)_dataCalculationService).CalculateTerminalValue(_cmpSelected.ShareNumbers);
+            //needToCastTo ReportDataCalculation otherwise IDataCalculation is lack of procedure 'CaluclateTerminalValue'
         }
         public void SelectedCmpReportsCalucalte(object sender, EventArgs e)
         {
@@ -191,8 +194,8 @@ namespace IDSA.Presenters
                                             Sales = r.Sales,
                                             OwnSaleCosts = r.OwnSaleCosts,
                                             EarningOnSales = r.EarningOnSales,
-                                            EarningBeforeTaxes = r.EarningBeforeTaxes,
                                             EBIT = r.EBIT,
+                                            EarningBeforeTaxes = r.EarningBeforeTaxes,
                                             NetProfit = r.NetProfit
                                         }
                                         )
@@ -219,8 +222,8 @@ namespace IDSA.Presenters
                                 Sales = r.Sales,
                                 OwnSaleCosts = r.OwnSaleCosts,
                                 EarningOnSales = r.EarningOnSales,
-                                EarningBeforeTaxes = r.EarningBeforeTaxes,
                                 EBIT = r.EBIT,
+                                EarningBeforeTaxes = r.EarningBeforeTaxes,
                                 NetProfit = r.NetProfit
                             }
                             )
@@ -276,11 +279,6 @@ namespace IDSA.Presenters
         #endregion
 
         #region Test Data Generation
-        public IEnumerable GetTestCompanies()
-        {
-            _cmpData = _companyDataService.GetData().Take(100).ToList();
-            return _cmpData;
-        }
 
         public IBindingList GetTestBindList()
         {
