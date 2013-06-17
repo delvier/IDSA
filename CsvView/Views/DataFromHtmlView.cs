@@ -5,16 +5,23 @@ using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.Practices.Prism.Events;
+using IDSA.Models.Repository;
+using IDSA.Services;
+using IDSA.Events;
 
 namespace IDSA.Views
 {
     public partial class DataFromHtmlView : UserControl
     {
         DataFromHtmlPresenter presenter;
+        private readonly IEventAggregator _eventAggregator;
 
-        public DataFromHtmlView()
+        public DataFromHtmlView(IEventAggregator eventAggregator, IUnitOfWork uow, IChartService chart)
         {
-            presenter = new DataFromHtmlPresenter(this);
+            presenter = new DataFromHtmlPresenter(this, uow, chart);
+            _eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<DatabaseCreatedEvent>().Subscribe(RefreshView);
             InitializeComponent();
             //ServiceLocator.Instance.Register(new DataFromHtmlPresenter(this));
             //presenter = ServiceLocator.Instance.Resolve<DataFromHtmlPresenter>();
@@ -22,30 +29,23 @@ namespace IDSA.Views
 
         private void searchExchangeBtn_Click(object sender, EventArgs e)
         {
-            string exchange = GetExchangeFromHtmlAddress(compIDTextBox.Text);
-            exchangeLabel.Text = exchange;
+            exchangeLabel.Text = presenter.GetExchangeFromHtmlAddress(compIDTextBox.Text);
         }
 
-        private string GetExchangeFromHtmlAddress(string companyId)
+        private void RefreshView(bool isCreated)
         {
-            HtmlWeb hw = new HtmlWeb();
-            HtmlAgilityPack.HtmlDocument page = hw.Load(@"http://stooq.pl/q/?s=" + companyId.ToLower());
-            string exchange;
-            try
+            if (this.InvokeRequired)
             {
-                //exchange = page.DocumentNode.SelectSingleNode("//span[@id='aq_" + companyId.ToLower() + "_c2|3']").InnerText;
-                exchange = String.Format("{0} ({1}) \n {2}, {3}", 
-                    page.DocumentNode.SelectSingleNode("//span [@id='aq_" + companyId.ToLower() + "_c2']").InnerText,
-                    page.DocumentNode.SelectSingleNode("//span [@id='aq_" + companyId.ToLower() + "_m2']").InnerText,
-                    page.DocumentNode.SelectSingleNode("//span [@id='aq_" + companyId.ToLower() + "_d3']").InnerText,
-                    page.DocumentNode.SelectSingleNode("//span [@id='aq_" + companyId.ToLower() + "_t2']").InnerText);
+                this.Invoke(new Action(() => RefreshView(isCreated)));
             }
-            catch (NullReferenceException)
+            else
             {
-                MessageBox.Show("ID not found");
-                return "";
+                this.InitCompaniesList();
             }
-            return exchange;
+        }
+
+        private void InitCompaniesList()
+        {
         }
     }
 }

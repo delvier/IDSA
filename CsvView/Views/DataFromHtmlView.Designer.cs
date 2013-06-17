@@ -76,9 +76,8 @@
             this.exchangeLabel.ForeColor = System.Drawing.Color.Blue;
             this.exchangeLabel.Location = new System.Drawing.Point(26, 138);
             this.exchangeLabel.Name = "exchangeLabel";
-            this.exchangeLabel.Size = new System.Drawing.Size(104, 17);
+            this.exchangeLabel.Size = new System.Drawing.Size(0, 17);
             this.exchangeLabel.TabIndex = 5;
-            this.exchangeLabel.Text = "";
             // 
             // DataFromHtmlView
             // 
