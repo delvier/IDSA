@@ -33,7 +33,12 @@ namespace IDSA.Views
             string exchange;
             try
             {
-                exchange = page.DocumentNode.SelectSingleNode("//span[@id='aq_" + companyId.ToLower() + "_c2|3']").InnerText;
+                //exchange = page.DocumentNode.SelectSingleNode("//span[@id='aq_" + companyId.ToLower() + "_c2|3']").InnerText;
+                exchange = String.Format("{0} ({1}) \n {2}, {3}", 
+                    page.DocumentNode.SelectSingleNode("//span [@id='aq_" + companyId.ToLower() + "_c2']").InnerText,
+                    page.DocumentNode.SelectSingleNode("//span [@id='aq_" + companyId.ToLower() + "_m2']").InnerText,
+                    page.DocumentNode.SelectSingleNode("//span [@id='aq_" + companyId.ToLower() + "_d3']").InnerText,
+                    page.DocumentNode.SelectSingleNode("//span [@id='aq_" + companyId.ToLower() + "_t2']").InnerText);
             }
             catch (NullReferenceException)
             {
