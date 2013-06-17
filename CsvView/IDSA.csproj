@@ -96,6 +96,9 @@
     <Compile Include="Modules\DataCalculation\IDataCalculation.cs" />
     <Compile Include="Modules\DataCalculation\ReportDataCaluclation.cs" />
     <Compile Include="Modules\DataCalculation\TvCalculationFormula.cs" />
+    <Compile Include="Modules\DataScanner\DataScanerModule.cs" />
+    <Compile Include="Modules\DataScanner\IDataScanerModule.cs" />
+    <Compile Include="Modules\DataScanner\IFilter.cs" />
     <Compile Include="Presenters\DataFromHtmlPresenter.cs" />
     <Compile Include="Presenters\DataScannerPresenter.cs" />
     <Compile Include="Presenters\VCsvLoadPresenter.cs" />
@@ -162,6 +165,9 @@
     <EmbeddedResource Include="Views\DataFromHtmlView.resx">
       <DependentUpon>DataFromHtmlView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\DataScanner.resx">
+      <DependentUpon>DataScanner.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\VCompany.resx">
       <DependentUpon>VCompany.cs</DependentUpon>
     </EmbeddedResource>
@@ -211,7 +217,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\DataStruct\BalanceDataStruct\" />
-    <Folder Include="Modules\DataScanner\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

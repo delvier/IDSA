@@ -11,7 +11,7 @@ namespace IDSA.Presenters
     {
         
     }
-    public class DataScannerPresenter
+    public class DataScannerPresenter : IDataScannerPresenter
     {
         DataScanner view;
         private readonly IUnitOfWork uow;

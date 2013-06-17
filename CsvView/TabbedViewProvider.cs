@@ -28,6 +28,14 @@ namespace IDSA
             lst.Add(
                 new ViewItemDescriptor()
                 {
+                    Header = "DataScanner",
+                    View = typeof(DataScanner)
+                }
+                );
+
+            lst.Add(
+                new ViewItemDescriptor()
+                {
                     Header = "Csv Upload",
                     //View = null
                     //View = ServiceLocator.Instance.Resolve<VCsvLoad>()
