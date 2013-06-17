@@ -7,10 +7,19 @@ using IDSA.Models.Repository;
 
 namespace IDSA.Presenters
 {
+    public interface IDataScannerPresenter
+    {
+        
+    }
     public class DataScannerPresenter
     {
         DataScanner view;
-        private readonly IUnitOfWork dbModel;
+        private readonly IUnitOfWork uow;
         //cached data , easy to handle created once treat as db
+        public DataScannerPresenter(DataScanner view, IUnitOfWork  uow)
+        {
+            this.view = view;
+            this.uow = uow;
+        }
     }
 }
