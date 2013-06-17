@@ -7,8 +7,8 @@ namespace IDSA.Modules.DataScanner
 {
     public interface IFilter
     {
-        int LowValue {get;set;}
-        int HighValue { get; set; }
+        int _lowValue { get; set; }
+        int _highValue { get; set; }
         
         //filter action place.
         IList<T> FiltrAction<T>(IList<T> lst);

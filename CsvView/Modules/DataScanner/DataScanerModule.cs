@@ -6,11 +6,27 @@ using IDSA.Models;
 
 namespace IDSA.Modules.DataScanner
 {
-    public abstract class DataScanerModule : IDataScanerModule
+    public class DataScanerModule : IDataScanerModule
     {
-        public IList<IFilter> FilterList {get; private set;}
-        public IList<ICompany> DataList {get; set;}
-        private IList<ICompany> _filterData { get; set; }
+        #region Propetries.
+
+        private IList<IFilter> FilterList { get; set; }
+        private IList<Company> _cmpList { get; set; }
+        private IList<Company> _filterData { get; set; }
+        
+        #endregion
+
+
+        #region Ctors
+
+        public DataScanerModule(IList<Company> Companies)
+        {
+            this._cmpList = Companies;
+        }
+
+        #endregion
+
+        #region PublicMethods
 
         public void Scan()
         {
@@ -22,7 +38,7 @@ namespace IDSA.Modules.DataScanner
 
         public void FilterApplay(IFilter filter)
         {
-            _filterData = filter.FiltrAction(DataList);
+            _filterData = filter.FiltrAction(_cmpList);
         }
 
         public void FilterRemove(IFilter filter)
@@ -34,6 +50,9 @@ namespace IDSA.Modules.DataScanner
         {
             FilterList.Add(filter);
         }
+
+        #endregion
+        
 
     }
 }

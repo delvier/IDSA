@@ -96,6 +96,7 @@
     <Compile Include="Modules\DataCalculation\IDataCalculation.cs" />
     <Compile Include="Modules\DataCalculation\ReportDataCaluclation.cs" />
     <Compile Include="Modules\DataCalculation\TvCalculationFormula.cs" />
+    <Compile Include="Modules\DataScanner\BasicFilter.cs" />
     <Compile Include="Modules\DataScanner\DataScanerModule.cs" />
     <Compile Include="Modules\DataScanner\IDataScanerModule.cs" />
     <Compile Include="Modules\DataScanner\IFilter.cs" />
