@@ -28,12 +28,8 @@ namespace IDSA.Views
             presenter = new DbViewPresenter(this, eventAggregator);
             _eventAggregator = eventAggregator;
             
-            _eventAggregator.GetEvent<DatabaseCreatedEvent>()
-                .Subscribe(DatabaseCreatedAction);
-            _eventAggregator.GetEvent<DatabaseUpdatedEvent>()
-                .Subscribe(DatabaseUpdatedAction);
-            //ServiceLocator.Instance.Resolve<EventDbCreate>().DbCreateDone += DBView_DbCreateDone;
-            //ServiceLocator.Instance.Resolve<EventDbUpdate>().DbUpdateDone += DBView_DbUpdateDone;
+            _eventAggregator.GetEvent<DatabaseCreatedEvent>().Subscribe(DatabaseCreatedAction);
+            _eventAggregator.GetEvent<DatabaseUpdatedEvent>().Subscribe(DatabaseUpdatedAction);
             InitializeComponent();
         }
 
@@ -107,7 +103,6 @@ namespace IDSA.Views
         private void CreateDatabase_Click(object sender, EventArgs e)
         {
             RefreshProgessBar();
-            presenter.CleanDatabase();
             presenter.CreateDatabase();
             RefreshProgessBar();
         }
@@ -125,18 +120,6 @@ namespace IDSA.Views
         private void Clean_Click(object sender, EventArgs e)
         {
             presenter.CleanDatabase();
-            //var id = "WWL";
-            //var query = db.Companies
-            //            .Where(c => c.Symbol == id)
-            //            .SelectMany(r => r.Reports,
-            //                (spolka, raport) => new
-            //                {
-            //                    spolka.Name,
-            //                    raport.KeyId.Year,
-            //                    raport.NetProfit
-            //                });
-
-            //var query = db.Companies.Include("Reports").Where(c => c.Symbol == id);
         }
         #endregion
 

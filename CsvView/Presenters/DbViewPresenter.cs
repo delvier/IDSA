@@ -291,6 +291,7 @@ namespace IDSA.Presenters
 
         internal void CreateDatabase()
         {
+            model.Clean();
             AddCompanies();
             //AddReports(16408);
             AddReportsFasta2();
@@ -307,10 +308,6 @@ namespace IDSA.Presenters
             //model = ServiceLocator.Current.GetInstance<EFUnitOfWork>();
             //kernel.Bind<IUnitOfWork>().To<EFUnitOfWork>().InSingletonScope().WithConstructorArgument("context", new Context(new DropCreateDatabaseAlways<Context>()));
             //model = ServiceLocator.Current.GetInstance<EFUnitOfWork>();
-            //model.Load();
-            //model.Companies.RemoveAll();
-            //model.Reports.RemoveAll();
-            //model.Commit();
             _eventAggregator.GetEvent<DatabaseCreatedEvent>().Publish(true);
         }
 
