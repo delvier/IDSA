@@ -2,53 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using IDSA.Models;
 
 namespace IDSA.Modules.DataScanner
 {
-    public class BasicFilter : IFilter
+    public abstract class BaseFilter : IFilter
     {
-        public int _lowValue {get; private set;}
-        public int _highValue {get; private set;}
+        public int _lowValue {get; set;}
+        public int _highValue {get; set;}
 
-        public BasicFilter(int low, int high)
+        public BaseFilter(int low, int high)
         {
             this._lowValue = low;
             this._highValue = high;
         }
 
-        public IList<T> FiltrAction<T>(IList<T> lst)
+        public BaseFilter()
         {
-            throw new NotImplementedException();
+            this._lowValue = 0;
+            this._highValue = 0;
         }
 
-
-        int IFilter._lowValue
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        int IFilter._highValue
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        IList<T> IFilter.FiltrAction<T>(IList<T> lst)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract IList<Company> FilterAction(IList<Company> lst);
     }
 }

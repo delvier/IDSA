@@ -38,7 +38,7 @@ namespace IDSA.Modules.DataScanner
 
         public void FilterApplay(IFilter filter)
         {
-            _filterData = filter.FiltrAction(_cmpList);
+            _filterData = filter.FilterAction(_cmpList);
         }
 
         public void FilterRemove(IFilter filter)

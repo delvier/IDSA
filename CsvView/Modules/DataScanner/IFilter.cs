@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using IDSA.Models;
 
 namespace IDSA.Modules.DataScanner
 {
@@ -11,6 +12,6 @@ namespace IDSA.Modules.DataScanner
         int _highValue { get; set; }
         
         //filter action place.
-        IList<T> FiltrAction<T>(IList<T> lst);
+        IList<Company> FilterAction(IList<Company> lst);
     }
 }
