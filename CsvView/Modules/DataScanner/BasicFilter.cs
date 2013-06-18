@@ -21,5 +21,34 @@ namespace IDSA.Modules.DataScanner
             throw new NotImplementedException();
         }
 
+
+        int IFilter._lowValue
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        int IFilter._highValue
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        IList<T> IFilter.FiltrAction<T>(IList<T> lst)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
