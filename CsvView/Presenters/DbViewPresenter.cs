@@ -18,7 +18,7 @@ namespace IDSA.Presenters
     public class DbViewPresenter
     {
         #region Fields and Props
-        
+
         private IDbView view;
         private IUnitOfWork model;
         private IEventAggregator _eventAggregator;
@@ -31,7 +31,7 @@ namespace IDSA.Presenters
             this.view = view;
             _eventAggregator = eventAggregator;
         }
-        
+
         #endregion
 
         #region Event Handlers
@@ -52,7 +52,7 @@ namespace IDSA.Presenters
                     model.Companies.Query().Count() + "\n  Reports         = " +
                     model.Reports.Query().Count();
         }
-        
+
         #endregion
 
         #region Internal Methods
@@ -93,7 +93,8 @@ namespace IDSA.Presenters
 
         internal void AddCompanies()
         {
-            AddCompanies(886);
+            //AddCompanies(886);
+            AddCompaniesFasta(886);
         }
 
         internal void AddCompanies(int count)
@@ -111,7 +112,7 @@ namespace IDSA.Presenters
                 {
                     model.Companies.Add(ConvertToCompany(item));
                     i++;
-                    if (i == (int)(count/20))
+                    if (i == (int)(count / 20))
                     {
                         view.UpdateProgressBar((int)(i * 100 / count));
                         //System.Threading.Thread.Sleep(500);
@@ -122,7 +123,41 @@ namespace IDSA.Presenters
             }
         }
 
-        private void AddReportsFasta2()
+        internal void AddCompaniesFasta(int count)
+        {
+            using (CachedCsvReader csv = new CachedCsvReader(new StreamReader("..\\..\\..\\DataCsvExampales\\company.csv"), false))
+            {
+                Context context = new Context();
+                context.Configuration.AutoDetectChangesEnabled = false;
+                context.Configuration.ValidateOnSaveEnabled = false;
+                context.Companies.Load();
+                context.Reports.Load();
+                int num = 0;
+
+                int compAmount = context.Companies.Count();
+                if (compAmount + count > 886)
+                    count = 886 - compAmount;
+                foreach (var item in csv.ToList().Skip(compAmount).Take(count))
+                {
+                    num++;
+                    context.Companies.Add(ConvertToCompany(item));
+                    if (num % 100 == 0)
+                    {
+                        context.SaveChanges();
+                        for (int i = 0; i < 100; i++)
+                        {
+                            context.Entry(context.Companies.Local[0]).State = System.Data.EntityState.Detached;
+                        }
+                        view.UpdateProgressBar((int)(num * 100 / count));
+                    }
+                }
+                context.SaveChanges();
+                context.Dispose();
+                _eventAggregator.GetEvent<DatabaseUpdatedEvent>().Publish(true);
+            }
+        }
+
+        private void AddReportsFasta2(int count)
         {
             using (CachedCsvReader csv = new CachedCsvReader(new StreamReader("..\\..\\..\\DataCsvExampales\\findata2.csv"), false))
             {
@@ -131,18 +166,25 @@ namespace IDSA.Presenters
                 context.Configuration.ValidateOnSaveEnabled = false;
                 context.Companies.Load();
                 context.Reports.Load();
-                int count = 0;
+                int num = 0;
 
-                foreach (var entity in csv.ToList())
+                int repAmount = context.Reports.Count();
+                if (repAmount + count > 16408)
+                    count = 16408 - repAmount;
+                foreach (var entity in csv.ToList().Skip(repAmount).Take(count))
                 {
-                    count++;
+                    num++;
                     context.Reports.Add(ConvertToReport(entity));
-                    if (count % 100 == 0)
+                    if (num % 100 == 0)
                     {
                         context.SaveChanges();
                         for (int i = 0; i < 100; ++i)
                         {
                             context.Entry(context.Reports.Local[0]).State = System.Data.EntityState.Detached;
+                        }
+                        if (num % 1000 == 0)
+                        {
+                            view.UpdateProgressBar((int)(num * 100 / count));
                         }
                     }
                 }
@@ -170,7 +212,7 @@ namespace IDSA.Presenters
             return context;
         }
 
-        internal void AddReportsFasta(int count1 )
+        internal void AddReportsFasta(int count1)
         {
             using (CachedCsvReader csv = new CachedCsvReader(new StreamReader("..\\..\\..\\DataCsvExampales\\findata2.csv"), false))
             {
@@ -231,6 +273,12 @@ namespace IDSA.Presenters
             };
         }
 
+        internal void AddReports()
+        {
+            AddReportsFasta2(16408);
+            //AddReports(16408);
+        }
+
         internal void AddReports(int count)
         {
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
@@ -239,43 +287,18 @@ namespace IDSA.Presenters
             using (CachedCsvReader csv = new CachedCsvReader(new StreamReader("..\\..\\..\\DataCsvExampales\\findata2.csv"), false))
             {
                 int i = 0;
-                long tempVal;
                 //int OverallCount = csv.ToList().Count;
                 int repAmount = model.Reports.Query().Count();
                 if (repAmount + count > 16408)
                     count = 16408 - repAmount;
                 foreach (var item in csv.ToList().Skip(repAmount).Take(count))
                 {
-                    var report = new Report()
-                    {
-                        Id = int.Parse(item[(int)CsvEnums.financialData.Id]),
-                        CompanyId = int.Parse(item[(int)CsvEnums.financialData.CmpId]),
-                        Year = int.Parse(item[(int)CsvEnums.financialData.Year]),
-                        Quarter = int.Parse(item[(int)CsvEnums.financialData.Quater]),
-                        Sales = Int64.TryParse(item[(int)CsvEnums.financialData.Sales], out tempVal) ? tempVal : 0,
-                        OwnSaleCosts = Int64.TryParse(item[(int)CsvEnums.financialData.OwnSaleCosts], out tempVal) ? tempVal : 0,
-                        SalesCost1 = Int64.TryParse(item[(int)CsvEnums.financialData.SalesCost1], out tempVal) ? tempVal : 0,
-                        SalesCost2 = Int64.TryParse(item[(int)CsvEnums.financialData.SalesCost2], out tempVal) ? tempVal : 0,
-                        EarningOnSales = Int64.TryParse(item[(int)CsvEnums.financialData.EarningOnSales], out tempVal) ? tempVal : 0,
-                        OtherOperationalActivity1 = Int64.TryParse(item[(int)CsvEnums.financialData.OtherOperationalActivity1], out tempVal) ? tempVal : 0,
-                        OtherOperationalActivity2 = Int64.TryParse(item[(int)CsvEnums.financialData.OtherOperationalActivity2], out tempVal) ? tempVal : 0,
-                        EBIT = Int64.TryParse(item[(int)CsvEnums.financialData.EBIT], out tempVal) ? tempVal : 0,
-                        FinancialActivity1 = Int64.TryParse(item[(int)CsvEnums.financialData.FinancialActivity1], out tempVal) ? tempVal : 0,
-                        FinancialActivity2 = Int64.TryParse(item[(int)CsvEnums.financialData.FinancialAcvitity2], out tempVal) ? tempVal : 0,
-                        OtherCostOrSales = Int64.TryParse(item[(int)CsvEnums.financialData.OtherCostOrSales], out tempVal) ? tempVal : 0,
-                        SalesOnEconomicActivity = Int64.TryParse(item[(int)CsvEnums.financialData.SalesOnEconomicActivity], out tempVal) ? tempVal : 0,
-                        ExceptionalOccurence = Int64.TryParse(item[(int)CsvEnums.financialData.ExceptionalOccurence], out tempVal) ? tempVal : 0,
-                        EarningBeforeTaxes = Int64.TryParse(item[(int)CsvEnums.financialData.EarningBeforeTaxes], out tempVal) ? tempVal : 0,
-                        DiscontinuedOperations = Int64.TryParse(item[(int)CsvEnums.financialData.DiscontinuedOperations], out tempVal) ? tempVal : 0,
-                        NetProfit = Int64.TryParse(item[(int)CsvEnums.financialData.NetProfit], out tempVal) ? tempVal : 0,
-                        NetParentProfit = Int64.TryParse(item[(int)CsvEnums.financialData.NetParentProfit], out tempVal) ? tempVal : 0,
-                    };
-                    model.Reports.Add(report); //we need to check if cmp id exist in db otherwise ignore add.
+                    model.Reports.Add(ConvertToReport(item)); //we need to check if cmp id exist in db otherwise ignore add.
                     i++;
                     if (i == (int)(count / 20))
                     {
                         model.Commit();
-                        view.UpdateProgressBar((int)(i * 100 / count ));
+                        view.UpdateProgressBar((int)(i * 100 / count));
                     }
                 }
                 model.Commit();
@@ -293,8 +316,7 @@ namespace IDSA.Presenters
         {
             model.Clean();
             AddCompanies();
-            //AddReports(16408);
-            AddReportsFasta2();
+            AddReports();
         }
 
         internal void CleanDatabase()
