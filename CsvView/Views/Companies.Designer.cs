@@ -1,6 +1,6 @@
 ﻿namespace IDSA.Views
 {
-    partial class VCompany
+    partial class Companies
     {
         /// <summary> 
         /// Required designer variable.

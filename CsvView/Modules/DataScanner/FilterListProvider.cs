@@ -11,12 +11,17 @@ namespace IDSA.Modules.DataScanner
 
         public FilterListProvider()
         {
+            FilterList = new List<FilterDescriptor>();
+        }
+
+        public IList<FilterDescriptor> GetFilters()
+        {
             this.FilterList.Add(
-                new FilterDescriptor()
-                {
-                    Filter = new EbitBasicFilter(),
-                    Name = "EBIT Basic Filter"
-                });
+               new FilterDescriptor()
+               {
+                   Filter = new EbitBasicFilter(),
+                   Name = "EBIT Basic Filter"
+               });
 
             this.FilterList.Add(
                 new FilterDescriptor()
@@ -32,6 +37,7 @@ namespace IDSA.Modules.DataScanner
                     Filter = new EbitBasicFilter(),
                     Name = "EBIT 3 Basic Filter"
                 });
+            return FilterList;
         }
     }
 }

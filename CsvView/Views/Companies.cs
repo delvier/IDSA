@@ -12,19 +12,19 @@ using System.Windows.Forms;
 
 namespace IDSA.Views
 {
-    public interface IVCompany
+    public interface ICompanies
     {
         void SelectedCmpReportsChanged(object sender, SelectedCmpReportsChangedEventArgs e);
     }
 
-    public partial class VCompany : UserControl, IVCompany
+    public partial class Companies : UserControl, ICompanies
     {
-        VCompanyPresenter presenter;
+        CompaniesPresenter presenter;
         private readonly IEventAggregator _eventAggregator;
 
-        public VCompany(IEventAggregator eventAggregator, IUnitOfWork uow, IChartService chart)
+        public Companies(IEventAggregator eventAggregator, IUnitOfWork uow, IChartService chart)
         {
-            presenter = new VCompanyPresenter(this, uow, chart);
+            presenter = new CompaniesPresenter(this, uow, chart);
             //ServiceLocator.Current.GetInstance<EFUnitOfWork>()
             _eventAggregator = eventAggregator;
 
@@ -125,7 +125,7 @@ namespace IDSA.Views
 
         public void TransposeFinDataGrid()
         {
-            DataTable oldTable = VCompanyPresenter.DataGridView2DataTable(FinDataGrid, "oldTable");
+            DataTable oldTable = CompaniesPresenter.DataGridView2DataTable(FinDataGrid, "oldTable");
             DataTable newTable = new DataTable();
 
             newTable.Columns.Add("Header");

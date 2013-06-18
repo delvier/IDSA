@@ -99,15 +99,15 @@
     <Compile Include="Modules\DataScanner\BasicFilter.cs" />
     <Compile Include="Modules\DataScanner\DataScanerModule.cs" />
     <Compile Include="Modules\DataScanner\EbitBasicFilter.cs" />
-    <Compile Include="Modules\DataScanner\FilterContainer.cs" />
+    <Compile Include="Modules\DataScanner\FilterListProvider.cs" />
     <Compile Include="Modules\DataScanner\FilterDescriptor.cs" />
     <Compile Include="Modules\DataScanner\IDataScanerModule.cs" />
     <Compile Include="Modules\DataScanner\IFilter.cs" />
     <Compile Include="Presenters\DataFromHtmlPresenter.cs" />
     <Compile Include="Presenters\DataScannerPresenter.cs" />
-    <Compile Include="Presenters\VCsvLoadPresenter.cs" />
+    <Compile Include="Presenters\CsvLoadPresenter.cs" />
     <Compile Include="Presenters\DbViewPresenter.cs" />
-    <Compile Include="Presenters\VCompanyPresenter.cs" />
+    <Compile Include="Presenters\CompaniesPresenter.cs" />
     <Compile Include="CsvEnums.cs" />
     <Compile Include="Services\ChartService.cs" />
     <Compile Include="Services\CompanyDataService.cs" />
@@ -125,17 +125,17 @@
     <Compile Include="Views\DataScanner.Designer.cs">
       <DependentUpon>DataScanner.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\VCompany.cs">
+    <Compile Include="Views\Companies.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\VCompany.Designer.cs">
-      <DependentUpon>VCompany.cs</DependentUpon>
+    <Compile Include="Views\Companies.Designer.cs">
+      <DependentUpon>Companies.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\VCsvLoad.cs">
+    <Compile Include="Views\CsvLoad.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\VCsvLoad.Designer.cs">
-      <DependentUpon>VCsvLoad.cs</DependentUpon>
+    <Compile Include="Views\CsvLoad.Designer.cs">
+      <DependentUpon>CsvLoad.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\DBView.cs">
       <SubType>UserControl</SubType>
@@ -172,11 +172,11 @@
     <EmbeddedResource Include="Views\DataScanner.resx">
       <DependentUpon>DataScanner.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\VCompany.resx">
-      <DependentUpon>VCompany.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Companies.resx">
+      <DependentUpon>Companies.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\VCsvLoad.resx">
-      <DependentUpon>VCsvLoad.cs</DependentUpon>
+    <EmbeddedResource Include="Views\CsvLoad.resx">
+      <DependentUpon>CsvLoad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\DBView.resx">
       <DependentUpon>DBView.cs</DependentUpon>

@@ -12,7 +12,7 @@ using Microsoft.Practices.ServiceLocation;
 
 namespace IDSA.Presenters
 {
-    public class VCsvLoadPresenter
+    public class CsvLoadPresenter
     {
         private readonly IVCsvLoad view;
         private IUnitOfWork model;
@@ -25,7 +25,7 @@ namespace IDSA.Presenters
         // C : HeaderBasedOnEnum ? V : ?
         // V : refresh view (data from _csvModel)
 
-        public VCsvLoadPresenter(IVCsvLoad view)
+        public CsvLoadPresenter(IVCsvLoad view)
         {
             this.view = view;
             //TODO: Use delegate/event here ;)

@@ -1,6 +1,6 @@
 ﻿namespace IDSA
 {
-    partial class VCsvLoad
+    partial class CsvLoad
     {
         /// <summary> 
         /// Required designer variable.

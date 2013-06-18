@@ -21,7 +21,7 @@ namespace IDSA
                 new ViewItemDescriptor()
                 {
                     Header = "Spółki",
-                    View = typeof(VCompany)
+                    View = typeof(Companies)
                 }
                 );
 
@@ -39,7 +39,7 @@ namespace IDSA
                     Header = "Csv Upload",
                     //View = null
                     //View = ServiceLocator.Instance.Resolve<VCsvLoad>()
-                    View = typeof(VCsvLoad)
+                    View = typeof(CsvLoad)
                 }
                 );
 

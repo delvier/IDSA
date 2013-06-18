@@ -14,14 +14,14 @@ namespace IDSA
         void InitCsvDataBox();
     }
 
-    public partial class VCsvLoad : UserControl, IVCsvLoad
+    public partial class CsvLoad : UserControl, IVCsvLoad
     {
-        private VCsvLoadPresenter presenter;
+        private CsvLoadPresenter presenter;
         //private CachedCsvReader csv;
 
-        public VCsvLoad()
+        public CsvLoad()
         {
-            presenter = new VCsvLoadPresenter(this);
+            presenter = new CsvLoadPresenter(this);
             InitializeComponent();
             //ServiceLocator.Instance.Register(new VCsvLoadPresenter(this));
             //presenter = ServiceLocator.Instance.Resolve<VCsvLoadPresenter>();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using IDSA.Views;
 using IDSA.Models.Repository;
+using IDSA.Modules.DataScanner;
 
 namespace IDSA.Presenters
 {
@@ -20,6 +21,12 @@ namespace IDSA.Presenters
         {
             this.view = view;
             this.uow = uow;
+        }
+
+        public IList<FilterDescriptor> GetFilters()
+        {
+            var FilterListProvider = new FilterListProvider();
+            return FilterListProvider.GetFilters();
         }
     }
 }

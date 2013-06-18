@@ -14,9 +14,9 @@ using Microsoft.Practices.ServiceLocation;
 
 namespace IDSA.Presenters
 {
-    class VCompanyPresenter
+    class CompaniesPresenter
     {
-        VCompany view;
+        Companies view;
         private readonly IUnitOfWork dbModel;
         private readonly IChartService chartService;
         private readonly IDataService<ICompany> _companyDataService;
@@ -28,7 +28,7 @@ namespace IDSA.Presenters
         private ViewModeType finDataViewMode { get; set; } // maybe add view mode into dataCalulationService?
         private float _terminalValue { get; set; }
 
-        public VCompanyPresenter(VCompany view, IUnitOfWork uow, IChartService chartService)
+        public CompaniesPresenter(Companies view, IUnitOfWork uow, IChartService chartService)
         {
             this._companyDataService = (IDataService<Company>)(new CompanyDataService());
             this.view = view;
@@ -177,17 +177,17 @@ namespace IDSA.Presenters
             _dataCalculationService.CalculationPerform();
             _cmpSelectedReportsList = _dataCalculationService.GetData();
         }
-        public void RaiseSelectedCmpChange(VCompany sender, SelectedCmpReportsChangedEventArgs e)
+        public void RaiseSelectedCmpChange(Companies sender, SelectedCmpReportsChangedEventArgs e)
         {
             SelectedCmpReportsChangedEvent(sender, e);
         }
 
-        public void RaiseDataRecalculation(VCompany sender, EventArgs e)
+        public void RaiseDataRecalculation(Companies sender, EventArgs e)
         {
             DataRecalculationRequestEvent(sender, e);
         }
 
-        internal void RaiseViewModeChange(VCompany sender, RaiseViewModeChangeEventArgs e)
+        internal void RaiseViewModeChange(Companies sender, RaiseViewModeChangeEventArgs e)
         {
             ViewModeChangeEvent(sender, e);
         }
