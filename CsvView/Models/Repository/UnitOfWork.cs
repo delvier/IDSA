@@ -12,6 +12,7 @@ namespace IDSA.Models.Repository
         IRepository<Report> Reports { get; }
         void Commit();
         void Load();
+        void Clean();
     }
 
     public class EFUnitOfWork : IUnitOfWork
@@ -66,14 +67,22 @@ namespace IDSA.Models.Repository
         public void Commit()
         {
             context.SaveChanges();
-            ServiceLocator.Current.GetInstance<EventAggregator>()
-                .GetEvent<DatabaseUpdatedEvent>().Publish(true);
+            //ServiceLocator.Current.GetInstance<EventAggregator>()
+            //    eventAggregator.GetEvent<DatabaseUpdatedEvent>().Publish(true);
         }
 
         public void Load()
         {
             Companies.Query().Load();
             Reports.Query().Load();
+        }
+
+        public void Clean()
+        {
+            var objCtx = ((System.Data.Entity.Infrastructure.IObjectContextAdapter)context).ObjectContext;
+            objCtx.ExecuteStoreCommand("DELETE FROM Reports");
+            objCtx.ExecuteStoreCommand("DELETE FROM Companies");
+            this.Commit();
         }
 
         #endregion
