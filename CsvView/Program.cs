@@ -1,10 +1,12 @@
 ﻿using CommonServiceLocator.NinjectAdapter;
+using IDSA.Models;
 using IDSA.Models.Repository;
 using IDSA.Services;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
 using Ninject;
 using System;
+using System.Data.Entity;
 using System.Windows.Forms;
 
 namespace IDSA
@@ -28,8 +30,9 @@ namespace IDSA
             kernel.Bind<IEventAggregator>().To<EventAggregator>().InSingletonScope();
             kernel.Bind<IViewProvider>().To<TabbedViewProvider>();
             kernel.Bind<IChartService>().To<ChartService>();
-            kernel.Bind<IUnitOfWork>().To<EFUnitOfWork>();
-            //TODO: do not working: .withParameter(new Context(new CreateDatabaseIfNotExists<Context>()));
+            kernel.Bind<IUnitOfWork>().To<EFUnitOfWork>().InSingletonScope();
+            //Uncomment do Drop Database!!!!!!!!!!!
+            //kernel.Bind<IUnitOfWork>().To<EFUnitOfWork>().WithConstructorArgument("context", new Context(new DropCreateDatabaseAlways<Context>()));
             //, System.Threading.CancellationToken.None, TaskContinuationOptions.NotOnFaulted, TaskScheduler.FromCurrentSynchronizationContext()
 
             Application.Run(ServiceLocator.Current.GetInstance<Shell>());//ServiceLocator.Instance.Resolve<Shell>());

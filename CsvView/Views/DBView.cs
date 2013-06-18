@@ -1,9 +1,8 @@
-using System;
-using System.Windows.Forms;
+using IDSA.Events;
 using IDSA.Presenters;
 using Microsoft.Practices.Prism.Events;
-using IDSA;
-using IDSA.Events;
+using System;
+using System.Windows.Forms;
 
 namespace IDSA.Views
 {
@@ -26,7 +25,7 @@ namespace IDSA.Views
 
         public DBView(IEventAggregator eventAggregator)
         {
-            presenter = new DbViewPresenter(this);
+            presenter = new DbViewPresenter(this, eventAggregator);
             _eventAggregator = eventAggregator;
             
             _eventAggregator.GetEvent<DatabaseCreatedEvent>()
@@ -144,7 +143,6 @@ namespace IDSA.Views
         #region Inside Events behaviour
         private void addReportsCheckBox1_CheckedChanged(object sender, EventArgs e)
         {
-            //eventAggregator.GetEvent<DatabaseCreatedEvent>().Publish(this.addReportsCheckBox.Checked);
             this.button1.Text = this.addReportsCheckBox.Checked ? "Add reports" : "Add companies";
             this.trackBar1.Maximum = this.addReportsCheckBox.Checked ? 16408 : 886;
             if (this.trackBar1.Value >= this.trackBar1.Maximum)
