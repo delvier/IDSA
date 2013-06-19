@@ -5,6 +5,7 @@ using System.Text;
 using IDSA.Views;
 using IDSA.Models.Repository;
 using IDSA.Modules.DataScanner;
+using Microsoft.Practices.ServiceLocation;
 
 namespace IDSA.Presenters
 {
@@ -17,10 +18,10 @@ namespace IDSA.Presenters
         DataScanner view;
         private readonly IUnitOfWork uow;
         //cached data , easy to handle created once treat as db
-        public DataScannerPresenter(DataScanner view, IUnitOfWork  uow)
+        public DataScannerPresenter(DataScanner view)
         {
             this.view = view;
-            this.uow = uow;
+            this.uow = ServiceLocator.Current.GetInstance<IUnitOfWork>();
         }
 
         public IList<FilterDescriptor> GetFilters()

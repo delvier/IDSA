@@ -6,6 +6,7 @@ using IDSA.Models;
 using IDSA.Models.Repository;
 using IDSA.Services;
 using IDSA.Views;
+using Microsoft.Practices.ServiceLocation;
 
 namespace IDSA.Presenters
 {
@@ -18,15 +19,13 @@ namespace IDSA.Presenters
     {
         DataFromHtmlView _view;
         private readonly IUnitOfWork _dbModel;
-        private readonly IChartService _chartService;
         private readonly IDataService<ICompany> _companyDataService;
 
-        public DataFromHtmlPresenter(DataFromHtmlView view, IUnitOfWork uow, IChartService chartService)
+        public DataFromHtmlPresenter(DataFromHtmlView view)
         {
             this._companyDataService = (IDataService<Company>)(new CompanyDataService());
             this._view = view;
-            _dbModel = uow;
-            this._chartService = chartService;
+            _dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();
         }
 
         public string GetExchangeFromHtmlAddress(string companyId)

@@ -16,7 +16,6 @@ namespace IDSA.Modules.DataScanner
         
         #endregion
 
-
         #region Ctors
 
         public DataScanerModule(IList<Company> Companies)

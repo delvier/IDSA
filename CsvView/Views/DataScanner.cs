@@ -17,10 +17,10 @@ namespace IDSA.Views
     {
         private DataScannerPresenter _presenter;
 
-        public DataScanner(IEventAggregator eventAggregator, IUnitOfWork uow)
+        public DataScanner(IEventAggregator eventAggregator)
         {
             InitializeComponent();
-            _presenter = new DataScannerPresenter(this, uow);
+            _presenter = new DataScannerPresenter(this);
             eventAggregator.GetEvent<DatabaseCreatedEvent>().Subscribe(InitEvent);
         }
 

@@ -17,9 +17,9 @@ namespace IDSA.Views
         DataFromHtmlPresenter presenter;
         private readonly IEventAggregator _eventAggregator;
 
-        public DataFromHtmlView(IEventAggregator eventAggregator, IUnitOfWork uow, IChartService chart)
+        public DataFromHtmlView(IEventAggregator eventAggregator)
         {
-            presenter = new DataFromHtmlPresenter(this, uow, chart);
+            presenter = new DataFromHtmlPresenter(this);
             _eventAggregator = eventAggregator;
             _eventAggregator.GetEvent<DatabaseCreatedEvent>().Subscribe(RefreshView);
             InitializeComponent();
