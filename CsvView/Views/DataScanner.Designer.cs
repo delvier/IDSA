@@ -30,6 +30,7 @@
         {
             this.AddFilterBtn = new System.Windows.Forms.Button();
             this.FilterSelectComboBox = new System.Windows.Forms.ComboBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // AddFilterBtn
@@ -41,20 +42,29 @@
             this.AddFilterBtn.TabIndex = 0;
             this.AddFilterBtn.Text = "Add";
             this.AddFilterBtn.UseVisualStyleBackColor = true;
+            this.AddFilterBtn.Click += new System.EventHandler(this.AddFilterBtn_Click);
             // 
             // FilterSelectComboBox
             // 
             this.FilterSelectComboBox.FormattingEnabled = true;
-            this.FilterSelectComboBox.Location = new System.Drawing.Point(0, 2);
+            this.FilterSelectComboBox.Location = new System.Drawing.Point(3, 2);
             this.FilterSelectComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.FilterSelectComboBox.Name = "FilterSelectComboBox";
             this.FilterSelectComboBox.Size = new System.Drawing.Size(121, 21);
             this.FilterSelectComboBox.TabIndex = 1;
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 26);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(455, 252);
+            this.flowLayoutPanel1.TabIndex = 2;
+            // 
             // DataScanner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.FilterSelectComboBox);
             this.Controls.Add(this.AddFilterBtn);
             this.Name = "DataScanner";
@@ -67,5 +77,6 @@
 
         private System.Windows.Forms.Button AddFilterBtn;
         private System.Windows.Forms.ComboBox FilterSelectComboBox;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

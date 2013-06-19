@@ -51,7 +51,6 @@ namespace IDSA.Modules.DataScanner
         }
 
         #endregion
-        
 
     }
 }

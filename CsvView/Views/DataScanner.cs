@@ -41,5 +41,11 @@ namespace IDSA.Views
             FilterSelectComboBox.DataSource = _presenter.GetFilters();
             FilterSelectComboBox.DisplayMember = "Name";
         }
+
+        private void AddFilterBtn_Click(object sender, EventArgs e)
+        {
+            var btn = new Button();
+            flowLayoutPanel1.Controls.Add(btn);
+        }
     }
 }
