@@ -111,9 +111,9 @@ namespace IDSA.Views
         {
             RefreshProgessBar();
             if (this.addReportsCheckBox.Checked)
-                presenter.AddReports(this.trackBar1.Value);
+                presenter.AddReportsFasta2(this.trackBar1.Value);
             else
-                presenter.AddCompanies(this.trackBar1.Value);
+                presenter.AddCompaniesFasta(this.trackBar1.Value);
             RefreshProgessBar();
         }
 

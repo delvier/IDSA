@@ -5,6 +5,7 @@ using IDSA.Views;
 using LumenWorks.Framework.IO.Csv;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
+using Ninject;
 using System;
 using System.ComponentModel;
 using System.Data.Entity;
@@ -46,18 +47,7 @@ namespace IDSA.Presenters
 
         #endregion
 
-        #region Internal Methods
-
-        internal BindingList<Company> GetAllCompanies()
-        {
-            return model.Companies.GetAll();
-        }
-
-        internal void AddCompany(Company company)
-        {
-            model.Companies.Add(company);
-            model.Commit();
-        }
+        #region Private Methods
 
         private Company ConvertToCompany(string[] item)
         {
@@ -82,36 +72,54 @@ namespace IDSA.Presenters
             };
         }
 
-        internal void AddCompanies()
+        private Report ConvertToReport(string[] item)
         {
-            //AddCompanies(886);
-            AddCompaniesFasta(886);
+            long tempVal;
+
+            return new Report()
+            {
+                Id = int.Parse(item[(int)CsvEnums.financialData.Id]),
+                CompanyId = int.Parse(item[(int)CsvEnums.financialData.CmpId]),
+                Year = int.Parse(item[(int)CsvEnums.financialData.Year]),
+                Quarter = int.Parse(item[(int)CsvEnums.financialData.Quater]),
+                Sales = Int64.TryParse(item[(int)CsvEnums.financialData.Sales], out tempVal) ? tempVal : 0,
+                OwnSaleCosts = Int64.TryParse(item[(int)CsvEnums.financialData.OwnSaleCosts], out tempVal) ? tempVal : 0,
+                SalesCost1 = Int64.TryParse(item[(int)CsvEnums.financialData.SalesCost1], out tempVal) ? tempVal : 0,
+                SalesCost2 = Int64.TryParse(item[(int)CsvEnums.financialData.SalesCost2], out tempVal) ? tempVal : 0,
+                EarningOnSales = Int64.TryParse(item[(int)CsvEnums.financialData.EarningOnSales], out tempVal) ? tempVal : 0,
+                OtherOperationalActivity1 = Int64.TryParse(item[(int)CsvEnums.financialData.OtherOperationalActivity1], out tempVal) ? tempVal : 0,
+                OtherOperationalActivity2 = Int64.TryParse(item[(int)CsvEnums.financialData.OtherOperationalActivity2], out tempVal) ? tempVal : 0,
+                EBIT = Int64.TryParse(item[(int)CsvEnums.financialData.EBIT], out tempVal) ? tempVal : 0,
+                FinancialActivity1 = Int64.TryParse(item[(int)CsvEnums.financialData.FinancialActivity1], out tempVal) ? tempVal : 0,
+                FinancialActivity2 = Int64.TryParse(item[(int)CsvEnums.financialData.FinancialAcvitity2], out tempVal) ? tempVal : 0,
+                OtherCostOrSales = Int64.TryParse(item[(int)CsvEnums.financialData.OtherCostOrSales], out tempVal) ? tempVal : 0,
+                SalesOnEconomicActivity = Int64.TryParse(item[(int)CsvEnums.financialData.SalesOnEconomicActivity], out tempVal) ? tempVal : 0,
+                ExceptionalOccurence = Int64.TryParse(item[(int)CsvEnums.financialData.ExceptionalOccurence], out tempVal) ? tempVal : 0,
+                EarningBeforeTaxes = Int64.TryParse(item[(int)CsvEnums.financialData.EarningBeforeTaxes], out tempVal) ? tempVal : 0,
+                DiscontinuedOperations = Int64.TryParse(item[(int)CsvEnums.financialData.DiscontinuedOperations], out tempVal) ? tempVal : 0,
+                NetProfit = Int64.TryParse(item[(int)CsvEnums.financialData.NetProfit], out tempVal) ? tempVal : 0,
+                NetParentProfit = Int64.TryParse(item[(int)CsvEnums.financialData.NetParentProfit], out tempVal) ? tempVal : 0,
+            };
         }
 
-        internal void AddCompanies(int count)
+        #endregion
+
+        #region Internal Methods
+
+        internal BindingList<Company> GetAllCompanies()
         {
-            //TODO: Change this PATH in release: ..\\..\\..\\DataCsvExampales\\company.csv !!!!!!!!!!!!!
-            using (CachedCsvReader csv = new CachedCsvReader(new StreamReader("..\\..\\..\\DataCsvExampales\\company.csv"), false))
-            {
-                model.Companies.Query().Load();
-                //csv.Count();
-                int i = 0;
-                int compAmount = model.Companies.Query().Count();
-                if (compAmount + count > 886)
-                    count = 886 - compAmount;
-                foreach (var item in csv.ToList().Skip(compAmount).Take(count))
-                {
-                    model.Companies.Add(ConvertToCompany(item));
-                    i++;
-                    if (i == (int)(count / 20))
-                    {
-                        view.UpdateProgressBar((int)(i * 100 / count));
-                        //System.Threading.Thread.Sleep(500);
-                        //model.Commit();
-                    }
-                }
-                model.Commit();
-            }
+            return model.Companies.GetAll();
+        }
+
+        internal void AddCompany(Company company)
+        {
+            model.Companies.Add(company);
+            model.Commit();
+        }
+
+        internal void AddCompanies()
+        {
+            AddCompaniesFasta(886);
         }
 
         internal void AddCompaniesFasta(int count)
@@ -148,7 +156,7 @@ namespace IDSA.Presenters
             }
         }
 
-        private void AddReportsFasta2(int count)
+        internal void AddReportsFasta2(int count)
         {
             using (CachedCsvReader csv = new CachedCsvReader(new StreamReader("..\\..\\..\\DataCsvExampales\\findata2.csv"), false))
             {
@@ -234,68 +242,9 @@ namespace IDSA.Presenters
             }
         }
 
-        private Report ConvertToReport(string[] item)
-        {
-            long tempVal;
-
-            return new Report()
-            {
-                Id = int.Parse(item[(int)CsvEnums.financialData.Id]),
-                CompanyId = int.Parse(item[(int)CsvEnums.financialData.CmpId]),
-                Year = int.Parse(item[(int)CsvEnums.financialData.Year]),
-                Quarter = int.Parse(item[(int)CsvEnums.financialData.Quater]),
-                Sales = Int64.TryParse(item[(int)CsvEnums.financialData.Sales], out tempVal) ? tempVal : 0,
-                OwnSaleCosts = Int64.TryParse(item[(int)CsvEnums.financialData.OwnSaleCosts], out tempVal) ? tempVal : 0,
-                SalesCost1 = Int64.TryParse(item[(int)CsvEnums.financialData.SalesCost1], out tempVal) ? tempVal : 0,
-                SalesCost2 = Int64.TryParse(item[(int)CsvEnums.financialData.SalesCost2], out tempVal) ? tempVal : 0,
-                EarningOnSales = Int64.TryParse(item[(int)CsvEnums.financialData.EarningOnSales], out tempVal) ? tempVal : 0,
-                OtherOperationalActivity1 = Int64.TryParse(item[(int)CsvEnums.financialData.OtherOperationalActivity1], out tempVal) ? tempVal : 0,
-                OtherOperationalActivity2 = Int64.TryParse(item[(int)CsvEnums.financialData.OtherOperationalActivity2], out tempVal) ? tempVal : 0,
-                EBIT = Int64.TryParse(item[(int)CsvEnums.financialData.EBIT], out tempVal) ? tempVal : 0,
-                FinancialActivity1 = Int64.TryParse(item[(int)CsvEnums.financialData.FinancialActivity1], out tempVal) ? tempVal : 0,
-                FinancialActivity2 = Int64.TryParse(item[(int)CsvEnums.financialData.FinancialAcvitity2], out tempVal) ? tempVal : 0,
-                OtherCostOrSales = Int64.TryParse(item[(int)CsvEnums.financialData.OtherCostOrSales], out tempVal) ? tempVal : 0,
-                SalesOnEconomicActivity = Int64.TryParse(item[(int)CsvEnums.financialData.SalesOnEconomicActivity], out tempVal) ? tempVal : 0,
-                ExceptionalOccurence = Int64.TryParse(item[(int)CsvEnums.financialData.ExceptionalOccurence], out tempVal) ? tempVal : 0,
-                EarningBeforeTaxes = Int64.TryParse(item[(int)CsvEnums.financialData.EarningBeforeTaxes], out tempVal) ? tempVal : 0,
-                DiscontinuedOperations = Int64.TryParse(item[(int)CsvEnums.financialData.DiscontinuedOperations], out tempVal) ? tempVal : 0,
-                NetProfit = Int64.TryParse(item[(int)CsvEnums.financialData.NetProfit], out tempVal) ? tempVal : 0,
-                NetParentProfit = Int64.TryParse(item[(int)CsvEnums.financialData.NetParentProfit], out tempVal) ? tempVal : 0,
-            };
-        }
-
         internal void AddReports()
         {
             AddReportsFasta2(16408);
-            //AddReports(16408);
-        }
-
-        internal void AddReports(int count)
-        {
-            System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
-            sw.Start();
-            //TODO: Change this PATH in release: ..\\..\\..\\DataCsvExampales\\company.csv !!!!!!!!!!!!!
-            using (CachedCsvReader csv = new CachedCsvReader(new StreamReader("..\\..\\..\\DataCsvExampales\\findata2.csv"), false))
-            {
-                int i = 0;
-                //int OverallCount = csv.ToList().Count;
-                int repAmount = model.Reports.Query().Count();
-                if (repAmount + count > 16408)
-                    count = 16408 - repAmount;
-                foreach (var item in csv.ToList().Skip(repAmount).Take(count))
-                {
-                    model.Reports.Add(ConvertToReport(item)); //we need to check if cmp id exist in db otherwise ignore add.
-                    i++;
-                    if (i == (int)(count / 20))
-                    {
-                        model.Commit();
-                        view.UpdateProgressBar((int)(i * 100 / count));
-                    }
-                }
-                model.Commit();
-            }
-            sw.Stop();
-            view.UpdateLabel("\nRep min: " + sw.Elapsed.Minutes.ToString() + " sec: " + sw.Elapsed.Minutes.ToString());
         }
 
         internal void SaveDatabase()
@@ -313,80 +262,12 @@ namespace IDSA.Presenters
         internal void CleanDatabase()
         {
             model.Clean();
-            //// faster way of cleaning database ;) NOT WORKING YET (other views lost connection to model, but it is faster)
-            ////model.Dispose();
-            ////ServiceLocator.Current.GetInstance<EFUnitOfWork>().Dispose();
-            //var kernel = ServiceLocator.Current.GetInstance<IKernel>();
-            //kernel.Unbind<EFUnitOfWork>();
-            //model = ServiceLocator.Current.GetInstance<EFUnitOfWork>();
-            //kernel.Bind<IUnitOfWork>().To<EFUnitOfWork>().InSingletonScope().WithConstructorArgument("context", new Context(new DropCreateDatabaseAlways<Context>()));
-            //model = ServiceLocator.Current.GetInstance<EFUnitOfWork>();
-            _eventAggregator.GetEvent<DatabaseCreatedEvent>().Publish(true);
+            _eventAggregator.GetEvent<DatabaseUpdatedEvent>().Publish(true);
         }
 
         #endregion
 
-        #region Testing methods(TODO: delete on the end)
-
-        public void AddRecords()
-        {
-            var company = new Company
-            {
-                Id = 9934,
-                Name = "Wawel",
-                Shortcut = "WWL",
-                Href = "http://www.wawel.com.pl/",
-                Description = "",
-                Date = new DateTime(2007, 12, 21),
-                Reports = new ObservableListSource<Report>() 
-                {
-                    new Report
-                    {
-                        Id = 9934,
-                        Year = 2011,
-                        NetProfit = 1000
-                    },
-                    new Report
-                    {
-                        Id = 9935,
-                        Year = 2012,
-                        NetProfit = 3010
-                    }
-                }
-            };
-
-            model.Companies.Add(company);
-            model.Commit();
-            //delete relationship
-            //db.Entry(report).Reference(r => r.CompanySymbol).CurrentValue = null;
-        }
-
-        public void AddsNewCompany()
-        {
-            //model.Companies.Query().Load();
-            var company = new Company
-            {
-                Id = 1234,
-                Shortcut = "WMO",
-                Name = "Wind Mobile",
-                Description = "Halogranie i Reklamowka",
-                Href = "http://www.windmobile.pl",
-                Date = new DateTime(2007, 12, 21)
-            };
-            model.Companies.Add(company);
-            model.Commit();
-
-            var report = new Report
-            {
-                CompanyId = 1234,
-                Year = 2011,
-                NetProfit = 1000,
-                Quarter = 3
-            };
-            model.Reports.Add(report);
-            model.Commit();
-        }
-
-        #endregion
+        //delete relationship
+        //db.Entry(report).Reference(r => r.CompanySymbol).CurrentValue = null;
     }
 }
