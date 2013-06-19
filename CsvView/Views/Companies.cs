@@ -22,10 +22,9 @@ namespace IDSA.Views
         CompaniesPresenter presenter;
         private readonly IEventAggregator _eventAggregator;
 
-        public Companies(IEventAggregator eventAggregator, IUnitOfWork uow, IChartService chart)
+        public Companies(IEventAggregator eventAggregator, IChartService chart)
         {
-            presenter = new CompaniesPresenter(this, uow, chart);
-            //ServiceLocator.Current.GetInstance<EFUnitOfWork>()
+            presenter = new CompaniesPresenter(this, chart);
             _eventAggregator = eventAggregator;
 
             _eventAggregator.GetEvent<DatabaseCreatedEvent>().Subscribe(RefreshView);

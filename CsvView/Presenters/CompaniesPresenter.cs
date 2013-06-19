@@ -28,16 +28,16 @@ namespace IDSA.Presenters
         private ViewModeType finDataViewMode { get; set; } // maybe add view mode into dataCalulationService?
         private float _terminalValue { get; set; }
 
-        public CompaniesPresenter(Companies view, IUnitOfWork uow, IChartService chartService)
+        public CompaniesPresenter(Companies view, IChartService chartService)
         {
             this._companyDataService = (IDataService<Company>)(new CompanyDataService());
             this.view = view;
-            dbModel = uow;
+            dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();
 
             this._dataCalculationService = new ReportDataCaluclation();
             this.chartService = chartService;
             this.finDataViewMode = ViewModeType.Seperate;
-  
+
             //delegateConstruct
             this.SelectedCmpReportsChangedEvent += this.SelectAllReports;
             this.SelectedCmpReportsChangedEvent += this.ReportsRecalculationIfNeeded;
@@ -117,7 +117,7 @@ namespace IDSA.Presenters
 
         public string GetTerminalValue()
         {
-            return String.Format("TV: {0:F3}", _terminalValue); 
+            return String.Format("TV: {0:F3}", _terminalValue);
         }
 
         #region ChangedEvent & Delegates
@@ -150,7 +150,7 @@ namespace IDSA.Presenters
                 SelectReports(e.selectQuantity);
             }
         }
-        public void ViewModeChange (object sender, RaiseViewModeChangeEventArgs e)
+        public void ViewModeChange(object sender, RaiseViewModeChangeEventArgs e)
         {
             this.finDataViewMode = e._viewMode;
         }
@@ -200,7 +200,7 @@ namespace IDSA.Presenters
             {
                 _cmpSelectedReportsList = _cmpSelectedReportsList.Take(numberToShow)
                                                                  .ToList<RzisBase>();
-                                            // how to force the type into <> _cmpSelectedReportsList.GetType().Name
+                // how to force the type into <> _cmpSelectedReportsList.GetType().Name
             }
         }
         public void SelectReports(int takeNumber)
@@ -321,7 +321,7 @@ namespace IDSA.Presenters
 
         #endregion
 
-        
+
     }
 
     #region PresenterChangedEventArgs - Classes
