@@ -27,7 +27,7 @@ namespace IDSA
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             base.OnClosing(e);
-            //ServiceLocator.Current.GetInstance<EFUnitOfWork>().Dispose();
+            ServiceLocator.Current.GetInstance<IUnitOfWork>().Dispose();
         }
     }
 }

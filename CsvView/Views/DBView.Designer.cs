@@ -502,7 +502,7 @@ namespace IDSA.Views
             this.CreateDatabase.Name = "CreateDatabase";
             this.CreateDatabase.Size = new System.Drawing.Size(205, 24);
             this.CreateDatabase.TabIndex = 7;
-            this.CreateDatabase.Text = "Add ALL data(take about 15min!!!)";
+            this.CreateDatabase.Text = "Add ALL data(take about 2 min)";
             this.CreateDatabase.UseVisualStyleBackColor = true;
             this.CreateDatabase.Click += new System.EventHandler(this.CreateDatabase_Click);
             // 

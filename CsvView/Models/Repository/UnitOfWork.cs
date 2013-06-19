@@ -67,8 +67,8 @@ namespace IDSA.Models.Repository
         public void Commit()
         {
             context.SaveChanges();
-            //ServiceLocator.Current.GetInstance<EventAggregator>()
-            //    eventAggregator.GetEvent<DatabaseUpdatedEvent>().Publish(true);
+            //ServiceLocator.Current.GetInstance<IEventAggregator>()
+            //    .GetEvent<DatabaseUpdatedEvent>().Publish(true);
         }
 
         public void Load()

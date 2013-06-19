@@ -8,7 +8,7 @@ namespace IDSA.Views
 {
     public interface IDbView
     {
-        void UpdateLabel(string p); 
+        void UpdateLabel(string p);
         void UpdateProgressBar(int percent);
     }
 
@@ -27,7 +27,7 @@ namespace IDSA.Views
         {
             presenter = new DbViewPresenter(this, eventAggregator);
             _eventAggregator = eventAggregator;
-            
+
             _eventAggregator.GetEvent<DatabaseCreatedEvent>().Subscribe(DatabaseCreatedAction);
             _eventAggregator.GetEvent<DatabaseUpdatedEvent>().Subscribe(DatabaseUpdatedAction);
             InitializeComponent();
@@ -47,7 +47,7 @@ namespace IDSA.Views
             {
                 // Instead of Invoke() we can add this below:
                 //Label.CheckForIllegalCrossThreadCalls = false;
-                this.Info.Text = presenter.dbCreateDone();
+                this.Info.Text = presenter.dbUpdateDone();
                 this.companyBindingSource.DataSource = presenter.GetAllCompanies();
                 this.button1.Visible = true;
                 this.button1.Refresh();
@@ -67,14 +67,14 @@ namespace IDSA.Views
         }
 
         #endregion
-        
+
         #region Public Methods
-        
+
         public void UpdateLabel(string text)
         {
             this.Info.Text += text;
         }
-        
+
         public void UpdateProgressBar(int percent)
         {
             this.progressBar.Value = (percent > 100) ? 100 : percent;

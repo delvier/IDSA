@@ -35,7 +35,7 @@ namespace IDSA
             //kernel.Bind<IUnitOfWork>().To<EFUnitOfWork>().WithConstructorArgument("context", new Context(new DropCreateDatabaseAlways<Context>()));
             //, System.Threading.CancellationToken.None, TaskContinuationOptions.NotOnFaulted, TaskScheduler.FromCurrentSynchronizationContext()
 
-            Application.Run(ServiceLocator.Current.GetInstance<Shell>());//ServiceLocator.Instance.Resolve<Shell>());
+            Application.Run(ServiceLocator.Current.GetInstance<Shell>());
         }
     }
 }

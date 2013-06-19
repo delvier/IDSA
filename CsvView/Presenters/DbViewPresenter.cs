@@ -5,7 +5,6 @@ using IDSA.Views;
 using LumenWorks.Framework.IO.Csv;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
-using Ninject;
 using System;
 using System.ComponentModel;
 using System.Data.Entity;
@@ -29,21 +28,13 @@ namespace IDSA.Presenters
         public DbViewPresenter(IDbView view, IEventAggregator eventAggregator)
         {
             this.view = view;
+            this.model = ServiceLocator.Current.GetInstance<IUnitOfWork>();
             _eventAggregator = eventAggregator;
         }
 
         #endregion
 
         #region Event Handlers
-
-        internal string dbCreateDone()
-        {
-            if (model == null)
-            {
-                model = ServiceLocator.Current.GetInstance<EFUnitOfWork>();
-            }
-            return dbUpdateDone();
-        }
 
         internal string dbUpdateDone()
         {
