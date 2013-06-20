@@ -46,6 +46,25 @@ namespace IDSA.Views
         {
             var btn = new Button();
             flowLayoutPanel1.Controls.Add(btn);
+    
         }
     }
 }
+
+/* SELECT CTRLS OF THE TYPE AND DO SOME SELECTION OF THE TEXT ON IT 
+ * CODE EXAMPALE SNIPPET */
+
+//        List<content> rows = PlaceHolder_ForEntries.Controls.OfType<TextBox>()
+//.Select(txt => new
+//{
+//    Txt = txt,
+//    Number = new String(txt.ID.SkipWhile(c => !Char.IsDigit(c)).ToArray())
+//})
+//.GroupBy(x => x.Number)
+//.Select(g => new content
+//{
+//    name = g.First(x => x.Txt.ID.StartsWith("TextBox_Name")).Txt.Text,
+//    memberNo = g.First(x => x.Txt.ID.StartsWith("TextBox_MemberNo")).Txt.Text,
+//    points = int.Parse(g.First(x => x.Txt.ID.StartsWith("TextBox_Points")).Txt.Text)
+//})
+//.ToList();
