@@ -31,15 +31,29 @@ namespace IDSA.Modules.DataScanner
             this.lowValue = new TextBox();
             this.highValue = new TextBox();
 
+            InitTextBoxSettings();
+            InitBtnSettings();
+
             InitFilterComponentsList();
+        }
+
+        public void InitTextBoxSettings()
+        {
+            lowValue.Width = 30;
+            highValue.Width = 30;
+        }
+
+        public void InitBtnSettings()
+        {
+            this.deleteBtn.Text = "Delete";
         }
 
         public void InitFilterComponentsList()
         {
             this.filterCtrls.Add(filterCmbb);
-            this.filterCtrls.Add(deleteBtn);
             this.filterCtrls.Add(lowValue);
             this.filterCtrls.Add(highValue);
+            this.filterCtrls.Add(deleteBtn);
         }
         
 

@@ -18,12 +18,16 @@ namespace IDSA.Views
     {
         private DataScannerPresenter _presenter;
         private IList<FilterViewComponents> _activeFilterComponentsLst;
+        private int filterCountLimit { get; set; }
 
         public DataScanner(IEventAggregator eventAggregator)
         {
             InitializeComponent();
             _presenter = new DataScannerPresenter(this);
             eventAggregator.GetEvent<DatabaseCreatedEvent>().Subscribe(InitEvent);
+            
+            // user ctor inits variables
+            filterCountLimit = 5;
             _activeFilterComponentsLst = new List<FilterViewComponents>();
         }
 
@@ -48,12 +52,15 @@ namespace IDSA.Views
         private void AddFilterBtn_Click(object sender, EventArgs e)
         {
             var newFilter = new FilterViewComponents();
-            //newFilter.filterCtrls.Select( a => flowLayoutPanel1.Controls.Add(a))
-            foreach (var element in newFilter.filterCtrls)
-            {
-                flowLayoutPanel1.Controls.Add(element);
-            }
-    
+            _activeFilterComponentsLst.Add(newFilter); // remember filters.
+            newFilter.filterCmbb.DataSource = _presenter.GetFilters();
+            newFilter.filterCmbb.DisplayMember = "Name";
+
+            if(_activeFilterComponentsLst.Count <= filterCountLimit)
+                foreach (var element in newFilter.filterCtrls)
+                {
+                    flowLayoutPanel1.Controls.Add(element);
+                }
         }
     }
 }
