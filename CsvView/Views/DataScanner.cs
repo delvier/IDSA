@@ -10,18 +10,21 @@ using IDSA.Presenters;
 using IDSA.Models.Repository;
 using Microsoft.Practices.Prism.Events;
 using IDSA.Events;
+using IDSA.Modules.DataScanner;
 
 namespace IDSA.Views
 {
     public partial class DataScanner : UserControl
     {
         private DataScannerPresenter _presenter;
+        private IList<FilterViewComponents> _activeFilterComponentsLst;
 
         public DataScanner(IEventAggregator eventAggregator)
         {
             InitializeComponent();
             _presenter = new DataScannerPresenter(this);
             eventAggregator.GetEvent<DatabaseCreatedEvent>().Subscribe(InitEvent);
+            _activeFilterComponentsLst = new List<FilterViewComponents>();
         }
 
         public void InitEvent(bool isDone)
@@ -44,8 +47,12 @@ namespace IDSA.Views
 
         private void AddFilterBtn_Click(object sender, EventArgs e)
         {
-            var btn = new Button();
-            flowLayoutPanel1.Controls.Add(btn);
+            var newFilter = new FilterViewComponents();
+            //newFilter.filterCtrls.Select( a => flowLayoutPanel1.Controls.Add(a))
+            foreach (var element in newFilter.filterCtrls)
+            {
+                flowLayoutPanel1.Controls.Add(element);
+            }
     
         }
     }

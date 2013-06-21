@@ -103,6 +103,7 @@
     <Compile Include="Modules\DataScanner\EbitBasicFilter.cs" />
     <Compile Include="Modules\DataScanner\FilterListProvider.cs" />
     <Compile Include="Modules\DataScanner\FilterDescriptor.cs" />
+    <Compile Include="Modules\DataScanner\FilterViewComponents.cs" />
     <Compile Include="Modules\DataScanner\IDataScanerModule.cs" />
     <Compile Include="Modules\DataScanner\IFilter.cs" />
     <Compile Include="Presenters\DataFromHtmlPresenter.cs" />
