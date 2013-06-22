@@ -262,6 +262,7 @@ namespace IDSA.Presenters
         internal void CleanDatabase()
         {
             model.Clean();
+            model.DetachAll();
             _eventAggregator.GetEvent<DatabaseUpdatedEvent>().Publish(true);
         }
 

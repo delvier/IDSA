@@ -3,6 +3,7 @@ using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
 using System;
 using System.Data.Entity;
+using System.Linq;
 
 namespace IDSA.Models.Repository
 {
@@ -13,6 +14,7 @@ namespace IDSA.Models.Repository
         void Commit();
         void Load();
         void Clean();
+        void DetachAll();
     }
 
     public class EFUnitOfWork : IUnitOfWork
@@ -83,6 +85,18 @@ namespace IDSA.Models.Repository
             objCtx.ExecuteStoreCommand("DELETE FROM Reports");
             objCtx.ExecuteStoreCommand("DELETE FROM Companies");
             this.Commit();
+        }
+
+        public void DetachAll()
+        {
+            //foreach (var item in context.Set<Report>().Local.ToList())
+            //{
+            //    context.Entry(item).State = System.Data.EntityState.Detached;
+            //}
+            //foreach (var item in context.Set<Company>().Local.ToList())
+            //{
+            //    context.Entry(item).State = System.Data.EntityState.Detached;
+            //}
         }
 
         #endregion

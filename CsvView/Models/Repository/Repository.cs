@@ -90,10 +90,10 @@ namespace IDSA.Models.Repository
         public override void Add(Company company)
         {
             // TODO: Add Cashing Entites (.NET 4.5 contains in automatically)
-            if (dbSet.Any(c => c.Id == company.Id)) //dbSet.Contains(company))
-                this.Update(company);
-            else
-                base.Add(company);
+            //if (dbSet.Any(c => c.Id == company.Id)) //dbSet.Contains(company))
+            //    this.Update(company);
+            //else
+            base.Add(company);
         }
 
         public override void Update(Company company)
@@ -120,10 +120,10 @@ namespace IDSA.Models.Repository
         {
             //TODO: Add using ReportComparer
             //if (dbSet.Any(r => r.CompanyId == report.CompanyId && r.Year == report.Year && r.Quarter == report.Quarter))    // TODO: Add comparer functions
-            if(dbSet.Any(r => r.Id == report.Id))
-                this.Update(report);
-            else
-                base.Add(report);
+            //if(dbSet.Any(r => r.Id == report.Id))
+            //    this.Update(report);
+            //else
+            base.Add(report);
         }
 
         public override void Update(Report report)
