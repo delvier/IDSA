@@ -33,6 +33,7 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.lowValue = new System.Windows.Forms.TextBox();
             this.highValue = new System.Windows.Forms.TextBox();
+            this.scanBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AddFilterBtn
@@ -79,10 +80,23 @@
             this.highValue.Size = new System.Drawing.Size(34, 20);
             this.highValue.TabIndex = 4;
             // 
+            // scanBtn
+            // 
+            this.scanBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.scanBtn.Location = new System.Drawing.Point(383, 2);
+            this.scanBtn.Margin = new System.Windows.Forms.Padding(0);
+            this.scanBtn.Name = "scanBtn";
+            this.scanBtn.Size = new System.Drawing.Size(75, 23);
+            this.scanBtn.TabIndex = 5;
+            this.scanBtn.Text = "Scan";
+            this.scanBtn.UseVisualStyleBackColor = true;
+            this.scanBtn.Click += new System.EventHandler(this.scanBtn_Click);
+            // 
             // DataScanner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.scanBtn);
             this.Controls.Add(this.highValue);
             this.Controls.Add(this.lowValue);
             this.Controls.Add(this.flowLayoutPanel1);
@@ -102,5 +116,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.TextBox lowValue;
         private System.Windows.Forms.TextBox highValue;
+        private System.Windows.Forms.Button scanBtn;
     }
 }

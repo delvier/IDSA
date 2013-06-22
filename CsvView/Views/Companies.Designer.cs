@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CompanyContainer = new System.Windows.Forms.SplitContainer();
             this.CompanyTypes = new System.Windows.Forms.ComboBox();
             this.MarketType = new System.Windows.Forms.ComboBox();
@@ -42,7 +42,6 @@
             this.CompanyBox = new System.Windows.Forms.ListBox();
             this.tvLabel = new System.Windows.Forms.Label();
             this.modeFinDataCheckBox = new System.Windows.Forms.CheckBox();
-            this.calculationFinDataBtn = new System.Windows.Forms.Button();
             this.fullFinDataBtn = new System.Windows.Forms.Button();
             this.filterFinDataBtn = new System.Windows.Forms.Button();
             this.DateCmpLabel = new System.Windows.Forms.Label();
@@ -80,7 +79,6 @@
             // 
             this.CompanyContainer.Panel2.Controls.Add(this.tvLabel);
             this.CompanyContainer.Panel2.Controls.Add(this.modeFinDataCheckBox);
-            this.CompanyContainer.Panel2.Controls.Add(this.calculationFinDataBtn);
             this.CompanyContainer.Panel2.Controls.Add(this.fullFinDataBtn);
             this.CompanyContainer.Panel2.Controls.Add(this.filterFinDataBtn);
             this.CompanyContainer.Panel2.Controls.Add(this.DateCmpLabel);
@@ -95,8 +93,8 @@
             // 
             // CompanyTypes
             // 
-            this.CompanyTypes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CompanyTypes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.CompanyTypes.FormattingEnabled = true;
             this.CompanyTypes.Location = new System.Drawing.Point(4, 25);
             this.CompanyTypes.Margin = new System.Windows.Forms.Padding(0);
@@ -106,8 +104,8 @@
             // 
             // MarketType
             // 
-            this.MarketType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.MarketType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.MarketType.FormattingEnabled = true;
             this.MarketType.Location = new System.Drawing.Point(4, 4);
             this.MarketType.Margin = new System.Windows.Forms.Padding(0);
@@ -117,8 +115,8 @@
             // 
             // CompanyFilter
             // 
-            this.CompanyFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CompanyFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.CompanyFilter.Location = new System.Drawing.Point(4, 46);
             this.CompanyFilter.Margin = new System.Windows.Forms.Padding(0);
             this.CompanyFilter.Name = "CompanyFilter";
@@ -128,9 +126,9 @@
             // 
             // CompanyBox
             // 
-            this.CompanyBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CompanyBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.CompanyBox.FormattingEnabled = true;
             this.CompanyBox.Location = new System.Drawing.Point(4, 66);
             this.CompanyBox.Margin = new System.Windows.Forms.Padding(0);
@@ -154,23 +152,13 @@
             // modeFinDataCheckBox
             // 
             this.modeFinDataCheckBox.AutoSize = true;
-            this.modeFinDataCheckBox.Location = new System.Drawing.Point(247, 71);
+            this.modeFinDataCheckBox.Location = new System.Drawing.Point(3, 49);
             this.modeFinDataCheckBox.Name = "modeFinDataCheckBox";
             this.modeFinDataCheckBox.Size = new System.Drawing.Size(77, 17);
             this.modeFinDataCheckBox.TabIndex = 8;
             this.modeFinDataCheckBox.Text = "cumulative";
             this.modeFinDataCheckBox.UseVisualStyleBackColor = true;
             this.modeFinDataCheckBox.CheckedChanged += new System.EventHandler(this.modeFinDataCheckBox_CheckedChanged);
-            // 
-            // calculationFinDataBtn
-            // 
-            this.calculationFinDataBtn.Location = new System.Drawing.Point(165, 66);
-            this.calculationFinDataBtn.Name = "calculationFinDataBtn";
-            this.calculationFinDataBtn.Size = new System.Drawing.Size(75, 23);
-            this.calculationFinDataBtn.TabIndex = 7;
-            this.calculationFinDataBtn.Text = "Calculate!";
-            this.calculationFinDataBtn.UseVisualStyleBackColor = true;
-            this.calculationFinDataBtn.Click += new System.EventHandler(this.calculationFinDataBtn_Click);
             // 
             // fullFinDataBtn
             // 
@@ -207,21 +195,21 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(8, 381);
             this.chart1.Margin = new System.Windows.Forms.Padding(2);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series2";
-            this.chart1.Series.Add(series1);
-            this.chart1.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series2";
+            this.chart1.Series.Add(series3);
+            this.chart1.Series.Add(series4);
             this.chart1.Size = new System.Drawing.Size(776, 244);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "chart1";
@@ -253,37 +241,37 @@
             // 
             this.FinDataGrid.AllowUserToAddRows = false;
             this.FinDataGrid.AllowUserToDeleteRows = false;
-            this.FinDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FinDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.FinDataGrid.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.FinDataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.FinDataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.FinDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.FinDataGrid.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.FinDataGrid.DefaultCellStyle = dataGridViewCellStyle5;
             this.FinDataGrid.Location = new System.Drawing.Point(3, 92);
             this.FinDataGrid.Name = "FinDataGrid";
             this.FinDataGrid.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.FinDataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.FinDataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.FinDataGrid.Size = new System.Drawing.Size(438, 284);
             this.FinDataGrid.TabIndex = 0;
             this.FinDataGrid.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.FinDataGrid_CellEnter);
@@ -292,12 +280,12 @@
             // 
             this.eventLog1.SynchronizingObject = this;
             // 
-            // VCompany
+            // Companies
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.CompanyContainer);
-            this.Name = "VCompany";
+            this.Name = "Companies";
             this.Size = new System.Drawing.Size(634, 701);
             this.Load += new System.EventHandler(this.VCompany_Load);
             this.CompanyContainer.Panel1.ResumeLayout(false);
@@ -328,7 +316,6 @@
         private System.Windows.Forms.Label DateCmpLabel;
         private System.Windows.Forms.Button filterFinDataBtn;
         private System.Windows.Forms.Button fullFinDataBtn;
-        private System.Windows.Forms.Button calculationFinDataBtn;
         private System.Windows.Forms.CheckBox modeFinDataCheckBox;
         private System.Windows.Forms.Label tvLabel;
     }

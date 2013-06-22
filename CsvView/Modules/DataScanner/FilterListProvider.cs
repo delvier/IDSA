@@ -19,6 +19,13 @@ namespace IDSA.Modules.DataScanner
             this.FilterList.Add(
                new FilterDescriptor()
                {
+                   Filter = null,
+                   Name = "--- Filter Select ---"
+               });
+
+            this.FilterList.Add(
+               new FilterDescriptor()
+               {
                    Filter = new EbitBasicFilter(),
                    Name = "EBIT Basic Filter"
                });

@@ -18,16 +18,15 @@ namespace IDSA.Views
     {
         private DataScannerPresenter _presenter;
         private IList<FilterViewComponents> _activeFilterComponentsLst;
-        private int filterCountLimit { get; set; }
+
+        private const int filterCountLimit = 4;
 
         public DataScanner(IEventAggregator eventAggregator)
         {
             InitializeComponent();
             _presenter = new DataScannerPresenter(this);
             eventAggregator.GetEvent<DatabaseCreatedEvent>().Subscribe(InitEvent);
-            
-            // user ctor inits variables
-            filterCountLimit = 5;
+
             _activeFilterComponentsLst = new List<FilterViewComponents>();
         }
 
@@ -51,16 +50,68 @@ namespace IDSA.Views
 
         private void AddFilterBtn_Click(object sender, EventArgs e)
         {
-            var newFilter = new FilterViewComponents();
-            _activeFilterComponentsLst.Add(newFilter); // remember filters.
-            newFilter.filterCmbb.DataSource = _presenter.GetFilters();
-            newFilter.filterCmbb.DisplayMember = "Name";
+            if (_activeFilterComponentsLst.Count <= filterCountLimit)
+            {
+                var newFilter = new FilterViewComponents();
+                _activeFilterComponentsLst.Add(newFilter); // remember filters.
 
-            if(_activeFilterComponentsLst.Count <= filterCountLimit)
-                foreach (var element in newFilter.filterCtrls)
+
+                newFilter.filterCmbb.DataSource = _presenter.GetFilters(); //fCmbb settings copy
+                newFilter.filterCmbb.DisplayMember = FilterSelectComboBox.DisplayMember;
+                
+                newFilter.lowValue.Text = this.lowValue.Text; //txtBox settings copy.
+                newFilter.highValue.Text = this.highValue.Text;
+
+                // bind click event
+                newFilter.deleteBtn.Click += new System.EventHandler(this.DeleteFilterBtn_Click);
+
+                foreach (var fctrl in newFilter.filterCtrls)
                 {
-                    flowLayoutPanel1.Controls.Add(element);
+                    flowLayoutPanel1.Controls.Add(fctrl);
                 }
+
+                // this operation need to be done after cmb box is on the pannel.
+                newFilter.filterCmbb.SelectedIndex = this.FilterSelectComboBox.SelectedIndex;
+
+            }
+        }
+
+        // delete btn filter action
+        private void DeleteFilterBtn_Click(object sender, EventArgs e)
+        {
+            Button callerBtn = (Button)sender;
+            // find the caller cmponents.
+            FilterViewComponents fcmps = findBtnFilterView(callerBtn);
+
+            //delete control in panel
+            foreach (var eControl in fcmps.filterCtrls)
+                flowLayoutPanel1.Controls.Remove(eControl);
+            
+            //remove from active cmponents filter list
+            _activeFilterComponentsLst.Remove(fcmps);
+            
+            //refresh panel
+            flowLayoutPanel1.Refresh();
+            
+        }
+
+        //enable us to easy find FilterViewComponentsObject.
+        private FilterViewComponents findBtnFilterView (Button btn)
+        {
+            foreach (var cmp in _activeFilterComponentsLst)
+            {
+               int cnt = cmp.filterCtrls.Where(a => object.Equals(a, btn)).Count();
+               if (cnt > 0)
+               {
+                   return cmp;
+               }
+            }
+            return null;
+        }
+
+        private void scanBtn_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Scanning gogogo");
         }
     }
 }
