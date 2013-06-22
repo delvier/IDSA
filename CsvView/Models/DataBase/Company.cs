@@ -51,7 +51,7 @@ namespace IDSA.Models
         public string Email { get; set; }
         public string FullName { get; set; }
         public string HeadAccount { get; set; }
-        public string Profile { get; set; }     //TRADES - Trade
+        public string Profile { get; set; }
         public string Address { get; set; }
         public string HrefStatus { get; set; }
         public long ShareNumbers { get; set; }
@@ -83,13 +83,4 @@ namespace IDSA.Models
             return this.Clone();
         }
     }
-
-    //public enum TRADES
-    //{
-    //    CUKIERNICTWO,
-    //    HANDEL,
-    //    BUDOWNICTWO,
-    //    INFORMATYKA,
-    //    TELEKOMUNIKACJA
-    //}
 }

@@ -16,20 +16,18 @@ namespace IDSA.Views
     {
         #region Fields and Props
 
-        private readonly DbViewPresenter presenter;
-        private readonly IEventAggregator _eventAggregator;
-
+        private readonly DBPresenter presenter;
+        
         #endregion
 
         #region Ctor
 
         public DBView(IEventAggregator eventAggregator)
         {
-            presenter = new DbViewPresenter(this, eventAggregator);
-            _eventAggregator = eventAggregator;
-
-            _eventAggregator.GetEvent<DatabaseCreatedEvent>().Subscribe(DatabaseCreatedAction);
-            _eventAggregator.GetEvent<DatabaseUpdatedEvent>().Subscribe(DatabaseUpdatedAction);
+            presenter = new DBPresenter(this, eventAggregator);
+            
+            eventAggregator.GetEvent<DatabaseCreatedEvent>().Subscribe(DatabaseCreatedAction);
+            eventAggregator.GetEvent<DatabaseUpdatedEvent>().Subscribe(DatabaseUpdatedAction);
             InitializeComponent();
         }
 

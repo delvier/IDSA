@@ -109,7 +109,7 @@
     <Compile Include="Presenters\DataFromHtmlPresenter.cs" />
     <Compile Include="Presenters\DataScannerPresenter.cs" />
     <Compile Include="Presenters\CsvLoadPresenter.cs" />
-    <Compile Include="Presenters\DbViewPresenter.cs" />
+    <Compile Include="Presenters\DBPresenter.cs" />
     <Compile Include="Presenters\CompaniesPresenter.cs" />
     <Compile Include="CsvEnums.cs" />
     <Compile Include="Services\ChartService.cs" />

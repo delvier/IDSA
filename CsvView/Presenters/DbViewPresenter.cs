@@ -15,7 +15,7 @@ using System.Linq;
 
 namespace IDSA.Presenters
 {
-    public class DbViewPresenter
+    public class DBPresenter
     {
         #region Fields and Props
 
@@ -26,7 +26,7 @@ namespace IDSA.Presenters
 
         #region Ctors
 
-        public DbViewPresenter(IDbView view, IEventAggregator eventAggregator)
+        public DBPresenter(IDbView view, IEventAggregator eventAggregator)
         {
             this.view = view;
             this.model = ServiceLocator.Current.GetInstance<IUnitOfWork>();
