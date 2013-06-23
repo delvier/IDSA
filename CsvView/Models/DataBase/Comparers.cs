@@ -10,12 +10,12 @@ namespace IDSA.Models
     {
         public bool Equals(Report x, Report y)
         {
-            return (x.CompanyId == y.CompanyId && x.Year == y.Year && x.Quarter == y.Quarter);
+            return true;// (x.CompanyId == y.CompanyId && x.Year == y.Year && x.Quarter == y.Quarter);
         }
 
         public int GetHashCode(Report obj)
         {
-            return obj.Id.GetHashCode();
+            return obj.ReportId.GetHashCode();
         }
     }
 }

@@ -6,10 +6,10 @@ namespace IDSA.Models
 {
     public interface IReport
     {
-        int Id { get; set; }
+        int ReportId { get; set; }
         int Year { get; set; }
         int Quarter { get; set; }
-        long Sales { get; set; }  //AO //RZiS
+        long Sales { get; set; }    //AO //RZiS
         long OwnSaleCosts { get; set; }
         long SalesCost1 { get; set; }
         long SalesCost2 { get; set; }
@@ -30,30 +30,31 @@ namespace IDSA.Models
 
     public class Report : IReport, ICloneable
     {
-        [Key][DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
-        //public string ColumnC { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int ReportId { get; set; }
+        public string ColumnC { get; set; }
         [Range(1900, 2500)]
         public int Year { get; set; }
         [Range(1, 4)]
         public int Quarter { get; set; }
-        public long Sales { get; set; }  //AO //RZiS
-        public long OwnSaleCosts { get; set; }
-        public long SalesCost1 { get; set; }
-        public long SalesCost2 { get; set; }
-        public long EarningOnSales { get; set; }
-        public long OtherOperationalActivity1 { get; set; }
-        public long OtherOperationalActivity2 { get; set; }
-        public long EBIT { get; set; }
-        public long FinancialActivity1 { get; set; }
-        public long FinancialActivity2 { get; set; }
-        public long OtherCostOrSales { get; set; }
-        public long SalesOnEconomicActivity { get; set; }
-        public long ExceptionalOccurence { get; set; }
-        public long EarningBeforeTaxes { get; set; }
-        public long DiscontinuedOperations { get; set; }
-        public long NetProfit { get; set; }
-        public long NetParentProfit { get; set; }
+        public long Sales { get; set; }                     //AO //RZiS //IncomeStatement
+        public long OwnSaleCosts { get; set; }              //RZiS      //IncomeStatement
+        public long SalesCost1 { get; set; }                            //IncomeStatement
+        public long SalesCost2 { get; set; }                            //IncomeStatement
+        public long EarningOnSales { get; set; }            //RZiS      //IncomeStatement
+        public long OtherOperationalActivity1 { get; set; }             //IncomeStatement
+        public long OtherOperationalActivity2 { get; set; }             //IncomeStatement
+        public long EBIT { get; set; }                      //RZiS      //IncomeStatement
+        public long FinancialActivity1 { get; set; }                    //IncomeStatement
+        public long FinancialActivity2 { get; set; }                    //IncomeStatement
+        public long OtherCostOrSales { get; set; }                      //IncomeStatement
+        public long SalesOnEconomicActivity { get; set; }               //IncomeStatement
+        public long ExceptionalOccurence { get; set; }                  //IncomeStatement
+        public long EarningBeforeTaxes { get; set; }        //RZiS      //IncomeStatement
+        public long DiscontinuedOperations { get; set; }                //IncomeStatement
+        public long NetProfit { get; set; }                 //RZiS      //IncomeStatement
+        public long NetParentProfit { get; set; }                       //IncomeStatement
 
         [Required]
         public int CompanyId { get; set; }

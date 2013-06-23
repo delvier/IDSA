@@ -89,6 +89,8 @@ namespace IDSA.Models.Repository
 
         public void DetachAll()
         {
+            reports.RemoveAll();
+            companies.RemoveAll();
             //foreach (var item in context.Set<Report>().Local.ToList())
             //{
             //    context.Entry(item).State = System.Data.EntityState.Detached;

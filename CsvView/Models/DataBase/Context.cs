@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using IDSA.Models.DataStruct;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 
 namespace IDSA.Models
@@ -20,11 +21,57 @@ namespace IDSA.Models
         //Add new functionalities, another way of migrations
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //base.OnModelCreating(modelBuilder);
-            
-            //modelBuilder.Entity<Report>().Property(a => a.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            //modelBuilder.Entity<Report>().Property(a => a.Id).HasKey(b => b.Id);
+            //modelBuilder.ComplexType<IBaseFinData>();
 
+            modelBuilder.Entity<Report>()
+                .Map(m =>
+                {
+                    m.Properties(t => new { t.ReportId, t.Year, t.Quarter });
+                    m.ToTable("BalanceData");
+                })
+                .Map(m =>
+                {
+                    m.Properties(t => new
+                    {
+                        t.ReportId,
+                        //t.Year,
+                        //t.Quarter,
+                        //t.Sales,
+                        //t.OwnSaleCosts,
+                        //t.EarningOnSales,
+                        //t.EBIT,
+                        //t.EarningBeforeTaxes,
+                        t.NetProfit
+                    });
+                    m.ToTable("StatementData");
+                })
+                .Map(m =>
+                {
+                    m.Properties(t => new
+                    {
+                        t.ReportId,
+                        t.Sales,
+                        t.OwnSaleCosts,
+                        t.SalesCost1,
+                        t.SalesCost2,
+                        t.EarningOnSales,
+                        t.OtherOperationalActivity1,
+                        t.OtherOperationalActivity2,
+                        t.EBIT,
+                        t.FinancialActivity1,
+                        t.FinancialActivity2,
+                        t.OtherCostOrSales,
+                        t.SalesOnEconomicActivity,
+                        t.ExceptionalOccurence,
+                        t.EarningBeforeTaxes,
+                        t.DiscontinuedOperations,
+                        //t.NetProfit,
+                        t.NetParentProfit
+                    });
+                    m.ToTable("IncomeData");
+                });
+
+            //modelBuilder.Entity<Report>().Property(a => a.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             //modelBuilder.Entity<Company>().Property(x => x.Reports = new ObservableListSource<String>());
         }
     }

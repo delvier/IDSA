@@ -78,7 +78,7 @@ namespace IDSA.Presenters
 
             return new Report()
             {
-                Id = int.Parse(item[(int)CsvEnums.financialData.Id]),
+                ReportId = int.Parse(item[(int)CsvEnums.financialData.Id]),
                 CompanyId = int.Parse(item[(int)CsvEnums.financialData.CmpId]),
                 Year = int.Parse(item[(int)CsvEnums.financialData.Year]),
                 Quarter = int.Parse(item[(int)CsvEnums.financialData.Quater]),

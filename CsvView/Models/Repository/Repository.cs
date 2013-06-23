@@ -54,10 +54,11 @@ namespace IDSA.Models.Repository
 
         public void RemoveAll()
         {
-            foreach (var item in dbSet.ToList())
-            {
-                this.Remove(item);
-            }
+            dbSet.Local.Clear();
+            //foreach (var item in dbSet.ToList())
+            //{
+            //    this.Remove(item);
+            //}
         }
 
         public IQueryable<E> Query()
@@ -113,7 +114,7 @@ namespace IDSA.Models.Repository
 
         public override Report GetById(int id)
         {
-            return dbSet.SingleOrDefault(x => x.Id == id);
+            return dbSet.SingleOrDefault(x => x.ReportId == id);
         }
 
         public override void Add(Report report)
@@ -130,7 +131,7 @@ namespace IDSA.Models.Repository
         {
             using (var dbNew = new Context())
             {
-                Report temp = dbNew.Reports.Find(report.Id);
+                Report temp = dbNew.Reports.Find(report.ReportId);
                 dbNew.Entry<Report>(temp).CurrentValues.SetValues(report);
                 dbNew.SaveChanges();
             }
