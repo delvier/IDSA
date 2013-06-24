@@ -23,7 +23,7 @@ namespace IDSA.Modules.DataScanner
             {
                 int matchNum = cmp.Reports.Count(r => r.EBIT > _lowValue && r.EBIT < _highValue);
                 if (matchNum == 0)
-                    lst.Remove(cmp);
+                    lst.Remove(cmp); //this cannot be done on active collection :)
             }
             return lst;
         }

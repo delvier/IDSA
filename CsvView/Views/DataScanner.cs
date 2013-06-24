@@ -111,6 +111,8 @@ namespace IDSA.Views
 
         private void scanBtn_Click(object sender, EventArgs e)
         {
+            _presenter.LoadFiltersToDataScannerModule(_activeFilterComponentsLst);
+            _presenter.Scan();
             MessageBox.Show("Scanning gogogo");
         }
     }

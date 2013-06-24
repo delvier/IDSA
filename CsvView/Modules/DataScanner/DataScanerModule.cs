@@ -20,6 +20,7 @@ namespace IDSA.Modules.DataScanner
 
         public DataScanerModule(IList<Company> Companies)
         {
+            this.FilterList = new List<IFilter>();
             this._cmpList = Companies;
         }
 
@@ -35,6 +36,7 @@ namespace IDSA.Modules.DataScanner
             }
         }
 
+
         public void FilterApplay(IFilter filter)
         {
             _filterData = filter.FilterAction(_cmpList);
@@ -48,6 +50,11 @@ namespace IDSA.Modules.DataScanner
         public void FilterAdd(IFilter filter)
         {
             FilterList.Add(filter);
+        }
+
+        public void FilterClearAll()
+        {
+            FilterList.Clear();
         }
 
         #endregion
