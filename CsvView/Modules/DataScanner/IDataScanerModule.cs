@@ -24,5 +24,6 @@ namespace IDSA.Modules.DataScanner
 
         //filter ClearAll
         void FilterClearAll();
+
     }
 }

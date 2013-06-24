@@ -18,6 +18,7 @@ namespace IDSA.Views
     {
         private DataScannerPresenter _presenter;
         private IList<FilterViewComponents> _activeFilterComponentsLst;
+        DataGridView dgv;
 
         private const int filterCountLimit = 4;
 
@@ -67,7 +68,7 @@ namespace IDSA.Views
 
                 foreach (var fctrl in newFilterComponents.filterCtrls)
                 {
-                    flowLayoutPanel1.Controls.Add(fctrl);
+                    filterPanel.Controls.Add(fctrl);
                 }
 
                 // this operation need to be done after cmb box is on the pannel.
@@ -85,13 +86,13 @@ namespace IDSA.Views
 
             //delete control in panel
             foreach (var eControl in fcmps.filterCtrls)
-                flowLayoutPanel1.Controls.Remove(eControl);
+                filterPanel.Controls.Remove(eControl);
             
             //remove from active cmponents filter list
             _activeFilterComponentsLst.Remove(fcmps);
             
             //refresh panel
-            flowLayoutPanel1.Refresh();
+            filterPanel.Refresh();
             
         }
 
@@ -113,7 +114,24 @@ namespace IDSA.Views
         {
             _presenter.LoadFiltersToDataScannerModule(_activeFilterComponentsLst);
             _presenter.Scan();
-            MessageBox.Show("Scanning gogogo");
+            _presenter.UpdateView();
+        }
+
+        public void DataUpdate()
+        {
+            if (dgv == null)
+            {
+                InitDgvSettings();
+            }
+            dgv.DataSource = _presenter.GetFilterData();
+        }
+
+        private void InitDgvSettings()
+        {
+            dgv = new DataGridView();
+            dgvPanel.Controls.Add(dgv);
+            //dgv.AutoResizeColumns();
+            //dgv.AutoResizeRows();
         }
     }
 }

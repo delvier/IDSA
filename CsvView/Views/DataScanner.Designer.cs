@@ -30,10 +30,13 @@
         {
             this.AddFilterBtn = new System.Windows.Forms.Button();
             this.FilterSelectComboBox = new System.Windows.Forms.ComboBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.filterPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.lowValue = new System.Windows.Forms.TextBox();
             this.highValue = new System.Windows.Forms.TextBox();
             this.scanBtn = new System.Windows.Forms.Button();
+            this.dgvPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.filterPanel.SuspendLayout();
+            this.dgvPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // AddFilterBtn
@@ -56,15 +59,16 @@
             this.FilterSelectComboBox.Size = new System.Drawing.Size(121, 21);
             this.FilterSelectComboBox.TabIndex = 1;
             // 
-            // flowLayoutPanel1
+            // filterPanel
             // 
-            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.filterPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 26);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(455, 252);
-            this.flowLayoutPanel1.TabIndex = 2;
+            this.filterPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.filterPanel.Location = new System.Drawing.Point(6, 26);
+            this.filterPanel.Name = "filterPanel";
+            this.filterPanel.Size = new System.Drawing.Size(615, 94);
+            this.filterPanel.TabIndex = 2;
             // 
             // lowValue
             // 
@@ -83,7 +87,7 @@
             // scanBtn
             // 
             this.scanBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.scanBtn.Location = new System.Drawing.Point(383, 2);
+            this.scanBtn.Location = new System.Drawing.Point(546, 2);
             this.scanBtn.Margin = new System.Windows.Forms.Padding(0);
             this.scanBtn.Name = "scanBtn";
             this.scanBtn.Size = new System.Drawing.Size(75, 23);
@@ -92,18 +96,32 @@
             this.scanBtn.UseVisualStyleBackColor = true;
             this.scanBtn.Click += new System.EventHandler(this.scanBtn_Click);
             // 
+            // dgvPanel
+            // 
+            this.dgvPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.dgvPanel.Location = new System.Drawing.Point(6, 126);
+            this.dgvPanel.Name = "dgvPanel";
+            this.dgvPanel.Size = new System.Drawing.Size(615, 250);
+            this.dgvPanel.TabIndex = 4;
+            // 
             // DataScanner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.scanBtn);
+            this.Controls.Add(this.dgvPanel);
             this.Controls.Add(this.highValue);
             this.Controls.Add(this.lowValue);
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.filterPanel);
             this.Controls.Add(this.FilterSelectComboBox);
             this.Controls.Add(this.AddFilterBtn);
             this.Name = "DataScanner";
-            this.Size = new System.Drawing.Size(461, 281);
+            this.Size = new System.Drawing.Size(624, 381);
+            this.filterPanel.ResumeLayout(false);
+            this.dgvPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -113,9 +131,10 @@
 
         private System.Windows.Forms.Button AddFilterBtn;
         private System.Windows.Forms.ComboBox FilterSelectComboBox;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel filterPanel;
         private System.Windows.Forms.TextBox lowValue;
         private System.Windows.Forms.TextBox highValue;
         private System.Windows.Forms.Button scanBtn;
+        private System.Windows.Forms.FlowLayoutPanel dgvPanel;
     }
 }

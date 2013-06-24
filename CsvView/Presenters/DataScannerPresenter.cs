@@ -6,13 +6,14 @@ using IDSA.Views;
 using IDSA.Models.Repository;
 using IDSA.Modules.DataScanner;
 using Microsoft.Practices.ServiceLocation;
+using IDSA.Models;
 
 namespace IDSA.Presenters
 {
     public interface IDataScannerPresenter
     {
-        
     }
+
     public class DataScannerPresenter : IDataScannerPresenter
     {
         DataScanner view;
@@ -54,5 +55,17 @@ namespace IDSA.Presenters
         {
             dsmodule.Scan();
         }
+
+        public IList<Company> GetFilterData()
+        {
+            return dsmodule.GetResult();
+        }
+
+        public void UpdateView()
+        {
+            view.DataUpdate();
+        }
+
+
     }
 }

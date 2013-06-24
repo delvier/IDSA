@@ -28,6 +28,11 @@ namespace IDSA.Modules.DataScanner
 
         #region PublicMethods
 
+        public IList<Company> GetResult()
+        {
+            return _filterData;
+        }
+
         public void Scan()
         {
             foreach (IFilter filter in FilterList)
@@ -35,7 +40,6 @@ namespace IDSA.Modules.DataScanner
                 this.FilterApplay(filter);
             }
         }
-
 
         public void FilterApplay(IFilter filter)
         {
