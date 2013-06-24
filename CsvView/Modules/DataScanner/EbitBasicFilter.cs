@@ -19,13 +19,14 @@ namespace IDSA.Modules.DataScanner
 
         public override IList<Company> FilterAction(IList<Company> lst)
         {
+            var _cmpsFilterOut = new List<Company>();
             foreach (Company cmp in lst)
             {
                 int matchNum = cmp.Reports.Count(r => r.EBIT > _lowValue && r.EBIT < _highValue);
-                if (matchNum == 0)
-                    lst.Remove(cmp); //this cannot be done on active collection :)
+                if (matchNum != 0)
+                    _cmpsFilterOut.Add(cmp); //this cannot be done on active collection :)
             }
-            return lst;
+            return _cmpsFilterOut;
         }
     }
 }
