@@ -52,26 +52,26 @@ namespace IDSA.Views
         {
             if (_activeFilterComponentsLst.Count <= filterCountLimit)
             {
-                var newFilter = new FilterViewComponents();
-                _activeFilterComponentsLst.Add(newFilter); // remember filters.
+                var newFilterComponents = new FilterViewComponents();
+                _activeFilterComponentsLst.Add(newFilterComponents); // remember filters.
 
 
-                newFilter.filterCmbb.DataSource = _presenter.GetFilters(); //fCmbb settings copy
-                newFilter.filterCmbb.DisplayMember = FilterSelectComboBox.DisplayMember;
+                newFilterComponents.filterCmbb.DataSource = _presenter.GetFilters(); //fCmbb settings copy
+                newFilterComponents.filterCmbb.DisplayMember = FilterSelectComboBox.DisplayMember;
                 
-                newFilter.lowValue.Text = this.lowValue.Text; //txtBox settings copy.
-                newFilter.highValue.Text = this.highValue.Text;
+                newFilterComponents.lowValue.Text = this.lowValue.Text; //txtBox settings copy.
+                newFilterComponents.highValue.Text = this.highValue.Text;
 
                 // bind click event
-                newFilter.deleteBtn.Click += new System.EventHandler(this.DeleteFilterBtn_Click);
+                newFilterComponents.deleteBtn.Click += new System.EventHandler(this.DeleteFilterBtn_Click);
 
-                foreach (var fctrl in newFilter.filterCtrls)
+                foreach (var fctrl in newFilterComponents.filterCtrls)
                 {
                     flowLayoutPanel1.Controls.Add(fctrl);
                 }
 
                 // this operation need to be done after cmb box is on the pannel.
-                newFilter.filterCmbb.SelectedIndex = this.FilterSelectComboBox.SelectedIndex;
+                newFilterComponents.filterCmbb.SelectedIndex = this.FilterSelectComboBox.SelectedIndex;
 
             }
         }
