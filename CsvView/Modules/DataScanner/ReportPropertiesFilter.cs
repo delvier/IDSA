@@ -26,12 +26,12 @@ namespace IDSA.Modules.DataScanner
             foreach (Company cmp in lst)
             {
                 int matchNum = cmp.Reports.Count(r => 
-                    (int)r.GetType().
+                    Int64.Parse(r.GetType().
                     GetProperty(_propertyInfo.Name.ToString()).
-                    GetValue(r, null) > _lowValue && 
-                    (int)r.GetType().
+                    GetValue(r, null).ToString()) > _lowValue &&
+                    Int64.Parse(r.GetType().
                     GetProperty(_propertyInfo.Name.ToString()).
-                    GetValue(r, null) < _highValue
+                    GetValue(r, null).ToString()) < _highValue
                     );
                 if (matchNum != 0)
                     _cmpsFilterOut.Add(cmp); //this cannot be done on active collection :)

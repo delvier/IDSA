@@ -18,14 +18,16 @@ namespace IDSA.Modules.DataScanner
             var rpropList = new Report().GetType().GetProperties().ToList();
             foreach (PropertyInfo rpor in rpropList)
             {
-                this.FilterList.Add(
+                if (rpor.PropertyType == typeof(Int64))
+                {
+                    this.FilterList.Add(
                     new FilterDescriptor()
                     {
                         Filter = new ReportPropertiesFilter(rpor, 0, 0),
                         Name = rpor.Name.ToString()
                     }
                 );
-
+                }
             }
 
             //this.FilterList.Add(
