@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using IDSA.Models;
+using System.Reflection;
 
 namespace IDSA.Modules.DataScanner
 {
@@ -13,34 +15,47 @@ namespace IDSA.Modules.DataScanner
         {
             FilterList = new List<FilterDescriptor>();
 
-            this.FilterList.Add(
-              new FilterDescriptor()
-              {
-                  Filter = null,
-                  Name = "--- Filter Select ---"
-              });
+            var rpropList = new Report().GetType().GetProperties().ToList();
+            foreach (PropertyInfo rpor in rpropList)
+            {
+                this.FilterList.Add(
+                    new FilterDescriptor()
+                    {
+                        Filter = new ReportPropertiesFilter(rpor, 0, 0),
+                        Name = rpor.Name.ToString()
+                    }
+                );
 
-            this.FilterList.Add(
-               new FilterDescriptor()
-               {
-                   Filter = new EbitBasicFilter(),
-                   Name = "EBIT Basic Filter"
-               });
+            }
 
-            this.FilterList.Add(
-                new FilterDescriptor()
-                {
-                    Filter = new EbitBasicFilter(),
-                    Name = "EBIT 2 Basic Filter"
-                });
+            //this.FilterList.Add(
+            //  new FilterDescriptor()
+            //  {
+            //      Filter = null,
+            //      Name = "--- Filter Select ---"
+            //  });
+
+            //this.FilterList.Add(
+            //   new FilterDescriptor()
+            //   {
+            //       Filter = new EbitBasicFilter(),
+            //       Name = "EBIT Basic Filter"
+            //   });
+
+            //this.FilterList.Add(
+            //    new FilterDescriptor()
+            //    {
+            //        Filter = new EbitBasicFilter(),
+            //        Name = "EBIT 2 Basic Filter"
+            //    });
 
 
-            this.FilterList.Add(
-                new FilterDescriptor()
-                {
-                    Filter = new EbitBasicFilter(),
-                    Name = "EBIT 3 Basic Filter"
-                });
+            //this.FilterList.Add(
+            //    new FilterDescriptor()
+            //    {
+            //        Filter = new EbitBasicFilter(),
+            //        Name = "EBIT 3 Basic Filter"
+            //    });
 
         }
 
