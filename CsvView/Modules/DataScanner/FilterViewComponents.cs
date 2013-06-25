@@ -47,8 +47,8 @@ namespace IDSA.Modules.DataScanner
 
         public void InitTextBoxSettings()
         {
-            lowValue.Width = 30;
-            highValue.Width = 30;
+            lowValue.Width = 60;
+            highValue.Width = 60;
         }
 
         public void InitBtnSettings()

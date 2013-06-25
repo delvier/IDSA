@@ -130,6 +130,8 @@ namespace IDSA.Views
         {
             dgv = new DataGridView();
             dgvPanel.Controls.Add(dgv);
+            dgv.Width = dgv.Parent.Width;
+            dgv.Height = dgv.Parent.Height;
             //dgv.AutoResizeColumns();
             //dgv.AutoResizeRows();
         }
