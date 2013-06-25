@@ -37,6 +37,31 @@ namespace IDSA.Views
         }
 
         #region Init & Display Options
+        //Context menu , concept of favorite list introduce, just easy code
+        //             , need to seperate data, provide contextMenuProvider,
+        //             , contruct seperate favoriteListClass, and handle this 
+        //             , also provide flexible event to handle click on the menu 
+        //             , and refresh the view :)
+        private void TestProcedure_InitContexMenuForListBox()
+        {
+            ContextMenuStrip CmpBoxStripMenu = new ContextMenuStrip();
+            CmpBoxStripMenu.AutoSize = true;
+            
+            ToolStripMenuItem CmpBoxStripItem = new ToolStripMenuItem("Add To Favorite");
+            CmpBoxStripItem.AutoSize = true;
+            CmpBoxStripItem.Height = 15;
+            CmpBoxStripItem.Width = 120;
+            CmpBoxStripItem.Click += new EventHandler(delegate(Object o, EventArgs a)
+            {
+                Company _tmpCmp = (Company)CompanyBox.SelectedItem;
+                BoxMsg(string.Format("Company: {0} add to list...", _tmpCmp.FullName));
+            });
+
+            CmpBoxStripMenu.Items.Add(CmpBoxStripItem);
+            // bind to CompanyBox
+            CompanyBox.ContextMenuStrip = CmpBoxStripMenu;
+        }
+
         private void InitListBox()
         {
             CompanyBox.Sorted = true;
@@ -100,6 +125,7 @@ namespace IDSA.Views
             else
             {
                 this.InitListBox();
+                this.TestProcedure_InitContexMenuForListBox();
                 this.InitDropBoxs();
                 this.InitGridOptions();
             }
