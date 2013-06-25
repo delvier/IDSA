@@ -8,8 +8,8 @@ namespace IDSA.Modules.DataScanner
 {
     public interface IFilter
     {
-        int _lowValue { get; set; }
-        int _highValue { get; set; }
+        Int64 _lowValue { get; set; }
+        Int64 _highValue { get; set; }
         
         //filter action place.
         IList<Company> FilterAction(IList<Company> lst);

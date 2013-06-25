@@ -20,6 +20,8 @@ namespace IDSA.Presenters
         private readonly IUnitOfWork uow;
         private readonly FilterListProvider fprovider;
         private readonly DataScanerModule dsmodule;
+
+        private const int kMultiply = 1000;
         //cached data , easy to handle created once treat as db
         public DataScannerPresenter(DataScanner view)
         {
@@ -44,8 +46,8 @@ namespace IDSA.Presenters
                 if (!fcmp.filterCmbb.SelectedItem.Equals(null))
                 {
                     var filterToAdd = ((FilterDescriptor)fcmp.filterCmbb.SelectedItem).Filter;
-                    filterToAdd._highValue = int.Parse(fcmp.highValue.Text);
-                    filterToAdd._lowValue = int.Parse(fcmp.lowValue.Text);
+                    filterToAdd._highValue = (Int64.Parse(fcmp.highValue.Text)) * kMultiply ;
+                    filterToAdd._lowValue = (Int64.Parse(fcmp.lowValue.Text)) * kMultiply;
                     dsmodule.FilterAdd(filterToAdd);
                 }
             }

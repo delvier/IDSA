@@ -8,8 +8,8 @@ namespace IDSA.Modules.DataScanner
 {
     public abstract class BaseFilter : IFilter
     {
-        public int _lowValue {get; set;}
-        public int _highValue {get; set;}
+        public Int64 _lowValue {get; set;}
+        public Int64 _highValue { get; set; }
 
         public BaseFilter(int low, int high)
         {
