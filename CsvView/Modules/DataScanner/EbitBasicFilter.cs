@@ -14,7 +14,6 @@ namespace IDSA.Modules.DataScanner
 
         public EbitBasicFilter() : base()
         {
-            
         }
 
         public override IList<Company> FilterAction(IList<Company> lst)

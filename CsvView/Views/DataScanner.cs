@@ -57,8 +57,8 @@ namespace IDSA.Views
                 _activeFilterComponentsLst.Add(newFilterComponents); // remember filters.
 
 
-                newFilterComponents.filterCmbb.DataSource = _presenter.GetFilters(); //fCmbb settings copy
-                newFilterComponents.filterCmbb.DisplayMember = FilterSelectComboBox.DisplayMember;
+                //newFilterComponents.filterCmbb.DataSource = _presenter.GetFilters(); //fCmbb settings copy
+                //newFilterComponents.filterCmbb.DisplayMember = FilterSelectComboBox.DisplayMember;
                 
                 newFilterComponents.lowValue.Text = this.lowValue.Text; //txtBox settings copy.
                 newFilterComponents.highValue.Text = this.highValue.Text;

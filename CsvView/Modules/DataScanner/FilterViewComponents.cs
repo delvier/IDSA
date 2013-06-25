@@ -33,8 +33,16 @@ namespace IDSA.Modules.DataScanner
 
             InitTextBoxSettings();
             InitBtnSettings();
+            InitCmbBox();
 
             InitFilterComponentsList();
+        }
+
+        public void InitCmbBox()
+        {
+            var filprovider = new FilterListProvider();
+            filterCmbb.DataSource = filprovider.GetFilters();
+            filterCmbb.DisplayMember = "Name";
         }
 
         public void InitTextBoxSettings()
