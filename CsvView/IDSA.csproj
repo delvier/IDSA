@@ -93,6 +93,7 @@
     <Compile Include="Models\Repository\UnitOfWork.cs" />
     <Compile Include="Models\Utilities\MultiSortableBindingListView.cs" />
     <Compile Include="Models\Utilities\PropertyComparer.cs" />
+    <Compile Include="Modules\CachedListContainer\CompanyCacheDataContainer.cs" />
     <Compile Include="Modules\CachedListContainer\ICachedContainer.cs" />
     <Compile Include="Modules\DataCalculation\CalculationFormula.cs" />
     <Compile Include="Modules\DataCalculation\DataCalculation.cs" />
