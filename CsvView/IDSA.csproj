@@ -87,6 +87,7 @@
     <Compile Include="Models\DataBase\DatabaseInitializer.cs" />
     <Compile Include="Models\DataBase\ObservableListSource.cs" />
     <Compile Include="Models\DataBase\Report.cs" />
+    <Compile Include="Models\DataStruct\SortableCompany.cs" />
     <Compile Include="Models\Repository\OldRepository.cs" />
     <Compile Include="Models\Repository\Repository.cs" />
     <Compile Include="Models\Repository\UnitOfWork.cs" />
