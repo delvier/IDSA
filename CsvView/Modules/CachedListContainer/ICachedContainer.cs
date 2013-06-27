@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using IDSA.Models;
+using System.Collections;
 
 namespace IDSA.Modules.CachedListContainer
 {
@@ -11,51 +12,83 @@ namespace IDSA.Modules.CachedListContainer
 
     }
 
-    public class CompanyCachedContainer : ICollection<Company>
+    public class CacheDataContainer<T> : IList<T>, ICachedContainer
     {
-        public void Add(Company item)
+        private readonly IList<T> _cacheLst = new List<T>();
+        public CacheDataContainer(IList<T> cacheLst)
         {
-            throw new NotImplementedException();
+            this._cacheLst = cacheLst;
+        }
+        public int IndexOf(T item)
+        {
+            return _cacheLst.IndexOf(item);
+        }
+
+        public void Insert(int index, T item)
+        {
+            _cacheLst.Insert(index, item);
+        }
+
+        public void RemoveAt(int index)
+        {
+            _cacheLst.RemoveAt(index);
+        }
+
+        public T this[int index]
+        {
+            get
+            {
+                return _cacheLst[index];
+            }
+            set
+            {
+                _cacheLst[index] = value;
+            }
+        }
+
+        public void Add(T item)
+        {
+            _cacheLst.Add(item);
         }
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            _cacheLst.Clear();
         }
 
-        public bool Contains(Company item)
+        public bool Contains(T item)
         {
-            throw new NotImplementedException();
+            return _cacheLst.Contains(item);
         }
 
-        public void CopyTo(Company[] array, int arrayIndex)
+        public void CopyTo(T[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            _cacheLst.CopyTo(array, arrayIndex);
         }
 
         public int Count
         {
-            get { throw new NotImplementedException(); }
+            get { return _cacheLst.Count; }
         }
 
         public bool IsReadOnly
         {
-            get { throw new NotImplementedException(); }
+            get { return _cacheLst.IsReadOnly; }
         }
 
-        public bool Remove(Company item)
+        public bool Remove(T item)
         {
-            throw new NotImplementedException();
+            return _cacheLst.Remove(item);
         }
 
-        public IEnumerator<Company> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return _cacheLst.GetEnumerator();
         }
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return _cacheLst.GetEnumerator();
         }
     }
 
