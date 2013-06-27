@@ -5,16 +5,16 @@ using System.Text;
 using IDSA.Models;
 using System.Collections;
 
-namespace IDSA.Modules.CachedListContainer
+namespace IDSA.Modules.CachedDataContainer
 {
-    public interface ICachedContainer
+    public interface ICachedDataContainer
     {
 
     }
 
-    public class CacheDataContainer<T> : IList<T>, ICachedContainer
+    public class CacheDataContainer<T> : IList<T>, ICachedDataContainer
     {
-        private readonly IList<T> _cacheLst = new List<T>();
+        public IList<T> _cacheLst = new List<T>();
         public CacheDataContainer(IList<T> cacheLst)
         {
             this._cacheLst = cacheLst;
