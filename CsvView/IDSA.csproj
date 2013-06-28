@@ -99,7 +99,8 @@
     <Compile Include="Modules\DataCalculation\DataCalculation.cs" />
     <Compile Include="Modules\DataCalculation\ICalculationFormula.cs" />
     <Compile Include="Modules\DataCalculation\IDataCalculation.cs" />
-    <Compile Include="Modules\DataCalculation\ReportDataCaluclation.cs" />
+    <Compile Include="Modules\DataCalculation\ReportDataCalculation.cs" />
+    <Compile Include="Modules\DataCalculation\RzisBaseDataCaluclation.cs" />
     <Compile Include="Modules\DataCalculation\TvCalculationFormula.cs" />
     <Compile Include="Modules\DataScanner\BasicFilter.cs" />
     <Compile Include="Modules\DataScanner\DataScanerModule.cs" />

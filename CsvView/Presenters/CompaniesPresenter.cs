@@ -34,7 +34,7 @@ namespace IDSA.Presenters
             this.view = view;
             dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();
 
-            this._dataCalculationService = new ReportDataCaluclation();
+            this._dataCalculationService = new RzisBaseDataCaluclation();
             this.chartService = chartService;
             this.finDataViewMode = ViewModeType.Seperate;
 
@@ -168,7 +168,7 @@ namespace IDSA.Presenters
         }
         public void TvCalculationPerform(object sender, SelectedCmpReportsChangedEventArgs e)
         {
-            _terminalValue = ((ReportDataCaluclation)_dataCalculationService).CalculateTerminalValue(_cmpSelected.ShareNumbers);
+            _terminalValue = ((RzisBaseDataCaluclation)_dataCalculationService).CalculateTerminalValue(_cmpSelected.ShareNumbers);
             //needToCastTo ReportDataCalculation otherwise IDataCalculation is lack of procedure 'CaluclateTerminalValue'
         }
         public void SelectedCmpReportsCalucalte(object sender, EventArgs e)

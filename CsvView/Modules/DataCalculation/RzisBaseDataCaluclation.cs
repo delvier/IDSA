@@ -6,13 +6,13 @@ using IDSA.Models;
 
 namespace IDSA.Modules.DataCalculation
 {
-    class ReportDataCaluclation : DataCalculation<RzisBase>
+    class RzisBaseDataCaluclation : DataCalculation<RzisBase>
     {
-        public ReportDataCaluclation()
+        public RzisBaseDataCaluclation()
         {
         }
 
-        public ReportDataCaluclation(List<RzisBase> data)
+        public RzisBaseDataCaluclation(List<RzisBase> data)
             : base(data)
         {
         }
