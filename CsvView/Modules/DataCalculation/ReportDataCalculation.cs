@@ -41,8 +41,10 @@ namespace IDSA.Modules.DataCalculation
             {
                 if (ReferencePropetries.Any(p => p.Name == rprop.Name))
                 {
-                    //substract the prevRep.(rpror) -= curRep(rprop)
-                    //throw new NotImplementedException();
+                    Int64 prevPropValue = Int64.Parse(prevRep.GetType().GetProperty(rprop.Name).GetValue(prevRep, null).ToString());
+                    Int64 curPropValue = Int64.Parse(curRep.GetType().GetProperty(rprop.Name).GetValue(curRep, null).ToString());
+                    var valueToSet = prevPropValue - curPropValue;
+                    prevRep.GetType().GetProperty(rprop.Name).SetValue(prevRep, valueToSet, null);
                 }
             }
         }

@@ -46,9 +46,16 @@ namespace IDSA.Presenters
                 if (!fcmp.filterCmbb.SelectedItem.Equals(null))
                 {
                     var filterToAdd = ((FilterDescriptor)fcmp.filterCmbb.SelectedItem).Filter;
-                    filterToAdd._highValue = (Int64.Parse(fcmp.highValue.Text)) * kMultiply ;
-                    filterToAdd._lowValue = (Int64.Parse(fcmp.lowValue.Text)) * kMultiply;
-                    dsmodule.FilterAdd(filterToAdd);
+                    try
+                    {
+                        filterToAdd._highValue = (Int64.Parse(fcmp.highValue.Text)) * kMultiply;
+                        filterToAdd._lowValue = (Int64.Parse(fcmp.lowValue.Text)) * kMultiply;
+                        dsmodule.FilterAdd(filterToAdd);
+                    }
+                    catch (FormatException f)
+                    {
+                        view.MsgBox(string.Format("Invalid Input Values, {0}",f.Message));
+                    }
                 }
             }
         }

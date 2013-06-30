@@ -135,6 +135,11 @@ namespace IDSA.Views
             //dgv.AutoResizeColumns();
             //dgv.AutoResizeRows();
         }
+
+        internal void MsgBox(string p)
+        {
+            MessageBox.Show(p);
+        }
     }
 }
 
