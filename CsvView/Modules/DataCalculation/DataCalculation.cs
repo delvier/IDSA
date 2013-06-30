@@ -42,5 +42,7 @@ namespace IDSA.Modules.DataCalculation
         }
         #endregion
 
+        public abstract float CalculateTerminalValue(long shareNumbers);
+
     }
 }

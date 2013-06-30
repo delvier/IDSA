@@ -33,7 +33,7 @@ namespace IDSA.Modules.DataCalculation
             }
         }
 
-        public float CalculateTerminalValue(long shareNumbers)
+        public override float CalculateTerminalValue(long shareNumbers)
         {
             var tvCalculationFormula = new TvCalculationFormula(
                 Data.Take(4).Select(a => a.EBIT).ToList(),

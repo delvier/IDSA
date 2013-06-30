@@ -20,7 +20,8 @@ namespace IDSA.Presenters
         Companies view;
         private readonly IUnitOfWork dbModel;
         private readonly IChartService chartService;
-        private readonly IDataService<ICompany> _companyDataService;
+        private readonly IDataService<ICompany> _companyDataService; //to delete later on.
+        //private readonly 
         public IDataCalculation<RzisBase> _dataCalculationService { get; set; }
 
         //Cached Data - active operations on it. -> IDEA: Prepare seperate class for Cached Data ?
@@ -38,6 +39,7 @@ namespace IDSA.Presenters
             this._dataCalculationService = new RzisBaseDataCaluclation();
             this.chartService = chartService;
             this.finDataViewMode = ViewModeType.Seperate;
+            
 
             //delegateConstruct
             this.SelectedCmpReportsChangedEvent += this.SelectAllReports;
@@ -78,8 +80,6 @@ namespace IDSA.Presenters
         public IBindingList GetDbCompanies()
         {
             var cmpBindList = new BindingList<Company>();
-            //if (dbModel == null)
-            //    dbModel = ServiceLocator.Current.GetInstance<EFUnitOfWork>();
             dbModel.Load();
             cmpBindList = dbModel.Companies.GetAll();
             return cmpBindList;

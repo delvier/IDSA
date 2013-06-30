@@ -10,6 +10,7 @@ namespace IDSA.Modules.DataCalculation
 {
     public class ReportDataCalculation : DataCalculation<Report>
     {
+
         /* provide calculation to single quarter data, by default the reports are cumulative */
         public static IList<Report> CalculateToQurater(IList<Report> lst)
         {
@@ -49,10 +50,27 @@ namespace IDSA.Modules.DataCalculation
             }
         }
 
+        /* Calculation of terminal value based on external report list (must be sorted) */
+        public static float CalculateTerminalValue(long shareNumbers, IList<Report> repList)
+        {
+            var TV = new TvCalculationFormula(repList.Take(4).Select(a => a.EBIT).ToList(),
+                0,
+                0,
+                shareNumbers
+                );
+            return TV.Calculate();
+        }
+
         /* Calculate to Quarter on the default base.Data Report List */
         public override void CalculationPerform()
         {
            SetData(CalculateToQurater(this.Data));
         }
+
+        public override float CalculateTerminalValue(long shareNumbers)
+        {
+            return CalculateTerminalValue(shareNumbers, Data);
+        }
+
     }
 }
