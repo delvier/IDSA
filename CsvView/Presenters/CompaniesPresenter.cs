@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using IDSA.Modules.DataCalculation;
 using Microsoft.Practices.ServiceLocation;
 using IDSA.Modules.CachedDataContainer;
+using System.Reflection;
 
 namespace IDSA.Presenters
 {
@@ -21,7 +22,7 @@ namespace IDSA.Presenters
         private readonly IUnitOfWork dbModel;
         private readonly IChartService chartService;
         private readonly IDataService<ICompany> _companyDataService; //to delete later on.
-        //private readonly 
+        private readonly CompanyCacheDataContainer _companyCacheDataContainer;
         public IDataCalculation<RzisBase> _dataCalculationService { get; set; }
 
         //Cached Data - active operations on it. -> IDEA: Prepare seperate class for Cached Data ?
@@ -37,6 +38,8 @@ namespace IDSA.Presenters
             dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();
 
             this._dataCalculationService = new RzisBaseDataCaluclation();
+            this._companyCacheDataContainer = new CompanyCacheDataContainer(dbModel.Companies.GetAll());
+            _companyCacheDataContainer.SortReports();
             this.chartService = chartService;
             this.finDataViewMode = ViewModeType.Seperate;
             
@@ -79,9 +82,7 @@ namespace IDSA.Presenters
 
         public IBindingList GetDbCompanies()
         {
-            var cmpBindList = new BindingList<Company>();
-            dbModel.Load();
-            cmpBindList = dbModel.Companies.GetAll();
+            var cmpBindList = new BindingList<Company>(_companyCacheDataContainer.ToList());
             return cmpBindList;
         }
 
@@ -201,7 +202,6 @@ namespace IDSA.Presenters
             {
                 _cmpSelectedReportsList = _cmpSelectedReportsList.Take(numberToShow)
                                                                  .ToList<RzisBase>();
-                // how to force the type into <> _cmpSelectedReportsList.GetType().Name
             }
         }
         public void SelectReports(int takeNumber)
@@ -230,7 +230,6 @@ namespace IDSA.Presenters
             {
                 _cmpSelectedReportsList = GetBaseSelectCmpReports();
             }
-
         }
 
         public IList<RzisBase> GetBaseSelectCmpReports()
@@ -255,6 +254,13 @@ namespace IDSA.Presenters
                             .ToList<RzisBase>();
             else
                 return (new List<RzisBase>());
+        }
+
+        public static void SelectData(IList<Report> reports, PropertyInfo classProperty)
+        {
+            // TODO: START HERE.
+            //http://stackoverflow.com/questions/8990231/how-can-i-create-a-dynamic-select-on-an-ienumerablet-at-runtime
+            //reports.Select();
         }
 
         #endregion

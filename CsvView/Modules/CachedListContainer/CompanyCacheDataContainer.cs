@@ -9,6 +9,7 @@ namespace IDSA.Modules.CachedDataContainer
     public class CompanyCacheDataContainer : CacheDataContainer<Company>
     {
         public CompanyCacheDataContainer() : base() {}
+        public CompanyCacheDataContainer(IList<Company> lst) : base(lst) { }
 
         public void SortReports()
         {
