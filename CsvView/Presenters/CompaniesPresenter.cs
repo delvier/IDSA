@@ -11,6 +11,7 @@ using System.Data;
 using System.Windows.Forms;
 using IDSA.Modules.DataCalculation;
 using Microsoft.Practices.ServiceLocation;
+using IDSA.Modules.CachedDataContainer;
 
 namespace IDSA.Presenters
 {
@@ -322,6 +323,12 @@ namespace IDSA.Presenters
         #endregion
 
 
+
+        internal void testBtnClick()
+        {
+            CompanyCacheDataContainer.SortReports(_cmpSelected.Reports);
+            ReportDataCalculation.CalculateToQurater(_cmpSelected.Reports);
+        }
     }
 
     #region PresenterChangedEventArgs - Classes

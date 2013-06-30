@@ -24,7 +24,7 @@ namespace IDSA.Models
         int Volumen20 { get; set; } 
     }
 
-    public class Company : ICompany, ICloneable
+    public class Company : ICompany
     {
         public Company()
         {
@@ -66,21 +66,5 @@ namespace IDSA.Models
 
         public virtual ObservableListSource<Report> Reports { get; set; }
 
-        public Company Clone()
-        {
-            var clonObj = (Company)this.MemberwiseClone();
-            // cloning objects not so simple as I thought :)
-            //clonObj.Reports = null;
-            //foreach (Report rep in this.Reports)
-            //{
-            //    clonObj.Reports.Add(rep);
-            //}
-            return clonObj;
-        }
-
-        object ICloneable.Clone()
-        {
-            return this.Clone();
-        }
     }
 }

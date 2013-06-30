@@ -28,7 +28,7 @@ namespace IDSA.Models
         long NetParentProfit { get; set; }
     }
 
-    public class Report : IReport, ICloneable
+    public class Report : IReport
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -61,14 +61,5 @@ namespace IDSA.Models
 
         public virtual Company Company { get; set; }
 
-        public Report Clone()
-        {
-            return (Report)this.MemberwiseClone();
-        }
-
-        object ICloneable.Clone()
-        {
-            return this.Clone();
-        }
     }
 }

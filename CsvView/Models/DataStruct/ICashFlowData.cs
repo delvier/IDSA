@@ -7,12 +7,12 @@ namespace IDSA.Models.DataStruct
 {
     interface ICashFlowData
     {
-            long OperatingActivitiesCF {get;set;}                 //58 //Przepływy pieniężne z działaności operacyjnej
-            long Depreciation {get;set;} //?                          //59 //Amortyzacja.
-            long ReceivablesChange {get;set;}       //60 //Zmiana stanu należności ?
+            long OperatingActivitiesCF {get;set;}           //58 //Przepływy pieniężne z działaności operacyjnej
+            long Depreciation {get;set;} //?                //59 //Amortyzacja.
+            long ReceivablesChange {get;set;}               //60 //Zmiana stanu należności ?
             long ObligationsStateChange { get; set; }       //61 //Zmiana stanu zobowiązań ?
-            long ReserveAndOtherChange {get;set;}   //62 //Zmiana rezerw i pozostałe ?
-            long WorkingCapital {get;set;}          //63 //Kapitał obrotowy ?
+            long ReserveAndOtherChange {get;set;}           //62 //Zmiana rezerw i pozostałe ?
+            long WorkingCapital {get;set;}                  //63 //Kapitał obrotowy ?
             
             //ColumnBL,   //64 ? hm dziura...
 

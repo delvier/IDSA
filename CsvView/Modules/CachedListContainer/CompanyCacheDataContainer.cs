@@ -12,12 +12,19 @@ namespace IDSA.Modules.CachedDataContainer
 
         public void SortReports()
         {
-            foreach (var cmp in _cacheLst)
-            {
-                cmp.Reports
-                    .OrderBy(r => r.Year)
-                    .ThenByDescending(r => r.Quarter);
-            }
+            _cacheLst.ToList().ForEach(c => SortReports(c.Reports));
+            //foreach (var cmp in _cacheLst)
+            //{
+            //    cmp.Reports
+            //        .OrderByDescending(r => r.Year) //2013-2012..
+            //        .ThenByDescending(r => r.Quarter);//Q1-Q4-Q3-Q2...
+            //}
+        }
+
+        public static void SortReports(IList<Report> rep)
+        {
+            rep.OrderByDescending(r => r.Year) //2013-2012..
+                .ThenByDescending(r => r.Quarter);//Q1-Q4-Q3-Q2...
         }
 
     }
