@@ -17,7 +17,6 @@ namespace IDSA.Models
         public DbSet<Company> Companies { get; set; }
         public DbSet<Report> Reports { get; set; }
         public DbSet<FinancialData> FinData { get; set; }
-        //TODO: Add new tables to DB
         
         //Add new functionalities, another way of migrations
         //protected override void OnModelCreating(DbModelBuilder modelBuilder)

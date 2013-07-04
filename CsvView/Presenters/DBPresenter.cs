@@ -12,6 +12,7 @@ using System.Data.Entity;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using IDSA.Models.DataStruct;
 
 namespace IDSA.Presenters
 {
@@ -51,14 +52,14 @@ namespace IDSA.Presenters
 
         private Company ConvertToCompany(string[] item)
         {
-            string[] cos = item[(int)CsvEnums.company.Date].Split('-');
+            string[] companySplitDate = item[(int)CsvEnums.company.Date].Split('-');
             return new Company()
             {
                 Id = int.Parse(item[(int)CsvEnums.company.Id]),
                 Name = item[(int)CsvEnums.company.Name],
                 Shortcut = item[(int)CsvEnums.company.Shortcut],
                 SharePrice = float.Parse(item[(int)CsvEnums.company.SharePrice], CultureInfo.InvariantCulture),
-                Date = new DateTime(int.Parse(cos[0]), int.Parse(cos[1]), int.Parse(cos[2])),
+                Date = new DateTime(int.Parse(companySplitDate[0]), int.Parse(companySplitDate[1]), int.Parse(companySplitDate[2])),
                 Description = item[(int)CsvEnums.company.Description],
                 Href = item[(int)CsvEnums.company.Href],
                 PhoneNumber = item[(int)CsvEnums.company.PhoneNumber],
@@ -100,6 +101,57 @@ namespace IDSA.Presenters
                 NetProfit = Int64.TryParse(item[(int)CsvEnums.financialData.NetProfit], out tempVal) ? tempVal : 0,
                 NetParentProfit = Int64.TryParse(item[(int)CsvEnums.financialData.NetParentProfit], out tempVal) ? tempVal : 0,
             };
+        }
+
+        private FinancialData ConvertToFinData(string[] item)
+        {
+            /* 
+             * mapping should be done by function like:
+             * getType(Object) ,  csvItemList[] , getCsvFor( -object-type )
+             * foreach (Object.propetriesList) -> match (property <-> csvEnumType) -> setThisPropertyValue -> return ready Obj.
+             */
+            var finData = new FinancialData()
+            {
+                Id = int.Parse(item[(int)BaseFinData.BaseFinDataKey.Id]),
+                CompanyId = int.Parse(item[(int)BaseFinData.BaseFinDataKey.CmpId]),
+                Year = int.Parse(item[(int)BaseFinData.BaseFinDataKey.Year]),
+                Quarter = int.Parse(item[(int)BaseFinData.BaseFinDataKey.Quater])
+            };
+
+            long tempVal;
+            var incStatmentFinData = new IncomeStatmentData()
+            {
+                Sales = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.Sales], out tempVal) ? tempVal : 0,
+                OwnSaleCosts = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.OwnSaleCosts], out tempVal) ? tempVal : 0,
+                SalesCost1 = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.SalesCost1], out tempVal) ? tempVal : 0,
+                SalesCost2 = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.SalesCost2], out tempVal) ? tempVal : 0,
+                EarningOnSales = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.EarningOnSales], out tempVal) ? tempVal : 0,
+                OtherOperationalActivity1 = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.OtherOperationalActivity1], out tempVal) ? tempVal : 0,
+                OtherOperationalActivity2 = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.OtherOperationalActivity2], out tempVal) ? tempVal : 0,
+                EBIT = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.EBIT], out tempVal) ? tempVal : 0,
+                FinancialActivity1 = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.FinancialActivity1], out tempVal) ? tempVal : 0,
+                FinancialActivity2 = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.FinancialAcvitity2], out tempVal) ? tempVal : 0,
+                OtherCostOrSales = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.OtherCostOrSales], out tempVal) ? tempVal : 0,
+                SalesOnEconomicActivity = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.SalesOnEconomicActivity], out tempVal) ? tempVal : 0,
+                ExceptionalOccurence = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.ExceptionalOccurence], out tempVal) ? tempVal : 0,
+                EarningBeforeTaxes = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.EarningBeforeTaxes], out tempVal) ? tempVal : 0,
+                DiscontinuedOperations = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.DiscontinuedOperations], out tempVal) ? tempVal : 0,
+                NetProfit = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.NetProfit], out tempVal) ? tempVal : 0,
+                NetParentProfit = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.NetParentProfit], out tempVal) ? tempVal : 0,
+                // all statment parsing go here.
+            };
+
+            var balanceFinData = new BalanceData()
+            {
+                // all balance parsing goes here.
+            };
+
+            var cashFlowFinData = new CashFlowData()
+            {
+                // all cashe flow data goes here.
+            };
+
+            return finData;
         }
 
         #endregion
