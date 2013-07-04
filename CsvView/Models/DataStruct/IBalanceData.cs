@@ -42,7 +42,7 @@ namespace IDSA.Models.DataStruct
 
         long ShortTermLiabilities { get; set; }     //34 //ZOBOWIĄZANIA KRÓTKOTERMINOWE
         long SuppliesAndServicesST { get; set; }    //35 //Z tytułu dostaw i usług
-        long LoandAndAdvancesST { get; set; }       //36 //!*Kredyty i pożyczki
+        long LoansAndAdvancesST { get; set; }       //36 //!*Kredyty i pożyczki
         //ColumnAK,   //37  ? 0
         long OtherFinancialST { get; set; }   //38 //!*Inne finanoswe zob. krótkoterminowe
         long OtherST { get; set; }           //39 //Inne zobowiązania krótkoterminowe.
@@ -85,7 +85,7 @@ namespace IDSA.Models.DataStruct
 
         public long ShortTermLiabilities { get; set; }     //34 //ZOBOWIĄZANIA KRÓTKOTERMINOWE
         public long SuppliesAndServicesST { get; set; }    //35 //Z tytułu dostaw i usług
-        public long LoandAndAdvancesST { get; set; }       //36 //!*Kredyty i pożyczki
+        public long LoansAndAdvancesST { get; set; }       //36 //!*Kredyty i pożyczki
         //ColumnAK,   //37  ? 0
         public long OtherFinancialST { get; set; }   //38 //!*Inne finanoswe zob. krótkoterminowe
         public long OtherST { get; set; }           //39 //Inne zobowiązania krótkoterminowe.

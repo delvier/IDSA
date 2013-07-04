@@ -138,18 +138,65 @@ namespace IDSA.Presenters
                 DiscontinuedOperations = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.DiscontinuedOperations], out tempVal) ? tempVal : 0,
                 NetProfit = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.NetProfit], out tempVal) ? tempVal : 0,
                 NetParentProfit = Int64.TryParse(item[(int)IncomeStatmentData.IncomeStatmentDataKey.NetParentProfit], out tempVal) ? tempVal : 0,
-                // all statment parsing go here.
             };
 
             var balanceFinData = new BalanceData()
             {
-                // all balance parsing goes here.
+                AssetsForSale     = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.AssetsForSale], out tempVal) ? tempVal : 0,
+                AssetsPrimary     = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.AssetsPrimary], out tempVal) ? tempVal : 0,
+                CapitalMasterFund = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.CapitalMasterFund], out tempVal) ? tempVal : 0,
+                CapitalreserveFund = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.CapitalreserveFund], out tempVal) ? tempVal : 0,
+                Cash = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.Cash], out tempVal) ? tempVal : 0,
+                CurrentAssets = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.CurrentAssets], out tempVal) ? tempVal : 0,
+                Equity = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.Equity], out tempVal) ? tempVal : 0,
+                FixedAssets = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.FixedAssets], out tempVal) ? tempVal : 0,
+                IntangibleAssets = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.IntangibleAssets], out tempVal) ? tempVal : 0,
+                Inventory = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.Inventory], out tempVal) ? tempVal : 0,
+                LiabilitiesPrimary = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.LiabilitiesPrimary], out tempVal) ? tempVal : 0,
+                LoansAndAdvancesST = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.LoansAndAdvancesST], out tempVal) ? tempVal : 0,
+                LoansAndAdvancesLT = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.LoansAndAdvancesLT], out tempVal) ? tempVal : 0,
+                LongTermInvestmentCurA = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.LongTermInvestmentCurA], out tempVal) ? tempVal : 0,
+                LongTermInvestmentFixA = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.LongTermInvestmentFixA], out tempVal) ? tempVal : 0,
+                LongTermLiabilities = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.LongTermLiabilities], out tempVal) ? tempVal : 0,
+                LongTermReceivablesCurA = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.LongTermReceivablesCurA], out tempVal) ? tempVal : 0,
+                LongTermReceivablesFixA = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.LongTermReceivablesFixA], out tempVal) ? tempVal : 0,
+                NonControllingInterests = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.NonControllingInterests], out tempVal) ? tempVal : 0,
+                OtherCurentAssets = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.OtherCurentAssets], out tempVal) ? tempVal : 0,
+                OtherFinancialLT = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.OtherFinancialLT], out tempVal) ? tempVal : 0,
+                OtherFinancialST = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.OtherFinancialST], out tempVal) ? tempVal : 0,
+                OtherFixedAssets = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.OtherFixedAssets], out tempVal) ? tempVal : 0,
+                OtherLT = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.OtherLT], out tempVal) ? tempVal : 0,
+                OtherST = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.OtherST], out tempVal) ? tempVal : 0,
+                ShareOfTreasuryStock = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.ShareOfTreasuryStock], out tempVal) ? tempVal : 0,
+                ShortTermLiabilities = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.ShortTermLiabilities], out tempVal) ? tempVal : 0,
+                SuppliesAndServicesLT = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.SuppliesAndServicesLT], out tempVal) ? tempVal : 0,
+                SuppliesAndServicesST = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.SuppliesAndServicesST], out tempVal) ? tempVal : 0,
+                TangibleFixedAssets = Int64.TryParse(item[(int)BalanceData.BalanceDataKey.TangibleFixedAssets], out tempVal) ? tempVal : 0,
             };
 
             var cashFlowFinData = new CashFlowData()
             {
-                // all cashe flow data goes here.
+                CapexIntangible = Int64.TryParse(item[(int)CashFlowData.CalshFlowDataKey.CapexIntangible], out tempVal) ? tempVal : 0,
+                Depreciation = Int64.TryParse(item[(int)CashFlowData.CalshFlowDataKey.Depreciation], out tempVal) ? tempVal : 0,
+                Dividend = Int64.TryParse(item[(int)CashFlowData.CalshFlowDataKey.Dividend], out tempVal) ? tempVal : 0,
+                FinancialCF = Int64.TryParse(item[(int)CashFlowData.CalshFlowDataKey.FinancialCF], out tempVal) ? tempVal : 0,
+                InvestmentCF = Int64.TryParse(item[(int)CashFlowData.CalshFlowDataKey.InvestmentCF], out tempVal) ? tempVal : 0,
+                LiabilitiesChange = Int64.TryParse(item[(int)CashFlowData.CalshFlowDataKey.LiabilitiesChange], out tempVal) ? tempVal : 0,
+                LoansAndAdvancesObtained = Int64.TryParse(item[(int)CashFlowData.CalshFlowDataKey.LoansAndAdvancesObtained], out tempVal) ? tempVal : 0,
+                LoansAndAdvancesRepayed = Int64.TryParse(item[(int)CashFlowData.CalshFlowDataKey.LoansAndAdvancesRepayed], out tempVal) ? tempVal : 0,
+                ObligationsStateChange = Int64.TryParse(item[(int)CashFlowData.CalshFlowDataKey.ObligationsStateChange], out tempVal) ? tempVal : 0,
+                OperatingActivitiesCF = Int64.TryParse(item[(int)CashFlowData.CalshFlowDataKey.OperatingActivitiesCF], out tempVal) ? tempVal : 0,
+                ReceivablesChange = Int64.TryParse(item[(int)CashFlowData.CalshFlowDataKey.ReceivablesChange], out tempVal) ? tempVal : 0,
+                ReserveAndOtherChange = Int64.TryParse(item[(int)CashFlowData.CalshFlowDataKey.ReserveAndOtherChange], out tempVal) ? tempVal : 0,
+                SharesIssue = Int64.TryParse(item[(int)CashFlowData.CalshFlowDataKey.SharesIssue], out tempVal) ? tempVal : 0,
+                TotalCF = Int64.TryParse(item[(int)CashFlowData.CalshFlowDataKey.TotalCF], out tempVal) ? tempVal : 0,
+                WorkingCapital = Int64.TryParse(item[(int)CashFlowData.CalshFlowDataKey.WorkingCapital], out tempVal) ? tempVal : 0,
             };
+
+            // bind all to obj.
+            finData.IncomeStatement = incStatmentFinData;
+            finData.Balance = balanceFinData;
+            finData.CashFlow = cashFlowFinData;
 
             return finData;
         }

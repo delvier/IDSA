@@ -51,7 +51,7 @@ namespace IDSA.Models.DataStruct
 
         public long TotalCF { get; set; }                    //73 !* PRZEPŁYWY PIENIĘŻNE RAZEM
 
-        enum CalshFlowDataKey
+        public enum CalshFlowDataKey
         {
             //RACHUNEK CASH FLOW
             OperatingActivitiesCF = 58,                 //58 //Przepływy pieniężne z działaności operacyjnej
