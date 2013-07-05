@@ -30,9 +30,9 @@ namespace IDSA
             kernel.Bind<IEventAggregator>().To<EventAggregator>().InSingletonScope();
             kernel.Bind<IViewProvider>().To<TabbedViewProvider>();
             kernel.Bind<IChartService>().To<ChartService>();
-            kernel.Bind<IUnitOfWork>().To<EFUnitOfWork>().InSingletonScope();
+            //kernel.Bind<IUnitOfWork>().To<EFUnitOfWork>().InSingletonScope();
             //Uncomment do Drop Database!!!!!!!!!!!
-            //kernel.Bind<IUnitOfWork>().To<EFUnitOfWork>().WithConstructorArgument("context", new Context(new DropCreateDatabaseAlways<Context>()));
+            kernel.Bind<IUnitOfWork>().To<EFUnitOfWork>().WithConstructorArgument("context", new Context(new DropCreateDatabaseAlways<Context>()));
             //, System.Threading.CancellationToken.None, TaskContinuationOptions.NotOnFaulted, TaskScheduler.FromCurrentSynchronizationContext()
 
             Application.Run(ServiceLocator.Current.GetInstance<Shell>());

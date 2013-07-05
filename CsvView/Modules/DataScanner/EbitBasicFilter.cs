@@ -21,7 +21,8 @@ namespace IDSA.Modules.DataScanner
             var _cmpsFilterOut = new List<Company>();
             foreach (Company cmp in lst)
             {
-                int matchNum = cmp.Reports.Count(r => r.EBIT > _lowValue && r.EBIT < _highValue);
+                int matchNum = cmp.Reports.Count(r => r.IncomeStatement.EBIT > _lowValue && 
+                                                      r.IncomeStatement.EBIT < _highValue);
                 if (matchNum != 0)
                     _cmpsFilterOut.Add(cmp); //this cannot be done on active collection :)
             }

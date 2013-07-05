@@ -216,12 +216,12 @@ namespace IDSA.Presenters
                                         {
                                             Year = r.Year,
                                             Quarter = r.Quarter,
-                                            Sales = r.Sales,
-                                            OwnSaleCosts = r.OwnSaleCosts,
-                                            EarningOnSales = r.EarningOnSales,
-                                            EBIT = r.EBIT,
-                                            EarningBeforeTaxes = r.EarningBeforeTaxes,
-                                            NetProfit = r.NetProfit
+                                            Sales = r.IncomeStatement.Sales,
+                                            OwnSaleCosts = r.IncomeStatement.OwnSaleCosts,
+                                            EarningOnSales = r.IncomeStatement.EarningOnSales,
+                                            EBIT = r.IncomeStatement.EBIT,
+                                            EarningBeforeTaxes = r.IncomeStatement.EarningBeforeTaxes,
+                                            NetProfit = r.IncomeStatement.NetProfit
                                         }
                                         )
                                         .ToList<RzisBase>();
@@ -243,12 +243,12 @@ namespace IDSA.Presenters
                             {
                                 Year = r.Year,
                                 Quarter = r.Quarter,
-                                Sales = r.Sales,
-                                OwnSaleCosts = r.OwnSaleCosts,
-                                EarningOnSales = r.EarningOnSales,
-                                EBIT = r.EBIT,
-                                EarningBeforeTaxes = r.EarningBeforeTaxes,
-                                NetProfit = r.NetProfit
+                                Sales = r.IncomeStatement.Sales,
+                                OwnSaleCosts = r.IncomeStatement.OwnSaleCosts,
+                                EarningOnSales = r.IncomeStatement.EarningOnSales,
+                                EBIT = r.IncomeStatement.EBIT,
+                                EarningBeforeTaxes = r.IncomeStatement.EarningBeforeTaxes,
+                                NetProfit = r.IncomeStatement.NetProfit
                             }
                             )
                             .ToList<RzisBase>();
@@ -333,7 +333,8 @@ namespace IDSA.Presenters
         internal void testBtnClick()
         {
             CompanyCacheDataContainer.SortReports(_cmpSelected.Reports);
-            ReportDataCalculation.CalculateToQurater(_cmpSelected.Reports);
+            //TODO: New ReportsDataCalculation (FinData - Oriented).
+            //ReportDataCalculation.CalculateToQurater(_cmpSelected.Reports);
         }
     }
 

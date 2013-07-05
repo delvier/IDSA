@@ -112,10 +112,16 @@ namespace IDSA.Presenters
              */
             var finData = new FinancialData()
             {
-                Id = int.Parse(item[(int)BaseFinData.BaseFinDataKey.Id]),
-                CompanyId = int.Parse(item[(int)BaseFinData.BaseFinDataKey.CmpId]),
-                Year = int.Parse(item[(int)BaseFinData.BaseFinDataKey.Year]),
-                Quarter = int.Parse(item[(int)BaseFinData.BaseFinDataKey.Quater])
+                Id = int.Parse(item[(int)CsvEnums.financialData.Id]),
+                CompanyId = int.Parse(item[(int)CsvEnums.financialData.CmpId]),
+                Year = int.Parse(item[(int)CsvEnums.financialData.Year]),
+                Quarter = int.Parse(item[(int)CsvEnums.financialData.Quater])
+                //TODO = {"The conversion of a datetime2 data type to a datetime data type resulted in an out-of-range value.\r\nThe statement has been terminated."}
+                //TODO : Investigate why this throw exception ? out of range int32 ?
+                //Id = int.Parse(item[(int)BaseFinData.BaseFinDataKey.Id]),
+                //CompanyId = int.Parse(item[(int)BaseFinData.BaseFinDataKey.CmpId]),
+                //Year = int.Parse(item[(int)BaseFinData.BaseFinDataKey.Year]),
+                //Quarter = int.Parse(item[(int)BaseFinData.BaseFinDataKey.Quater])
             };
 
             long tempVal;
@@ -263,22 +269,22 @@ namespace IDSA.Presenters
                 context.Configuration.AutoDetectChangesEnabled = false;
                 context.Configuration.ValidateOnSaveEnabled = false;
                 context.Companies.Load();
-                context.Reports.Load();
+                context.FinData.Load();
                 int num = 0;
 
-                int repAmount = context.Reports.Count();
+                int repAmount = context.FinData.Count();
                 if (repAmount + count > 16408)
                     count = 16408 - repAmount;
                 foreach (var entity in csv.ToList().Skip(repAmount).Take(count))
                 {
                     num++;
-                    context.Reports.Add(ConvertToReport(entity));
+                    context.FinData.Add(ConvertToFinData(entity));
                     if (num % 100 == 0)
                     {
                         context.SaveChanges();
                         for (int i = 0; i < 100; ++i)
                         {
-                            context.Entry(context.Reports.Local[0]).State = System.Data.EntityState.Detached;
+                            context.Entry(context.FinData.Local[0]).State = System.Data.EntityState.Detached;
                         }
                         if (num % 1000 == 0)
                         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using IDSA.Models.DataStruct;
 
 namespace IDSA.Models
 {
@@ -28,7 +29,7 @@ namespace IDSA.Models
     {
         public Company()
         {
-            this.Reports = new ObservableListSource<Report>();
+            this.Reports = new ObservableListSource<FinancialData>();
             //Date = DateTime.Now;
         }
 
@@ -64,7 +65,7 @@ namespace IDSA.Models
         //public string ColumnW { get; set; }
         //public string ColumnX { get; set; }
 
-        public virtual ObservableListSource<Report> Reports { get; set; }
+        public virtual ObservableListSource<FinancialData> Reports { get; set; }
 
     }
 }

@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms.DataVisualization.Charting;
+using IDSA.Models.DataStruct;
 
 namespace IDSA.Services
 {
     public interface IChartService
     {
-        void RecalcXValues(IList<Report> rep);
+        void RecalcXValues(IList<FinancialData> rep);
         void RecalcYValues(String headerName);
         IList<String> GetxValues();
         IList<Int64> GetyValues();
@@ -20,7 +21,7 @@ namespace IDSA.Services
     {
         private IList<String> xVals;
         private IList<Int64> yVals;
-        private IList<Report> rep;
+        private IList<FinancialData> rep;
         
         public ChartService()
         {
@@ -38,7 +39,7 @@ namespace IDSA.Services
             return yVals;
         }
 
-        public void RecalcXValues(IList<Report> rep)
+        public void RecalcXValues(IList<FinancialData> rep)
         {
             xVals.Clear();
             for (int i = 0; i < rep.Count; i++)
@@ -54,19 +55,19 @@ namespace IDSA.Services
             
             switch (headerName)
             {
-                case "Sales": yVals = rep.Select(r => r.Sales).ToList();
+                case "Sales": yVals = rep.Select(r => r.IncomeStatement.Sales).ToList();
                     break;
-                case "OwnSaleCosts": yVals = rep.Select(r => r.OwnSaleCosts).ToList();
+                case "OwnSaleCosts": yVals = rep.Select(r => r.IncomeStatement.OwnSaleCosts).ToList();
                     break;
-                case "EarningOnSales": yVals = rep.Select(r => r.EarningOnSales).ToList();
+                case "EarningOnSales": yVals = rep.Select(r => r.IncomeStatement.EarningOnSales).ToList();
                     break;
-                case "EarningBeforeTaxes": yVals = rep.Select(r => r.EarningBeforeTaxes).ToList();
+                case "EarningBeforeTaxes": yVals = rep.Select(r => r.IncomeStatement.EarningBeforeTaxes).ToList();
                     break;
-                case "EBIT": yVals = rep.Select(r => r.EBIT).ToList();
+                case "EBIT": yVals = rep.Select(r => r.IncomeStatement.EBIT).ToList();
                     break;
-                case "NetProfit": yVals = rep.Select(r => r.NetProfit).ToList();
+                case "NetProfit": yVals = rep.Select(r => r.IncomeStatement.NetProfit).ToList();
                     break;
-                default: yVals = rep.Select(r => r.Sales).ToList();
+                default: yVals = rep.Select(r => r.IncomeStatement.Sales).ToList();
                     break;
             }
         }
