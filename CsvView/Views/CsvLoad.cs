@@ -107,11 +107,11 @@ namespace IDSA
             }
             else if (presenter.dataType == CsvEnums.DataType.Financial)
             {
-                csvTask = Task.Factory.StartNew(() =>
-                    presenter.AddReport(presenter.GetCsvData().ToList()),
-                    System.Threading.CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext()
-                );
-                csvTask.ContinueWith((o) => presenter.GetCsvData().Dispose());    
+                //csvTask = Task.Factory.StartNew(() =>
+                //    presenter.AddReport(presenter.GetCsvData().ToList()),
+                //    System.Threading.CancellationToken.None, TaskCreationOptions.None, TaskScheduler.FromCurrentSynchronizationContext()
+                //);
+                //csvTask.ContinueWith((o) => presenter.GetCsvData().Dispose());    
             }
             
             //presenter.saveDb<datatype>();

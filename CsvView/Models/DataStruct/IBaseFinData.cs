@@ -21,12 +21,12 @@ namespace IDSA.Models.DataStruct
     {
         public enum BaseFinDataKey
         {
-            Id = 1,     //1
+            Id,         //1
             CmpId,      //2
             ColumnC,    //3
             Year,       //4
             Quater,     //5
-            FinancialStatmentDate = 74,        //74  Sytuacja finansowa na dzień.
+            FinancialStatmentDate = 73,        //74  Sytuacja finansowa na dzień.
             FinancialReportReleaseDate,        //75  Raport wydany dnia. (KEY FOR SORT!)
             ColumnBX                           //76  N/A
         }

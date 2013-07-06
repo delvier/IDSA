@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
+using IDSA.Models.DataStruct;
 
 namespace IDSA.Models.Repository
 {
@@ -108,16 +109,16 @@ namespace IDSA.Models.Repository
         }
     }
 
-    public class ReportRepository : EFRepository<Report>
+    public class ReportRepository : EFRepository<FinancialData>
     {
         public ReportRepository(DbContext context) : base(context) { }
 
-        public override Report GetById(int id)
+        public override FinancialData GetById(int id)
         {
-            return dbSet.SingleOrDefault(x => x.ReportId == id);
+            return dbSet.SingleOrDefault(x => x.Id == id);
         }
 
-        public override void Add(Report report)
+        public override void Add(FinancialData report)
         {
             //TODO: Add using ReportComparer
             //if (dbSet.Any(r => r.CompanyId == report.CompanyId && r.Year == report.Year && r.Quarter == report.Quarter))    // TODO: Add comparer functions
@@ -127,12 +128,12 @@ namespace IDSA.Models.Repository
             base.Add(report);
         }
 
-        public override void Update(Report report)
+        public override void Update(FinancialData report)
         {
             using (var dbNew = new Context())
             {
-                Report temp = dbNew.Reports.Find(report.ReportId);
-                dbNew.Entry<Report>(temp).CurrentValues.SetValues(report);
+                FinancialData temp = dbNew.FinData.Find(report.Id);
+                dbNew.Entry<FinancialData>(temp).CurrentValues.SetValues(report);
                 dbNew.SaveChanges();
             }
         }

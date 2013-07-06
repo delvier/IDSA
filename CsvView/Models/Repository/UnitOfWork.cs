@@ -4,13 +4,14 @@ using Microsoft.Practices.ServiceLocation;
 using System;
 using System.Data.Entity;
 using System.Linq;
+using IDSA.Models.DataStruct;
 
 namespace IDSA.Models.Repository
 {
     public interface IUnitOfWork : IDisposable
     {
         IRepository<Company> Companies { get; }
-        IRepository<Report> Reports { get; }
+        IRepository<FinancialData> Reports { get; }
         void Commit();
         void Load();
         void Clean();
@@ -56,7 +57,7 @@ namespace IDSA.Models.Repository
             }
         }
 
-        public IRepository<Report> Reports
+        public IRepository<FinancialData> Reports
         {
             get
             {

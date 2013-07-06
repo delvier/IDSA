@@ -23,6 +23,7 @@ namespace IDSA.Presenters
         private IDbView view;
         private IUnitOfWork model;
         private IEventAggregator _eventAggregator;
+
         #endregion
 
         #region Ctors
@@ -49,7 +50,6 @@ namespace IDSA.Presenters
         #endregion
 
         #region Private Methods
-
         private Company ConvertToCompany(string[] item)
         {
             string[] companySplitDate = item[(int)CsvEnums.company.Date].Split('-');
@@ -59,7 +59,7 @@ namespace IDSA.Presenters
                 Name = item[(int)CsvEnums.company.Name],
                 Shortcut = item[(int)CsvEnums.company.Shortcut],
                 SharePrice = float.Parse(item[(int)CsvEnums.company.SharePrice], CultureInfo.InvariantCulture),
-                Date = new DateTime(int.Parse(companySplitDate[0]), int.Parse(companySplitDate[1]), int.Parse(companySplitDate[2])),
+                Date = stringToDateTime(item[(int)CsvEnums.company.Date]),
                 Description = item[(int)CsvEnums.company.Description],
                 Href = item[(int)CsvEnums.company.Href],
                 PhoneNumber = item[(int)CsvEnums.company.PhoneNumber],
@@ -112,16 +112,12 @@ namespace IDSA.Presenters
              */
             var finData = new FinancialData()
             {
-                Id = int.Parse(item[(int)CsvEnums.financialData.Id]),
-                CompanyId = int.Parse(item[(int)CsvEnums.financialData.CmpId]),
-                Year = int.Parse(item[(int)CsvEnums.financialData.Year]),
-                Quarter = int.Parse(item[(int)CsvEnums.financialData.Quater])
-                //TODO = {"The conversion of a datetime2 data type to a datetime data type resulted in an out-of-range value.\r\nThe statement has been terminated."}
-                //TODO : Investigate why this throw exception ? out of range int32 ?
-                //Id = int.Parse(item[(int)BaseFinData.BaseFinDataKey.Id]),
-                //CompanyId = int.Parse(item[(int)BaseFinData.BaseFinDataKey.CmpId]),
-                //Year = int.Parse(item[(int)BaseFinData.BaseFinDataKey.Year]),
-                //Quarter = int.Parse(item[(int)BaseFinData.BaseFinDataKey.Quater])
+                Id = int.Parse(item[(int)BaseFinData.BaseFinDataKey.Id]),
+                CompanyId = int.Parse(item[(int)BaseFinData.BaseFinDataKey.CmpId]),
+                Year = int.Parse(item[(int)BaseFinData.BaseFinDataKey.Year]),
+                Quarter = int.Parse(item[(int)BaseFinData.BaseFinDataKey.Quater]),
+                FinancialReportReleaseDate = stringToDateTime(item[(int)BaseFinData.BaseFinDataKey.FinancialReportReleaseDate]),
+                FinancialStatmentDate      = stringToDateTime(item[(int)BaseFinData.BaseFinDataKey.FinancialStatmentDate])
             };
 
             long tempVal;
@@ -211,6 +207,23 @@ namespace IDSA.Presenters
 
         #region Internal Methods
 
+        /* Assist during convertion from pure string to datetime obj. */
+        private DateTime stringToDateTime(string dtStr)
+        {
+            DateTime dt;
+
+            DateTime temp;
+            if (DateTime.TryParse(dtStr, out temp))
+            {
+                dt = temp;
+            }
+            else
+            {
+                dt = Convert.ToDateTime("01/01/2000");
+            }
+            return dt;
+        }
+
         internal BindingList<Company> GetAllCompanies()
         {
             return model.Companies.GetAll();
@@ -235,7 +248,6 @@ namespace IDSA.Presenters
                 context.Configuration.AutoDetectChangesEnabled = false;
                 context.Configuration.ValidateOnSaveEnabled = false;
                 context.Companies.Load();
-                context.Reports.Load();
                 int num = 0;
 
                 int compAmount = context.Companies.Count();

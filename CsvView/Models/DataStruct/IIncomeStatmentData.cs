@@ -29,7 +29,7 @@ namespace IDSA.Models.DataStruct
     {
         public enum IncomeStatmentDataKey
         {
-            Sales = 41,                //AO //RZiS //41
+            Sales = 40,                //AO //RZiS //41
             OwnSaleCosts,              //AP        //42
             SalesCost1,                //AQ - Sum. //43
             SalesCost2,                //AR        //44

@@ -33,19 +33,19 @@ namespace IDSA.Models.DataStruct
         //ColumnZ,    //26  ? 0
         long NonControllingInterests { get; set; }
 
-        long LongTermLiabilities { get; set; }   //28 //ZOBOWIĄZANIA DŁUGOTERMINOWE
-        long SuppliesAndServicesLT { get; set; }   //29 //Z tytułu dostaw i usług
-        long LoansAndAdvancesLT { get; set; }   //30 //!* Kredyty i pożyczki
+        long LongTermLiabilities { get; set; }      //28 //ZOBOWIĄZANIA DŁUGOTERMINOWE
+        long SuppliesAndServicesLT { get; set; }    //29 //Z tytułu dostaw i usług
+        long LoansAndAdvancesLT { get; set; }       //30 //!* Kredyty i pożyczki
         //ColumnAE,   //31  ? 0
-        long OtherFinancialLT { get; set; }     //32 //!* Inne finansowe zob. długoterminowe
-        long OtherLT { get; set; }            //33 //Inne zobowiązania długoterminowe
+        long OtherFinancialLT { get; set; }         //32 //!* Inne finansowe zob. długoterminowe
+        long OtherLT { get; set; }                  //33 //Inne zobowiązania długoterminowe
 
         long ShortTermLiabilities { get; set; }     //34 //ZOBOWIĄZANIA KRÓTKOTERMINOWE
         long SuppliesAndServicesST { get; set; }    //35 //Z tytułu dostaw i usług
         long LoansAndAdvancesST { get; set; }       //36 //!*Kredyty i pożyczki
         //ColumnAK,   //37  ? 0
-        long OtherFinancialST { get; set; }   //38 //!*Inne finanoswe zob. krótkoterminowe
-        long OtherST { get; set; }           //39 //Inne zobowiązania krótkoterminowe.
+        long OtherFinancialST { get; set; }         //38 //!*Inne finanoswe zob. krótkoterminowe
+        long OtherST { get; set; }                  //39 //Inne zobowiązania krótkoterminowe.
         //ColumnAN,   //40  ? 0
     }
     public class BalanceData : IBalanceData
@@ -76,23 +76,23 @@ namespace IDSA.Models.DataStruct
         //ColumnZ,    //26  ? 0
         public long NonControllingInterests { get; set; }
 
-        public long LongTermLiabilities { get; set; }   //28 //ZOBOWIĄZANIA DŁUGOTERMINOWE
-        public long SuppliesAndServicesLT { get; set; }   //29 //Z tytułu dostaw i usług
-        public long LoansAndAdvancesLT { get; set; }   //30 //!* Kredyty i pożyczki
+        public long LongTermLiabilities { get; set; }           //28 //ZOBOWIĄZANIA DŁUGOTERMINOWE
+        public long SuppliesAndServicesLT { get; set; }         //29 //Z tytułu dostaw i usług
+        public long LoansAndAdvancesLT { get; set; }            //30 //!* Kredyty i pożyczki
         //ColumnAE,   //31  ? 0
-        public long OtherFinancialLT { get; set; }     //32 //!* Inne finansowe zob. długoterminowe
-        public long OtherLT { get; set; }            //33 //Inne zobowiązania długoterminowe
+        public long OtherFinancialLT { get; set; }              //32 //!* Inne finansowe zob. długoterminowe
+        public long OtherLT { get; set; }                       //33 //Inne zobowiązania długoterminowe
 
-        public long ShortTermLiabilities { get; set; }     //34 //ZOBOWIĄZANIA KRÓTKOTERMINOWE
-        public long SuppliesAndServicesST { get; set; }    //35 //Z tytułu dostaw i usług
-        public long LoansAndAdvancesST { get; set; }       //36 //!*Kredyty i pożyczki
+        public long ShortTermLiabilities { get; set; }          //34 //ZOBOWIĄZANIA KRÓTKOTERMINOWE
+        public long SuppliesAndServicesST { get; set; }         //35 //Z tytułu dostaw i usług
+        public long LoansAndAdvancesST { get; set; }            //36 //!*Kredyty i pożyczki
         //ColumnAK,   //37  ? 0
-        public long OtherFinancialST { get; set; }   //38 //!*Inne finanoswe zob. krótkoterminowe
-        public long OtherST { get; set; }           //39 //Inne zobowiązania krótkoterminowe.
+        public long OtherFinancialST { get; set; }              //38 //!*Inne finanoswe zob. krótkoterminowe
+        public long OtherST { get; set; }                       //39 //Inne zobowiązania krótkoterminowe.
 
         public enum BalanceDataKey
         {
-            AssetsPrimary = 6,            //6  //AKTYWA OGOLEM - WIDOK (UKRYJ SZCZEGOLY)
+            AssetsPrimary = 5,            //6  //AKTYWA OGOLEM - WIDOK (UKRYJ SZCZEGOLY)
             LiabilitiesPrimary,           //7  //PASYWA OGOLEM - WIDOK (UKRYJ SZCZEGOLY)
 
             FixedAssets,                  //8  //AKTYWA TRWAŁE
