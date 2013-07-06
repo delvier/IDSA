@@ -7,19 +7,8 @@ using IDSA.Models;
 
 namespace IDSA.Modules.DataScanner
 {
-    public class ReportPropertiesFilter : BaseFilter
+    public class ReportPropertiesFilter : PropertyFilter
     {
-        private PropertyInfo _propertyInfo;
-
-        public ReportPropertiesFilter(PropertyInfo prop, int low, int high) : base(low, high)
-        {
-            this._propertyInfo = prop;
-        }
-
-        public ReportPropertiesFilter() : base()
-        {
-        }
-
         public override IList<Company> FilterAction(IList<Company> lst)
         {
             var _cmpsFilterOut = new List<Company>();

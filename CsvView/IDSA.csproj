@@ -103,13 +103,15 @@
     <Compile Include="Modules\DataCalculation\RzisBaseDataCaluclation.cs" />
     <Compile Include="Modules\DataCalculation\TvCalculationFormula.cs" />
     <Compile Include="Modules\DataScanner\BasicFilter.cs" />
+    <Compile Include="Modules\DataScanner\BasicPropertyFilter.cs" />
     <Compile Include="Modules\DataScanner\DataScanerModule.cs" />
-    <Compile Include="Modules\DataScanner\EbitBasicFilter.cs" />
     <Compile Include="Modules\DataScanner\FilterListProvider.cs" />
     <Compile Include="Modules\DataScanner\FilterDescriptor.cs" />
     <Compile Include="Modules\DataScanner\FilterViewComponents.cs" />
     <Compile Include="Modules\DataScanner\IDataScanerModule.cs" />
     <Compile Include="Modules\DataScanner\IFilter.cs" />
+    <Compile Include="Modules\DataScanner\IncomeStatmentPropertiesFilter.cs" />
+    <Compile Include="Modules\DataScanner\PropertyFilter.cs" />
     <Compile Include="Modules\DataScanner\ReportPropertiesFilter.cs" />
     <Compile Include="Presenters\DataFromHtmlPresenter.cs" />
     <Compile Include="Presenters\DataScannerPresenter.cs" />
