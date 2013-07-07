@@ -9,11 +9,24 @@ namespace IDSA.Modules.DataScanner
 {
     public class BasicPropertyFilter : PropertyFilter
     {
+
+        /*
+         * Constructors
+         */
+        #region Constructors
+
         public BasicPropertyFilter()
             : base() { }
 
         public BasicPropertyFilter(PropertyInfo property, Type filterType, int low, int high)
             : base(property, filterType, low, high) { }
+
+        #endregion
+
+        /* 
+         * Public Methods
+         */
+        #region Public Methods
 
         public override IList<Company> FilterAction(IList<Company> lst)
         {
@@ -31,11 +44,29 @@ namespace IDSA.Modules.DataScanner
             return _cmpsFilterOut;
         }
 
+        public override Type GetTypeClassFilterProperty()
+        {
+            return _classProperty;
+        }
+
+        public override PropertyInfo GetFilterProperty()
+        {
+            return _propertyInfo;
+        }
+
+        #endregion
+
+
+        /* 
+         * Internal Methods 
+         */
+        #region Internal Methods
+
         internal string RtrnNtestedClassPropertyValue(object multiLayerObj, Type firstLevelType, PropertyInfo lookingProperty)
         {
-            var myProp       = RtrnObjPropertyInfo(multiLayerObj, firstLevelType);
-            var nestedObj    = RtrnObjPropVal(multiLayerObj, myProp);
-            var searchValue  = nestedObj.GetType().GetProperty(lookingProperty.Name)
+            var myProp = RtrnObjPropertyInfo(multiLayerObj, firstLevelType);
+            var nestedObj = RtrnObjPropVal(multiLayerObj, myProp);
+            var searchValue = nestedObj.GetType().GetProperty(lookingProperty.Name)
                                         .GetValue(nestedObj, null).ToString();
             return searchValue;
         }
@@ -49,6 +80,11 @@ namespace IDSA.Modules.DataScanner
         {
             return obj.GetType().GetProperty(prop.Name).GetValue(obj, null);
         }
+
+        #endregion
+        
+
+       
     }
 }
 

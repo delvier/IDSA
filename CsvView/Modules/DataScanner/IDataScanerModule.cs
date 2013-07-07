@@ -13,6 +13,9 @@ namespace IDSA.Modules.DataScanner
         //main scan function which will applay all filters on the curent data.
         void Scan();
 
+        //select only filtered indexes.
+        void SelectProperProperties();
+
         //filter all aplay.
         void FilterApplay(IFilter filtr);
         

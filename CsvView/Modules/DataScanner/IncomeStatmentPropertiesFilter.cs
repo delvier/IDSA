@@ -20,6 +20,16 @@ namespace IDSA.Modules.DataScanner
         {
             throw new NotImplementedException();
         }
+
+        public override Type GetTypeClassFilterProperty()
+        {
+            return _classProperty;
+        }
+
+        public override PropertyInfo GetFilterProperty()
+        {
+            return _propertyInfo;
+        }
     }
   
 }

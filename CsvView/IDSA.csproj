@@ -112,7 +112,6 @@
     <Compile Include="Modules\DataScanner\IFilter.cs" />
     <Compile Include="Modules\DataScanner\IncomeStatmentPropertiesFilter.cs" />
     <Compile Include="Modules\DataScanner\PropertyFilter.cs" />
-    <Compile Include="Modules\DataScanner\ReportPropertiesFilter.cs" />
     <Compile Include="Presenters\DataFromHtmlPresenter.cs" />
     <Compile Include="Presenters\DataScannerPresenter.cs" />
     <Compile Include="Presenters\CsvLoadPresenter.cs" />

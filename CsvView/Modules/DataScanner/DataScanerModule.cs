@@ -42,6 +42,16 @@ namespace IDSA.Modules.DataScanner
             }
         }
 
+        public void SelectProperProperties()
+        {
+            // TODO: StartHere. !
+            _filterData.Select(c => new
+            {
+                
+            }).ToList();
+            // get all properties filters and class.
+        }
+
         public void FilterApplay(IFilter filter)
         {
             _filterData = filter.FilterAction(_filterData);
@@ -63,6 +73,8 @@ namespace IDSA.Modules.DataScanner
         }
 
         #endregion
+
+
 
     }
 }
