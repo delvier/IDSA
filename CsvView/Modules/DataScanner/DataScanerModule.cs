@@ -13,7 +13,7 @@ namespace IDSA.Modules.DataScanner
         private IList<IFilter> FilterList { get; set; }
         private IList<Company> _cmpList { get; set; }
         private IList<Company> _filterData { get; set; }
-        
+
         #endregion
 
         #region Ctors
@@ -36,20 +36,30 @@ namespace IDSA.Modules.DataScanner
         public void Scan()
         {
             _filterData = _cmpList;
-            foreach (IFilter filter in FilterList)
-            {
-                this.FilterApplay(filter);
-            }
+            FilterList.ToList<IFilter>().ForEach(f => FilterApplay(f));
+            /** DebugMode **/
+            SelectProperProperties();
         }
 
         public void SelectProperProperties()
         {
-            // TODO: StartHere. !
-            _filterData.Select(c => new
-            {
-                
-            }).ToList();
-            // get all properties filters and class.
+            /* get all data from filter list */
+            var filteredInfo = FilterList.Select(f => new
+                                                {
+                                                    classInfo = f.GetTypeClassFilterProperty(),
+                                                    propertyInfo = f.GetFilterProperty()
+                                                }).ToList();
+
+            // TODO: Implement dynamic selection by propertyInfo / ClassType to dig into... !
+            var test = _filterData.Select(c => new
+                               {
+                                    name = c.Name,
+                                    shareNumbers = c.ShareNumbers,
+                                    sharePrice = c.SharePrice,
+                                    netProfit = c.Reports.First().IncomeStatement.NetProfit,
+                                    fixedAssets = c.Reports.First().Balance.FixedAssets
+
+                                }).ToList();
         }
 
         public void FilterApplay(IFilter filter)
