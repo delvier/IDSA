@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using IDSA.Models;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Collections;
 
 namespace IDSA.Modules.DataScanner
 {
@@ -37,29 +40,24 @@ namespace IDSA.Modules.DataScanner
         {
             _filterData = _cmpList;
             FilterList.ToList<IFilter>().ForEach(f => FilterApplay(f));
-            /** DebugMode **/
-            SelectProperProperties();
         }
 
-        public void SelectProperProperties()
+        /*
+         * Filter attribiutes describe the filtered company property & parentPropertyClass
+         */
+        private IList GerFilterAttribiutes()
         {
-            /* get all data from filter list */
-            var filteredInfo = FilterList.Select(f => new
-                                                {
-                                                    classInfo = f.GetTypeClassFilterProperty(),
-                                                    propertyInfo = f.GetFilterProperty()
-                                                }).ToList();
-
-            // TODO: Implement dynamic selection by propertyInfo / ClassType to dig into... !
-            var test = _filterData.Select(c => new
-                               {
-                                    name = c.Name,
-                                    shareNumbers = c.ShareNumbers,
-                                    sharePrice = c.SharePrice,
-                                    netProfit = c.Reports.First().IncomeStatement.NetProfit,
-                                    fixedAssets = c.Reports.First().Balance.FixedAssets
-
-                                }).ToList();
+            return FilterList.Select(f => new FilterAttribute
+            {
+                ParentPropertyClass = f.GetTypeClassFilterProperty(),
+                ChildProperty = f.GetFilterProperty()
+            }).ToList<FilterAttribute>();
+        }
+        
+        private class FilterAttribute
+        {
+            public Type ParentPropertyClass { get; set; }
+            public PropertyInfo ChildProperty { get; set; }
         }
 
         public void FilterApplay(IFilter filter)
