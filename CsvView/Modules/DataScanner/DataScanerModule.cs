@@ -16,6 +16,7 @@ namespace IDSA.Modules.DataScanner
         private IList<IFilter> FilterList { get; set; }
         private IList<Company> _cmpList { get; set; }
         private IList<Company> _filterData { get; set; }
+        private IList<Object>  _slectedPropertiesResult { get; set; }
 
         #endregion
 
@@ -36,16 +37,48 @@ namespace IDSA.Modules.DataScanner
             return _filterData;
         }
 
+        public IList<Object> GetSelectedResult()
+        {
+            return _slectedPropertiesResult;
+        }
+
         public void Scan()
         {
             _filterData = _cmpList;
             FilterList.ToList<IFilter>().ForEach(f => FilterApplay(f));
+
+            SelectResultProperties();
+        }
+
+
+        public void SelectResultProperties()
+        {
+            IList<FilterAttribute> filterAttributes = GetFilterAttribiutes();
+            IList<Object> result = new List<Object>();
+            
+            foreach (Company company in _filterData)
+            {
+                var tempDictionary = new Dictionary<String, String>();
+                tempDictionary.Add("Company", company.Name);
+
+                foreach (var fa in filterAttributes)
+                {
+
+                    tempDictionary.Add(fa.ChildProperty.Name, company.Reports.Take(1).Select(r =>
+                                        BasicPropertyFilter.RtrnNtestedClassPropertyValue(r, fa.ParentPropertyClass, fa.ChildProperty))
+                                        .First());
+                }
+                result.Add(tempDictionary.ToList());
+                // add list attributes.
+            }
+            // TODO: Prepare well formated ILIST - from Dictionary ?
+            _slectedPropertiesResult = result;
         }
 
         /*
          * Filter attribiutes describe the filtered company property & parentPropertyClass
          */
-        private IList GerFilterAttribiutes()
+        private IList<FilterAttribute> GetFilterAttribiutes()
         {
             return FilterList.Select(f => new FilterAttribute
             {
@@ -81,8 +114,6 @@ namespace IDSA.Modules.DataScanner
         }
 
         #endregion
-
-
 
     }
 }

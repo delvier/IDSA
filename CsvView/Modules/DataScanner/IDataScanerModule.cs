@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 
 namespace IDSA.Modules.DataScanner
 {
@@ -14,7 +15,7 @@ namespace IDSA.Modules.DataScanner
         void Scan();
 
         //select only filtered indexes.
-        void SelectProperProperties();
+        void SelectResultProperties();
 
         //filter all aplay.
         void FilterApplay(IFilter filtr);
@@ -27,6 +28,9 @@ namespace IDSA.Modules.DataScanner
 
         //filter ClearAll
         void FilterClearAll();
+
+        //GetFilterAttributes
+        //IList GerFilterAttribiutes();
 
     }
 }

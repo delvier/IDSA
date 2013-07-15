@@ -65,9 +65,9 @@ namespace IDSA.Presenters
             dsmodule.Scan();
         }
 
-        public IList<Company> GetFilterData()
+        public IList<Object> GetFilterData()
         {
-            return dsmodule.GetResult();
+            return dsmodule.GetSelectedResult().ToList();
         }
 
         public void UpdateView()

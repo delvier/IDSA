@@ -39,7 +39,10 @@ namespace IDSA.Modules.DataScanner
                                     Int64.Parse(RtrnNtestedClassPropertyValue(r, _classProperty, _propertyInfo)) > _highValue
                                     );
                 if (matchNum != 0)
+                {
                     _cmpsFilterOut.Add(cmp); //this cannot be done on active collection :)
+                }
+                    
             }
             return _cmpsFilterOut;
         }
@@ -56,13 +59,12 @@ namespace IDSA.Modules.DataScanner
 
         #endregion
 
-
         /* 
          * Internal Methods 
          */
         #region Internal Methods
 
-        internal string RtrnNtestedClassPropertyValue(object multiLayerObj, Type firstLevelType, PropertyInfo lookingProperty)
+        public static string RtrnNtestedClassPropertyValue(object multiLayerObj, Type firstLevelType, PropertyInfo lookingProperty)
         {
             var myProp = RtrnObjPropertyInfo(multiLayerObj, firstLevelType);
             var nestedObj = RtrnObjPropVal(multiLayerObj, myProp);
@@ -71,12 +73,12 @@ namespace IDSA.Modules.DataScanner
             return searchValue;
         }
 
-        internal PropertyInfo RtrnObjPropertyInfo(object obj, Type typeInfo)
+        public static PropertyInfo RtrnObjPropertyInfo(object obj, Type typeInfo)
         {
             return obj.GetType().GetProperties().First(p => p.PropertyType.Name == typeInfo.Name);
         }
 
-        internal object RtrnObjPropVal(object obj, PropertyInfo prop)
+        public static object RtrnObjPropVal(object obj, PropertyInfo prop)
         {
             return obj.GetType().GetProperty(prop.Name).GetValue(obj, null);
         }
