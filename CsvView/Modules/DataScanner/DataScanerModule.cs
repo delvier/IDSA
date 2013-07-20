@@ -50,7 +50,6 @@ namespace IDSA.Modules.DataScanner
             SelectResultProperties();
         }
 
-
         public void SelectResultProperties()
         {
             IList<FilterAttribute> filterAttributes = GetFilterAttribiutes();
@@ -63,12 +62,12 @@ namespace IDSA.Modules.DataScanner
 
                 foreach (var fa in filterAttributes)
                 {
-
-                    tempDictionary.Add(fa.ChildProperty.Name, company.Reports.Take(1).Select(r =>
-                                        BasicPropertyFilter.RtrnNtestedClassPropertyValue(r, fa.ParentPropertyClass, fa.ChildProperty))
-                                        .First());
+                    tempDictionary.Add(fa.ChildProperty.Name, company.Reports.OrderByDescending(r=>r.FinancialReportReleaseDate)
+                                                                     .Take(1).Select(r => BasicPropertyFilter.RtrnNtestedClassPropertyValue(
+                                                                         r, fa.ParentPropertyClass, fa.ChildProperty))
+                                                                     .First());
                 }
-                result.Add(tempDictionary.ToList());
+                result.Add(tempDictionary.Values.ToList());
                 // add list attributes.
             }
             // TODO: Prepare well formated ILIST - from Dictionary ?

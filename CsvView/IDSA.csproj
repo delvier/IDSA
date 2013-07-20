@@ -72,6 +72,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataGridViewExtend.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Events.cs" />
     <Compile Include="Events\DatabaseUpdatedEvent.cs" />
     <Compile Include="Models\DataStruct\IBalanceData.cs" />
