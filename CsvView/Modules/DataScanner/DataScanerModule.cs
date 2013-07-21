@@ -6,54 +6,76 @@ using IDSA.Models;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Collections;
+using IDSA.Models.DataStruct;
+using IDSA.OldServiceLocator;
+using IDSA.Modules.CachedDataContainer;
 
 namespace IDSA.Modules.DataScanner
 {
+    /*
+     * Scanner Module provide scanning functionality through /Company/ (DataBase Object).
+     * Target is to be able to scan through all Company object properties with useage of different properties filter,
+     * 
+     * Actual Scanner provide scanning through all Reports properties.
+     */
     public class DataScanerModule : IDataScanerModule
     {
         #region Propetries.
 
         private IList<IFilter> FilterList { get; set; }
-        private IList<Company> _cmpList { get; set; }
+        private CompanyCacheDataContainer _cacheCmpList { get; set; }
         private IList<Company> _filterData { get; set; }
-        private IList<Object>  _slectedPropertiesResult { get; set; }
+        private IRawData  _selectedRawData { get; set; }
 
         #endregion
 
         #region Ctors
 
-        public DataScanerModule(IList<Company> Companies)
+        public DataScanerModule(IList<Company> Companies, IRawData rawDataProvider)
         {
-            this.FilterList = new List<IFilter>();
-            this._cmpList = Companies;
+            FilterList = new List<IFilter>();
+            this._cacheCmpList = new CompanyCacheDataContainer(Companies);
+            this._selectedRawData = rawDataProvider;
+            _cacheCmpList.SortReports();
         }
 
         #endregion
 
         #region PublicMethods
 
+        /*
+         * Main scanner activity
+         * Scan through company list provided in ctor, with usage of filter list,
+         * Each filter have applay metehod which is used by scaner to create result list.
+         */
+        public void Scan()
+        {
+            _selectedRawData.SelfClean();
+            _filterData = _cacheCmpList;
+            FilterList.ToList<IFilter>().ForEach(f => FilterApplay(f));
+            SelectResultProperties();
+        }
+
+        /*
+         * This full company result hall object, which is hard to display because it's contain to much data.
+         */
         public IList<Company> GetResult()
         {
             return _filterData;
         }
 
-        public IList<Object> GetSelectedResult()
+        /*
+         * Raw Result provide results with selected filtered properties only.
+         * format of this data is provide by IRawData <Header,Values>
+         */
+        public IRawData GetRawResult()
         {
-            return _slectedPropertiesResult;
-        }
-
-        public void Scan()
-        {
-            _filterData = _cmpList;
-            FilterList.ToList<IFilter>().ForEach(f => FilterApplay(f));
-
-            SelectResultProperties();
+            return _selectedRawData;
         }
 
         public void SelectResultProperties()
         {
             IList<FilterAttribute> filterAttributes = GetFilterAttribiutes();
-            IList<Object> result = new List<Object>();
             
             foreach (Company company in _filterData)
             {
@@ -67,11 +89,15 @@ namespace IDSA.Modules.DataScanner
                                                                          r, fa.ParentPropertyClass, fa.ChildProperty))
                                                                      .First());
                 }
-                result.Add(tempDictionary.Values.ToList());
-                // add list attributes.
+                /* fill RawData with Values */
+                _selectedRawData.Values.Add(tempDictionary.Values.ToList());
+
+                /* fill RawData Headers */
+                if (_selectedRawData.Headers.Count == 0)
+                {
+                    _selectedRawData.Headers = tempDictionary.Keys.ToList();
+                }
             }
-            // TODO: Prepare well formated ILIST - from Dictionary ?
-            _slectedPropertiesResult = result;
         }
 
         /*
@@ -86,6 +112,9 @@ namespace IDSA.Modules.DataScanner
             }).ToList<FilterAttribute>();
         }
         
+        /*
+         * Class used to local description of IFilter Type,PropertyInfo atributes.
+         */
         private class FilterAttribute
         {
             public Type ParentPropertyClass { get; set; }

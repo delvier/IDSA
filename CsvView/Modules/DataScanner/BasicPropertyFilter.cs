@@ -34,12 +34,14 @@ namespace IDSA.Modules.DataScanner
 
             foreach (Company cmp in lst)
             {
-                int matchNum = cmp.Reports.Count(r =>
-                                    Int64.Parse(RtrnNtestedClassPropertyValue(r, _classProperty, _propertyInfo)) > _lowValue &&
-                                    Int64.Parse(RtrnNtestedClassPropertyValue(r, _classProperty, _propertyInfo)) > _highValue
-                                    );
+                int matchNum = cmp.Reports.Take(1).Count(r =>
+                                            Int64.Parse(RtrnNtestedClassPropertyValue(r, _classProperty, _propertyInfo)) > _lowValue &&
+                                            Int64.Parse(RtrnNtestedClassPropertyValue(r, _classProperty, _propertyInfo)) < _highValue
+                                            );
+               //var debugValue = cmp.Reports.Take(1).Select(r => RtrnNtestedClassPropertyValue(r, _classProperty, _propertyInfo)).ToList();
                 if (matchNum != 0)
                 {
+                    var debugValue = cmp.Reports.Take(1).Select(r => RtrnNtestedClassPropertyValue(r, _classProperty, _propertyInfo)).ToList();
                     _cmpsFilterOut.Add(cmp); //this cannot be done on active collection :)
                 }
                     

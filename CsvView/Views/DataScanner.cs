@@ -11,6 +11,7 @@ using IDSA.Models.Repository;
 using Microsoft.Practices.Prism.Events;
 using IDSA.Events;
 using IDSA.Modules.DataScanner;
+using IDSA.Models.DataStruct;
 
 namespace IDSA.Views
 {
@@ -123,7 +124,7 @@ namespace IDSA.Views
             {
                 InitDgvSettings();
             }
-            dgv.DataSource = _presenter.GetFilterData();
+            dgv.DataSource = _presenter.GetFilterResultDataTable();
         }
 
         private void InitDgvSettings()
