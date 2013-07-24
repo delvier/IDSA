@@ -72,6 +72,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataGridViewExtend.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Events.cs" />
     <Compile Include="Events\DatabaseUpdatedEvent.cs" />
     <Compile Include="Models\DataStruct\IBalanceData.cs" />
@@ -79,6 +82,7 @@
     <Compile Include="Models\DataStruct\ICashFlowData.cs" />
     <Compile Include="Models\DataStruct\IFinancialData.cs" />
     <Compile Include="Models\DataStruct\IIncomeStatmentData.cs" />
+    <Compile Include="Models\DataStruct\IRawData.cs" />
     <Compile Include="Models\DataStruct\RzisBase.cs" />
     <Compile Include="Models\CsvModel.cs" />
     <Compile Include="Models\DataBase\Company.cs" />
@@ -103,14 +107,15 @@
     <Compile Include="Modules\DataCalculation\RzisBaseDataCaluclation.cs" />
     <Compile Include="Modules\DataCalculation\TvCalculationFormula.cs" />
     <Compile Include="Modules\DataScanner\BasicFilter.cs" />
+    <Compile Include="Modules\DataScanner\BasicPropertyFilter.cs" />
     <Compile Include="Modules\DataScanner\DataScanerModule.cs" />
-    <Compile Include="Modules\DataScanner\EbitBasicFilter.cs" />
     <Compile Include="Modules\DataScanner\FilterListProvider.cs" />
     <Compile Include="Modules\DataScanner\FilterDescriptor.cs" />
     <Compile Include="Modules\DataScanner\FilterViewComponents.cs" />
     <Compile Include="Modules\DataScanner\IDataScanerModule.cs" />
     <Compile Include="Modules\DataScanner\IFilter.cs" />
-    <Compile Include="Modules\DataScanner\ReportPropertiesFilter.cs" />
+    <Compile Include="Modules\DataScanner\IncomeStatmentPropertiesFilter.cs" />
+    <Compile Include="Modules\DataScanner\PropertyFilter.cs" />
     <Compile Include="Presenters\DataFromHtmlPresenter.cs" />
     <Compile Include="Presenters\DataScannerPresenter.cs" />
     <Compile Include="Presenters\CsvLoadPresenter.cs" />
@@ -227,9 +232,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\DataStruct\BalanceDataStruct\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

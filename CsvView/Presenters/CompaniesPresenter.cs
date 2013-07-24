@@ -40,6 +40,7 @@ namespace IDSA.Presenters
             this._dataCalculationService = new RzisBaseDataCaluclation();
             this._companyCacheDataContainer = new CompanyCacheDataContainer(dbModel.Companies.GetAll());
             _companyCacheDataContainer.SortReports();
+
             this.chartService = chartService;
             this.finDataViewMode = ViewModeType.Seperate;
             
@@ -332,7 +333,6 @@ namespace IDSA.Presenters
 
         internal void testBtnClick()
         {
-            CompanyCacheDataContainer.SortReports(_cmpSelected.Reports);
             //TODO: New ReportsDataCalculation (FinData - Oriented).
             //ReportDataCalculation.CalculateToQurater(_cmpSelected.Reports);
         }

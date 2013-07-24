@@ -7,6 +7,9 @@ using IDSA.Models.Repository;
 using IDSA.Modules.DataScanner;
 using Microsoft.Practices.ServiceLocation;
 using IDSA.Models;
+using IDSA.Models.DataStruct;
+using System.Data;
+using IDSA.Modules.CachedDataContainer;
 
 namespace IDSA.Presenters
 {
@@ -20,6 +23,7 @@ namespace IDSA.Presenters
         private readonly IUnitOfWork uow;
         private readonly FilterListProvider fprovider;
         private readonly DataScanerModule dsmodule;
+        private readonly CompanyCacheDataContainer cachedDataContainer;
 
         private const int kMultiply = 1000;
         //cached data , easy to handle created once treat as db
@@ -28,7 +32,7 @@ namespace IDSA.Presenters
             this.view = view;
             this.uow = ServiceLocator.Current.GetInstance<IUnitOfWork>();
             this.fprovider = new FilterListProvider();
-            this.dsmodule = new DataScanerModule(uow.Companies.GetAll());
+            this.dsmodule = new DataScanerModule(uow.Companies.GetAll(), ServiceLocator.Current.GetInstance<IRawData>());
         }
 
         public IList<FilterDescriptor> GetFilters()
@@ -63,11 +67,13 @@ namespace IDSA.Presenters
         public void Scan()
         {
             dsmodule.Scan();
-        }
-
-        public IList<Company> GetFilterData()
+        }     
+   
+        public DataTable GetFilterResultDataTable()
         {
-            return dsmodule.GetResult();
+            var gridProvider = new GridRawDataTableProvider("Filter Result", dsmodule.GetRawResult());
+            return gridProvider.GetRawDataTable();
+
         }
 
         public void UpdateView()

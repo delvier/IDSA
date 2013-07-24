@@ -8,6 +8,7 @@ using Ninject;
 using System;
 using System.Data.Entity;
 using System.Windows.Forms;
+using IDSA.Models.DataStruct;
 
 namespace IDSA
 {
@@ -34,6 +35,8 @@ namespace IDSA
             //Uncomment do Drop Database!!!!!!!!!!!
             //kernel.Bind<IUnitOfWork>().To<EFUnitOfWork>().WithConstructorArgument("context", new Context(new DropCreateDatabaseAlways<Context>()));
             //, System.Threading.CancellationToken.None, TaskContinuationOptions.NotOnFaulted, TaskScheduler.FromCurrentSynchronizationContext()
+
+            kernel.Bind<IRawData>().To<RawData>();
 
             Application.Run(ServiceLocator.Current.GetInstance<Shell>());
         }

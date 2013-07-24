@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using IDSA.Models;
 using System.Reflection;
+using IDSA.Models.DataStruct;
 
 namespace IDSA.Modules.DataScanner
 {
@@ -22,44 +23,43 @@ namespace IDSA.Modules.DataScanner
                  Name = "--- Filter Select ---"
              });
 
-            var rpropList = new Report().GetType().GetProperties().ToList();
-            foreach (PropertyInfo rpor in rpropList)
+            GenerateNullBreakLineFilter();
+            GenerateFilters<IncomeStatmentData>();
+
+            GenerateNullBreakLineFilter();
+            GenerateFilters<BalanceData>();
+
+            GenerateNullBreakLineFilter();
+            GenerateFilters<CashFlowData>();
+
+        }
+        private void GenerateNullBreakLineFilter()
+        {
+            this.FilterList.Add(
+            new FilterDescriptor()
             {
-                if (rpor.PropertyType == typeof(Int64))
+                Filter = null,
+                Name = "\n"
+            });
+        }
+
+        private void GenerateFilters<T>() where T : class
+        {
+            var propertyLst = typeof(T).GetProperties().ToList();
+
+            foreach (var property in propertyLst)
+            {
+                if (property.PropertyType == typeof(Int64))
                 {
                     this.FilterList.Add(
-                    new FilterDescriptor()
-                    {
-                        Filter = new ReportPropertiesFilter(rpor, 0, 0),
-                        Name = rpor.Name.ToString()
-                    }
-                );
+                        new FilterDescriptor()
+                            {
+                                Filter = new BasicPropertyFilter(property, typeof(T), 0, 0),
+                                Name = property.Name.ToString()
+                            }
+                        );
                 }
             }
-
-           
-            //this.FilterList.Add(
-            //   new FilterDescriptor()
-            //   {
-            //       Filter = new EbitBasicFilter(),
-            //       Name = "EBIT Basic Filter"
-            //   });
-
-            //this.FilterList.Add(
-            //    new FilterDescriptor()
-            //    {
-            //        Filter = new EbitBasicFilter(),
-            //        Name = "EBIT 2 Basic Filter"
-            //    });
-
-
-            //this.FilterList.Add(
-            //    new FilterDescriptor()
-            //    {
-            //        Filter = new EbitBasicFilter(),
-            //        Name = "EBIT 3 Basic Filter"
-            //    });
-
         }
 
         public IList<FilterDescriptor> GetFilters()

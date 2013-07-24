@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using IDSA.Models;
+using System.Reflection;
 
 namespace IDSA.Modules.DataScanner
 {
@@ -24,5 +25,8 @@ namespace IDSA.Modules.DataScanner
         }
 
         public abstract IList<Company> FilterAction(IList<Company> lst);
+
+        public abstract Type GetTypeClassFilterProperty();
+        public abstract PropertyInfo GetFilterProperty();
     }
 }
