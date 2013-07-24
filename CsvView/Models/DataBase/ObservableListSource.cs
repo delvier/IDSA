@@ -11,6 +11,12 @@ namespace IDSA.Models
         where T : class
     {
         private IBindingList _bindingList;
+        
+        public ObservableListSource() : base() { }
+
+        public ObservableListSource(ObservableCollection<T> observableColection) : base(observableColection)
+        {
+        }
 
         bool IListSource.ContainsListCollection { get { return false; } }
 

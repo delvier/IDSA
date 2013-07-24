@@ -40,6 +40,7 @@ namespace IDSA.Presenters
             this._dataCalculationService = new RzisBaseDataCaluclation();
             this._companyCacheDataContainer = new CompanyCacheDataContainer(dbModel.Companies.GetAll());
             _companyCacheDataContainer.SortReports();
+
             this.chartService = chartService;
             this.finDataViewMode = ViewModeType.Seperate;
             

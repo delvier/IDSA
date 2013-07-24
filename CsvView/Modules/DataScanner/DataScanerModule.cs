@@ -36,7 +36,8 @@ namespace IDSA.Modules.DataScanner
             FilterList = new List<IFilter>();
             this._cacheCmpList = new CompanyCacheDataContainer(Companies);
             this._selectedRawData = rawDataProvider;
-            _cacheCmpList.SortReports();
+            //TODO: we need to wait for event before sort.
+            //_cacheCmpList.SortReports();
         }
 
         #endregion
@@ -51,6 +52,7 @@ namespace IDSA.Modules.DataScanner
         public void Scan()
         {
             _selectedRawData.SelfClean();
+            _cacheCmpList.SortReports();
             _filterData = _cacheCmpList;
             FilterList.ToList<IFilter>().ForEach(f => FilterApplay(f));
             SelectResultProperties();
