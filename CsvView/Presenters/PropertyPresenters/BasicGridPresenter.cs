@@ -4,37 +4,49 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using IDSA.Views.PropertyView;
+using IDSA.Models.DataStruct;
+using IDSA.Models;
 
 namespace IDSA.Presenters.PropertyPresenters
 {
     public interface IBasicGridPresenter
     {
-        String GetTitleLabel();
+        String GetTitle();
         DataTable GetDataTable();
         void UpdateView();
     }
     public class BasicGridPresenter : IBasicGridPresenter
     {
         private IBasicGridView _view;
+        private String _title;
+        private DataTable _dataTable;
 
         public BasicGridPresenter(BasicGridView view)
         {
             this._view = view;
         }
 
-        public string GetTitleLabel()
+        public void SetTitle(String title)
         {
-            throw new NotImplementedException();
+            _title = title;
+        }
+        public string GetTitle()
+        {
+            return _title;
         }
 
+        public void SetDataTable(DataTable dataTable)
+        {
+            _dataTable = dataTable;
+        }
         public DataTable GetDataTable()
         {
-            throw new NotImplementedException();
+            return _dataTable;
         }
 
         public void UpdateView()
         {
-            this._view.UpdateLabaelName(GetTitleLabel());
+            this._view.UpdateLabaelName(GetTitle());
             this._view.UpdateBasicDataGrid(GetDataTable());
         }
     }

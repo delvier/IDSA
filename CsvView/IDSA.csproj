@@ -77,6 +77,7 @@
     </Compile>
     <Compile Include="Events.cs" />
     <Compile Include="Events\DatabaseUpdatedEvent.cs" />
+    <Compile Include="Models\DataStruct\GridRawDataTableProvider.cs" />
     <Compile Include="Models\DataStruct\IBalanceData.cs" />
     <Compile Include="Models\DataStruct\IBaseFinData.cs" />
     <Compile Include="Models\DataStruct\ICashFlowData.cs" />
@@ -122,11 +123,13 @@
     <Compile Include="Presenters\DBPresenter.cs" />
     <Compile Include="Presenters\CompaniesPresenter.cs" />
     <Compile Include="CsvEnums.cs" />
+    <Compile Include="Presenters\InternalTabTestPresenter.cs" />
     <Compile Include="Presenters\PropertyPresenters\BasicGridPresenter.cs" />
     <Compile Include="Services\ChartService.cs" />
     <Compile Include="Services\CompanyDataService.cs" />
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Events\DatabaseCreatedEvent.cs" />
+    <Compile Include="Views\FinancialInternalTabbed\FinancialDataInternalTabbedProvider.cs" />
     <Compile Include="Views\DataFromHtmlView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -165,6 +168,12 @@
     </Compile>
     <Compile Include="ServiceLocator.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\InternalTabTest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\InternalTabTest.Designer.cs">
+      <DependentUpon>InternalTabTest.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\PropertyViews\BasicGridView.cs">
       <SubType>UserControl</SubType>
@@ -211,6 +220,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\InternalTabTest.resx">
+      <DependentUpon>InternalTabTest.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\PropertyViews\BasicGridView.resx">
       <DependentUpon>BasicGridView.cs</DependentUpon>
     </EmbeddedResource>

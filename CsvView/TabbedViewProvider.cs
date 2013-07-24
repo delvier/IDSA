@@ -28,6 +28,15 @@ namespace IDSA
             lst.Add(
                 new ViewItemDescriptor()
                 {
+                    Header = "Internal tab test",
+                    //View = ServiceLocator.Instance.Resolve<DataFromHtmlView>()
+                    View = typeof(InternalTabTest)
+                }
+            );
+
+            lst.Add(
+                new ViewItemDescriptor()
+                {
                     Header = "DataScanner",
                     View = typeof(DataScanner)
                 }
@@ -61,7 +70,6 @@ namespace IDSA
                     View = typeof(DataFromHtmlView)
                 }
             );
-
 
             return lst;
         }

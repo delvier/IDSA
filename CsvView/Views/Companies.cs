@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using IDSA.Views.CompaniesInternal;
+using Microsoft.Practices.ServiceLocation;
 
 namespace IDSA.Views
 {
@@ -31,7 +33,7 @@ namespace IDSA.Views
             InitializeComponent();
         }
 
-        private void VCompany_Load(object sender, EventArgs e)
+        private void Companies_Load(object sender, EventArgs e)
         {
             _eventAggregator.GetEvent<DatabaseCreatedEvent>().Publish(true);
         }

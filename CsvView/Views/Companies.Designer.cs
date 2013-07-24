@@ -299,7 +299,7 @@
             this.Controls.Add(this.CompanyContainer);
             this.Name = "Companies";
             this.Size = new System.Drawing.Size(634, 701);
-            this.Load += new System.EventHandler(this.VCompany_Load);
+            this.Load += new System.EventHandler(this.Companies_Load);
             this.CompanyContainer.Panel1.ResumeLayout(false);
             this.CompanyContainer.Panel1.PerformLayout();
             this.CompanyContainer.Panel2.ResumeLayout(false);
