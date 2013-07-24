@@ -333,7 +333,6 @@ namespace IDSA.Presenters
 
         internal void testBtnClick()
         {
-            CompanyCacheDataContainer.SortReports(_cmpSelected.Reports);
             //TODO: New ReportsDataCalculation (FinData - Oriented).
             //ReportDataCalculation.CalculateToQurater(_cmpSelected.Reports);
         }

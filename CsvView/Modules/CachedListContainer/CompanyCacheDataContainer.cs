@@ -19,20 +19,12 @@ namespace IDSA.Modules.CachedDataContainer
             foreach (var cmp in _cacheLst)
             {
                 ObservableCollection<FinancialData> observableColection = 
-                                                cmp.Reports.OrderByDescending(r=>r.FinancialReportReleaseDate)
-                                                           .ToObservableCollection<FinancialData>();
+                    cmp.Reports.OrderByDescending(r=>r.FinancialReportReleaseDate)
+                               .ToObservableCollection<FinancialData>();
                 var sortedReports = new ObservableListSource<FinancialData>(observableColection);
-                cmp.Reports = sortedReports;
-                                
+                cmp.Reports = sortedReports;          
             }
         }
-
-        public static IList<FinancialData> SortReports(IList<FinancialData> rep)
-        {
-           return rep.OrderByDescending(r => r.Year) //2013-2012..
-                    .ThenByDescending(r => r.Quarter).ToList<FinancialData>();//Q1-Q4-Q3-Q2...
-        }
-
     }
 
     public static class CollectionExtensions
