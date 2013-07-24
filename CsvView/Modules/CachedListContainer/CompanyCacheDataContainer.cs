@@ -5,7 +5,6 @@ using System.Text;
 using IDSA.Models;
 using IDSA.Models.DataStruct;
 using System.Collections.ObjectModel;
-using System.Collections.Generic;
 
 namespace IDSA.Modules.CachedDataContainer
 {
@@ -29,7 +28,6 @@ namespace IDSA.Modules.CachedDataContainer
 
     public static class CollectionExtensions
     {
-
         public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> coll)
         {
             var c = new ObservableCollection<T>();
@@ -37,7 +35,5 @@ namespace IDSA.Modules.CachedDataContainer
                 c.Add(e);
             return c;
         }
-
     }
-
 }

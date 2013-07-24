@@ -122,6 +122,7 @@
     <Compile Include="Presenters\DBPresenter.cs" />
     <Compile Include="Presenters\CompaniesPresenter.cs" />
     <Compile Include="CsvEnums.cs" />
+    <Compile Include="Presenters\PropertyPresenters\BasicGridPresenter.cs" />
     <Compile Include="Services\ChartService.cs" />
     <Compile Include="Services\CompanyDataService.cs" />
     <Compile Include="Services\IDataService.cs" />
@@ -165,6 +166,12 @@
     <Compile Include="ServiceLocator.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\PropertyViews\BasicGridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PropertyViews\BasicGridView.Designer.cs">
+      <DependentUpon>BasicGridView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Shell.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -204,6 +211,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\PropertyViews\BasicGridView.resx">
+      <DependentUpon>BasicGridView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Shell.resx">
       <DependentUpon>Shell.cs</DependentUpon>
     </EmbeddedResource>

@@ -44,7 +44,6 @@ namespace IDSA.Presenters
             this.chartService = chartService;
             this.finDataViewMode = ViewModeType.Seperate;
             
-
             //delegateConstruct
             this.SelectedCmpReportsChangedEvent += this.SelectAllReports;
             this.SelectedCmpReportsChangedEvent += this.ReportsRecalculationIfNeeded;
