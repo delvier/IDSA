@@ -8,14 +8,20 @@ using System.Text;
 using System.Windows.Forms;
 using IDSA.Views.CompaniesInternal;
 using Microsoft.Practices.ServiceLocation;
+using IDSA.Presenters;
 
 namespace IDSA.Views
 {
     public partial class InternalTabTest : UserControl
     {
+        private InternalTabTestPresenter _presenter;
+
+
         public InternalTabTest()
         {
             InitializeComponent();
+
+            _presenter = new InternalTabTestPresenter(this);
 
             BuildInternalTabs(new FinancialDataInternalTabbedProvider(), internalTabContainer);
         }
@@ -30,6 +36,11 @@ namespace IDSA.Views
                 tp.Controls.Add(view);
                 tabContainer.TabPages.Add(tp);
             }
+        }
+
+        public void Message(String msg)
+        {
+            MessageBox.Show(msg);
         }
     }
 }

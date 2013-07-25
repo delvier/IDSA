@@ -20,6 +20,7 @@ namespace IDSA.Views.PropertyView
         private BasicGridPresenter _presenter;
         public BasicGridView()
         {
+            _presenter = new BasicGridPresenter(this);
             InitializeComponent();
         }
 

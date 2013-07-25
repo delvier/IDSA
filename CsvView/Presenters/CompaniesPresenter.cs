@@ -112,6 +112,11 @@ namespace IDSA.Presenters
             this.UpdatePanel2();
         }
 
+        public Company GetSelectedCompany()
+        {
+            return _cmpSelected;
+        }
+
         public void UpdatePanel2()
         {
             view.RefreshView_Panel2(_cmpSelected);

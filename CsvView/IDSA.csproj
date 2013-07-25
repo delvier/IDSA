@@ -76,7 +76,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Events.cs" />
-    <Compile Include="Events\DatabaseUpdatedEvent.cs" />
+    <Compile Include="Events\DbEvents\DatabaseUpdatedEvent.cs" />
+    <Compile Include="Events\MainEvents\CompanyChangeEvent.cs" />
     <Compile Include="Models\DataStruct\GridRawDataTableProvider.cs" />
     <Compile Include="Models\DataStruct\IBalanceData.cs" />
     <Compile Include="Models\DataStruct\IBaseFinData.cs" />
@@ -124,11 +125,11 @@
     <Compile Include="Presenters\CompaniesPresenter.cs" />
     <Compile Include="CsvEnums.cs" />
     <Compile Include="Presenters\InternalTabTestPresenter.cs" />
-    <Compile Include="Presenters\PropertyPresenters\BasicGridPresenter.cs" />
+    <Compile Include="Presenters\BasicViewsPresenters\BasicGridPresenter.cs" />
     <Compile Include="Services\ChartService.cs" />
     <Compile Include="Services\CompanyDataService.cs" />
     <Compile Include="Services\IDataService.cs" />
-    <Compile Include="Events\DatabaseCreatedEvent.cs" />
+    <Compile Include="Events\DbEvents\DatabaseCreatedEvent.cs" />
     <Compile Include="Views\FinancialInternalTabbed\FinancialDataInternalTabbedProvider.cs" />
     <Compile Include="Views\DataFromHtmlView.cs">
       <SubType>UserControl</SubType>
@@ -175,10 +176,10 @@
     <Compile Include="Views\InternalTabTest.Designer.cs">
       <DependentUpon>InternalTabTest.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\PropertyViews\BasicGridView.cs">
+    <Compile Include="Views\BasicViews\BasicGridView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\PropertyViews\BasicGridView.Designer.cs">
+    <Compile Include="Views\BasicViews\BasicGridView.Designer.cs">
       <DependentUpon>BasicGridView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Shell.cs">
@@ -223,7 +224,7 @@
     <EmbeddedResource Include="Views\InternalTabTest.resx">
       <DependentUpon>InternalTabTest.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\PropertyViews\BasicGridView.resx">
+    <EmbeddedResource Include="Views\BasicViews\BasicGridView.resx">
       <DependentUpon>BasicGridView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shell.resx">

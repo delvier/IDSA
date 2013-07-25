@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using IDSA.Views.CompaniesInternal;
 using Microsoft.Practices.ServiceLocation;
+using IDSA.Events.MainEvents;
 
 namespace IDSA.Views
 {
@@ -245,6 +246,7 @@ namespace IDSA.Views
             {
                 presenter.SetCmpSelected((Company)CompanyBox.SelectedItem);
                 presenter.RaiseSelectedCmpChange(this, new SelectedCmpReportsChangedEventArgs());
+                _eventAggregator.GetEvent<CompanyChangeEvent>().Publish(presenter.GetSelectedCompany());
             }
         }
 

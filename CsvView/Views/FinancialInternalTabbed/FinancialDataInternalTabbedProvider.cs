@@ -3,38 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using IDSA.Views.PropertyView;
+using IDSA.Models.DataStruct;
 
 namespace IDSA.Views.CompaniesInternal
 {
-    class FinancialDataInternalTabbedProvider : IViewProvider
+    class FinancialDataInternalTabbedProvider : IViewProvider<BasicGridViewItemDescriptor>
     {
         public EProjectionType ProjectionType
         {
             get { return EProjectionType.Tabbed; }
         }
 
-        public IEnumerable<ViewItemDescriptor> GetViews()
+        public IEnumerable<BasicGridViewItemDescriptor> GetViews()
         {
-            var lst = new List<ViewItemDescriptor>();
+            var lst = new List<BasicGridViewItemDescriptor>();
             lst.Add(
-                   new ViewItemDescriptor()
+                   new BasicGridViewItemDescriptor()
                    {
                        Header = "Bilans",
-                       View = typeof(BasicGridView)
+                       View = typeof(BasicGridView),
+                       GridDataType = typeof(IBalanceData)
                    });
 
             lst.Add(
-                   new ViewItemDescriptor()
+                   new BasicGridViewItemDescriptor()
                    {
                        Header = "RZiS",
-                       View = typeof(BasicGridView)
+                       View = typeof(BasicGridView),
+                       GridDataType = typeof(IIncomeStatmentData)
                    });
 
             lst.Add(
-                   new ViewItemDescriptor()
+                   new BasicGridViewItemDescriptor()
                    {
                        Header = "Cash Flow",
-                       View = typeof(BasicGridView)
+                       View = typeof(BasicGridView),
+                       GridDataType = typeof(ICashFlowData)
                    });
 
             return lst;
