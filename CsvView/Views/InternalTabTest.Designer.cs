@@ -30,20 +30,27 @@ namespace IDSA.Views
         /// </summary>
         private void InitializeComponent()
         {
+            this.internalTabContainer = new System.Windows.Forms.TabControl();
             this.SuspendLayout();
+            // 
+            // internalTabContainer
+            // 
+            this.internalTabContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.internalTabContainer.Location = new System.Drawing.Point(0, 0);
+            this.internalTabContainer.Name = "internalTabContainer";
+            this.internalTabContainer.SelectedIndex = 0;
+            this.internalTabContainer.Size = new System.Drawing.Size(334, 256);
+            this.internalTabContainer.TabIndex = 0;
             // 
             // InternalTabTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.internalTabContainer);
             this.Name = "InternalTabTest";
             this.Size = new System.Drawing.Size(334, 256);
             this.ResumeLayout(false);
 
-            // internal tab 
-            internalTabContainer = new TabControl();
-            internalTabContainer.Dock = DockStyle.Fill;
-            this.Controls.Add(internalTabContainer);
         }
 
         #endregion

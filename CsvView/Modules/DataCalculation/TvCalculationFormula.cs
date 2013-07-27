@@ -22,17 +22,27 @@ namespace IDSA.Modules.DataCalculation
         #endregion
 
         #region ctor
+        public TvCalculationFormula()
+        {
+
+        }
+
         public TvCalculationFormula(IList<long> Ebit4q, long Loans, long Cash, long ShareNumbers)
         {
             this.Ebit4q = Ebit4q;
             this.Loans = Loans;
             this.Cash = Cash;
-            this.NetDebt = this.Loans - this.Cash;
+            CalculateNetDebt();
             this.ShareNumbers = ShareNumbers;
         }
         #endregion
         
         #region public methods.
+        public void CalculateNetDebt ()
+        {
+            this.NetDebt = this.Loans - this.Cash;
+        }
+
         public override float Calculate()
         {
             var fcf = Ebit4q.Sum() * (1 - _taxRate); //cash flow to the firm.

@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using IDSA.Models;
 using System.Reflection;
 using IDSA.Models.DataStruct;
+using System;
 
 namespace IDSA.Modules.DataCalculation
 {
-    public class ReportDataCalculation : DataCalculation<Report>
+    class IncomeStatmentsDataCalculation : DataCalculation<IncomeStatmentData>
     {
 
         /* provide calculation to single quarter data, by default the reports are cumulative */
@@ -65,12 +65,13 @@ namespace IDSA.Modules.DataCalculation
         /* Calculate to Quarter on the default base.Data Report List */
         public override void CalculationPerform()
         {
-           SetData(CalculateToQurater(this.Data));
+           // SetData(CalculateToQurater(this.Data));
         }
 
         public override float CalculateTerminalValue(long shareNumbers)
         {
-            return CalculateTerminalValue(shareNumbers, Data);
+            return (float)1;
+            //return CalculateTerminalValue(shareNumbers, Data);
         }
 
     }

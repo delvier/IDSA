@@ -29,7 +29,8 @@ namespace IDSA.Presenters
 
         public void UpdateInternalTabs(Company company)
         {
-            _view.Message(company.FullName);
+            //_view.Message(company.FullName);
+           
             /*
              * GetListOfInternalTabs.
              * ReadCompanyDataTypeNeeded
