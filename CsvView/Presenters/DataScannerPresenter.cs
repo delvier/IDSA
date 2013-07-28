@@ -23,7 +23,6 @@ namespace IDSA.Presenters
         private readonly DataScanner _view;
         private readonly DataScanerModule _dsmodule;
         private readonly ICacheService _cache;
-        private readonly CompanyDataContainer cachedDataContainer;
 
         private const int kMultiply = 1000;
         //cached data , easy to handle created once treat as db

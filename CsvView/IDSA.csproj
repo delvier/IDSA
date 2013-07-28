@@ -108,7 +108,7 @@
     <Compile Include="Modules\DataCalculation\DataCalculation.cs" />
     <Compile Include="Modules\DataCalculation\ICalculationFormula.cs" />
     <Compile Include="Modules\DataCalculation\IDataCalculation.cs" />
-    <Compile Include="Modules\DataCalculation\IncomeStatmentsDataCalculation.cs" />
+    <Compile Include="Services\CalculationService.cs" />
     <Compile Include="Modules\DataCalculation\ReportDataCalculation.cs" />
     <Compile Include="Modules\DataCalculation\RzisBaseDataCaluclation.cs" />
     <Compile Include="Modules\DataCalculation\TvCalculationFormula.cs" />

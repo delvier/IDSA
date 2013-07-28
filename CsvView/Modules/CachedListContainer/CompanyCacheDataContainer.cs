@@ -17,11 +17,9 @@ namespace IDSA.Modules.CachedDataContainer
         {
             foreach (var cmp in _cacheLst)
             {
-                ObservableCollection<FinancialData> observableColection = 
-                    cmp.Reports.OrderByDescending(r=>r.FinancialReportReleaseDate)
-                               .ToObservableCollection<FinancialData>();
-                var sortedReports = new ObservableListSource<FinancialData>(observableColection);
-                cmp.Reports = sortedReports;          
+                cmp.Reports  = cmp.Reports
+                                  .OrderByDescending(r=>r.FinancialReportReleaseDate)
+                                  .ToObservableListSource<FinancialData>();
             }
         }
 
@@ -40,6 +38,14 @@ namespace IDSA.Modules.CachedDataContainer
             foreach (var e in coll)
                 c.Add(e);
             return c;
+        }
+
+        public static ObservableListSource<T> ToObservableListSource<T>(this IEnumerable<T> coll) where T : class
+        {
+            var observableSource = new ObservableListSource<T>();
+            foreach (var e in coll)
+                observableSource.Add(e);
+            return observableSource;
         }
     }
 }

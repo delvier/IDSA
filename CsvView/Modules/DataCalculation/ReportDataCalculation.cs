@@ -58,7 +58,6 @@ namespace IDSA.Modules.DataCalculation
             TV.Cash = 0;
             TV.Loans = 0;
             TV.ShareNumbers = 0;
-            TV.CalculateNetDebt();
             return TV.Calculate();
         }
 

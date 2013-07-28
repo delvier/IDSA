@@ -29,19 +29,20 @@ namespace IDSA.Modules.DataCalculation
             this.Ebit4q = Ebit4q;
             this.Loans = Loans;
             this.Cash = Cash;
-            CalculateNetDebt();
+            //CalculateNetDebt();
             this.ShareNumbers = ShareNumbers;
         }
         #endregion
         
         #region public methods.
-        public void CalculateNetDebt ()
+        private void CalculateNetDebt ()
         {
             this.NetDebt = this.Loans - this.Cash;
         }
 
         public override float Calculate()
         {
+            CalculateNetDebt();
             var fcf = Ebit4q.Sum() * (1 - _taxRate); //cash flow to the firm.
             var tv = fcf * (1 + _g) / (_wacc - _g); // terminal value.
             var ev = tv - NetDebt; // equity value.

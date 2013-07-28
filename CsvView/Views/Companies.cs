@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using IDSA.Views.CompaniesInternal;
 using Microsoft.Practices.ServiceLocation;
 using IDSA.Events.MainEvents;
+using IDSA.Modules.DataCalculation;
 
 namespace IDSA.Views
 {
@@ -25,9 +26,9 @@ namespace IDSA.Views
         CompaniesPresenter presenter;
         private readonly IEventAggregator _eventAggregator;
 
-        public Companies(IEventAggregator eventAggregator, IChartService chart)
+        public Companies(IEventAggregator eventAggregator, IChartService chartService, ICalculationService calculationService)
         {
-            presenter = new CompaniesPresenter(this, chart);
+            presenter = new CompaniesPresenter(this, chartService, calculationService);
             _eventAggregator = eventAggregator;
 
             _eventAggregator.GetEvent<DatabaseCreatedEvent>().Subscribe(RefreshView);
