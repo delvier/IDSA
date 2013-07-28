@@ -23,7 +23,7 @@ namespace IDSA.Modules.DataScanner
         #region Propetries.
 
         private IList<IFilter> FilterList { get; set; }
-        private CompanyCacheDataContainer _cacheCmpList { get; set; }
+        private CompanyDataContainer _cacheCmpList { get; set; }
         private IList<Company> _filterData { get; set; }
         private IRawData  _selectedRawData { get; set; }
 
@@ -34,7 +34,7 @@ namespace IDSA.Modules.DataScanner
         public DataScanerModule(IList<Company> Companies, IRawData rawDataProvider)
         {
             FilterList = new List<IFilter>();
-            this._cacheCmpList = new CompanyCacheDataContainer(Companies);
+            this._cacheCmpList = new CompanyDataContainer(Companies);
             this._selectedRawData = rawDataProvider;
             //TODO: we need to wait for event before sort.
             //_cacheCmpList.SortReports();

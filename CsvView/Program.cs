@@ -9,6 +9,7 @@ using System;
 using System.Data.Entity;
 using System.Windows.Forms;
 using IDSA.Models.DataStruct;
+using IDSA.Modules.CachedListContainer;
 
 namespace IDSA
 {
@@ -32,6 +33,7 @@ namespace IDSA
             kernel.Bind<IViewProvider>().To<TabbedViewProvider>();
             kernel.Bind<IChartService>().To<ChartService>();
             kernel.Bind<IUnitOfWork>().To<EFUnitOfWork>().InSingletonScope();
+            kernel.Bind<ICacheService>().To<CacheService>().InSingletonScope();
             //Uncomment do Drop Database!!!!!!!!!!!
             //kernel.Bind<IUnitOfWork>().To<EFUnitOfWork>().WithConstructorArgument("context", new Context(new DropCreateDatabaseAlways<Context>()));
             //, System.Threading.CancellationToken.None, TaskContinuationOptions.NotOnFaulted, TaskScheduler.FromCurrentSynchronizationContext()

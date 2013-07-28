@@ -10,6 +10,7 @@ using IDSA.Models;
 using IDSA.Models.DataStruct;
 using System.Data;
 using IDSA.Modules.CachedDataContainer;
+using IDSA.Modules.CachedListContainer;
 
 namespace IDSA.Presenters
 {
@@ -19,31 +20,29 @@ namespace IDSA.Presenters
 
     public class DataScannerPresenter : IDataScannerPresenter
     {
-        DataScanner view;
-        private readonly IUnitOfWork uow;
-        private readonly FilterListProvider fprovider;
-        private readonly DataScanerModule dsmodule;
-        private readonly CompanyCacheDataContainer cachedDataContainer;
+        private readonly DataScanner _view;
+        private readonly DataScanerModule _dsmodule;
+        private readonly ICacheService _cache;
+        private readonly CompanyDataContainer cachedDataContainer;
 
         private const int kMultiply = 1000;
         //cached data , easy to handle created once treat as db
         public DataScannerPresenter(DataScanner view)
         {
-            this.view = view;
-            this.uow = ServiceLocator.Current.GetInstance<IUnitOfWork>();
-            this.fprovider = new FilterListProvider();
-            this.dsmodule = new DataScanerModule(uow.Companies.GetAll(), ServiceLocator.Current.GetInstance<IRawData>());
+            this._view = view;
+            this._cache = ServiceLocator.Current.GetInstance<ICacheService>();
+            this._dsmodule = new DataScanerModule(_cache.GetAll(), ServiceLocator.Current.GetInstance<IRawData>());
         }
 
         public IList<FilterDescriptor> GetFilters()
         {
-            return fprovider.GetFilters();
+            return new FilterListProvider().GetFilters();
         }
 
         public void LoadFiltersToDataScannerModule (IList<FilterViewComponents> fcmpsList)
         {
             //clear old filters.
-            dsmodule.FilterClearAll();
+            _dsmodule.FilterClearAll();
 
             foreach (var fcmp in fcmpsList)
             {
@@ -54,11 +53,11 @@ namespace IDSA.Presenters
                     {
                         filterToAdd._highValue = (Int64.Parse(fcmp.highValue.Text)) * kMultiply;
                         filterToAdd._lowValue = (Int64.Parse(fcmp.lowValue.Text)) * kMultiply;
-                        dsmodule.FilterAdd(filterToAdd);
+                        _dsmodule.FilterAdd(filterToAdd);
                     }
                     catch (FormatException f)
                     {
-                        view.MsgBox(string.Format("Invalid Input Values, {0}",f.Message));
+                        _view.MsgBox(string.Format("Invalid Input Values, {0}",f.Message));
                     }
                 }
             }
@@ -66,19 +65,18 @@ namespace IDSA.Presenters
 
         public void Scan()
         {
-            dsmodule.Scan();
+            _dsmodule.Scan();
         }     
    
         public DataTable GetFilterResultDataTable()
         {
-            var gridProvider = new GridRawDataTableProvider("Filter Result", dsmodule.GetRawResult());
+            var gridProvider = new GridRawDataTableProvider("Filter Result", _dsmodule.GetRawResult());
             return gridProvider.GetRawDataTable();
-
         }
 
         public void UpdateView()
         {
-            view.DataUpdate();
+            _view.DataUpdate();
         }
 
 

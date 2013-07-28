@@ -22,10 +22,7 @@ namespace IDSA.Modules.DataCalculation
         #endregion
 
         #region ctor
-        public TvCalculationFormula()
-        {
-
-        }
+        public TvCalculationFormula() { }
 
         public TvCalculationFormula(IList<long> Ebit4q, long Loans, long Cash, long ShareNumbers)
         {

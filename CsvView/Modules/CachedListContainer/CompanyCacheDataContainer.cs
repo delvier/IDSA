@@ -8,10 +8,10 @@ using System.Collections.ObjectModel;
 
 namespace IDSA.Modules.CachedDataContainer
 {
-    public class CompanyCacheDataContainer : CacheDataContainer<Company>
+    public class CompanyDataContainer : DataContainer<Company>
     {
-        public CompanyCacheDataContainer() : base() {}
-        public CompanyCacheDataContainer(IList<Company> lst) : base(lst) { }
+        public CompanyDataContainer() : base() {}
+        public CompanyDataContainer(IList<Company> lst) : base(lst) { }
 
         public void SortReports()
         {
@@ -24,6 +24,12 @@ namespace IDSA.Modules.CachedDataContainer
                 cmp.Reports = sortedReports;          
             }
         }
+
+        public Company GetCompany(String name)
+        {
+            return _cacheLst.Where(c => c.Name == name).FirstOrDefault();
+        }
+        
     }
 
     public static class CollectionExtensions

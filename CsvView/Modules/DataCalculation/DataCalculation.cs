@@ -18,11 +18,11 @@ namespace IDSA.Modules.DataCalculation
         #endregion
 
         #region Ctor
-        public DataCalculation()
+        protected DataCalculation()
         {
             this._data = new List<T>();
         }
-        public DataCalculation(IList<T> data)
+        protected DataCalculation(IList<T> data)
         {
             this._data = data;
         }

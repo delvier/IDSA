@@ -8,7 +8,7 @@ using System;
 
 namespace IDSA.Modules.DataCalculation
 {
-    class IncomeStatmentsDataCalculation : DataCalculation<IncomeStatmentData>
+    public class CalculationService : ICalculationService
     {
 
         /* provide calculation to single quarter data, by default the reports are cumulative */
@@ -31,7 +31,7 @@ namespace IDSA.Modules.DataCalculation
             return res;
         }
 
-        /* propertyInfo[] ReferencePropetries based on the substraction will take place
+        /* propertyInfo[] ReferencePropetries based on them the substraction will take place
            prevReport - on this object data will be manipulated 
            curRep - the report we will substract from */
         public static void ReportsSubstract(PropertyInfo[] propertyInfo, Report prevRep, Report curRep)
@@ -50,29 +50,31 @@ namespace IDSA.Modules.DataCalculation
             }
         }
 
-        /* Calculation of terminal value based on external report list (must be sorted) */
-        public static float CalculateTerminalValue(long shareNumbers, IList<Report> repList)
+        public float GetTerminalValue(Company cmp)
         {
             var TV = new TvCalculationFormula();
-            TV.Ebit4q = repList.Take(4).Select(a => a.EBIT).ToList();
-            TV.Cash = 0;
-            TV.Loans = 0;
+            TV.Ebit4q = cmp.Reports.Take(4).Select(a => a.IncomeStatement.EBIT).ToList();
+            TV.Cash = cmp.Reports.Take(1).Select(r => r.Balance.Cash).FirstOrDefault();
+            String totalLoans = cmp.Reports.Take(1).Select(r => new  {
+                totalLoans = r.Balance.LoansAndAdvancesLT + r.Balance.LoansAndAdvancesST
+            }).ToString();
+           
+            //TODO : StartFromHERE pljanotx.
+            //Int64.TryParse(totalLoans, TV.Loans);
+
             TV.ShareNumbers = 0;
             TV.CalculateNetDebt();
             return TV.Calculate();
         }
 
-        /* Calculate to Quarter on the default base.Data Report List */
-        public override void CalculationPerform()
+        public Company ToQuarter(Company cmp)
         {
-           // SetData(CalculateToQurater(this.Data));
+            throw new NotImplementedException();
         }
 
-        public override float CalculateTerminalValue(long shareNumbers)
+        public Company ToPercentage(Company cmp)
         {
-            return (float)1;
-            //return CalculateTerminalValue(shareNumbers, Data);
+            throw new NotImplementedException();
         }
-
     }
 }
