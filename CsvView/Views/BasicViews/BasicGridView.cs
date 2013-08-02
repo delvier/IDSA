@@ -12,31 +12,36 @@ namespace IDSA.Views.PropertyView
 {
     public interface IBasicGridView
     {
-        void UpdateLabaelName(String title);
-        void UpdateBasicDataGrid(DataTable dataTable);
+        void BindHeader(String title);
+        void BindGridData(IBindingList dataTable);
+        IBasicGridPresenter GetPresenterHandler();
     }
     public partial class BasicGridView : UserControl, IBasicGridView
     {
-        private BasicGridPresenter _presenter;
-        public BasicGridView()
+        private IBasicGridPresenter _presenter;
+        public BasicGridView(IBasicGridPresenter presenter)
         {
-            _presenter = new BasicGridPresenter(this);
+            _presenter = presenter;
             InitializeComponent();
+            /* View data bind */
+            this.BindHeader(_presenter.Header);
+            this.BindGridData(_presenter.Data);
         }
 
-        public void Refresh()
-        {
-            _presenter.UpdateView();
-        }
-
-        public void UpdateLabaelName(String title)
+        public void BindHeader(String title)
         {
             titleLabel.Text = title;
         }
 
-        public void UpdateBasicDataGrid(DataTable dataTable)
+        public void BindGridData(IBindingList bindingDataList)
         {
-            baseViewGrid.DataSource = dataTable;
+            baseViewGrid.DataSource = bindingDataList;
+        }
+
+        /* Handler for master presenter */
+        public IBasicGridPresenter GetPresenterHandler()
+        {
+            return _presenter;
         }
     }
 }

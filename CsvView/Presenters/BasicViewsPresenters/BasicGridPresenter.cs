@@ -6,48 +6,46 @@ using System.Data;
 using IDSA.Views.PropertyView;
 using IDSA.Models.DataStruct;
 using IDSA.Models;
+using Microsoft.Practices.Prism.ViewModel;
+using System.ComponentModel;
 
 namespace IDSA.Presenters.PropertyPresenters
 {
     public interface IBasicGridPresenter
     {
-        String GetTitle();
-        DataTable GetDataTable();
-        void UpdateView();
+        String Header { get; set; }
+        IBindingList Data { get; }
+        void DataSet(Company company);
     }
-    public class BasicGridPresenter : IBasicGridPresenter
+    public abstract class BasicGridPresenter : NotificationObject, IBasicGridPresenter
     {
         private IBasicGridView _view;
-        private String _title;
-        private DataTable _dataTable;
+        private String _header;
 
-        public BasicGridPresenter(BasicGridView view)
+        public BasicGridPresenter(IBasicGridView view)
         {
             this._view = view;
         }
 
-        public void SetTitle(String title)
+        public IBindingList Data
         {
-            _title = title;
-        }
-        public string GetTitle()
-        {
-            return _title;
+            get;
+            set;
         }
 
-        public void SetDataTable(DataTable dataTable)
+        public string Header
         {
-            _dataTable = dataTable;
-        }
-        public DataTable GetDataTable()
-        {
-            return _dataTable;
+            get { return this._header; }
+            set
+            {
+                if (this._header != value)
+                {
+                    this._header = value;
+                    this.RaisePropertyChanged(() => this.Header);
+                }
+            }
         }
 
-        public void UpdateView()
-        {
-            this._view.UpdateLabaelName(GetTitle());
-            this._view.UpdateBasicDataGrid(GetDataTable());
-        }
+        public abstract void DataSet(Company company);
     }
 }

@@ -237,7 +237,7 @@
             this.CompanyTitle.Name = "CompanyTitle";
             this.CompanyTitle.Size = new System.Drawing.Size(49, 25);
             this.CompanyTitle.TabIndex = 1;
-            this.CompanyTitle.Text = "Title";
+            this.CompanyTitle.Text = "Header";
             // 
             // FinDataGrid
             // 

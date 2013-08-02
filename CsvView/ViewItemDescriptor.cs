@@ -8,8 +8,8 @@ namespace IDSA
         public Type View { get; set; }
     }
 
-    public class BasicGridViewItemDescriptor : ViewItemDescriptor
+    public class FinancialTabItemDescriptor : ViewItemDescriptor
     {
-        public Type GridDataType { get; set; }
+        public Type TabPresenter { get; set; }
     }
 }

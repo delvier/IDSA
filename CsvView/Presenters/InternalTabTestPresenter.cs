@@ -11,7 +11,7 @@ using IDSA.Views.CompaniesInternal;
 
 namespace IDSA.Presenters
 {
-    class InternalTabTestPresenter
+    public class InternalTabTestPresenter
     {
         private InternalTabTest _view;
         private IEventAggregator _eventAggregator;
