@@ -100,7 +100,7 @@
     <Compile Include="Models\Utilities\MultiSortableBindingListView.cs" />
     <Compile Include="Models\Utilities\PropertyComparer.cs" />
     <Compile Include="Modules\DataCalculation\ICalculationService.cs" />
-    <Compile Include="Presenters\Financial_InternalTabs\IncomeStatment.Presentercs.cs" />
+    <Compile Include="Presenters\Financial_InternalTabs\IncomeStatmentPresentercs.cs" />
     <Compile Include="Services\CacheService.cs" />
     <Compile Include="Modules\CachedListContainer\CompanyCacheDataContainer.cs" />
     <Compile Include="Modules\CachedListContainer\DataContainer.cs" />
