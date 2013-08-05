@@ -22,6 +22,7 @@ namespace IDSA.Views
             InitializeComponent();
 
             _presenter = new InternalTabTestPresenter(this);
+            _presenter.InitInternalTabs();
         }
 
         public void AddInternalTab(Control tabControl, String header)

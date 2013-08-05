@@ -10,6 +10,7 @@ using IDSA.Events.MainEvents;
 using IDSA.Views.CompaniesInternal;
 using System.Windows.Forms;
 using IDSA.Views.PropertyView;
+using IDSA.Presenters.PropertyPresenters;
 
 namespace IDSA.Presenters
 {
@@ -18,12 +19,14 @@ namespace IDSA.Presenters
         private InternalTabTest _view;
         private IEventAggregator _eventAggregator;
         private FinancialInternalTabbedProvider _internalTabProvider;
+        private IList<IBasicGridPresenter> _observationList;
 
         public InternalTabTestPresenter(InternalTabTest view)
         {
             this._view = view;
             this._eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
             this._internalTabProvider = new FinancialInternalTabbedProvider();
+            this._observationList = new List<IBasicGridPresenter>();
             /* Events Subscribe */
             _eventAggregator.GetEvent<CompanyChangeEvent>().Subscribe(UpdateInternalTabs);
             
@@ -33,20 +36,18 @@ namespace IDSA.Presenters
         {
             foreach (var tabItem in _internalTabProvider.GetViews())
             {
-                var tabView = (Control)ServiceLocator.Current.GetInstance(tabItem.View);
+                var tabView = new BasicGridView(tabItem.TabPresenter);
                 _view.AddInternalTab(tabView, tabItem.Header);
+                _observationList.Add(tabView.GetPresenterHandler());
             }
         }
 
         public void UpdateInternalTabs(Company company)
         {
-            //_view.Message(company.FullName);
-           
-            /*
-             * GetListOfInternalTabs.
-             * ReadCompanyDataTypeNeeded
-             * GiveOutNeededData
-             */ 
+            foreach (IBasicGridPresenter internalTabPresenter in _observationList)
+            {
+                internalTabPresenter.DataUpdate(company);
+            }
         }
 
         /* Lista WIODKOW, 

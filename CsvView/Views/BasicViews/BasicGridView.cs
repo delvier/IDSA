@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using IDSA.Presenters.PropertyPresenters;
+using Microsoft.Practices.ServiceLocation;
 
 namespace IDSA.Views.PropertyView
 {
@@ -19,9 +20,9 @@ namespace IDSA.Views.PropertyView
     public partial class BasicGridView : UserControl, IBasicGridView
     {
         private IBasicGridPresenter _presenter;
-        public BasicGridView(IBasicGridPresenter presenter)
+        public BasicGridView(Type presenterType)
         {
-            _presenter = presenter;
+            _presenter = (IBasicGridPresenter)ServiceLocator.Current.GetInstance(presenterType);
             InitializeComponent();
             /* View data bind */
             this.BindHeader(_presenter.Header);
