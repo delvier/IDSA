@@ -15,7 +15,7 @@ namespace IDSA.Presenters.PropertyPresenters
     {
         String Header { get; set; }
         IBindingList Data { get; }
-        void DataSet(Company company);
+        void DataUpdate(Company company);
     }
     public abstract class BasicGridPresenter : NotificationObject, IBasicGridPresenter
     {
@@ -46,6 +46,6 @@ namespace IDSA.Presenters.PropertyPresenters
             }
         }
 
-        public abstract void DataSet(Company company);
+        public abstract void DataUpdate(Company company);
     }
 }

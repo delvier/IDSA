@@ -8,6 +8,8 @@ using Microsoft.Practices.Prism.Events;
 using IDSA.Models;
 using IDSA.Events.MainEvents;
 using IDSA.Views.CompaniesInternal;
+using System.Windows.Forms;
+using IDSA.Views.PropertyView;
 
 namespace IDSA.Presenters
 {
@@ -15,16 +17,25 @@ namespace IDSA.Presenters
     {
         private InternalTabTest _view;
         private IEventAggregator _eventAggregator;
-        private FinancialDataInternalTabbedProvider _internalTabProvider;
+        private FinancialInternalTabbedProvider _internalTabProvider;
 
         public InternalTabTestPresenter(InternalTabTest view)
         {
             this._view = view;
             this._eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
-            this._internalTabProvider = new FinancialDataInternalTabbedProvider();
+            this._internalTabProvider = new FinancialInternalTabbedProvider();
             /* Events Subscribe */
             _eventAggregator.GetEvent<CompanyChangeEvent>().Subscribe(UpdateInternalTabs);
             
+        }
+
+        public void InitInternalTabs()
+        {
+            foreach (var tabItem in _internalTabProvider.GetViews())
+            {
+                var tabView = (Control)ServiceLocator.Current.GetInstance(tabItem.View);
+                _view.AddInternalTab(tabView, tabItem.Header);
+            }
         }
 
         public void UpdateInternalTabs(Company company)

@@ -8,7 +8,7 @@ using IDSA.Presenters.Financial_InternalTabs;
 
 namespace IDSA.Views.CompaniesInternal
 {
-    class FinancialDataInternalTabbedProvider : IViewProvider<FinancialTabItemDescriptor>
+    public class FinancialInternalTabbedProvider : IViewProvider<FinancialTabItemDescriptor>
     {
         public EProjectionType ProjectionType
         {

@@ -22,20 +22,15 @@ namespace IDSA.Views
             InitializeComponent();
 
             _presenter = new InternalTabTestPresenter(this);
-
-            BuildInternalTabs(new FinancialDataInternalTabbedProvider(), internalTabContainer);
         }
 
-        private void BuildInternalTabs(FinancialDataInternalTabbedProvider tabProvider, TabControl tabContainer)
+        public void AddInternalTab(Control tabControl, String header)
         {
-            foreach (var internalTab in tabProvider.GetViews())
-            {
-                var view = (Control)ServiceLocator.Current.GetInstance(internalTab.View);
-                view.Dock = DockStyle.Fill;
-                var tp = new TabPage(internalTab.Header);
-                tp.Controls.Add(view);
-                tabContainer.TabPages.Add(tp);
-            }
+            internalTabContainer.Controls.Add(tabControl);
+            tabControl.Dock = DockStyle.Fill;
+            var tp = new TabPage(header);
+            tp.Controls.Add(tabControl);
+            internalTabContainer.TabPages.Add(tp);
         }
 
         public void Message(String msg)

@@ -16,7 +16,7 @@ namespace IDSA.Presenters.Financial_InternalTabs
         {
         }
 
-        public override void DataSet(Models.Company company)
+        public override void DataUpdate(Models.Company company)
         {
             Data = new BindingList<IncomeStatmentObj>(company.Reports
                             .Select(r => new IncomeStatmentObj
