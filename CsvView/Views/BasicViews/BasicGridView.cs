@@ -27,11 +27,14 @@ namespace IDSA.Views.PropertyView
             /* View data bind */
             this.BindHeader(_presenter.Header);
             this.BindGridData(_presenter.Data);
+
+            //TODO : TRY TO ADD EVENT that will call procedure and rebind data on property change
+            //_presenter.PropertPropertyChangedEventHandler += (o, eventArg) => BindDataGridView();
         }
 
-        public void BindHeader(String title)
+        public void BindHeader(String header)
         {
-            titleLabel.Text = title;
+            titleLabel.Text = header;
         }
 
         public void BindGridData(IBindingList bindingDataList)

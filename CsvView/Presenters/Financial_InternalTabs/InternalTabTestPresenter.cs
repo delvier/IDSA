@@ -28,7 +28,7 @@ namespace IDSA.Presenters
             this._internalTabProvider = new FinancialInternalTabbedProvider();
             this._observationList = new List<IBasicGridPresenter>();
             /* Events Subscribe */
-            _eventAggregator.GetEvent<CompanyChangeEvent>().Subscribe(UpdateInternalTabs);
+            _eventAggregator.GetEvent<CompanyChangeEvent>().Subscribe(NotifyObservers);
             
         }
 
@@ -42,7 +42,7 @@ namespace IDSA.Presenters
             }
         }
 
-        public void UpdateInternalTabs(Company company)
+        public void NotifyObservers(Company company)
         {
             foreach (IBasicGridPresenter internalTabPresenter in _observationList)
             {

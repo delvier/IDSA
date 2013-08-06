@@ -19,12 +19,12 @@ namespace IDSA.Presenters.PropertyPresenters
     }
     public abstract class BasicGridPresenter : NotificationObject, IBasicGridPresenter
     {
-        private IBasicGridView _view;
+        //private IBasicGridView _view;
         private String _header;
 
-        public BasicGridPresenter(IBasicGridView view)
+        public BasicGridPresenter()
         {
-            this._view = view;
+            //this._view = view;
         }
 
         public IBindingList Data
@@ -46,6 +46,7 @@ namespace IDSA.Presenters.PropertyPresenters
             }
         }
 
+        
         public abstract void DataUpdate(Company company);
     }
 }

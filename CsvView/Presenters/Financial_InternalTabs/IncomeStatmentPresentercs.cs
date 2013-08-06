@@ -11,8 +11,8 @@ namespace IDSA.Presenters.Financial_InternalTabs
 {
     public class IncomeStatmentPresenter : BasicGridPresenter
     {
-        public IncomeStatmentPresenter(IBasicGridView view)
-            : base(view)
+        public IncomeStatmentPresenter()
+            : base()
         {
         }
 
@@ -31,6 +31,7 @@ namespace IDSA.Presenters.Financial_InternalTabs
                             })
                             .ToList<IncomeStatmentObj>()
                      );
+            this.Header = company.FullName;
         }
 
         private class IncomeStatmentObj

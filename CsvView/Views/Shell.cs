@@ -12,7 +12,6 @@ namespace IDSA
             if (viewProvider.ProjectionType == EProjectionType.Tabbed)
             {
                 //menuStrip1.Visible = false;
-
                 foreach (var vd in viewProvider.GetViews())
                 {
                     var view = (Control)ServiceLocator.Current.GetInstance(vd.View);

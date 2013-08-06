@@ -25,13 +25,12 @@ namespace IDSA.Views
             _presenter.InitInternalTabs();
         }
 
-        public void AddInternalTab(Control tabControl, String header)
+        public void AddInternalTab(Control tabView, String header)
         {
-            internalTabContainer.Controls.Add(tabControl);
-            tabControl.Dock = DockStyle.Fill;
             var tp = new TabPage(header);
-            tp.Controls.Add(tabControl);
-            internalTabContainer.TabPages.Add(tp);
+            tp.Controls.Add(tabView);
+            tabView.Dock = DockStyle.Fill;
+            internalTabContainer.Controls.Add(tp);
         }
 
         public void Message(String msg)
