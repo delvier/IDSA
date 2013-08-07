@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using IDSA.Presenters.PropertyPresenters;
 using IDSA.Models.DataStruct;
 using System.ComponentModel;
@@ -10,17 +8,13 @@ namespace IDSA.Presenters.Financial_InternalTabs
 {
     public class CashFlowPresenter : BasicGridPresenter
     {
-        public CashFlowPresenter() : base()
-        {
-
-        }
 
         public override void DataUpdate(Models.Company company)
         {
             Data = new BindingList<PresenterCashFlow>(company.Reports
                             .Select(r => new PresenterCashFlow
                             { 
-                                Year_Quarter = String.Format("{0} : [{1}]", r.Year, r.Quarter),
+                                YearAndQuarter = String.Format("{0} : [{1}]", r.Year, r.Quarter),
                                 ReportDate = r.FinancialReportReleaseDate,
                                 CapexIntangible = r.CashFlow.CapexIntangible,
                                 Depreciation = r.CashFlow.Depreciation,
@@ -38,13 +32,13 @@ namespace IDSA.Presenters.Financial_InternalTabs
                                 TotalCF = r.CashFlow.TotalCF,
                                 WorkingCapital = r.CashFlow.WorkingCapital
                             })
-                            .ToList<PresenterCashFlow>()
+                            .ToList()
                      );
             this.Header = company.FullName;
         }
         private class PresenterCashFlow : CashFlowData
         {
-            public string Year_Quarter { get; set; }
+            public string YearAndQuarter { get; set; }
             public DateTime ReportDate { get; set; }
         }
     }

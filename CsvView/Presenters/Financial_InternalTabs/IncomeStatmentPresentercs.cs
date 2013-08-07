@@ -21,7 +21,7 @@ namespace IDSA.Presenters.Financial_InternalTabs
             Data = new BindingList<PresenterIncomeStatment>(company.Reports
                             .Select(r => new PresenterIncomeStatment
                             {
-                                Year_Quarter = String.Format("{0} : [{1}]", r.Year, r.Quarter),
+                                YearAndQuarter = String.Format("{0} : [{1}]", r.Year, r.Quarter),
                                 ReportDate = r.FinancialReportReleaseDate,
                                 Sales = r.IncomeStatement.Sales,
                                 SalesCost1 = r.IncomeStatement.SalesCost1,
@@ -44,11 +44,13 @@ namespace IDSA.Presenters.Financial_InternalTabs
                      );
             this.Header = company.FullName;
         }
+
+        private class PresenterIncomeStatment : IncomeStatmentData
+        {
+            public string YearAndQuarter { get; set; }
+            public DateTime ReportDate { get; set; }
+        }
     }
 
-    public class PresenterIncomeStatment : IncomeStatmentData
-    {
-        public string Year_Quarter { get; set; }
-        public DateTime ReportDate { get; set; }
-    }
+    
 }

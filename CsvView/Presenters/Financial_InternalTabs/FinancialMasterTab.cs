@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using IDSA.Views;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Prism.Events;
 using IDSA.Models;
 using IDSA.Events.MainEvents;
 using IDSA.Views.CompaniesInternal;
-using System.Windows.Forms;
 using IDSA.Views.PropertyView;
 using IDSA.Presenters.PropertyPresenters;
 
@@ -16,10 +12,10 @@ namespace IDSA.Presenters
 {
     public class FinancialMasterTab
     {
-        private InternalTabTest _view;
-        private IEventAggregator _eventAggregator;
-        private FinancialInternalTabbedProvider _internalTabProvider;
-        private IList<IBasicGridPresenter> _observationList;
+        private readonly InternalTabTest _view;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly FinancialInternalTabbedProvider _internalTabProvider;
+        private readonly IList<IBasicGridPresenter> _observationList;
 
         public FinancialMasterTab(InternalTabTest view)
         { 

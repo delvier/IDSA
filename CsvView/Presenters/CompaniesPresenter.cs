@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using IDSA.Models;
-using IDSA.Models.Repository;
 using IDSA.Services;
 using IDSA.Views;
 using System.Data;
 using System.Windows.Forms;
 using IDSA.Modules.DataCalculation;
 using Microsoft.Practices.ServiceLocation;
-using IDSA.Modules.CachedDataContainer;
 using System.Reflection;
 using IDSA.Modules.CachedListContainer;
 
