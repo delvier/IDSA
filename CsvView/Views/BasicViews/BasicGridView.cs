@@ -13,8 +13,7 @@ namespace IDSA.Views.PropertyView
 {
     public interface IBasicGridView
     {
-        void BindHeader(String title);
-        void BindGridData(IBindingList dataTable);
+        void Bind();
         IBasicGridPresenter GetPresenterHandler();
     }
     public partial class BasicGridView : UserControl, IBasicGridView
@@ -25,21 +24,16 @@ namespace IDSA.Views.PropertyView
             _presenter = (IBasicGridPresenter)ServiceLocator.Current.GetInstance(presenterType);
             InitializeComponent();
             /* View data bind */
-            this.BindHeader(_presenter.Header);
-            this.BindGridData(_presenter.Data);
+            this.Bind();
 
-            //TODO : TRY TO ADD EVENT that will call procedure and rebind data on property change
-            //_presenter.PropertPropertyChangedEventHandler += (o, eventArg) => BindDataGridView();
+            //bind data update to event
+            _presenter.PresenterDataChanged += (o, eventArg) => Bind();
         }
 
-        public void BindHeader(String header)
+        public void Bind()
         {
-            titleLabel.Text = header;
-        }
-
-        public void BindGridData(IBindingList bindingDataList)
-        {
-            baseViewGrid.DataSource = bindingDataList;
+            titleLabel.Text = _presenter.Header;
+            baseViewGrid.DataSource = _presenter.Data;
         }
 
         /* Handler for master presenter */
