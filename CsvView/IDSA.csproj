@@ -100,6 +100,8 @@
     <Compile Include="Models\Utilities\MultiSortableBindingListView.cs" />
     <Compile Include="Models\Utilities\PropertyComparer.cs" />
     <Compile Include="Modules\DataCalculation\ICalculationService.cs" />
+    <Compile Include="Presenters\Financial_InternalTabs\BalancePresenter.cs" />
+    <Compile Include="Presenters\Financial_InternalTabs\CashFlowPresenter.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\IncomeStatmentPresentercs.cs" />
     <Compile Include="Services\CacheService.cs" />
     <Compile Include="Modules\CachedListContainer\CompanyCacheDataContainer.cs" />
@@ -129,7 +131,7 @@
     <Compile Include="Presenters\DBPresenter.cs" />
     <Compile Include="Presenters\CompaniesPresenter.cs" />
     <Compile Include="CsvEnums.cs" />
-    <Compile Include="Presenters\Financial_InternalTabs\InternalTabTestPresenter.cs" />
+    <Compile Include="Presenters\Financial_InternalTabs\FinancialMasterTab.cs" />
     <Compile Include="Presenters\BasicViewsPresenters\BasicGridPresenter.cs" />
     <Compile Include="Services\ChartService.cs" />
     <Compile Include="Services\CompanyDataService.cs" />

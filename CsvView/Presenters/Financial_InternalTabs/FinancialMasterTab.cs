@@ -14,14 +14,14 @@ using IDSA.Presenters.PropertyPresenters;
 
 namespace IDSA.Presenters
 {
-    public class InternalTabTestPresenter
+    public class FinancialMasterTab
     {
         private InternalTabTest _view;
         private IEventAggregator _eventAggregator;
         private FinancialInternalTabbedProvider _internalTabProvider;
         private IList<IBasicGridPresenter> _observationList;
 
-        public InternalTabTestPresenter(InternalTabTest view)
+        public FinancialMasterTab(InternalTabTest view)
         { 
             this._view = view;
             this._eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
@@ -49,17 +49,5 @@ namespace IDSA.Presenters
                 internalTabPresenter.DataUpdate(company);
             }
         }
-
-        /* Lista WIODKOW, 
-         * 
-         * Widok-1, <- Event(DataUpdate) <- Delegata(CompanyChanged) 
-         * Widok-2, <- Event <- Delegate
-         * Widok-3, <- Event <- Delegate
-         * 
-         * CompaniesPresenter -> Noitfy(Presenter)
-         * Presenter -> Observing(CompaniesPresenter-CompanyChangeEvent)
-         * Presenter -> Notifying(<Observer>List)
-         * 
-         */
     }
 }

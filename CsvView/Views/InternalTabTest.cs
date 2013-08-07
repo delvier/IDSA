@@ -14,14 +14,14 @@ namespace IDSA.Views
 {
     public partial class InternalTabTest : UserControl
     {
-        private InternalTabTestPresenter _presenter;
+        private FinancialMasterTab _presenter;
 
 
         public InternalTabTest()
         {
             InitializeComponent();
 
-            _presenter = new InternalTabTestPresenter(this);
+            _presenter = new FinancialMasterTab(this);
             _presenter.InitInternalTabs();
         }
 
