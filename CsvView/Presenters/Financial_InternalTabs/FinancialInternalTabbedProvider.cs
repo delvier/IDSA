@@ -23,10 +23,10 @@ namespace IDSA.Views.CompaniesInternal
                    {
                        Header = "Bilans",
                        View = typeof(BasicGridView),
-                       TabPresenter = typeof(IncomeStatmentPresenter)
+                       TabPresenter = typeof(BalancePresenter)
                    });
 
-            lst.Add(
+            lst.Add( 
                    new FinancialTabItemDescriptor()
                    {
                        Header = "RZiS",
@@ -39,7 +39,7 @@ namespace IDSA.Views.CompaniesInternal
                    {
                        Header = "Cash Flow",
                        View = typeof(BasicGridView),
-                       TabPresenter = typeof(IncomeStatmentPresenter)
+                       TabPresenter = typeof(CashFlowPresenter)
                    });
 
             return lst;

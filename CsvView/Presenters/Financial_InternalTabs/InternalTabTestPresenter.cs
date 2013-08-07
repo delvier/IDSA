@@ -22,7 +22,7 @@ namespace IDSA.Presenters
         private IList<IBasicGridPresenter> _observationList;
 
         public InternalTabTestPresenter(InternalTabTest view)
-        {
+        { 
             this._view = view;
             this._eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
             this._internalTabProvider = new FinancialInternalTabbedProvider();
