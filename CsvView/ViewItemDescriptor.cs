@@ -8,6 +8,11 @@ namespace IDSA
         public Type View { get; set; }
     }
 
+    public class MixedViewItemDescriptor : ViewItemDescriptor
+    {
+        public EProjectionType Type { get; set; }
+    }
+
     public class FinancialTabItemDescriptor : ViewItemDescriptor
     {
         public Type TabPresenter { get; set; }

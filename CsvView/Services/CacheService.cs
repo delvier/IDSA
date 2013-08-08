@@ -24,6 +24,8 @@ namespace IDSA.Modules.CachedListContainer
             _eventAggregator = eventAggregator;
             _dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();            
             _dataContainer = new CompanyDataContainer(_dbModel.Companies.GetAll());
+            /*initial sort*/
+            SortReports();
         }
 
         public void SortReports()

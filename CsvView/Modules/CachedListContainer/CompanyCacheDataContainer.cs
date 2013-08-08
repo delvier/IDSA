@@ -18,7 +18,9 @@ namespace IDSA.Modules.CachedDataContainer
             foreach (var cmp in _cacheLst)
             {
                 cmp.Reports  = cmp.Reports
-                                  .OrderByDescending(r=>r.FinancialReportReleaseDate)
+                                  .OrderByDescending(r => r.Year)
+                                  .ThenByDescending(r => r.Quarter)
+                                  //.OrderByDescending(r=>r.FinancialReportReleaseDate)
                                   .ToObservableListSource<FinancialData>();
             }
         }

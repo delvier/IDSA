@@ -36,7 +36,7 @@ namespace IDSA
             //kernel.Bind<IUnitOfWork>().To<EFUnitOfWork>().WithConstructorArgument("context", new Context(new DropCreateDatabaseAlways<Context>()));
             //, System.Threading.CancellationToken.None, TaskContinuationOptions.NotOnFaulted, TaskScheduler.FromCurrentSynchronizationContext()
             kernel.Bind<ICacheService>().To<CacheService>().InSingletonScope();
-            kernel.Bind<IViewProvider>().To<TabbedViewProvider>();
+            kernel.Bind<IViewProvider<MixedViewItemDescriptor>>().To<MixedViewProvider>();
             kernel.Bind<IChartService>().To<ChartService>();
             kernel.Bind<ICalculationService>().To<CalculationService>();
             kernel.Bind<IRawData>().To<RawData>();

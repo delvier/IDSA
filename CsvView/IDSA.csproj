@@ -78,6 +78,8 @@
     <Compile Include="Events.cs" />
     <Compile Include="Events\DbEvents\DatabaseUpdatedEvent.cs" />
     <Compile Include="Events\MainEvents\CompanyChangeEvent.cs" />
+    <Compile Include="MixedViewProvider.cs" />
+    <Compile Include="ModalViewProvider.cs" />
     <Compile Include="Models\DataStruct\GridRawDataTableProvider.cs" />
     <Compile Include="Models\DataStruct\IBalanceData.cs" />
     <Compile Include="Models\DataStruct\IBaseFinData.cs" />
@@ -162,6 +164,24 @@
     <Compile Include="Views\CsvLoad.Designer.cs">
       <DependentUpon>CsvLoad.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\ReportManagment\AddReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ReportManagment\AddReport.Designer.cs">
+      <DependentUpon>AddReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReportManagment\DeleteReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ReportManagment\DeleteReport.Designer.cs">
+      <DependentUpon>DeleteReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReportManagment\EditReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ReportManagment\EditReport.Designer.cs">
+      <DependentUpon>EditReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\DBView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -215,6 +235,9 @@
     <EmbeddedResource Include="Views\CsvLoad.resx">
       <DependentUpon>CsvLoad.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\ReportManagment\AddReport.resx">
+      <DependentUpon>AddReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\DBView.resx">
       <DependentUpon>DBView.cs</DependentUpon>
     </EmbeddedResource>
@@ -233,6 +256,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\BasicViews\BasicGridView.resx">
       <DependentUpon>BasicGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ReportManagment\DeleteReport.resx">
+      <DependentUpon>DeleteReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ReportManagment\EditReport.resx">
+      <DependentUpon>EditReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shell.resx">
       <DependentUpon>Shell.cs</DependentUpon>

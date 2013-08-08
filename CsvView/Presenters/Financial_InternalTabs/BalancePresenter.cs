@@ -11,16 +11,12 @@ namespace IDSA.Presenters.Financial_InternalTabs
     public class BalancePresenter : BasicGridPresenter
     {
 
-        public BalancePresenter() : base()
-        {
-
-        }
         public override void DataUpdate(Models.Company company)
         {
             Data = new BindingList<PresenterBalance>(company.Reports
                             .Select(r => new PresenterBalance
                             {
-                                Year_Quarter = String.Format("{0} : [{1}]", r.Year, r.Quarter),
+                                YearAndQuarter = String.Format("{0} : [{1}]", r.Year, r.Quarter),
                                 ReportDate = r.FinancialReportReleaseDate,
                                 AssetsForSale = r.Balance.AssetsForSale,
                                 AssetsPrimary = r.Balance.AssetsPrimary,
@@ -53,13 +49,13 @@ namespace IDSA.Presenters.Financial_InternalTabs
                                 SuppliesAndServicesST = r.Balance.SuppliesAndServicesST,
                                 TangibleFixedAssets = r.Balance.TangibleFixedAssets
                             })
-                            .ToList<PresenterBalance>()
+                            .ToList()
                      );
             this.Header = company.FullName;
         }
         private class PresenterBalance : BalanceData
         {
-            public string Year_Quarter { get; set; }
+            public string YearAndQuarter { get; set; }
             public DateTime ReportDate { get; set; }
         }
     }
