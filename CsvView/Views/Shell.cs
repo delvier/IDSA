@@ -16,22 +16,21 @@ namespace IDSA
                 if (viewItem.Type == EProjectionType.Tabbed)
                 {
                     var view = (Control)ServiceLocator.Current.GetInstance(viewItem.View);
-                        view.Dock = DockStyle.Fill;
-                        var tp = new TabPage(viewItem.Header);
-                        tp.Controls.Add(view);
-                        mainTabControl.TabPages.Add(tp);
-                   
+                    view.Dock = DockStyle.Fill;
+                    var tp = new TabPage(viewItem.Header);
+                    tp.Controls.Add(view);
+                    mainTabControl.TabPages.Add(tp);
+
                 }
                 else if (viewItem.Type == EProjectionType.Modal)
                 {
-                    var item = new ToolStripMenuItem(viewItem.Header, null,  new EventHandler((sender, args) =>
+                    var item = new ToolStripMenuItem(viewItem.Header, null, (sender, args) =>
                         {
                             var form = new Form();
                             var view = (Control)ServiceLocator.Current.GetService(viewItem.View);
                             form.Controls.Add(view);
                             form.ShowDialog();
-                        })
-                        );
+                        });
                     mainStripMenu.Items.Add(item);
                 }
             }

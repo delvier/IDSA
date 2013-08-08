@@ -5,6 +5,7 @@ using System.Text;
 
 namespace IDSA
 {
+    /* mixed view is build based on tabbed and modal view providers */
     class MixedViewProvider : IViewProvider<MixedViewItemDescriptor>
     {
 

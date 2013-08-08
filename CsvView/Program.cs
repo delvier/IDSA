@@ -40,6 +40,7 @@ namespace IDSA
             kernel.Bind<IChartService>().To<ChartService>();
             kernel.Bind<ICalculationService>().To<CalculationService>();
             kernel.Bind<IRawData>().To<RawData>();
+            kernel.Bind<IDisplayFormat>().To<DisplayFormatService>();
             
             
 

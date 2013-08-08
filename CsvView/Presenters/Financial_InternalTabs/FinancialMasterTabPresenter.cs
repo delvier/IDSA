@@ -10,14 +10,14 @@ using IDSA.Presenters.PropertyPresenters;
 
 namespace IDSA.Presenters
 {
-    public class FinancialMasterTab
+    public class FinancialMasterTabPresenter
     {
         private readonly InternalTabTest _view;
         private readonly IEventAggregator _eventAggregator;
         private readonly FinancialInternalTabbedProvider _internalTabProvider;
         private readonly IList<IBasicGridPresenter> _observationList;
 
-        public FinancialMasterTab(InternalTabTest view)
+        public FinancialMasterTabPresenter(InternalTabTest view)
         { 
             this._view = view;
             this._eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();

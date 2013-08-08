@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using IDSA.Presenters.PropertyPresenters;
 using Microsoft.Practices.ServiceLocation;
+using IDSA.Services;
 
 namespace IDSA.Views.PropertyView
 {
@@ -19,15 +20,20 @@ namespace IDSA.Views.PropertyView
     public partial class BasicGridView : UserControl, IBasicGridView
     {
         private IBasicGridPresenter _presenter;
-        public BasicGridView(Type presenterType)
+        private IDisplayFormat _formatService;
+        public BasicGridView(Type presenterType, IDisplayFormat formatService)
         {
             _presenter = (IBasicGridPresenter)ServiceLocator.Current.GetInstance(presenterType);
+            _formatService = formatService;
+
             InitializeComponent();
             /* View data bind */
             this.Bind();
 
             //bind data update to event
             _presenter.PresenterDataChanged += (o, eventArg) => Bind();
+            _presenter.PresenterDataChanged += (o, eventArg) =>
+                _formatService.ApplayGridFormatStyle(_formatService.GetBigCellStyle(), baseViewGrid.Columns);
         }
 
         public void Bind()
