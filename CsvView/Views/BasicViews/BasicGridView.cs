@@ -21,10 +21,10 @@ namespace IDSA.Views.PropertyView
     {
         private IBasicGridPresenter _presenter;
         private IDisplayFormat _formatService;
-        public BasicGridView(Type presenterType, IDisplayFormat formatService)
+        public BasicGridView(Type presenterType)
         {
             _presenter = (IBasicGridPresenter)ServiceLocator.Current.GetInstance(presenterType);
-            _formatService = formatService;
+            _formatService = ServiceLocator.Current.GetInstance<IDisplayFormat>();
 
             InitializeComponent();
             /* View data bind */
