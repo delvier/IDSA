@@ -33,7 +33,7 @@ namespace IDSA.Views.PropertyView
             //bind data update to event
             _presenter.PresenterDataChanged += (o, eventArg) => Bind();
             _presenter.PresenterDataChanged += (o, eventArg) =>
-                _formatService.ApplayGridFormatStyle(_formatService.GetBigCellStyle(), baseViewGrid.Columns);
+                _formatService.ApplayGridFormatStyle(_formatService.ThousandFormat(), baseViewGrid.Columns);
         }
 
         public void Bind()

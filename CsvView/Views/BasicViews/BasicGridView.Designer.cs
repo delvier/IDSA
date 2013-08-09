@@ -35,6 +35,8 @@
             // 
             // baseViewGrid
             // 
+            this.baseViewGrid.AllowUserToAddRows = false;
+            this.baseViewGrid.AllowUserToDeleteRows = false;
             this.baseViewGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -42,6 +44,7 @@
             this.baseViewGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.baseViewGrid.Location = new System.Drawing.Point(0, 42);
             this.baseViewGrid.Name = "baseViewGrid";
+            this.baseViewGrid.ReadOnly = true;
             this.baseViewGrid.Size = new System.Drawing.Size(463, 246);
             this.baseViewGrid.TabIndex = 0;
             // 
@@ -51,7 +54,7 @@
             this.titleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.titleLabel.Location = new System.Drawing.Point(3, 12);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(52, 26);
+            this.titleLabel.Size = new System.Drawing.Size(83, 26);
             this.titleLabel.TabIndex = 1;
             this.titleLabel.Text = "Header";
             // 
