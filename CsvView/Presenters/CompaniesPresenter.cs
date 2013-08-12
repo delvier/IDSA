@@ -78,6 +78,7 @@ namespace IDSA.Presenters
 
         public IBindingList GetDbCompanies()
         {
+            this._cache.SortReports();
             var cmpBindList = new BindingList<Company>(_cache.GetAll());
             return cmpBindList;
         }
