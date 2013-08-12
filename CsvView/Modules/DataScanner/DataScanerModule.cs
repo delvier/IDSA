@@ -86,7 +86,8 @@ namespace IDSA.Modules.DataScanner
 
                 foreach (var fa in filterAttributes)
                 {
-                    tempDictionary.Add(fa.ChildProperty.Name, company.Reports.OrderByDescending(r=>r.FinancialReportReleaseDate)
+                    tempDictionary.Add(fa.ChildProperty.Name, company.Reports
+                        //.OrderByDescending(r=>r.FinancialReportReleaseDate) // shouldnt be need as long we use cache service.
                                                                      .Take(1).Select(r => BasicPropertyFilter.RtrnNtestedClassPropertyValue(
                                                                          r, fa.ParentPropertyClass, fa.ChildProperty))
                                                                      .First());
