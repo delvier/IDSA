@@ -12,6 +12,8 @@ using Microsoft.Practices.Prism.Events;
 using IDSA.Events;
 using IDSA.Modules.DataScanner;
 using IDSA.Models.DataStruct;
+using IDSA.Services;
+using Microsoft.Practices.ServiceLocation;
 
 namespace IDSA.Views
 {
@@ -19,7 +21,9 @@ namespace IDSA.Views
     {
         private DataScannerPresenter _presenter;
         private IList<FilterViewComponents> _activeFilterComponentsLst;
+        private IDisplayFormat _formatService;
         DataGridView dgv;
+        
 
         private const int filterCountLimit = 4;
 
@@ -28,6 +32,7 @@ namespace IDSA.Views
             InitializeComponent();
             _presenter = new DataScannerPresenter(this);
             eventAggregator.GetEvent<DatabaseCreatedEvent>().Subscribe(InitEvent);
+            _formatService = ServiceLocator.Current.GetInstance<IDisplayFormat>();
 
             _activeFilterComponentsLst = new List<FilterViewComponents>();
         }
@@ -56,11 +61,7 @@ namespace IDSA.Views
             {
                 var newFilterComponents = new FilterViewComponents();
                 _activeFilterComponentsLst.Add(newFilterComponents); // remember filters.
-
-
-                //newFilterComponents.filterCmbb.DataSource = _presenter.GetFilters(); //fCmbb settings copy
-                //newFilterComponents.filterCmbb.DisplayMember = FilterSelectComboBox.DisplayMember;
-                
+         
                 newFilterComponents.lowValue.Text = this.lowValue.Text; //txtBox settings copy.
                 newFilterComponents.highValue.Text = this.highValue.Text;
 
@@ -125,6 +126,7 @@ namespace IDSA.Views
                 InitDgvSettings();
             }
             dgv.DataSource = _presenter.GetFilterResultDataTable();
+            _formatService.ApplayGridFormatStyle(_formatService.ThousandsFormat, dgv.Columns);
         }
 
         private void InitDgvSettings()

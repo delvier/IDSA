@@ -28,7 +28,16 @@ namespace IDSA
             lst.Add(
                 new ViewItemDescriptor()
                 {
-                    Header = "DataScanner",
+                    Header = "Dane finansowe",
+                    //View = ServiceLocator.Instance.Resolve<DataFromHtmlView>()
+                    View = typeof(InternalTabTest)
+                }
+            );
+
+            lst.Add(
+                new ViewItemDescriptor()
+                {
+                    Header = "Skaner danych",
                     View = typeof(DataScanner)
                 }
                 );
@@ -36,7 +45,7 @@ namespace IDSA
             lst.Add(
                 new ViewItemDescriptor()
                 {
-                    Header = "Csv Upload",
+                    Header = "Csv",
                     //View = null
                     //View = ServiceLocator.Instance.Resolve<VCsvLoad>()
                     View = typeof(CsvLoad)
@@ -46,7 +55,7 @@ namespace IDSA
             lst.Add(
                 new ViewItemDescriptor()
                 {
-                    Header = "Database Tables",
+                    Header = "Baza Danych",
                     //View = null
                     //View = ServiceLocator.Instance.Resolve<DBView>()
                     View = typeof(DBView)
@@ -56,12 +65,11 @@ namespace IDSA
             lst.Add(
                 new ViewItemDescriptor()
                 {
-                    Header = "Data from html",
+                    Header = "Dane z weba",
                     //View = ServiceLocator.Instance.Resolve<DataFromHtmlView>()
                     View = typeof(DataFromHtmlView)
                 }
             );
-
 
             return lst;
         }

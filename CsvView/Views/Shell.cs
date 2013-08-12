@@ -1,25 +1,37 @@
 ﻿using System.Windows.Forms;
 using IDSA.Models.Repository;
 using Microsoft.Practices.ServiceLocation;
+using System;
 
 namespace IDSA
 {
     public partial class Shell : Form
     {
-        public Shell(IViewProvider viewProvider)
+        public Shell(IViewProvider<MixedViewItemDescriptor> viewProvider)
         {
             InitializeComponent();
-            if (viewProvider.ProjectionType == EProjectionType.Tabbed)
-            {
-                //menuStrip1.Visible = false;
 
-                foreach (var vd in viewProvider.GetViews())
+            foreach (var viewItem in viewProvider.GetViews())
+            {
+                if (viewItem.Type == EProjectionType.Tabbed)
                 {
-                    var view = (Control)ServiceLocator.Current.GetInstance(vd.View);
+                    var view = (Control)ServiceLocator.Current.GetInstance(viewItem.View);
                     view.Dock = DockStyle.Fill;
-                    var tp = new TabPage(vd.Header);
+                    var tp = new TabPage(viewItem.Header);
                     tp.Controls.Add(view);
-                    tabControl1.TabPages.Add(tp);
+                    mainTabControl.TabPages.Add(tp);
+
+                }
+                else if (viewItem.Type == EProjectionType.Modal)
+                {
+                    var item = new ToolStripMenuItem(viewItem.Header, null, (sender, args) =>
+                        {
+                            var form = new Form();
+                            var view = (Control)ServiceLocator.Current.GetService(viewItem.View);
+                            form.Controls.Add(view);
+                            form.ShowDialog();
+                        });
+                    mainStripMenu.Items.Add(item);
                 }
             }
         }

@@ -53,11 +53,11 @@ namespace IDSA.Modules.DataCalculation
         /* Calculation of terminal value based on external report list (must be sorted) */
         public static float CalculateTerminalValue(long shareNumbers, IList<Report> repList)
         {
-            var TV = new TvCalculationFormula(repList.Take(4).Select(a => a.EBIT).ToList(),
-                0,
-                0,
-                shareNumbers
-                );
+            var TV = new TvCalculationFormula();
+            TV.Ebit4q = repList.Take(4).Select(a => a.EBIT).ToList();
+            TV.Cash = 0;
+            TV.Loans = 0;
+            TV.ShareNumbers = 0;
             return TV.Calculate();
         }
 

@@ -28,35 +28,48 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.mainTabControl = new System.Windows.Forms.TabControl();
+            this.mainStripMenu = new System.Windows.Forms.MenuStrip();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.mainTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(631, 874);
-            this.tabControl1.TabIndex = 0;
+            this.mainTabControl.Location = new System.Drawing.Point(12, 27);
+            this.mainTabControl.Name = "mainTabControl";
+            this.mainTabControl.SelectedIndex = 0;
+            this.mainTabControl.Size = new System.Drawing.Size(631, 859);
+            this.mainTabControl.TabIndex = 0;
+            // 
+            // menuStrip1
+            // 
+            this.mainStripMenu.Location = new System.Drawing.Point(0, 0);
+            this.mainStripMenu.Name = "mainStripMenu";
+            this.mainStripMenu.Size = new System.Drawing.Size(646, 24);
+            this.mainStripMenu.TabIndex = 1;
+            this.mainStripMenu.Text = "mainStripMenu";
             // 
             // Shell
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(646, 887);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.mainTabControl);
+            this.Controls.Add(this.mainStripMenu);
+            this.MainMenuStrip = this.mainStripMenu;
             this.Name = "Shell";
             this.Text = "Shell";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl mainTabControl;
+        private System.Windows.Forms.MenuStrip mainStripMenu;
     }
 }
 

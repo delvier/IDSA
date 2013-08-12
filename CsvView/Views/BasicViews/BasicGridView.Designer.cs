@@ -35,13 +35,17 @@
             // 
             // baseViewGrid
             // 
-            this.baseViewGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.baseViewGrid.AllowUserToAddRows = false;
+            this.baseViewGrid.AllowUserToDeleteRows = false;
+            this.baseViewGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.baseViewGrid.BackgroundColor = System.Drawing.Color.Honeydew;
             this.baseViewGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.baseViewGrid.Location = new System.Drawing.Point(3, 52);
+            this.baseViewGrid.Location = new System.Drawing.Point(0, 42);
             this.baseViewGrid.Name = "baseViewGrid";
-            this.baseViewGrid.Size = new System.Drawing.Size(438, 246);
+            this.baseViewGrid.ReadOnly = true;
+            this.baseViewGrid.Size = new System.Drawing.Size(463, 246);
             this.baseViewGrid.TabIndex = 0;
             // 
             // titleLabel
@@ -50,9 +54,9 @@
             this.titleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.titleLabel.Location = new System.Drawing.Point(3, 12);
             this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(52, 26);
+            this.titleLabel.Size = new System.Drawing.Size(83, 26);
             this.titleLabel.TabIndex = 1;
-            this.titleLabel.Text = "Title";
+            this.titleLabel.Text = "Header";
             // 
             // BasicGridView
             // 
@@ -62,7 +66,7 @@
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.baseViewGrid);
             this.Name = "BasicGridView";
-            this.Size = new System.Drawing.Size(441, 301);
+            this.Size = new System.Drawing.Size(466, 288);
             ((System.ComponentModel.ISupportInitialize)(this.baseViewGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -15,7 +15,6 @@ namespace IDSA.Models
         public Context() : base("CompanyContext") { }
 
         public DbSet<Company> Companies { get; set; }
-        //public DbSet<Report> Reports { get; set; }
         public DbSet<FinancialData> FinData { get; set; }
 
     }

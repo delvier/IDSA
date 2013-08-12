@@ -76,7 +76,11 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Events.cs" />
-    <Compile Include="Events\DatabaseUpdatedEvent.cs" />
+    <Compile Include="Events\DbEvents\DatabaseUpdatedEvent.cs" />
+    <Compile Include="Events\MainEvents\CompanyChangeEvent.cs" />
+    <Compile Include="MixedViewProvider.cs" />
+    <Compile Include="ModalViewProvider.cs" />
+    <Compile Include="Models\DataStruct\GridRawDataTableProvider.cs" />
     <Compile Include="Models\DataStruct\IBalanceData.cs" />
     <Compile Include="Models\DataStruct\IBaseFinData.cs" />
     <Compile Include="Models\DataStruct\ICashFlowData.cs" />
@@ -97,12 +101,19 @@
     <Compile Include="Models\Repository\UnitOfWork.cs" />
     <Compile Include="Models\Utilities\MultiSortableBindingListView.cs" />
     <Compile Include="Models\Utilities\PropertyComparer.cs" />
+    <Compile Include="Modules\DataCalculation\ICalculationService.cs" />
+    <Compile Include="Presenters\Financial_InternalTabs\BalancePresenter.cs" />
+    <Compile Include="Presenters\Financial_InternalTabs\CashFlowPresenter.cs" />
+    <Compile Include="Presenters\Financial_InternalTabs\IncomeStatmentPresentercs.cs" />
+    <Compile Include="Services\CacheService.cs" />
     <Compile Include="Modules\CachedListContainer\CompanyCacheDataContainer.cs" />
-    <Compile Include="Modules\CachedListContainer\ICachedContainer.cs" />
+    <Compile Include="Modules\CachedListContainer\DataContainer.cs" />
+    <Compile Include="Modules\CachedListContainer\ICacheService.cs" />
     <Compile Include="Modules\DataCalculation\CalculationFormula.cs" />
     <Compile Include="Modules\DataCalculation\DataCalculation.cs" />
     <Compile Include="Modules\DataCalculation\ICalculationFormula.cs" />
     <Compile Include="Modules\DataCalculation\IDataCalculation.cs" />
+    <Compile Include="Services\CalculationService.cs" />
     <Compile Include="Modules\DataCalculation\ReportDataCalculation.cs" />
     <Compile Include="Modules\DataCalculation\RzisBaseDataCaluclation.cs" />
     <Compile Include="Modules\DataCalculation\TvCalculationFormula.cs" />
@@ -122,11 +133,14 @@
     <Compile Include="Presenters\DBPresenter.cs" />
     <Compile Include="Presenters\CompaniesPresenter.cs" />
     <Compile Include="CsvEnums.cs" />
-    <Compile Include="Presenters\PropertyPresenters\BasicGridPresenter.cs" />
+    <Compile Include="Presenters\Financial_InternalTabs\FinancialMasterTabPresenter.cs" />
+    <Compile Include="Presenters\BasicViewsPresenters\BasicGridPresenter.cs" />
     <Compile Include="Services\ChartService.cs" />
     <Compile Include="Services\CompanyDataService.cs" />
+    <Compile Include="Services\DisplayFormatService.cs" />
     <Compile Include="Services\IDataService.cs" />
-    <Compile Include="Events\DatabaseCreatedEvent.cs" />
+    <Compile Include="Events\DbEvents\DatabaseCreatedEvent.cs" />
+    <Compile Include="Presenters\Financial_InternalTabs\FinancialInternalTabbedProvider.cs" />
     <Compile Include="Views\DataFromHtmlView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -151,6 +165,24 @@
     <Compile Include="Views\CsvLoad.Designer.cs">
       <DependentUpon>CsvLoad.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\ReportManagment\AddReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ReportManagment\AddReport.Designer.cs">
+      <DependentUpon>AddReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReportManagment\DeleteReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ReportManagment\DeleteReport.Designer.cs">
+      <DependentUpon>DeleteReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReportManagment\EditReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ReportManagment\EditReport.Designer.cs">
+      <DependentUpon>EditReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\DBView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -166,10 +198,16 @@
     <Compile Include="ServiceLocator.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\PropertyViews\BasicGridView.cs">
+    <Compile Include="Views\FinancialMasterTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\PropertyViews\BasicGridView.Designer.cs">
+    <Compile Include="Views\FinancialMasterTab.Designer.cs">
+      <DependentUpon>FinancialMasterTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BasicViews\BasicGridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\BasicViews\BasicGridView.Designer.cs">
       <DependentUpon>BasicGridView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Shell.cs">
@@ -198,6 +236,9 @@
     <EmbeddedResource Include="Views\CsvLoad.resx">
       <DependentUpon>CsvLoad.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\ReportManagment\AddReport.resx">
+      <DependentUpon>AddReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\DBView.resx">
       <DependentUpon>DBView.cs</DependentUpon>
     </EmbeddedResource>
@@ -211,8 +252,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Views\PropertyViews\BasicGridView.resx">
+    <EmbeddedResource Include="Views\FinancialMasterTab.resx">
+      <DependentUpon>FinancialMasterTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\BasicViews\BasicGridView.resx">
       <DependentUpon>BasicGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ReportManagment\DeleteReport.resx">
+      <DependentUpon>DeleteReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ReportManagment\EditReport.resx">
+      <DependentUpon>EditReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shell.resx">
       <DependentUpon>Shell.cs</DependentUpon>

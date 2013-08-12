@@ -7,19 +7,19 @@ using System.Collections;
 
 namespace IDSA.Modules.CachedDataContainer
 {
-    public interface ICachedDataContainer
+    public interface IDataContainer
     {
-
+        
     }
 
-    public class CacheDataContainer<T> : IList<T>, ICachedDataContainer
+    public class DataContainer<T> : IList<T>, IDataContainer
     {
         public IList<T> _cacheLst = new List<T>();
-        public CacheDataContainer()
+        protected DataContainer()
         {
             
         }
-        public CacheDataContainer(IList<T> cacheLst)
+        protected DataContainer(IList<T> cacheLst)
         {
             this._cacheLst = cacheLst;
         }

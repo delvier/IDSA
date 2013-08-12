@@ -9,6 +9,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
+using IDSA.Views.CompaniesInternal;
+using Microsoft.Practices.ServiceLocation;
+using IDSA.Events.MainEvents;
+using IDSA.Modules.DataCalculation;
 
 namespace IDSA.Views
 {
@@ -22,16 +26,16 @@ namespace IDSA.Views
         CompaniesPresenter presenter;
         private readonly IEventAggregator _eventAggregator;
 
-        public Companies(IEventAggregator eventAggregator, IChartService chart)
+        public Companies(IEventAggregator eventAggregator, IChartService chartService, ICalculationService calculationService)
         {
-            presenter = new CompaniesPresenter(this, chart);
+            presenter = new CompaniesPresenter(this, chartService, calculationService);
             _eventAggregator = eventAggregator;
 
             _eventAggregator.GetEvent<DatabaseCreatedEvent>().Subscribe(RefreshView);
             InitializeComponent();
         }
 
-        private void VCompany_Load(object sender, EventArgs e)
+        private void Companies_Load(object sender, EventArgs e)
         {
             _eventAggregator.GetEvent<DatabaseCreatedEvent>().Publish(true);
         }
@@ -243,6 +247,7 @@ namespace IDSA.Views
             {
                 presenter.SetCmpSelected((Company)CompanyBox.SelectedItem);
                 presenter.RaiseSelectedCmpChange(this, new SelectedCmpReportsChangedEventArgs());
+                _eventAggregator.GetEvent<CompanyChangeEvent>().Publish(presenter.GetSelectedCompany());
             }
         }
 

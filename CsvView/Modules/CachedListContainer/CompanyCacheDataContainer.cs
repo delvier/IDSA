@@ -8,22 +8,28 @@ using System.Collections.ObjectModel;
 
 namespace IDSA.Modules.CachedDataContainer
 {
-    public class CompanyCacheDataContainer : CacheDataContainer<Company>
+    public class CompanyDataContainer : DataContainer<Company>
     {
-        public CompanyCacheDataContainer() : base() {}
-        public CompanyCacheDataContainer(IList<Company> lst) : base(lst) { }
+        public CompanyDataContainer() : base() {}
+        public CompanyDataContainer(IList<Company> lst) : base(lst) { }
 
         public void SortReports()
         {
             foreach (var cmp in _cacheLst)
             {
-                ObservableCollection<FinancialData> observableColection = 
-                    cmp.Reports.OrderByDescending(r=>r.FinancialReportReleaseDate)
-                               .ToObservableCollection<FinancialData>();
-                var sortedReports = new ObservableListSource<FinancialData>(observableColection);
-                cmp.Reports = sortedReports;          
+                cmp.Reports  = cmp.Reports
+                                  .OrderByDescending(r => r.Year)
+                                  .ThenByDescending(r => r.Quarter)
+                                  //.OrderByDescending(r=>r.FinancialReportReleaseDate)
+                                  .ToObservableListSource<FinancialData>();
             }
         }
+
+        public Company GetCompany(String name)
+        {
+            return _cacheLst.Where(c => c.Name == name).FirstOrDefault();
+        }
+        
     }
 
     public static class CollectionExtensions
@@ -34,6 +40,14 @@ namespace IDSA.Modules.CachedDataContainer
             foreach (var e in coll)
                 c.Add(e);
             return c;
+        }
+
+        public static ObservableListSource<T> ToObservableListSource<T>(this IEnumerable<T> coll) where T : class
+        {
+            var observableSource = new ObservableListSource<T>();
+            foreach (var e in coll)
+                observableSource.Add(e);
+            return observableSource;
         }
     }
 }

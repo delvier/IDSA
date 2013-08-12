@@ -1,47 +1,43 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using IDSA.Models;
-using IDSA.Models.Repository;
 using IDSA.Services;
 using IDSA.Views;
 using System.Data;
 using System.Windows.Forms;
 using IDSA.Modules.DataCalculation;
 using Microsoft.Practices.ServiceLocation;
-using IDSA.Modules.CachedDataContainer;
 using System.Reflection;
+using IDSA.Modules.CachedListContainer;
 
 namespace IDSA.Presenters
 {
     class CompaniesPresenter
     {
         Companies view;
-        private readonly IUnitOfWork dbModel;
-        private readonly IChartService chartService;
+        private readonly ICacheService _cache;
+        private readonly IChartService _chartService;
+        private readonly ICalculationService _calculationService;
         private readonly IDataService<ICompany> _companyDataService; //to delete later on.
-        private readonly CompanyCacheDataContainer _companyCacheDataContainer;
-        public IDataCalculation<RzisBase> _dataCalculationService { get; set; }
 
-        //Cached Data - active operations on it. -> IDEA: Prepare seperate class for Cached Data ?
+        //public IDataCalculation<RzisBase> _dataCalculationService { get; set; }
+
         private Company _cmpSelected { get; set; }
         public IList<RzisBase> _cmpSelectedReportsList { get; set; }
         private ViewModeType finDataViewMode { get; set; } // maybe add view mode into dataCalulationService?
         private float _terminalValue { get; set; }
 
-        public CompaniesPresenter(Companies view, IChartService chartService)
+        public CompaniesPresenter(Companies view, IChartService chartService, ICalculationService calulationService)
         {
-            this._companyDataService = (IDataService<Company>)(new CompanyDataService());
             this.view = view;
-            dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();
+            this._companyDataService = (IDataService<Company>)(new CompanyDataService());
+            //this._dataCalculationService = new RzisBaseDataCaluclation();
 
-            this._dataCalculationService = new RzisBaseDataCaluclation();
-            this._companyCacheDataContainer = new CompanyCacheDataContainer(dbModel.Companies.GetAll());
-            _companyCacheDataContainer.SortReports();
-
-            this.chartService = chartService;
+            this._chartService = chartService;
+            this._cache = ServiceLocator.Current.GetInstance<ICacheService>();
+            this._calculationService = calulationService;
             this.finDataViewMode = ViewModeType.Seperate;
             
             //delegateConstruct
@@ -62,27 +58,27 @@ namespace IDSA.Presenters
         {
             if (e.selectQuantity != 0)
             {
-                chartService.RecalcXValues(_cmpSelected.Reports
+                _chartService.RecalcXValues(_cmpSelected.Reports
                                         .OrderByDescending(r => r.Year)
                                         .ThenByDescending(r => r.Quarter)
                                         .Take(e.selectQuantity).ToList());
             }
             else
-                chartService.RecalcXValues(_cmpSelected.Reports.ToList());
+                _chartService.RecalcXValues(_cmpSelected.Reports.ToList());
             this.ChartChangeNow("Sales");
         }
 
         internal void ChartChangeNow(String headerName)
         {
-            chartService.RecalcYValues(headerName);
-            view.ChartRedraw(chartService.GetxValues(), chartService.GetyValues());
+            _chartService.RecalcYValues(headerName);
+            view.ChartRedraw(_chartService.GetxValues(), _chartService.GetyValues());
         }
 
         #endregion
 
         public IBindingList GetDbCompanies()
         {
-            var cmpBindList = new BindingList<Company>(_companyCacheDataContainer.ToList());
+            var cmpBindList = new BindingList<Company>(_cache.GetAll());
             return cmpBindList;
         }
 
@@ -103,13 +99,18 @@ namespace IDSA.Presenters
                 return showList;
             }
             else
-                return dbModel.Companies.GetAll(); ;
+                return new BindingList<Company>(_cache.GetAll());
         }
 
         public void SetCmpSelected(Company company)
         {
             _cmpSelected = company;
             this.UpdatePanel2();
+        }
+
+        public Company GetSelectedCompany()
+        {
+            return _cmpSelected;
         }
 
         public void UpdatePanel2()
@@ -170,14 +171,13 @@ namespace IDSA.Presenters
         }
         public void TvCalculationPerform(object sender, SelectedCmpReportsChangedEventArgs e)
         {
-            _terminalValue = ((RzisBaseDataCaluclation)_dataCalculationService).CalculateTerminalValue(_cmpSelected.ShareNumbers);
-            //needToCastTo ReportDataCalculation otherwise IDataCalculation is lack of procedure 'CaluclateTerminalValue'
+            _terminalValue = _calculationService.GetTerminalValue(_cmpSelected);
         }
         public void SelectedCmpReportsCalucalte(object sender, EventArgs e)
         {
-            _dataCalculationService.SetData(_cmpSelectedReportsList);
-            _dataCalculationService.CalculationPerform();
-            _cmpSelectedReportsList = _dataCalculationService.GetData();
+            //_dataCalculationService.SetData(_cmpSelectedReportsList);
+            //_dataCalculationService.CalculationPerform();
+            //_cmpSelectedReportsList = _dataCalculationService.GetData();
         }
         public void RaiseSelectedCmpChange(Companies sender, SelectedCmpReportsChangedEventArgs e)
         {
