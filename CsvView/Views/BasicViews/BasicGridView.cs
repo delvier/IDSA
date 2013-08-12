@@ -32,8 +32,9 @@ namespace IDSA.Views.PropertyView
 
             //bind data update to event
             _presenter.PresenterDataChanged += (o, eventArg) => Bind();
+            //in futere this should be an option dynamicly set by a User.
             _presenter.PresenterDataChanged += (o, eventArg) =>
-                _formatService.ApplayGridFormatStyle(_formatService.ThousandFormat(), baseViewGrid.Columns);
+                _formatService.ApplayGridFormatStyle(_formatService.ThousandsFormat, baseViewGrid.Columns);
         }
 
         public void Bind()

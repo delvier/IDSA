@@ -8,9 +8,9 @@ namespace IDSA.Services
 {
     public interface IDisplayFormat
     {
-        void ApplayGridFormatStyle(DataGridViewCellStyle format, DataGridViewColumnCollection cols);
-        DataGridViewCellStyle ThousandFormat();
-        DataGridViewCellStyle MilionFormat();
+        void ApplayGridFormatStyle(String format, DataGridViewColumnCollection cols);
+        String ThousandsFormat { get; }
+        String MilionFormat { get; }
     }
 
     public class DisplayFormatService : IDisplayFormat
@@ -18,7 +18,23 @@ namespace IDSA.Services
         private readonly String thousandsFormat = "#,##0, k";
         private readonly String milionFormat = "#,##0,, m";
 
-        public DataGridViewCellStyle GetBigCellStyle(String format)
+        public String ThousandsFormat
+        {
+            get
+            {
+                return this.thousandsFormat;
+            }
+        }
+
+        public String MilionFormat
+        {
+            get
+            {
+                return this.milionFormat;
+            }
+        }
+
+        public DataGridViewCellStyle GetCellStyle(String format)
         {
             var cellStyle = new DataGridViewCellStyle();
             cellStyle.Format = format;
@@ -26,25 +42,16 @@ namespace IDSA.Services
             return cellStyle;
         }
 
-        public DataGridViewCellStyle ThousandFormat()
+        public void ApplayGridFormatStyle(String format, DataGridViewColumnCollection cols)
         {
-            return GetBigCellStyle(thousandsFormat);
-        }
 
-        public DataGridViewCellStyle MilionFormat()
-        {
-            return GetBigCellStyle(milionFormat);
-        }
-
-        public void ApplayGridFormatStyle(DataGridViewCellStyle format, DataGridViewColumnCollection cols)
-        {
             foreach (DataGridViewColumn col in cols)
             {
                 if (col.ValueType == typeof(long))
-                    col.DefaultCellStyle = format;
+                    col.DefaultCellStyle = GetCellStyle(format);
             }
         }
 
-       
+
     }
 }
