@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using IDSA.Models;
+using System.ComponentModel;
 
 namespace IDSA.Modules.CachedListContainer
 {
@@ -19,6 +20,8 @@ namespace IDSA.Modules.CachedListContainer
 
         /* Somtimes we need all data */
         IList<Company> GetAll();
-         
+
+        /* Companies As Binding List */
+        IBindingList GetAllInBindingList();
     }
 }

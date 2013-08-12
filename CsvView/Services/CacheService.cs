@@ -7,6 +7,7 @@ using Microsoft.Practices.ServiceLocation;
 using IDSA.Modules.CachedDataContainer;
 using Microsoft.Practices.Prism.Events;
 using IDSA.Models;
+using System.ComponentModel;
 
 namespace IDSA.Modules.CachedListContainer
 {
@@ -46,6 +47,11 @@ namespace IDSA.Modules.CachedListContainer
         public void RefreshData()
         {
             _dataContainer._cacheLst = _dbModel.Companies.GetAll();
+        }
+
+        public IBindingList GetAllInBindingList()
+        {
+            return new BindingList<Company>(GetAll());
         }
     }
 }

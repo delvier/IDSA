@@ -55,8 +55,8 @@ namespace IDSA.Presenters.PropertyPresenters
                 if (this._header != value)
                 {
                     this._header = value;
-                    this.RaisePropertyChanged(() => this.Header);
-                    //NotifyPropertyChanged("Header");
+                    //this.RaisePropertyChanged(() => this.Header);
+                    NotifyPropertyChanged("Header");
                 }
             }
         }

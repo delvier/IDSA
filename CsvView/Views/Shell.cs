@@ -38,6 +38,7 @@ namespace IDSA
             {
                 var form = new Form();
                 var view = (Control)ServiceLocator.Current.GetService(typeView);
+                view.Dock = DockStyle.Fill;
                 form.Controls.Add(view);
                 form.ShowDialog();
             });

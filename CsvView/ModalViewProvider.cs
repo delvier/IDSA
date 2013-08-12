@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using IDSA.Views.ReportManagment;
+using IDSA.Views.BasicViews;
 
 namespace IDSA
 {
@@ -21,7 +22,7 @@ namespace IDSA
                 new ViewItemDescriptor()
                 {
                     Header = "Report Add",
-                    View = typeof(AddReport)
+                    View = typeof(BasicDataControl)
                 }
                 );
 
@@ -29,7 +30,7 @@ namespace IDSA
                 new ViewItemDescriptor()
                 {
                     Header = "Report Edit",
-                    View = typeof(EditReport)
+                    View = typeof(BasicDataControl)
                 }
                 );
 
@@ -37,7 +38,7 @@ namespace IDSA
                 new ViewItemDescriptor()
                 {
                     Header = "Report Delete",
-                    View = typeof(DeleteReport)
+                    View = typeof(BasicDataControl)
                 }
                 );
 
