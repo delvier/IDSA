@@ -15,6 +15,6 @@ namespace IDSA
 
     public class FinancialTabItemDescriptor : ViewItemDescriptor
     {
-        public Type TabPresenter { get; set; }
+        public Type TabPresenterType { get; set; }
     }
 }

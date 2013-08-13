@@ -71,6 +71,7 @@
             this.reportsBox.Name = "reportsBox";
             this.reportsBox.Size = new System.Drawing.Size(120, 21);
             this.reportsBox.TabIndex = 5;
+            this.reportsBox.SelectedIndexChanged += new System.EventHandler(this.reportsBox_SelectedIndexChanged);
             // 
             // BasicDataControl
             // 

@@ -35,12 +35,18 @@ namespace IDSA.Presenters.BasicViewsPresenters
             this._cache = ServiceLocator.Current.GetInstance<ICacheService>();
             this._eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
             //subscribe to events.
-            _eventAggregator.GetEvent<CompanyInDataControlChangeEvent>().Subscribe(UpdateData);
+            _eventAggregator.GetEvent<CompanyInDataControlChangeEvent>().Subscribe(UpdateReports);
+            _eventAggregator.GetEvent<ReportInDataControlChangeEvent>().Subscribe(UpdateReportFields);
         }
 
-        private void UpdateData(Company cmp)
+        private void UpdateReports(Company cmp)
         {
             this.ReportsBoxData = new BindingList<FinancialData>(cmp.Reports.ToList());
+        }
+
+        private void UpdateReportFields(FinancialData report)
+        { 
+            //update fields data.
         }
 
         public IBindingList CompanyBoxData

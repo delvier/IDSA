@@ -8,7 +8,7 @@ using IDSA.Models.DataStruct;
 
 namespace IDSA.Events.DataControlEvents
 {
-    public class ReportsInDataControlChangeEvent : CompositePresentationEvent<FinancialData>
+    public class ReportInDataControlChangeEvent : CompositePresentationEvent<FinancialData>
     {
     }
 }

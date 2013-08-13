@@ -18,11 +18,11 @@ namespace IDSA.Modules.DataScanner
     public class FilterViewComponents : IFilterViewComponents
     {
         public IList<Control> filterCtrls { get; set; }
-        public ComboBox filterCmbb {get;set;}
-        public Button deleteBtn {get;set;}
-        public TextBox lowValue {get;set;}
+        public ComboBox filterCmbb { get; set; }
+        public Button deleteBtn { get; set; }
+        public TextBox lowValue { get; set; }
         public TextBox highValue { get; set; }
-        
+
         public FilterViewComponents()
         {
             this.filterCtrls = new List<Control>();
@@ -63,7 +63,7 @@ namespace IDSA.Modules.DataScanner
             this.filterCtrls.Add(highValue);
             this.filterCtrls.Add(deleteBtn);
         }
-        
+
 
     }
 }

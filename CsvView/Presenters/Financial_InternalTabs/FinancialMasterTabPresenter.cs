@@ -32,7 +32,7 @@ namespace IDSA.Presenters
         {
             foreach (var tabItem in _internalTabProvider.GetViews())
             {
-                var tabView = new BasicGridView(tabItem.TabPresenter);
+                var tabView = new BasicGridView(tabItem.TabPresenterType);
                 _view.AddInternalTab(tabView, tabItem.Header);
                 _observationList.Add(tabView.GetPresenterHandler());
             }

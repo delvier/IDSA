@@ -77,7 +77,7 @@
     </Compile>
     <Compile Include="Events.cs" />
     <Compile Include="Events\DataControlEvents\CompanyInDataControlChangeEvent.cs" />
-    <Compile Include="Events\DataControlEvents\ReportsInDataControlChangeEvent.cs" />
+    <Compile Include="Events\DataControlEvents\ReportInDataControlChangeEvent.cs" />
     <Compile Include="Events\DbEvents\DatabaseUpdatedEvent.cs" />
     <Compile Include="Events\MainEvents\CompanyChangeEvent.cs" />
     <Compile Include="MixedViewProvider.cs" />
@@ -144,6 +144,9 @@
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Events\DbEvents\DatabaseCreatedEvent.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\FinancialInternalTabbedProvider.cs" />
+    <Compile Include="Views\BasicViews\DataControlTabElement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\ReportManagment\AddReportDataControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -226,6 +229,9 @@
     </Compile>
     <EmbeddedResource Include="Views\BasicViews\BasicDataControl.resx">
       <DependentUpon>BasicDataControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\BasicViews\DataControlTabElement.resx">
+      <DependentUpon>DataControlTabElement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\DataFromHtmlView.resx">
       <DependentUpon>DataFromHtmlView.cs</DependentUpon>

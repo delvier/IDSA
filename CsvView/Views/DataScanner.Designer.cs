@@ -80,7 +80,7 @@
             // highValue
             // 
             this.highValue.Location = new System.Drawing.Point(168, 2);
-            this.highValue.Name = "highValue";
+            this.highValue.Name = "fieldValue";
             this.highValue.Size = new System.Drawing.Size(34, 20);
             this.highValue.TabIndex = 4;
             // 
