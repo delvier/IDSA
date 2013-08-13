@@ -40,8 +40,9 @@ namespace IDSA.Views.BasicViews
             // 
             this.fieldName.AutoSize = true;
             this.fieldName.Location = new System.Drawing.Point(4, 6);
+            this.fieldName.Width = 122;
             this.fieldName.Name = "fieldName";
-            this.fieldName.Size = new System.Drawing.Size(35, 13);
+            this.fieldName.Size = new System.Drawing.Size(125, 13);
             this.fieldName.TabIndex = 0;
             this.fieldName.Text = "fieldName";
             // 

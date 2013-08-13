@@ -62,6 +62,7 @@ namespace IDSA.Views.BasicViews
 
         private void InitInternalTabs ()
         {
+            // optimalize as viewProvider.cs
             var userControl = new UserControl();
             userControl.Dock = DockStyle.Fill;
 
