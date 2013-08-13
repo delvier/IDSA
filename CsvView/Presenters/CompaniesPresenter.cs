@@ -22,8 +22,6 @@ namespace IDSA.Presenters
         private readonly ICalculationService _calculationService;
         private readonly IDataService<ICompany> _companyDataService; //to delete later on.
 
-        //public IDataCalculation<RzisBase> _dataCalculationService { get; set; }
-
         private Company _cmpSelected { get; set; }
         public IList<RzisBase> _cmpSelectedReportsList { get; set; }
         private ViewModeType finDataViewMode { get; set; } // maybe add view mode into dataCalulationService?
@@ -39,7 +37,7 @@ namespace IDSA.Presenters
             this._cache = ServiceLocator.Current.GetInstance<ICacheService>();
             this._calculationService = calulationService;
             this.finDataViewMode = ViewModeType.Seperate;
-            
+
             //delegateConstruct
             this.SelectedCmpReportsChangedEvent += this.SelectAllReports;
             this.SelectedCmpReportsChangedEvent += this.ReportsRecalculationIfNeeded;

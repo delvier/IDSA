@@ -62,6 +62,7 @@
             this.companyBox.Name = "companyBox";
             this.companyBox.Size = new System.Drawing.Size(120, 21);
             this.companyBox.TabIndex = 4;
+            this.companyBox.SelectedIndexChanged += new System.EventHandler(this.companyBox_SelectedIndexChanged);
             // 
             // reportsBox
             // 
@@ -88,9 +89,9 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabDataControl;
-        private System.Windows.Forms.Button actionBtn;
-        private System.Windows.Forms.ComboBox companyBox;
-        private System.Windows.Forms.ComboBox reportsBox;
+        protected System.Windows.Forms.TabControl tabDataControl;
+        protected System.Windows.Forms.Button actionBtn;
+        protected System.Windows.Forms.ComboBox companyBox;
+        protected System.Windows.Forms.ComboBox reportsBox;
     }
 }

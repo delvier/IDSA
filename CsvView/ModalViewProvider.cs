@@ -22,7 +22,7 @@ namespace IDSA
                 new ViewItemDescriptor()
                 {
                     Header = "Report Add",
-                    View = typeof(BasicDataControl)
+                    View = typeof(AddReportDataControl)
                 }
                 );
 
@@ -30,7 +30,7 @@ namespace IDSA
                 new ViewItemDescriptor()
                 {
                     Header = "Report Edit",
-                    View = typeof(BasicDataControl)
+                    View = typeof(EditReportDataControl)
                 }
                 );
 
@@ -38,7 +38,7 @@ namespace IDSA
                 new ViewItemDescriptor()
                 {
                     Header = "Report Delete",
-                    View = typeof(BasicDataControl)
+                    View = typeof(DeleteReportDataControl)
                 }
                 );
 
