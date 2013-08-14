@@ -8,14 +8,14 @@ namespace IDSA.Views.BasicViews
 {
     interface IDataControlTabElement
     {
-        Label fieldName { get; set; }
-        TextBox fieldValue { get; set; }
+        //Label fieldName;
+        //TextBox fieldValue;
     }
 
     public class DataControlTabElement : UserControl, IDataControlTabElement
     {
-        public Label fieldName { get; set; }
-        public TextBox fieldValue { get; set; }
+        private Label fieldName;
+        private TextBox fieldValue;
 
         public DataControlTabElement(String fieldName)
         {
@@ -39,28 +39,32 @@ namespace IDSA.Views.BasicViews
             // fieldName
             // 
             this.fieldName.AutoSize = true;
-            this.fieldName.Location = new System.Drawing.Point(4, 6);
-            this.fieldName.Width = 122;
+            this.fieldName.Location = new System.Drawing.Point(3, 6);
             this.fieldName.Name = "fieldName";
-            this.fieldName.Size = new System.Drawing.Size(125, 13);
+            this.fieldName.Size = new System.Drawing.Size(66, 13);
             this.fieldName.TabIndex = 0;
-            this.fieldName.Text = "fieldName";
+            this.fieldName.Text = "longtextlabel";
             // 
             // fieldValue
             // 
-            this.fieldValue.Location = new System.Drawing.Point(45, 3);
+            this.fieldValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.fieldValue.Location = new System.Drawing.Point(80, 3);
             this.fieldValue.Name = "fieldValue";
-            this.fieldValue.Size = new System.Drawing.Size(100, 20);
+            this.fieldValue.Size = new System.Drawing.Size(72, 20);
             this.fieldValue.TabIndex = 1;
             // 
             // DataControlTabElement
             // 
-            this.Controls.Add(this.fieldValue);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.fieldName);
+            this.Controls.Add(this.fieldValue);
             this.Name = "DataControlTabElement";
-            this.Size = new System.Drawing.Size(156, 27);
+            this.Size = new System.Drawing.Size(155, 28);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
 

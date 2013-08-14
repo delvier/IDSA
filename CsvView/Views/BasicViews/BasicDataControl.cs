@@ -12,6 +12,8 @@ using Microsoft.Practices.ServiceLocation;
 using IDSA.Events.DataControlEvents;
 using IDSA.Models;
 using IDSA.Models.DataStruct;
+using System.Reflection;
+using System.Collections;
 
 namespace IDSA.Views.BasicViews
 {
@@ -62,23 +64,22 @@ namespace IDSA.Views.BasicViews
 
         private void InitInternalTabs ()
         {
+            var structDict = new PropertiesExtractor(typeof(FinancialData)).GetStructureDict();
             // optimalize as viewProvider.cs
-            var userControl = new UserControl();
-            userControl.Dock = DockStyle.Fill;
-
-            var flowPanel = new FlowLayoutPanel();
-            flowPanel.AutoSize = true;
-            flowPanel.Dock = DockStyle.Fill;
-           
-            foreach (var prop in typeof(IncomeStatmentData).GetProperties())
+            foreach (var dictElement in structDict)
             {
-                flowPanel.Controls.Add(new DataControlTabElement(prop.Name));    
+                var flowPanel = new FlowLayoutPanel();
+                flowPanel.AutoSize = true;
+                flowPanel.Dock = DockStyle.Fill;
+                flowPanel.AutoScrollMinSize = new System.Drawing.Size(350, 350);
+                foreach (var prop in dictElement.Value)
+                {
+                    flowPanel.Controls.Add(new DataControlTabElement(prop.Name));
+                }
+                var singleTabPage = new TabPage(dictElement.Key);
+                singleTabPage.Controls.Add(flowPanel);
+                tabDataControl.Controls.Add(singleTabPage);    
             }
-            var singleTabPage = new TabPage("Rzis");
-
-            userControl.Controls.Add(flowPanel);
-            singleTabPage.Controls.Add(userControl);
-            tabDataControl.Controls.Add(singleTabPage);
         }
 
         public void Bind()
@@ -90,7 +91,39 @@ namespace IDSA.Views.BasicViews
         public abstract void SetActionBtnLabel();
         public abstract void SetVisibleBoxOption();
         public abstract void BtnOnClickAction();
+    }
 
-        
+
+    public class PropertiesExtractor
+    {
+        private Type _breakingType { get; set; }
+        private PropertyInfo[] _breakingProperties { get; set; }
+
+        public PropertiesExtractor(Type breakingType)
+        {
+            this._breakingType = breakingType;
+            this._breakingProperties = breakingType.GetProperties();
+        }
+
+        public IEnumerable<PropertyInfo> GetClasses()
+        {
+            return _breakingProperties.Where(prop => prop.PropertyType.IsClass);
+        }
+
+        public IEnumerable<PropertyInfo> GetBaseProperties()
+        {
+            return _breakingProperties.Where(prop => !prop.PropertyType.IsClass);
+        }
+
+        public Dictionary<string,IEnumerable<PropertyInfo>> GetStructureDict()
+        {
+            var dict = new Dictionary<string, IEnumerable<PropertyInfo>>();
+            dict.Add("Base", GetBaseProperties());
+            foreach (var classProperty in GetClasses())
+            {
+                dict.Add(classProperty.PropertyType.Name, classProperty.PropertyType.GetProperties());
+            }
+            return dict;
+        }
     }
 }
