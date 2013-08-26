@@ -9,41 +9,72 @@ namespace IDSA.Modules.PapParser
     public class PapParser
     {
         #region Fields
+        private HtmlWeb hw;
+        private HtmlAgilityPack.HtmlDocument page;
         private List<ReportFields> _reportFields;
+        private Dictionary<string, string> _cmpRepId;
         #endregion
 
         #region Ctors
         public PapParser(int reportId)
         {
+            hw = new HtmlWeb();
 
             InitializeReportFields();
-
-            takeTodaysReports("2013,8,23");
+            getTodaysReports(date: new DateTime(2013, 8, 23));
             parseReport(230737);
         }
         #endregion
 
         #region Public Methods
-        public HtmlNode takeTodaysReports(string specificDay)
+        public void retrieveYearlyReports(int year = 2013)
         {
-            specificDay = "2013,8,23";  //default 0,0,0, -> shows the newest adding reports date
-            HtmlWeb hw = new HtmlWeb();
-            HtmlAgilityPack.HtmlDocument page;
+            page = hw.Load(@"http://biznes.pap.pl/NSE/pl/reports/espi/term," + year + ",0,0,1");
 
-            page = hw.Load(@"http://biznes.pap.pl/NSE/pl/reports/espi/term," + specificDay + ",1");
-            //tabela roczna wszystkich raportow     table[1]/tr[x]-ki
-            var data = page.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[12]/div[1]/div[7]");
+            //tabela roczna wszystkich raportow
+            var data = page.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[12]/div[1]/div[7]/table[1]");
+            foreach (var row in data.Descendants("TR"))
+            {
+                //TODO: add to list/dictionary
+            }
+        }
+
+        public /*IEnumerable<KeyValuePair<string, string>>*/ void getTodaysReports(DateTime? date)
+        {
+            if (date == null)   //default 0,0,0, -> shows the newest adding reports date
+            {
+                date = new DateTime(0, 0, 0);
+            }
+            page = hw.Load(@"http://biznes.pap.pl/NSE/pl/reports/espi/term," +
+                        date.Value.Year + "," + date.Value.Month + "," + date.Value.Day + ",1");
+            
             //tabela raportow z danego dnia
-            var data1 = page.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[12]/div[1]/div[8]");
-
-            return page.DocumentNode;
+            var data = page.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[12]/div[1]/div[8]/table[1]");
+            var rows = data.Descendants("TR");
+            string XPathCmp = "/html[1]/body[1]/div[1]/div[12]/div[1]/div[8]/table[1]/tr[3]/td[3]/a[1]/b[1]";   ///#text[1]
+            for (int i = 2; i < rows.Count(); ++i)
+            {
+                var row = rows.ElementAt(i);
+                //struct newestReport{
+                //    DateTime time;    //row.ChildNode[1]
+                //    String number;    //row.ChildNode[3]
+                //    String company;   //row.ChildNode[5] +a href = company link
+                //    String title;     //row.ChildNode[7] + <a href = report link(report ID)
+                //}
+                var t = row.SelectSingleNode("/tr[3]/td[3]/a[1]/b[1]");
+                _cmpRepId.Add(row.SelectSingleNode(XPathCmp).InnerText,
+                    row.ChildNodes[7].InnerHtml); //TODO: poprawic wydobycie linka
+                //yield return new KeyValuePair<string, string>(
+                  //  row.ChildNodes[5].InnerText, row.ChildNodes[7].InnerText);
+                
+            }
         }
 
         public void parseReport(int reportId)
         {
             HtmlWeb hw = new HtmlWeb();
             HtmlAgilityPack.HtmlDocument page = hw.Load(@"http://biznes.pap.pl/NSE/pl/reports/espi/view/" + reportId.ToString());
-            
+
             // /tr[x] (numOfElements-1)/2
             var daneTemp = page.DocumentNode.SelectSingleNode("/html[1]/span[1]/table[5]/tr[1]/td[1]/table[1]");
 
