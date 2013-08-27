@@ -9,13 +9,28 @@ namespace IDSA.Modules.PapParser
 {
     public class ReportStructure
     {
-        public int CompanyId { get { 
-            // TODO: CompanyName.Substring(CompanyName.IndexOf('/'), )
-            return 123; } }
+        public int CompanyId
+        {
+            get
+            {
+                // TODO: CompanyName.Substring(CompanyName.IndexOf('/'), )
+                return 123;
+            }
+        }
         public string CompanyName { get; set; }
         public string CompanyLink { get; set; }
         public string Link { get; set; }
         public string Kind { get; set; }
+    }
+
+    public class HeaderStructure
+    {
+        public int factor { get; set; }
+        public string currency { get; set; }
+        public string period { get; set; }
+        public int year { get; set; }
+        public string periodOld { get; set; }
+        public int yearOld { get; set; }
     }
 
     public class PapParser
@@ -55,7 +70,7 @@ namespace IDSA.Modules.PapParser
         }
 
         public List<ReportStructure> getReportsFromDate(DateTime? date)
-        {            
+        {
             if (date == null)   //default 0,0,0, -> shows the newest adding reports date
             {
                 date = new DateTime(0, 0, 0);
@@ -82,7 +97,7 @@ namespace IDSA.Modules.PapParser
                     CompanyLink = row.SelectSingleNode(XPathCmp).ParentNode.Attributes["href"].Value,
                     CompanyName = row.SelectSingleNode(XPathCmp).InnerText,
                     Link = row.SelectSingleNode("//td[4]/a[1]").Attributes["href"].Value,
-                    Kind = Regex.Match(row.SelectSingleNode("//td[4]/a[1]").InnerText, 
+                    Kind = Regex.Match(row.SelectSingleNode("//td[4]/a[1]").InnerText,
                             "[a-zA-Zóżłąę ]+").ToString()
                 });
             }
@@ -93,41 +108,74 @@ namespace IDSA.Modules.PapParser
         {
             parseReport("/NSE/pl/reports/espi/view/" + reportId.ToString());
         }
-        
+
         public void parseReport(string innerUrl)
         {
             page = hw.Load(@"http://biznes.pap.pl" + innerUrl);
-        
-            // /tr[x] (numOfElements-1)/2
-            var data = page.DocumentNode.SelectSingleNode("/html[1]/span[1]/table[5]/tr[1]/td[1]/table[1]");
 
-            //var daneFinansowe = page.DocumentNode.ChildNodes["HTML"].ChildNodes["SPAN"]
-            //    .ChildNodes[25].ChildNodes["TR"].ChildNodes["TD"].ChildNodes["table"];
-            var rows = data.Descendants("TR");
-            
-            var header = data.ChildNodes[1];
-            //if (row. isHeader(0-3))
-            //first row = header
-            // row[2] WYBRANE DANE FINANSOWE
+            var rows = page.DocumentNode.SelectNodes("/html[1]/span[1]/table[5]/tr[1]/td[1]/table[1]/tr");
 
-            int factor = 1;
-            if (header.ChildNodes[3].InnerText.Contains("tys."))    // row[3] tys. mln.
+            var header = parseHeader(rows);
+                        
+            int i = 3;
+            if (rows[2].SelectNodes("./td")[1].InnerText.Contains("I."))
             {
-                factor = 1000;
+                i = 2;
             }
-            var currency = header.ChildNodes[4].InnerText;// row[4] zl. EUR
-            if (currency.Trim() == string.Empty)
-                currency = "PLN";
 
-            for (int i = 3; i < rows.Count(); ++i)
+            for (; i < rows.Count(); ++i)
             {
-                var row = rows.ElementAt(i).Descendants("TD");
+                var row = rows[i].SelectNodes("./td");
 
+                var name = row[1].InnerText.Split('.')[1].Trim();
+                
+                //TODO: Main POINT! Find fild in report properties!!!
+                
+
+                var value = row[2].InnerText.Replace(" ", string.Empty);
+                var val = Convert.ToInt64(value) * header.factor;
+                value = row[3].InnerText.Replace(" ", string.Empty);
+                var valOld = Convert.ToInt64(value) * header.factor;
             }
         }
         #endregion
 
         #region Private Methods
+
+        private HeaderStructure parseHeader(HtmlNodeCollection rows)
+        {
+            var headerStructure = new HeaderStructure();
+
+            var headerRow = rows[0].SelectNodes("./td");
+
+            headerStructure.factor = 1;
+            if (headerRow[2].InnerText.Contains("tys."))    // row[3] tys.
+            {
+                headerStructure.factor = 1000;
+            }
+            else if (headerRow[2].InnerText.Contains("tys."))    // row[3] mln.
+            {
+                headerStructure.factor = 1000000;
+            }
+
+            var currency = headerRow[3].InnerText;      // row[4] zl. EUR
+            if (currency.Trim() == string.Empty)
+                headerStructure.currency = "PLN";
+            else headerStructure.currency = currency.Trim();
+
+            headerRow = rows[1].SelectNodes("./td");
+
+            var t = headerRow[1].InnerText.Split('/');
+            headerStructure.period = t[0].Trim();
+            headerStructure.year = Convert.ToInt32(t[1].Trim());
+
+            t = headerRow[2].InnerText.Split('/');
+            headerStructure.periodOld = t[0].Trim();
+            headerStructure.yearOld = Convert.ToInt32(t[1].Trim());
+
+            return headerStructure;
+        }
+        
         private void InitializeReportFields()
         {
             // 29 fields
