@@ -50,11 +50,16 @@ namespace IDSA.Modules.PapParser
         {
             hw = new HtmlWeb();
             InitializeReportFields();
-            _reportsStruct = getReportsFromDate(date: new DateTime(2013, 8, 23));
+            //_reportsStruct = getReportsFromDate(date: new DateTime(2013, 8, 23));
+            _reportsStruct = getReportsFromDate(null);
+            /*
+             * Test reports:
+             * 241020 and 241021
+             */
 
             //TODO: move model to other class
             //IUnitOfWork model = ServiceLocator.Current.GetInstance<IUnitOfWork>();
-            
+
             foreach (var report in _reportsStruct)
             {
                 var finData = parseReport(report.Link);
@@ -78,12 +83,21 @@ namespace IDSA.Modules.PapParser
 
         public List<ReportStructure> getReportsFromDate(DateTime? date)
         {
+            /*  TODO:
+             * Dodac obsluge Pages.
+             * Na stronie PAP, jezeli mamy wiecej, niz 20 raportow, to sa one rozmieszczone
+             * na kolejnych stronach :(
+             */
             if (date == null)   //default 0,0,0, -> shows the newest adding reports date
             {
-                date = new DateTime(0, 0, 0);
+                page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/term,0,0,0,1");
             }
-            page = hw.Load(@"http://biznes.pap.pl/NSE/pl/reports/espi/term," +
+            else
+            {
+                page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/term," +
                         date.Value.Year + "," + date.Value.Month + "," + date.Value.Day + ",1");
+            }
+
             List<ReportStructure> reportsStruct = new List<ReportStructure>();
 
             //tabela raportow z danego dnia
@@ -119,6 +133,9 @@ namespace IDSA.Modules.PapParser
         public IFinancialData parseReport(string innerUrl)
         {
             IFinancialData _financialData = new FinancialData();
+            _financialData.IncomeStatement = new IncomeStatmentData();
+            _financialData.Balance = new BalanceData();
+            _financialData.CashFlow = new CashFlowData();
 
             page = hw.Load(@"http://biznes.pap.pl" + innerUrl);
 
@@ -126,6 +143,10 @@ namespace IDSA.Modules.PapParser
             var header = parseHeader(rows);
 
             int i = 3;
+            if (rows[4].SelectNodes("./td")[1].InnerText.Contains(" I."))
+            {
+                i = 4;
+            }
             if (rows[2].SelectNodes("./td")[1].InnerText.Contains("I."))
             {
                 i = 2;
@@ -136,9 +157,19 @@ namespace IDSA.Modules.PapParser
             {
                 var row = rows[i].SelectNodes("./td");
 
-                if (row[1].InnerText.Contains("jednostkowe") && i > 5)
+                if (!row[1].InnerText.Contains(". "))
+                {
+                    if (row[1].InnerText.Trim() != string.Empty)
+                        break;
+                    continue;
+                }
+                if (row[1].InnerText.IndexOf("jednostkowe", 0, StringComparison.CurrentCultureIgnoreCase) != -1 && i > 5)
+                {
                     break;
-                var name = row[1].InnerText.Split('.')[1].Trim();
+                }
+                if (row[1].InnerText.Trim() == string.Empty || row[1].InnerText.Contains("sp&oacute;łka") && i > 5)
+                    break;
+                var name = row[1].InnerText.Split('.').Last().Trim();
 
                 found = false;
                 foreach (var field in _reportFields)
@@ -155,6 +186,8 @@ namespace IDSA.Modules.PapParser
                                 field.Value = -1;
                             }
                             value = value.Replace(" ", string.Empty).Replace(".", string.Empty);
+                            if (value == "-")
+                                value = "0";
                             field.Value *= Convert.ToInt64(value) * header.factor;
 
                             //Move values from ReportFieldsNames to IncomeStatementData and to BalanceData
@@ -191,7 +224,13 @@ namespace IDSA.Modules.PapParser
         {
             var headerStructure = new HeaderStructure();
 
-            var headerRow = rows[0].SelectNodes("./td");
+            int i = 0;
+            var headerRow = rows[i].SelectNodes("./td");
+            if (headerRow[2].InnerText.Trim() != "WYBRANE DANE FINANSOWE" && headerRow[1].InnerText.Trim() != "WYBRANE DANE FINANSOWE")
+            {
+                ++i;
+                headerRow = rows[i].SelectNodes("./td");
+            }
 
             headerStructure.factor = 1;
             if (headerRow[2].InnerText.Contains("tys."))    // row[3] tys.
@@ -208,15 +247,22 @@ namespace IDSA.Modules.PapParser
                 headerStructure.currency = "PLN";
             else headerStructure.currency = currency.Trim();
 
-            headerRow = rows[1].SelectNodes("./td");
+            headerRow = rows[i + 1].SelectNodes("./td");
 
-            var t = headerRow[1].InnerText.Split('/');
+            var t = headerRow[i + 1].InnerText.Split('/');
             headerStructure.period = t[0].Trim();
             headerStructure.year = Convert.ToInt32(t[1].Trim());
 
             t = headerRow[2].InnerText.Split('/');
             headerStructure.periodOld = t[0].Trim();
-            headerStructure.yearOld = Convert.ToInt32(t[1].Trim());
+            try
+            {
+                headerStructure.yearOld = Convert.ToInt32(t[1].Trim());
+            }
+            catch (FormatException)
+            {
+                headerStructure.yearOld = headerStructure.year - 1;
+            }
 
             return headerStructure;
         }
