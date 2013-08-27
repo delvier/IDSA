@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using IDSA.Models.DataStruct;
 
 namespace IDSA.Modules.PapParser
 {
@@ -41,6 +42,7 @@ namespace IDSA.Modules.PapParser
         private HtmlAgilityPack.HtmlDocument page;
         private List<ReportFields> _reportFields;
         private List<ReportStructure> _reportsStruct;
+        //private IFinancialData _financialData;
         #endregion
 
         #region Ctors
@@ -49,11 +51,15 @@ namespace IDSA.Modules.PapParser
             hw = new HtmlWeb();
             InitializeReportFields();
             _reportsStruct = getReportsFromDate(date: new DateTime(2013, 8, 23));
+
+            //TODO: move model to other class
+            //IUnitOfWork model = ServiceLocator.Current.GetInstance<IUnitOfWork>();
+            
             foreach (var report in _reportsStruct)
             {
-                parseReport(report.Link);
+                var finData = parseReport(report.Link);
+                //model.Reports.Add(finData);
             }
-            //parseReport(230737);
         }
         #endregion
 
@@ -110,14 +116,15 @@ namespace IDSA.Modules.PapParser
             parseReport("/NSE/pl/reports/espi/view/" + reportId.ToString());
         }
 
-        public void parseReport(string innerUrl)
+        public IFinancialData parseReport(string innerUrl)
         {
+            IFinancialData _financialData = new FinancialData();
+
             page = hw.Load(@"http://biznes.pap.pl" + innerUrl);
 
             var rows = page.DocumentNode.SelectNodes("/html[1]/span[1]/table[5]/tr[1]/td[1]/table[1]/tr");
-
             var header = parseHeader(rows);
-                        
+
             int i = 3;
             if (rows[2].SelectNodes("./td")[1].InnerText.Contains("I."))
             {
@@ -149,6 +156,19 @@ namespace IDSA.Modules.PapParser
                             }
                             value = value.Replace(" ", string.Empty).Replace(".", string.Empty);
                             field.Value *= Convert.ToInt64(value) * header.factor;
+
+                            //Move values from ReportFieldsNames to IncomeStatementData and to BalanceData
+                            //Slow because using REFLECTION ;)
+                            var prop = _financialData.IncomeStatement.GetType().GetProperty(field.GetType().Name);
+                            if (prop == null)
+                            {
+                                prop = _financialData.Balance.GetType().GetProperty(field.GetType().Name);
+                                prop.SetValue(_financialData.Balance, field.Value, null);
+                            }
+                            else
+                            {
+                                prop.SetValue(_financialData.IncomeStatement, field.Value, null);
+                            }
                             found = true;
                             break;
                         }
@@ -158,9 +178,10 @@ namespace IDSA.Modules.PapParser
                 }
             }
 
-            //TODO: Move values from ReportFieldsNames to Report Structure
-            // to IncomeStatementData and to BalanceData
+            //TODO: Move values to IncomeStatementData not by REFLECTION
+            //income.Sales = _reportFields[0].Value;
 
+            return _financialData;
         }
         #endregion
 
@@ -199,12 +220,12 @@ namespace IDSA.Modules.PapParser
 
             return headerStructure;
         }
-        
+
         private void InitializeReportFields()
         {
             // 32 fields
             _reportFields = new List<ReportFields>();
-            
+
             _reportFields.Add(new Sales());
             _reportFields.Add(new EarningOnSales());
             _reportFields.Add(new EarningBeforeTaxes());
