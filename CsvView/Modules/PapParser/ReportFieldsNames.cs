@@ -9,15 +9,70 @@ namespace IDSA.Modules.PapParser
     }
 
 
-    //values.Add("Przychody ze sprzedaży", 0);
     //values.Add("Strata operacyjna", 0);
-    //values.Add("Strata przed opodatkowaniem", 0);
     //values.Add("Przychody z tytułu odsetek", 0);
     //values.Add("Przychody z tytułu prowizji", 0);
     //values.Add("Zysk (strata) brutto", 0);
     //values.Add("Zysk (strata) netto", 0);
     //values.Add("Całkowite dochody", 0);
     //values.Add("Zmiana stanu środków pieniężnych", 0);
+
+    public class Sales : ReportFields    //IncomeStatmentDataKey 41
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public Sales()
+        {
+            Names = new List<string> { "Sprzedaż" };
+        }
+    }
+    
+
+    public class EarningOnSales : ReportFields    //IncomeStatmentDataKey 45
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public EarningOnSales()
+        {
+            Names = new List<string> { "Przychody ze sprzedaży" };
+        }
+    }
+
+
+    public class EarningBeforeTaxes : ReportFields    //IncomeStatmentDataKey 54
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public EarningBeforeTaxes()
+        {
+            Names = new List<string> { "Strata przed opodatkowaniem", 
+                                        "Zysk przed opodatkowaniem" };
+        }
+    }
+
+    public enum IncomeStatmentDataKey
+    {
+        Sales = 40,                //AO //RZiS //41
+        OwnSaleCosts,              //AP        //42
+        SalesCost1,                //AQ - Sum. //43
+        SalesCost2,                //AR        //44
+        EarningOnSales,            //AS        //45
+        OtherOperationalActivity1, //AT - Sum. //46
+        OtherOperationalActivity2, //AU        //47
+        EBIT,                      //AV        //48
+        FinancialActivity1,        //AW - Sum. //49
+        FinancialAcvitity2,        //AX        //50
+        OtherCostOrSales,          //AY        //51
+        SalesOnEconomicActivity,   //AZ        //52
+        ExceptionalOccurence,      //BA        //53
+        EarningBeforeTaxes,        //BB        //54
+        DiscontinuedOperations,    //BC        //55
+        NetProfit,                 //BD        //56
+        NetParentProfit            //BE        //57 
+    }
 
     public class AssetsPrimary : ReportFields         //BalanceDataKey 5
     {

@@ -129,8 +129,18 @@ namespace IDSA.Modules.PapParser
 
                 var name = row[1].InnerText.Split('.')[1].Trim();
                 
-                //TODO: Main POINT! Find fild in report properties!!!
-                
+                //TODO: Main POINT!
+                foreach (var field in _reportFields)
+                {
+                    foreach (var item in field.Names)
+                    {
+                        if (string.Equals(item, name))
+                        {
+                            // Field is found!!!
+                            break;
+                        }
+                    }
+                }
 
                 var value = row[2].InnerText.Replace(" ", string.Empty);
                 var val = Convert.ToInt64(value) * header.factor;
@@ -178,8 +188,13 @@ namespace IDSA.Modules.PapParser
         
         private void InitializeReportFields()
         {
-            // 29 fields
+            // 32 fields
             _reportFields = new List<ReportFields>();
+            
+            _reportFields.Add(new Sales());
+            _reportFields.Add(new EarningOnSales());
+            _reportFields.Add(new EarningBeforeTaxes());
+
             _reportFields.Add(new AssetsPrimary());
             _reportFields.Add(new LiabilitiesPrimary());
             _reportFields.Add(new FixedAssets());
