@@ -9,15 +9,16 @@ namespace IDSA.Modules.PapParser
 {
     public class ReportStructure
     {
+        public string CompanyName { get; set; }
         public int CompanyId
         {
             get
             {
-                // TODO: CompanyName.Substring(CompanyName.IndexOf('/'), )
-                return 123;
+                if (string.Empty == CompanyLink)
+                    return 0;
+                return Convert.ToInt32(CompanyName.Split('/')[5].Split(',')[0]);
             }
         }
-        public string CompanyName { get; set; }
         public string CompanyLink { get; set; }
         public string Link { get; set; }
         public string Kind { get; set; }
@@ -96,7 +97,7 @@ namespace IDSA.Modules.PapParser
                 {
                     CompanyLink = row.SelectSingleNode(XPathCmp).ParentNode.Attributes["href"].Value,
                     CompanyName = row.SelectSingleNode(XPathCmp).InnerText,
-                    Link = row.SelectSingleNode("//td[4]/a[1]").Attributes["href"].Value,
+                    Link = row.SelectSingleNode("./td[4]/a[1]").Attributes["href"].Value,
                     Kind = Regex.Match(row.SelectSingleNode("//td[4]/a[1]").InnerText,
                             "[a-zA-Zóżłąę ]+").ToString()
                 });
@@ -123,30 +124,43 @@ namespace IDSA.Modules.PapParser
                 i = 2;
             }
 
+            bool found;
             for (; i < rows.Count(); ++i)
             {
                 var row = rows[i].SelectNodes("./td");
 
+                if (row[1].InnerText.Contains("jednostkowe") && i > 5)
+                    break;
                 var name = row[1].InnerText.Split('.')[1].Trim();
-                
-                //TODO: Main POINT!
+
+                found = false;
                 foreach (var field in _reportFields)
                 {
                     foreach (var item in field.Names)
                     {
-                        if (string.Equals(item, name))
+                        if (string.Equals(item, name))  // Field is found!!!
                         {
-                            // Field is found!!!
+                            field.Value = 1;
+                            var value = row[2].InnerText.TrimStart();
+                            if (value.Contains('('))  //remove brackets
+                            {
+                                value = value.Replace("(", string.Empty).Replace(")", string.Empty);
+                                field.Value = -1;
+                            }
+                            value = value.Replace(" ", string.Empty).Replace(".", string.Empty);
+                            field.Value *= Convert.ToInt64(value) * header.factor;
+                            found = true;
                             break;
                         }
                     }
+                    if (found)
+                        break;
                 }
-
-                var value = row[2].InnerText.Replace(" ", string.Empty);
-                var val = Convert.ToInt64(value) * header.factor;
-                value = row[3].InnerText.Replace(" ", string.Empty);
-                var valOld = Convert.ToInt64(value) * header.factor;
             }
+
+            //TODO: Move values from ReportFieldsNames to Report Structure
+            // to IncomeStatementData and to BalanceData
+
         }
         #endregion
 
