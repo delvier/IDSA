@@ -104,6 +104,7 @@
     <Compile Include="Modules\DataCalculation\ICalculationService.cs" />
     <Compile Include="Modules\PapParser\PapParser.cs" />
     <Compile Include="Modules\PapParser\ReportFieldsNames.cs" />
+    <Compile Include="Modules\PapParser\Structures.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\BalancePresenter.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\CashFlowPresenter.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\IncomeStatmentPresentercs.cs" />

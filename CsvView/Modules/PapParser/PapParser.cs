@@ -1,48 +1,27 @@
 ﻿using HtmlAgilityPack;
+using IDSA.Models.DataStruct;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using IDSA.Models.DataStruct;
 
 namespace IDSA.Modules.PapParser
 {
-    public class ReportStructure
+    public interface IPapParser
     {
-        public string CompanyName { get; set; }
-        public int CompanyId
-        {
-            get
-            {
-                if (string.Empty == CompanyLink)
-                    return 0;
-                return Convert.ToInt32(CompanyName.Split('/')[5].Split(',')[0]);
-            }
-        }
-        public string CompanyLink { get; set; }
-        public string Link { get; set; }
-        public string Kind { get; set; }
+        void retrieveYearlyReports(int year);
+        List<ReportStructure> getReportsFromDate(DateTime? date);
+        IFinancialData parseReport(int reportId);
+        IFinancialData parseReport(string innerUrl);
     }
 
-    public class HeaderStructure
-    {
-        public int factor { get; set; }
-        public string currency { get; set; }
-        public string period { get; set; }
-        public int year { get; set; }
-        public string periodOld { get; set; }
-        public int yearOld { get; set; }
-    }
-
-    public class PapParser
+    public class PapParser : IPapParser
     {
         #region Fields
         private HtmlWeb hw;
         private HtmlAgilityPack.HtmlDocument page;
         private List<ReportFields> _reportFields;
         private List<ReportStructure> _reportsStruct;
-        //private IFinancialData _financialData;
         #endregion
 
         #region Ctors
@@ -52,13 +31,12 @@ namespace IDSA.Modules.PapParser
             InitializeReportFields();
             //_reportsStruct = getReportsFromDate(date: new DateTime(2013, 8, 23));
             _reportsStruct = getReportsFromDate(null);
-            /*
-             * Test reports:
-             * 241020 and 241021
-             */
 
             //TODO: move model to other class
             //IUnitOfWork model = ServiceLocator.Current.GetInstance<IUnitOfWork>();
+            
+            // Use it wisely ;)
+            //retrieveYearlyReports();
 
             foreach (var report in _reportsStruct)
             {
@@ -71,23 +49,47 @@ namespace IDSA.Modules.PapParser
         #region Public Methods
         public void retrieveYearlyReports(int year = 2013)
         {
-            page = hw.Load(@"http://biznes.pap.pl/NSE/pl/reports/espi/term," + year + ",0,0,1");
+            page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/term," + year + ",0,0,1");
 
             //tabela roczna wszystkich raportow
-            var data = page.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[12]/div[1]/div[7]/table[1]");
-            foreach (var row in data.Descendants("TR"))
+            // (/html[1]/body[1]/div[1]/div[12]/div[1]/div[7]/table[1]");
+            var data = page.DocumentNode.SelectSingleNode("//div [@id=\"kratka\"]/table[1]");
+            var rows = data.Descendants("tr");
+
+            for (int i = 2; i < 14; ++i)   //for every month
             {
-                //TODO: add to list/dictionary
+                var row = data.SelectSingleNode("./tr[" + i + "]");
+                int counter = 0;
+                foreach (var item in row.Descendants("TD"))     //for every day
+                {
+                    counter++;
+                    if (counter == 1)
+                        continue;
+                    if (item.InnerText == string.Empty)
+                        continue;
+                    
+                    DateTime dt = new DateTime(year, i - 1, counter-1);
+                    int numOfReports = Convert.ToInt32(item.InnerText);
+                    
+                    /*
+                     * Use commented code wisely.
+                     * It parse EVERY record from selected year !!!
+                     */
+                    //_reportsStruct = getReportsFromDate(dt);
+
+                    //foreach (var report in _reportsStruct)
+                    //{
+                    //    var finData = parseReport(report.Link);
+                    //    //model.Reports.Add(finData);
+                    //}
+                }
             }
         }
 
         public List<ReportStructure> getReportsFromDate(DateTime? date)
         {
-            /*  TODO:
-             * Dodac obsluge Pages.
-             * Na stronie PAP, jezeli mamy wiecej, niz 20 raportow, to sa one rozmieszczone
-             * na kolejnych stronach :(
-             */
+            List<ReportStructure> reportsStruct = new List<ReportStructure>();
+
             if (date == null)   //default 0,0,0, -> shows the newest adding reports date
             {
                 page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/term,0,0,0,1");
@@ -98,36 +100,58 @@ namespace IDSA.Modules.PapParser
                         date.Value.Year + "," + date.Value.Month + "," + date.Value.Day + ",1");
             }
 
-            List<ReportStructure> reportsStruct = new List<ReportStructure>();
+            // Pages
+            var data = page.DocumentNode.SelectSingleNode("//div [@class=\"stronicowanie\"]/b[2]");
+            var numOfPages = Convert.ToInt32(data.InnerText);
 
-            //tabela raportow z danego dnia
-            var data = page.DocumentNode.SelectSingleNode("/html[1]/body[1]/div[1]/div[12]/div[1]/div[8]/table[1]");
-            var rows = data.Descendants("TR");
-            string XPathCmp = "./td[3]/a[1]/b[1]";   ///#text[1]
-            for (int i = 2; i < rows.Count(); ++i)
+            for (int j = 1; j <= numOfPages; ++j)
             {
-                var row = rows.ElementAt(i);
-                //struct newestReport{
-                //    DateTime time;    //row.ChildNode[1]
-                //    String number;    //row.ChildNode[3]
-                //    String company;   //row.ChildNode[5] +a href = company link
-                //    String title;     //row.ChildNode[7] + <a href = report link(report ID)
-                //}
-                reportsStruct.Add(new ReportStructure
+                if (date == null)   //default 0,0,0, -> shows the newest adding reports date
                 {
-                    CompanyLink = row.SelectSingleNode(XPathCmp).ParentNode.Attributes["href"].Value,
-                    CompanyName = row.SelectSingleNode(XPathCmp).InnerText,
-                    Link = row.SelectSingleNode("./td[4]/a[1]").Attributes["href"].Value,
-                    Kind = Regex.Match(row.SelectSingleNode("//td[4]/a[1]").InnerText,
-                            "[a-zA-Zóżłąę ]+").ToString()
-                });
+                    page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/term,0,0,0," + j.ToString());
+                }
+                else
+                {
+                    page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/term," +
+                        date.Value.Year + "," + date.Value.Month + "," + date.Value.Day + "," + j.ToString());
+                }
+
+                //tabela raportow
+                data = page.DocumentNode.SelectSingleNode("//table [@class=\"espi\"]");
+
+                string XPathCmp = "./td[3]/a[1]/b[1]";
+
+                var rows = data.Descendants("TR");
+
+                for (int i = 2; i < rows.Count(); ++i)
+                {
+                    var row = rows.ElementAt(i);
+
+                    var temp = row.SelectSingleNode("./td[1]").InnerText.Split(':');
+                    TimeSpan reportTime = new TimeSpan(Convert.ToInt32(temp[0]), Convert.ToInt32(temp[1]), 0);
+
+                    //  PSr - Skonsolidowany raport półroczny
+                    //  RS - Skonsolidowany raport roczny
+                    //  P - Raport półroczny
+                    var reportType = row.SelectSingleNode("./td[2]").InnerText.
+                        Replace('\n', ' ').Replace('\t', ' ').Replace('\r', ' ').Trim();
+
+                    reportsStruct.Add(new ReportStructure
+                    {
+                        CompanyLink = row.SelectSingleNode(XPathCmp).ParentNode.Attributes["href"].Value,
+                        CompanyName = row.SelectSingleNode(XPathCmp).InnerText,
+                        Link = row.SelectSingleNode("./td[4]/a[1]").Attributes["href"].Value,
+                        Kind = Regex.Match(row.SelectSingleNode("//td[4]/a[1]").InnerText,
+                                "[a-zA-Zóżłąę ]+").ToString()
+                    });
+                }
             }
             return reportsStruct;
         }
 
-        public void parseReport(int reportId)
+        public IFinancialData parseReport(int reportId)
         {
-            parseReport("/NSE/pl/reports/espi/view/" + reportId.ToString());
+            return parseReport("/pl/reports/espi/view/" + reportId.ToString());
         }
 
         public IFinancialData parseReport(string innerUrl)
@@ -140,6 +164,7 @@ namespace IDSA.Modules.PapParser
             page = hw.Load(@"http://biznes.pap.pl" + innerUrl);
 
             var rows = page.DocumentNode.SelectNodes("/html[1]/span[1]/table[5]/tr[1]/td[1]/table[1]/tr");
+
             var header = parseHeader(rows);
 
             int i = 3;
@@ -157,18 +182,15 @@ namespace IDSA.Modules.PapParser
             {
                 var row = rows[i].SelectNodes("./td");
 
-                if (!row[1].InnerText.Contains(". "))
-                {
-                    if (row[1].InnerText.Trim() != string.Empty)
-                        break;
+                if (row[1].InnerText.IndexOf("jednostkowe", 0, StringComparison.CurrentCultureIgnoreCase) != -1)
+                    break;
+                if (row[1].InnerText.IndexOf("finansowego", 0, StringComparison.CurrentCultureIgnoreCase) != -1)
+                    break;
+                if (row[1].InnerText.IndexOf("finansowe ", 0, StringComparison.CurrentCultureIgnoreCase) != -1)
+                    break;
+                if (row[1].InnerText.Trim() == string.Empty)
                     continue;
-                }
-                if (row[1].InnerText.IndexOf("jednostkowe", 0, StringComparison.CurrentCultureIgnoreCase) != -1 && i > 5)
-                {
-                    break;
-                }
-                if (row[1].InnerText.Trim() == string.Empty || row[1].InnerText.Contains("sp&oacute;łka") && i > 5)
-                    break;
+
                 var name = row[1].InnerText.Split('.').Last().Trim();
 
                 found = false;
@@ -186,12 +208,18 @@ namespace IDSA.Modules.PapParser
                                 field.Value = -1;
                             }
                             value = value.Replace(" ", string.Empty).Replace(".", string.Empty);
-                            if (value == "-")
-                                value = "0";
+                            if (value.Contains('-'))
+                            {
+                                value = value.Replace("-", string.Empty);
+                                if (value == string.Empty)
+                                    value = "0";
+                                else
+                                    field.Value = -1;
+                            }
                             field.Value *= Convert.ToInt64(value) * header.factor;
 
                             //Move values from ReportFieldsNames to IncomeStatementData and to BalanceData
-                            //Slow because using REFLECTION ;)
+                            //Slow because of using REFLECTION ;)
                             var prop = _financialData.IncomeStatement.GetType().GetProperty(field.GetType().Name);
                             if (prop == null)
                             {
