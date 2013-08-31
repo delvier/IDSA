@@ -7,10 +7,24 @@ using System.Text.RegularExpressions;
 
 namespace IDSA.Modules.PapParser
 {
+    /*
+     * Propositions of using specific methods:
+     * var reportsStruct = retrieveReportsFromDate(date: new DateTime(2013, 8, 23));
+     * var reportsStruct = retrieveReportsFromDate(null);
+     * 
+     */
     public interface IPapParser
     {
-        void retrieveYearlyReports(int year);
-        List<ReportStructure> getReportsFromDate(DateTime? date);
+        /*
+         * Use this moethod wisely.
+         * It parse EVERY record from selected year !!!
+         * TODO: Need to add delay between parse reports(web crawler).
+         */
+        List<List<ReportStructure>> retrieveYearlyReports(int year);
+        //Dictionary<DateTime, List<ReportStructure>> retrieveYearlyReports(int year);
+        List<ReportStructure> retrieveReportsFromDate(DateTime? date);
+        List<IFinancialData> parseReports(List<ReportStructure> reports);
+        IFinancialData parseReport(ReportStructure report);
         IFinancialData parseReport(int reportId);
         IFinancialData parseReport(string innerUrl);
     }
@@ -21,7 +35,6 @@ namespace IDSA.Modules.PapParser
         private HtmlWeb hw;
         private HtmlAgilityPack.HtmlDocument page;
         private List<ReportFields> _reportFields;
-        private List<ReportStructure> _reportsStruct;
         #endregion
 
         #region Ctors
@@ -29,26 +42,33 @@ namespace IDSA.Modules.PapParser
         {
             hw = new HtmlWeb();
             InitializeReportFields();
-            //_reportsStruct = getReportsFromDate(date: new DateTime(2013, 8, 23));
-            _reportsStruct = getReportsFromDate(null);
+            //var reportsStruct = retrieveReportsFromDate(date: new DateTime(2013, 8, 23));
+            //var reportsStruct = retrieveReportsFromDate(null);
 
-            //TODO: move model to other class
-            //IUnitOfWork model = ServiceLocator.Current.GetInstance<IUnitOfWork>();
-            
-            // Use it wisely ;)
-            //retrieveYearlyReports();
-
-            foreach (var report in _reportsStruct)
+            foreach (var report in retrieveReportsFromDate(null))
             {
                 var finData = parseReport(report.Link);
-                //model.Reports.Add(finData);
             }
         }
         #endregion
 
         #region Public Methods
-        public void retrieveYearlyReports(int year = 2013)
+        public List<IFinancialData> parseReports(List<ReportStructure> reports)
         {
+            var finData = new List<IFinancialData>();
+
+            foreach (var item in reports)
+            {
+                finData.Add(parseReport(item.Link));
+            }
+
+            return finData;
+        }
+
+
+        public List<List<ReportStructure>> retrieveYearlyReports(int year = 2013)
+        {
+            var repStructure = new List<List<ReportStructure>>();
             page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/term," + year + ",0,0,1");
 
             //tabela roczna wszystkich raportow
@@ -67,53 +87,41 @@ namespace IDSA.Modules.PapParser
                         continue;
                     if (item.InnerText == string.Empty)
                         continue;
-                    
-                    DateTime dt = new DateTime(year, i - 1, counter-1);
-                    int numOfReports = Convert.ToInt32(item.InnerText);
-                    
-                    /*
-                     * Use commented code wisely.
-                     * It parse EVERY record from selected year !!!
-                     */
-                    //_reportsStruct = getReportsFromDate(dt);
 
-                    //foreach (var report in _reportsStruct)
-                    //{
-                    //    var finData = parseReport(report.Link);
-                    //    //model.Reports.Add(finData);
-                    //}
+                    DateTime dt = new DateTime(year, i - 1, counter - 1);
+                    int numOfReports = Convert.ToInt32(item.InnerText);
+                    repStructure.Add(retrieveReportsFromDate(dt));
                 }
             }
+            return repStructure;
         }
 
-        public List<ReportStructure> getReportsFromDate(DateTime? date)
+        public List<ReportStructure> retrieveReportsFromDate(DateTime? date)
         {
             List<ReportStructure> reportsStruct = new List<ReportStructure>();
 
-            if (date == null)   //default 0,0,0, -> shows the newest adding reports date
-            {
-                page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/term,0,0,0,1");
-            }
-            else
-            {
-                page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/term," +
-                        date.Value.Year + "," + date.Value.Month + "," + date.Value.Day + ",1");
-            }
+            int pageX = 1;
+            int numOfPages = 0;
+            HtmlNode data;
 
-            // Pages
-            var data = page.DocumentNode.SelectSingleNode("//div [@class=\"stronicowanie\"]/b[2]");
-            var numOfPages = Convert.ToInt32(data.InnerText);
-
-            for (int j = 1; j <= numOfPages; ++j)
+            do
             {
                 if (date == null)   //default 0,0,0, -> shows the newest adding reports date
                 {
-                    page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/term,0,0,0," + j.ToString());
+                    page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/term,0,0,0,"
+                        + pageX.ToString());
                 }
                 else
                 {
                     page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/term," +
-                        date.Value.Year + "," + date.Value.Month + "," + date.Value.Day + "," + j.ToString());
+                            date.Value.Year + "," + date.Value.Month + "," + date.Value.Day + ","
+                            + pageX.ToString());
+                }
+
+                if (numOfPages == 0)    // Counting pages
+                {
+                    data = page.DocumentNode.SelectSingleNode("//div [@class=\"stronicowanie\"]/b[2]");
+                    numOfPages = data == null ? 1 : Convert.ToInt32(data.InnerText);        
                 }
 
                 //tabela raportow
@@ -145,8 +153,14 @@ namespace IDSA.Modules.PapParser
                                 "[a-zA-Zóżłąę ]+").ToString()
                     });
                 }
-            }
+            } while (pageX < numOfPages);
+
             return reportsStruct;
+        }
+
+        public IFinancialData parseReport(ReportStructure report)
+        {
+            return parseReport(report.Link);
         }
 
         public IFinancialData parseReport(int reportId)
@@ -166,6 +180,9 @@ namespace IDSA.Modules.PapParser
             var rows = page.DocumentNode.SelectNodes("/html[1]/span[1]/table[5]/tr[1]/td[1]/table[1]/tr");
 
             var header = parseHeader(rows);
+
+            if(rows.Count() <= 4)       //Financial data not showed on side
+                return _financialData;
 
             int i = 3;
             if (rows[4].SelectNodes("./td")[1].InnerText.Contains(" I."))
@@ -281,17 +298,21 @@ namespace IDSA.Modules.PapParser
             headerStructure.period = t[0].Trim();
             headerStructure.year = Convert.ToInt32(t[1].Trim());
 
+            int temp = 0;
             t = headerRow[2].InnerText.Split('/');
-            headerStructure.periodOld = t[0].Trim();
-            try
+            if (t.Count() == 1)
             {
-                headerStructure.yearOld = Convert.ToInt32(t[1].Trim());
+                t = headerRow[2].InnerText.TrimStart().Split(' ');
+                ++temp;
             }
-            catch (FormatException)
+            headerStructure.periodOld = t[temp].Trim();
+            if (t[temp+1].Trim() == string.Empty)
             {
                 headerStructure.yearOld = headerStructure.year - 1;
             }
-
+            else
+                headerStructure.yearOld = Convert.ToInt32(t[temp+1].Trim());
+            
             return headerStructure;
         }
 
