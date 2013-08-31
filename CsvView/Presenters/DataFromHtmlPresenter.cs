@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using IDSA.Models.DataStruct;
 using IDSA.Models.Repository;
 using IDSA.Modules.PapParser;
 using IDSA.Views;
@@ -20,6 +21,7 @@ namespace IDSA.Presenters
         #region Props
         private readonly IDataFromHtmlView _view;
         private readonly IUnitOfWork _dbModel;
+        private readonly IPapParser _papParser;
         private Dictionary<string, long> values = new Dictionary<string, long>();
         #endregion
 
@@ -28,13 +30,14 @@ namespace IDSA.Presenters
         {
             this._view = view;
             _dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();
+            _papParser = ServiceLocator.Current.GetInstance<IPapParser>();
         }
         #endregion
 
         #region Public Methods
-        public void parsePAP(int reportId)
+        public List<IFinancialData> parsePapReports(DateTime? date)
         {
-            PapParser papParser = new PapParser(reportId);
+            return _papParser.parseReportsFromDate(date);
         }
         
         public string GetExchangeFromHtmlAddress(string companyId)

@@ -24,8 +24,7 @@ namespace IDSA.Views
 
         private void searchExchangeBtn_Click(object sender, EventArgs e)
         {
-            int reportId = 230737;
-            presenter.parsePAP(reportId);
+            presenter.parsePapReports(null);
             exchangeLabel.Text = presenter.GetExchangeFromHtmlAddress(compIDTextBox.Text);
         }
 

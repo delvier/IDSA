@@ -23,6 +23,8 @@ namespace IDSA.Modules.PapParser
         List<List<ReportStructure>> retrieveYearlyReports(int year);
         //Dictionary<DateTime, List<ReportStructure>> retrieveYearlyReports(int year);
         List<ReportStructure> retrieveReportsFromDate(DateTime? date);
+        
+        List<IFinancialData> parseReportsFromDate(DateTime? date);
         List<IFinancialData> parseReports(List<ReportStructure> reports);
         IFinancialData parseReport(ReportStructure report);
         IFinancialData parseReport(int reportId);
@@ -38,17 +40,10 @@ namespace IDSA.Modules.PapParser
         #endregion
 
         #region Ctors
-        public PapParser(int reportId)
+        public PapParser()
         {
             hw = new HtmlWeb();
             InitializeReportFields();
-            //var reportsStruct = retrieveReportsFromDate(date: new DateTime(2013, 8, 23));
-            //var reportsStruct = retrieveReportsFromDate(null);
-
-            foreach (var report in retrieveReportsFromDate(null))
-            {
-                var finData = parseReport(report.Link);
-            }
         }
         #endregion
 
@@ -121,7 +116,7 @@ namespace IDSA.Modules.PapParser
                 if (numOfPages == 0)    // Counting pages
                 {
                     data = page.DocumentNode.SelectSingleNode("//div [@class=\"stronicowanie\"]/b[2]");
-                    numOfPages = data == null ? 1 : Convert.ToInt32(data.InnerText);        
+                    numOfPages = data == null ? 1 : Convert.ToInt32(data.InnerText);
                 }
 
                 //tabela raportow
@@ -158,6 +153,11 @@ namespace IDSA.Modules.PapParser
             return reportsStruct;
         }
 
+        public List<IFinancialData> parseReportsFromDate(DateTime? date)
+        {
+            return parseReports(retrieveReportsFromDate(date));
+        }
+
         public IFinancialData parseReport(ReportStructure report)
         {
             return parseReport(report.Link);
@@ -181,7 +181,7 @@ namespace IDSA.Modules.PapParser
 
             var header = parseHeader(rows);
 
-            if(rows.Count() <= 4)       //Financial data not showed on side
+            if (rows.Count() <= 4)       //Financial data not showed on side
                 return _financialData;
 
             int i = 3;
@@ -306,13 +306,13 @@ namespace IDSA.Modules.PapParser
                 ++temp;
             }
             headerStructure.periodOld = t[temp].Trim();
-            if (t[temp+1].Trim() == string.Empty)
+            if (t[temp + 1].Trim() == string.Empty)
             {
                 headerStructure.yearOld = headerStructure.year - 1;
             }
             else
-                headerStructure.yearOld = Convert.ToInt32(t[temp+1].Trim());
-            
+                headerStructure.yearOld = Convert.ToInt32(t[temp + 1].Trim());
+
             return headerStructure;
         }
 
