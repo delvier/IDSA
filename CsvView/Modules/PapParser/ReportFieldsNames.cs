@@ -8,14 +8,48 @@ namespace IDSA.Modules.PapParser
         long Value { get; set; }
     }
 
+    //Środki pieniężne netto z działalności operacyjnej
+    //Środki pieniężne netto z działalności inwestycyjnej
+    //Przepływy pieniężne netto z działalności operacyjnej
+    //Przepływy pieniężne netto z działalności inwestycyjnej
+    //PRZEPŁYWY PIENIĘŻNE NETTO Z DZIAŁALNOŚCI OPERACYJNEJ
+    //PRZEPŁYWY PIENIĘŻNE NETTO Z DZIAŁALNOŚCI INWESTYCYJNEJ
 
-    //values.Add("Strata operacyjna", 0);
-    //values.Add("Przychody z tytułu odsetek", 0);
-    //values.Add("Przychody z tytułu prowizji", 0);
-    //values.Add("Zysk (strata) brutto", 0);
-    //values.Add("Zysk (strata) netto", 0);
-    //values.Add("Całkowite dochody", 0);
-    //values.Add("Zmiana stanu środków pieniężnych", 0);
+    //PRZEPŁYWY PIENIĘŻNE NETTO RAZEM
+    //Przepływy pieniężne netto, razem
+
+    //Zysk (strata) netto przypadający akcjonariuszom podmiotu dominującego
+    //Zmiana netto stanu środków pieniężnych i ich ekwiwalentów
+    //Kapitał własny przypadający akcjonariuszom jednostki dominującej
+
+    //Zobowiązania razem = Zobowiązania długoterminowe + Zobowiązania kr&oacute;tkoterminowe
+    //ZOBOWIĄZANIA I REZERWY NA ZOBOWIĄZANIA
+
+    //ZYSK (STRATA) BRUTTO
+    //"Strata operacyjna"
+    //"Przychody z tytułu odsetek"
+    //Przychody z tytułu prowizji"
+    //"Zysk (strata) brutto"
+    //"Całkowite dochody"
+    //Zmiana stanu środków pieniężnych"
+
+    //Średnioważona liczba akcji
+    //Średnioważona liczba akcji (w szt.)
+    //LICZBA AKCJI
+
+    //Zysk netto na akcję (w PLN/EUR na jedną akcję)
+    //Zysk na akcję (PLN; EUR)
+    //ZYSK (STRATA) NA JEDNĄ AKCJĘ ZWYKŁĄ (W ZŁ/EURO)
+    //Zysk (strata) na jedną akcję zwykłą (w zł / EURO)
+
+    //Rozwodniony zysk  na jedną akcję (w zł / EURO)
+    //Rozwodniony zysk na akcję (w PLN/EUR na jedną akcję)
+    //Rozwodniony zysk na akcję (PLN; EUR)
+
+    //Wartość księgowa na jedną akcję (w zł / EURO)
+    //Wartość księgowa na akcję (w PLN/EUR na jedną akcję)
+    //Rozwodniona wartość księgowa na akcję (w PLN/EUR na jedną akcję)
+    //Rozwodniona wartość księgowa na jedną akcję (w zł / EURO)
 
     public class Sales : ReportFields    //IncomeStatmentDataKey 41
     {
@@ -27,8 +61,37 @@ namespace IDSA.Modules.PapParser
             Names = new List<string> { "Sprzedaż" };
         }
     }
-    
 
+    public class OwnSaleCosts : ReportFields    //IncomeStatmentDataKey 42
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public OwnSaleCosts()
+        {
+            Names = new List<string> { "" };
+        }
+    }
+    public class SalesCost1 : ReportFields    //IncomeStatmentDataKey 43
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public SalesCost1()
+        {
+            Names = new List<string> { "" };
+        }
+    }
+    public class SalesCost2 : ReportFields    //IncomeStatmentDataKey 44
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public SalesCost2()
+        {
+            Names = new List<string> { "" };
+        }
+    }
     public class EarningOnSales : ReportFields    //IncomeStatmentDataKey 45
     {
         public List<string> Names { get; private set; }
@@ -36,10 +99,106 @@ namespace IDSA.Modules.PapParser
 
         public EarningOnSales()
         {
-            Names = new List<string> { "Przychody ze sprzedaży" };
+            Names = new List<string> { "Przychody ze sprzedaży",
+                    "Przychody ze sprzedaży netto",
+                    "Przychody netto ze sprzedaży produkt&oacute;w, towar&oacute;w i materiał&oacute;w",
+                    "PRZYCHODY NETTO ZE SPRZEDAŻY PRODUKT&Oacute;W, TOWAR&Oacute;W I MATERIAŁ&Oacute;W",
+                    "Składki ubezpieczeniowe przypisane brutto" };
         }
     }
 
+
+    public class OtherOperationalActivity1 : ReportFields    //IncomeStatmentDataKey 46
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public OtherOperationalActivity1()
+        {
+            Names = new List<string> { "" };
+        }
+    }
+
+    public class OtherOperationalActivity2 : ReportFields    //IncomeStatmentDataKey 47
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public OtherOperationalActivity2()
+        {
+            Names = new List<string> { "" };
+        }
+    }
+
+    public class EBIT : ReportFields    //IncomeStatmentDataKey 48
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public EBIT()
+        {
+            Names = new List<string> { "Zysk z działalności operacyjnej",
+                    "Zysk (strata) z działalności operacyjnej",
+                    "ZYSK (STRATA) NA DZIAŁALNOŚCI OPERACYJNEJ" };
+        }
+    }
+
+    public class FinancialAcvitity1 : ReportFields    //IncomeStatmentDataKey 49
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public FinancialAcvitity1()
+        {
+            Names = new List<string> { "Środki pieniężne netto z działalności finansowej",
+                "Przepływy pieniężne netto z działalności finansowej",
+                "PRZEPŁYWY PIENIĘŻNE NETTO Z DZIAŁALNOŚCI FINANSOWEJ" };
+        }
+    }
+
+    public class FinancialAcvitity2 : ReportFields    //IncomeStatmentDataKey 50
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public FinancialAcvitity2()
+        {
+            Names = new List<string> { "" };
+        }
+    }
+
+    public class OtherCostOrSales : ReportFields    //IncomeStatmentDataKey 51
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public OtherCostOrSales()
+        {
+            Names = new List<string> { "" };
+        }
+    }
+
+    public class SalesOnEconomicActivity : ReportFields    //IncomeStatmentDataKey 52
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public SalesOnEconomicActivity()
+        {
+            Names = new List<string> { "" };
+        }
+    }
+
+    public class ExceptionalOccurence : ReportFields    //IncomeStatmentDataKey 53
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public ExceptionalOccurence()
+        {
+            Names = new List<string> { "" };
+        }
+    }
 
     public class EarningBeforeTaxes : ReportFields    //IncomeStatmentDataKey 54
     {
@@ -48,31 +207,48 @@ namespace IDSA.Modules.PapParser
 
         public EarningBeforeTaxes()
         {
-            Names = new List<string> { "Strata przed opodatkowaniem", 
+            Names = new List<string> { "Zysk (strata) przed opodatkowaniem",
+                                        "Strata przed opodatkowaniem", 
                                         "Zysk przed opodatkowaniem" };
         }
     }
 
-    public enum IncomeStatmentDataKey
+    public class DiscontinuedOperations : ReportFields    //IncomeStatmentDataKey 55
     {
-        Sales = 40,                //AO //RZiS //41
-        OwnSaleCosts,              //AP        //42
-        SalesCost1,                //AQ - Sum. //43
-        SalesCost2,                //AR        //44
-        EarningOnSales,            //AS        //45
-        OtherOperationalActivity1, //AT - Sum. //46
-        OtherOperationalActivity2, //AU        //47
-        EBIT,                      //AV        //48
-        FinancialActivity1,        //AW - Sum. //49
-        FinancialAcvitity2,        //AX        //50
-        OtherCostOrSales,          //AY        //51
-        SalesOnEconomicActivity,   //AZ        //52
-        ExceptionalOccurence,      //BA        //53
-        EarningBeforeTaxes,        //BB        //54
-        DiscontinuedOperations,    //BC        //55
-        NetProfit,                 //BD        //56
-        NetParentProfit            //BE        //57 
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public DiscontinuedOperations()
+        {
+            Names = new List<string> { "" };
+        }
     }
+
+    public class NetProfit : ReportFields    //IncomeStatmentDataKey 56
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public NetProfit()
+        {
+            Names = new List<string> { "Zysk (strata) netto", "Zysk netto", 
+                                        "ZYSK (STRATA) NETTO",
+                                        "Zysk netto okresu sprawozdawczego" };
+        }
+    }
+
+    public class NetParentProfit : ReportFields    //IncomeStatmentDataKey 57
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public NetParentProfit()
+        {
+            Names = new List<string> { "" };
+        }
+    }
+
+    //Balance Data
 
     public class AssetsPrimary : ReportFields         //BalanceDataKey 5
     {
@@ -81,8 +257,9 @@ namespace IDSA.Modules.PapParser
 
         public AssetsPrimary()
         {
-            Names = new List<string> { "Aktywa razem", "Aktywa ogolem",
-                                        "A k t y w a r a z e m"};
+            Names = new List<string> { "Aktywa", "Aktywa razem", "Aktywa ogolem",
+                                        "AKTYWA RAZEM", "A k t y w a r a z e m",
+                    "Aktywa razem (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
         }
 
         public void addName(string additionalName)
@@ -268,7 +445,9 @@ namespace IDSA.Modules.PapParser
 
         public Equity()
         {
-            Names = new List<string> { "Kapitał własny", "Kapital wlasny" };
+            Names = new List<string> { "Kapitał własny", "Kapital wlasny", 
+                                        "KAPITAŁ WŁASNY",
+                                        "Kapitał własny (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
         }
     }
 
@@ -279,7 +458,8 @@ namespace IDSA.Modules.PapParser
 
         public CapitalMasterFund()
         {
-            Names = new List<string> { "Kapitał zakładowy" };
+            Names = new List<string> { "Kapitał zakładowy", "KAPITAŁ ZAKŁADOWY",
+                                        "Kapitał zakładowy  (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
         }
     }
 
@@ -327,7 +507,10 @@ namespace IDSA.Modules.PapParser
 
         public LongTermLiabilities()
         {
-            Names = new List<string> { "Zobowiazania dlugoterminowe" };
+            Names = new List<string> { "Zobowiązania długoterminowe",
+                                        "ZOBOWIĄZANIA DŁUGOTERMINOWE",
+                                        "Zobowiazania dlugoterminowe",
+                                        "Zobowiązania długoterminowe (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
         }
     }
 
@@ -376,7 +559,6 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-
     public class ShortTermLiabilities : ReportFields  //34 //ZOBOWIĄZANIA KRÓTKOTERMINOWE
     {
         public List<string> Names { get; private set; }
@@ -384,8 +566,11 @@ namespace IDSA.Modules.PapParser
 
         public ShortTermLiabilities()
         {
-            Names = new List<string> { "Zobowiazania krotkoterminowe",
-                                        "Zobowiazania krótkoterminowe" };
+            Names = new List<string> { "Zobowiązania kr&oacute;tkoterminowe",
+                                        "ZOBOWIAZANIA KRÓTKOTERMINOWE",
+                                        "Zobowiazania krotkoterminowe",
+                                        "Zobowiazania krótkoterminowe",
+                                        "Zobowiązania kr&oacute;tkoterminowe (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
         }
     }
 

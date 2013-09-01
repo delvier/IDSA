@@ -318,13 +318,29 @@ namespace IDSA.Modules.PapParser
 
         private void InitializeReportFields()
         {
-            // 32 fields
+            // 47 fields
             _reportFields = new List<ReportFields>();
 
+            //Income Statment (17 items)
             _reportFields.Add(new Sales());
+            _reportFields.Add(new OwnSaleCosts());
+            _reportFields.Add(new SalesCost1());
+            _reportFields.Add(new SalesCost2());
             _reportFields.Add(new EarningOnSales());
+            _reportFields.Add(new OtherOperationalActivity1());
+            _reportFields.Add(new OtherOperationalActivity2());
+            _reportFields.Add(new EBIT());
+            _reportFields.Add(new FinancialAcvitity1());
+            _reportFields.Add(new FinancialAcvitity2());
+            _reportFields.Add(new OtherCostOrSales());
+            _reportFields.Add(new SalesOnEconomicActivity());
+            _reportFields.Add(new ExceptionalOccurence());
             _reportFields.Add(new EarningBeforeTaxes());
+            _reportFields.Add(new DiscontinuedOperations());
+            _reportFields.Add(new NetProfit());
+            _reportFields.Add(new NetParentProfit());
 
+            //Balance Data (30 items)
             _reportFields.Add(new AssetsPrimary());
             _reportFields.Add(new LiabilitiesPrimary());
             _reportFields.Add(new FixedAssets());
