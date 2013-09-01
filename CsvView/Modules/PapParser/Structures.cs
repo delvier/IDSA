@@ -12,7 +12,7 @@ namespace IDSA.Modules.PapParser
             {
                 if (string.Empty == CompanyLink)
                     return 0;
-                return Convert.ToInt32(CompanyName.Split('/')[5].Split(',')[0]);
+                return Convert.ToInt32(CompanyLink.Split('/')[5].Split(',')[0]);
             }
         }
         public string Link { get; set; }

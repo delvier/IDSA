@@ -225,7 +225,15 @@ namespace IDSA.Modules.PapParser
                                 else
                                     field.Value = -1;
                             }
-                            field.Value *= Convert.ToInt64(value) * header.factor;
+                            if (value == string.Empty)
+                                value = "0";
+                            int afterComma = 0;
+                            if (value.Contains(','))
+                            {
+                                afterComma = Convert.ToInt32(value.Split(',')[1]);
+                                value = value.Split(',')[0];
+                            }
+                            field.Value *= Convert.ToInt64(value) * header.factor + afterComma;
 
                             //Move values from ReportFieldsNames to IncomeStatementData and to BalanceData
                             //Slow because of using REFLECTION ;)
@@ -322,8 +330,8 @@ namespace IDSA.Modules.PapParser
             _reportFields.Add(new OtherOperationalActivity1());
             _reportFields.Add(new OtherOperationalActivity2());
             _reportFields.Add(new EBIT());
-            _reportFields.Add(new FinancialAcvitity1());
-            _reportFields.Add(new FinancialAcvitity2());
+            _reportFields.Add(new FinancialActivity1());
+            _reportFields.Add(new FinancialActivity2());
             _reportFields.Add(new OtherCostOrSales());
             _reportFields.Add(new SalesOnEconomicActivity());
             _reportFields.Add(new ExceptionalOccurence());

@@ -45,7 +45,7 @@ namespace IDSA.Presenters
                 ++counter;
             }
 
-            return counter.ToString() + " reports saved in Db";
+            return counter.ToString() + " new reports saved in Db";
         }
         
         public string GetExchangeFromHtmlAddress(string companyId)

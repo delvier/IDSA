@@ -143,12 +143,12 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class FinancialAcvitity1 : ReportFields    //IncomeStatmentDataKey 49
+    public class FinancialActivity1 : ReportFields    //IncomeStatmentDataKey 49
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
 
-        public FinancialAcvitity1()
+        public FinancialActivity1()
         {
             Names = new List<string> { "Środki pieniężne netto z działalności finansowej",
                 "Przepływy pieniężne netto z działalności finansowej",
@@ -156,12 +156,12 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class FinancialAcvitity2 : ReportFields    //IncomeStatmentDataKey 50
+    public class FinancialActivity2 : ReportFields    //IncomeStatmentDataKey 50
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
 
-        public FinancialAcvitity2()
+        public FinancialActivity2()
         {
             Names = new List<string> { "" };
         }
