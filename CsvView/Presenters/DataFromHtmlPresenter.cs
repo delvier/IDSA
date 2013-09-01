@@ -35,9 +35,17 @@ namespace IDSA.Presenters
         #endregion
 
         #region Public Methods
-        public List<IFinancialData> parsePapReports(DateTime? date)
+        public string parsePapReports(DateTime? date)
         {
-            return _papParser.parseReportsFromDate(date);
+            int counter = 0;
+            foreach (var report in _papParser.parseReportsFromDate(date))
+            {
+                _dbModel.Reports.Add(report);
+                //TODO: Show to user report.CompanyNames
+                ++counter;
+            }
+
+            return counter.ToString() + " reports saved in Db";
         }
         
         public string GetExchangeFromHtmlAddress(string companyId)

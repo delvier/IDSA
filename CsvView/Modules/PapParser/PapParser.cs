@@ -24,11 +24,9 @@ namespace IDSA.Modules.PapParser
         //Dictionary<DateTime, List<ReportStructure>> retrieveYearlyReports(int year);
         List<ReportStructure> retrieveReportsFromDate(DateTime? date);
         
-        List<IFinancialData> parseReportsFromDate(DateTime? date);
-        List<IFinancialData> parseReports(List<ReportStructure> reports);
-        IFinancialData parseReport(ReportStructure report);
-        IFinancialData parseReport(int reportId);
-        IFinancialData parseReport(string innerUrl);
+        List<FinancialData> parseReportsFromDate(DateTime? date);
+        List<FinancialData> parseReports(List<ReportStructure> reports);
+        FinancialData parseReport(ReportStructure report);
     }
 
     public class PapParser : IPapParser
@@ -48,19 +46,6 @@ namespace IDSA.Modules.PapParser
         #endregion
 
         #region Public Methods
-        public List<IFinancialData> parseReports(List<ReportStructure> reports)
-        {
-            var finData = new List<IFinancialData>();
-
-            foreach (var item in reports)
-            {
-                finData.Add(parseReport(item.Link));
-            }
-
-            return finData;
-        }
-
-
         public List<List<ReportStructure>> retrieveYearlyReports(int year = 2013)
         {
             var repStructure = new List<List<ReportStructure>>();
@@ -153,33 +138,40 @@ namespace IDSA.Modules.PapParser
             return reportsStruct;
         }
 
-        public List<IFinancialData> parseReportsFromDate(DateTime? date)
+        public List<FinancialData> parseReportsFromDate(DateTime? date)
         {
             return parseReports(retrieveReportsFromDate(date));
         }
 
-        public IFinancialData parseReport(ReportStructure report)
+        public List<FinancialData> parseReports(List<ReportStructure> reports)
         {
-            return parseReport(report.Link);
+            var finData = new List<FinancialData>();
+
+            foreach (var item in reports)
+            {
+                finData.Add(parseReport(item));
+            }
+
+            return finData;
         }
 
-        public IFinancialData parseReport(int reportId)
+        public FinancialData parseReport(ReportStructure report)
         {
-            return parseReport("/pl/reports/espi/view/" + reportId.ToString());
-        }
-
-        public IFinancialData parseReport(string innerUrl)
-        {
-            IFinancialData _financialData = new FinancialData();
+            FinancialData _financialData = new FinancialData();
             _financialData.IncomeStatement = new IncomeStatmentData();
             _financialData.Balance = new BalanceData();
             _financialData.CashFlow = new CashFlowData();
 
-            page = hw.Load(@"http://biznes.pap.pl" + innerUrl);
+            page = hw.Load(@"http://biznes.pap.pl" + report.Link);
 
             var rows = page.DocumentNode.SelectNodes("/html[1]/span[1]/table[5]/tr[1]/td[1]/table[1]/tr");
 
             var header = parseHeader(rows);
+
+            _financialData.Year = header.year;
+            _financialData.CompanyId = report.CompanyId;
+            //TODO: Add conversion from Kind to Quarter
+            //_financialData.Quarter = report.Kind;
 
             if (rows.Count() <= 4)       //Financial data not showed on side
                 return _financialData;
