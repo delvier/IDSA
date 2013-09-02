@@ -340,6 +340,23 @@ namespace IDSA.Modules.PapParser
             _reportFields.Add(new NetProfit());
             _reportFields.Add(new NetParentProfit());
 
+            //Cash Flow Data (15 items)
+            _reportFields.Add(new OperatingActivitiesCF());
+            _reportFields.Add(new Depreciation());
+            _reportFields.Add(new ReceivablesChange());
+            _reportFields.Add(new ObligationsStateChange());
+            _reportFields.Add(new ReserveAndOtherChange());
+            _reportFields.Add(new WorkingCapital());
+            _reportFields.Add(new InvestmentCF());
+            _reportFields.Add(new CapexIntangible());
+            _reportFields.Add(new FinancialCF());
+            _reportFields.Add(new SharesIssue());
+            _reportFields.Add(new LoansAndAdvancesObtained());
+            _reportFields.Add(new LoansAndAdvancesRepayed());
+            _reportFields.Add(new LiabilitiesChange());
+            _reportFields.Add(new Dividend());
+            _reportFields.Add(new TotalCF());
+
             //Balance Data (30 items)
             _reportFields.Add(new AssetsPrimary());
             _reportFields.Add(new LiabilitiesPrimary());

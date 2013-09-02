@@ -8,16 +8,6 @@ namespace IDSA.Modules.PapParser
         long Value { get; set; }
     }
 
-    //Środki pieniężne netto z działalności operacyjnej
-    //Środki pieniężne netto z działalności inwestycyjnej
-    //Przepływy pieniężne netto z działalności operacyjnej
-    //Przepływy pieniężne netto z działalności inwestycyjnej
-    //PRZEPŁYWY PIENIĘŻNE NETTO Z DZIAŁALNOŚCI OPERACYJNEJ
-    //PRZEPŁYWY PIENIĘŻNE NETTO Z DZIAŁALNOŚCI INWESTYCYJNEJ
-
-    //PRZEPŁYWY PIENIĘŻNE NETTO RAZEM
-    //Przepływy pieniężne netto, razem
-
     //Zysk (strata) netto przypadający akcjonariuszom podmiotu dominującego
     //Zmiana netto stanu środków pieniężnych i ich ekwiwalentów
     //Kapitał własny przypadający akcjonariuszom jednostki dominującej
@@ -150,9 +140,7 @@ namespace IDSA.Modules.PapParser
 
         public FinancialActivity1()
         {
-            Names = new List<string> { "Środki pieniężne netto z działalności finansowej",
-                "Przepływy pieniężne netto z działalności finansowej",
-                "PRZEPŁYWY PIENIĘŻNE NETTO Z DZIAŁALNOŚCI FINANSOWEJ" };
+            Names = new List<string> { "??????" };
         }
     }
 
@@ -245,6 +233,183 @@ namespace IDSA.Modules.PapParser
         public NetParentProfit()
         {
             Names = new List<string> { "" };
+        }
+    }
+
+    //Cash Flow Data
+
+    public class OperatingActivitiesCF : ReportFields    //ICashFlowDataKey 57
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public OperatingActivitiesCF()
+        {
+            Names = new List<string> { "Środki pieniężne netto z działalności operacyjnej",
+                    "Przepływy pieniężne netto z działalności operacyjnej",
+                    "PRZEPŁYWY PIENIĘŻNE NETTO Z DZIAŁALNOŚCI OPERACYJNEJ" };
+        }
+    }
+
+    public class Depreciation : ReportFields    //ICashFlowDataKey 58
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public Depreciation()
+        {
+            Names = new List<string> { "Amortyzacja" };
+        }
+    }
+
+    public class ReceivablesChange : ReportFields    //ICashFlowDataKey 59
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public ReceivablesChange()
+        {
+            Names = new List<string> { "Zmiana stanu należności" };
+        }
+    }
+
+    public class ObligationsStateChange : ReportFields    //ICashFlowDataKey 60
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public ObligationsStateChange()
+        {
+            Names = new List<string> { "Zmiana stanu zobowiązań" };
+        }
+    }
+
+    public class ReserveAndOtherChange : ReportFields    //ICashFlowDataKey 61
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public ReserveAndOtherChange()
+        {
+            Names = new List<string> { "Zmiana rezerw i pozostałe" };
+        }
+    }
+
+    public class WorkingCapital : ReportFields    //ICashFlowDataKey 62
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public WorkingCapital()
+        {
+            Names = new List<string> { "Kapitał obrotowy" };
+        }
+    }
+
+    //ColumnBL,                                  //64 ? hm...
+
+    public class InvestmentCF : ReportFields    //ICashFlowDataKey 64
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public InvestmentCF()
+        {
+            Names = new List<string> { "Środki pieniężne netto z działalności inwestycyjnej",
+                    "Przepływy pieniężne netto z działalności inwestycyjnej",
+                    "PRZEPŁYWY PIENIĘŻNE NETTO Z DZIAŁALNOŚCI INWESTYCYJNEJ" };
+        }
+    }
+
+    public class CapexIntangible : ReportFields    //ICashFlowDataKey 65
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public CapexIntangible()
+        {
+            Names = new List<string> { "CAPEX (niematerialne i rzeczowe)" };
+        }
+    }
+
+    public class FinancialCF : ReportFields    //ICashFlowDataKey 66
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public FinancialCF()
+        {
+            Names = new List<string> { "Środki pieniężne netto z działalności finansowej",
+                    "Przepływy pieniężne netto z działalności finansowej",
+                    "PRZEPŁYWY PIENIĘŻNE NETTO Z DZIAŁALNOŚCI FINANSOWEJ" };
+        }
+    }
+
+    public class SharesIssue : ReportFields    //ICashFlowDataKey 67
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public SharesIssue()
+        {
+            Names = new List<string> { "Emisja akcji" };
+        }
+    }
+
+
+    public class LoansAndAdvancesObtained : ReportFields    //ICashFlowDataKey 68
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public LoansAndAdvancesObtained()
+        {
+            Names = new List<string> { "Kredyty i pożyczki uzyskane" };
+        }
+    }
+
+    public class LoansAndAdvancesRepayed : ReportFields    //ICashFlowDataKey 69
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public LoansAndAdvancesRepayed()
+        {
+            Names = new List<string> { "Spłata kredytów i pożyczek" };
+        }
+    }
+
+    public class LiabilitiesChange : ReportFields    //ICashFlowDataKey 70
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public LiabilitiesChange()
+        {
+            Names = new List<string> { "Zmiana zadłużenia" };
+        }
+    }
+
+    public class Dividend : ReportFields    //ICashFlowDataKey 71
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public Dividend()
+        {
+            Names = new List<string> { "Dywidenda" };
+        }
+    }
+
+    public class TotalCF : ReportFields    //ICashFlowDataKey 72
+    {
+        public List<string> Names { get; private set; }
+        public long Value { get; set; }
+
+        public TotalCF()
+        {
+            Names = new List<string> { "PRZEPŁYWY PIENIĘŻNE NETTO RAZEM",
+                    "Przepływy pieniężne netto, razem" };
         }
     }
 
