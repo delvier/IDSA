@@ -16,7 +16,8 @@ namespace IDSA.Modules.PapParser
             }
         }
         public string Link { get; set; }
-        public string Kind { get; set; }
+        public int Quarter { get; set; }
+        public bool IsConsolidated { get; set; }
     }
 
     public class HeaderStructure

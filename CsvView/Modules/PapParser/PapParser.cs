@@ -23,12 +23,14 @@ namespace IDSA.Modules.PapParser
         List<List<ReportStructure>> retrieveYearlyReports(int year);
         //Dictionary<DateTime, List<ReportStructure>> retrieveYearlyReports(int year);
         List<ReportStructure> retrieveReportsFromDate(DateTime? date);
-        
+
         List<FinancialData> parseReportsFromDate(DateTime? date);
         List<FinancialData> parseReports(List<ReportStructure> reports);
         FinancialData parseReport(ReportStructure report);
     }
 
+    //TODO: Odroznic raport od skonsolidowanego raportu dla danej spolki.
+    //Wprowadzic do bazy tylko ten skonsolidowany
     public class PapParser : IPapParser
     {
         #region Fields
@@ -118,20 +120,16 @@ namespace IDSA.Modules.PapParser
                     var temp = row.SelectSingleNode("./td[1]").InnerText.Split(':');
                     TimeSpan reportTime = new TimeSpan(Convert.ToInt32(temp[0]), Convert.ToInt32(temp[1]), 0);
 
-                    //  PSr - Skonsolidowany raport półroczny
-                    //  RS - Skonsolidowany raport roczny
-                    //  P - Raport półroczny
                     var reportType = row.SelectSingleNode("./td[2]").InnerText.
                         Replace('\n', ' ').Replace('\t', ' ').Replace('\r', ' ').Trim();
 
-                    reportsStruct.Add(new ReportStructure
-                    {
-                        CompanyLink = row.SelectSingleNode(XPathCmp).ParentNode.Attributes["href"].Value,
-                        CompanyName = row.SelectSingleNode(XPathCmp).InnerText,
-                        Link = row.SelectSingleNode("./td[4]/a[1]").Attributes["href"].Value,
-                        Kind = Regex.Match(row.SelectSingleNode("//td[4]/a[1]").InnerText,
-                                "[a-zA-Zóżłąę ]+").ToString()
-                    });
+                    ReportStructure rep = getReportQuarter(reportType, date.Value.Month);
+
+                    rep.CompanyLink = row.SelectSingleNode(XPathCmp).ParentNode.Attributes["href"].Value;
+                    rep.CompanyName = row.SelectSingleNode(XPathCmp).InnerText;
+                    rep.Link = row.SelectSingleNode("./td[4]/a[1]").Attributes["href"].Value;
+
+                    reportsStruct.Add(rep);
                 }
             } while (pageX < numOfPages);
 
@@ -167,11 +165,10 @@ namespace IDSA.Modules.PapParser
             var rows = page.DocumentNode.SelectNodes("/html[1]/span[1]/table[5]/tr[1]/td[1]/table[1]/tr");
 
             var header = parseHeader(rows);
-
             _financialData.Year = header.year;
-            _financialData.CompanyId = report.CompanyId;
-            //TODO: Add conversion from Kind to Quarter
-            //_financialData.Quarter = report.Kind;
+
+            var converter = new PapDbCompanyConverter();
+            _financialData.CompanyId = converter.ConvertToDbId(report.CompanyName);
 
             if (rows.Count() <= 4)       //Financial data not showed on side
                 return _financialData;
@@ -237,15 +234,24 @@ namespace IDSA.Modules.PapParser
 
                             //Move values from ReportFieldsNames to IncomeStatementData and to BalanceData
                             //Slow because of using REFLECTION ;)
-                            var prop = _financialData.IncomeStatement.GetType().GetProperty(field.GetType().Name);
-                            if (prop == null)
+                            var fieldTypeName = field.GetType().Name;
+                            var prop = _financialData.IncomeStatement.GetType().GetProperty(fieldTypeName);
+                            if (prop != null)
                             {
-                                prop = _financialData.Balance.GetType().GetProperty(field.GetType().Name);
-                                prop.SetValue(_financialData.Balance, field.Value, null);
+                                prop.SetValue(_financialData.IncomeStatement, field.Value, null);
                             }
                             else
                             {
-                                prop.SetValue(_financialData.IncomeStatement, field.Value, null);
+                                prop = _financialData.Balance.GetType().GetProperty(fieldTypeName);
+                                if (prop != null)
+                                {
+                                    prop.SetValue(_financialData.Balance, field.Value, null);
+                                }
+                                else
+                                {
+                                    prop = _financialData.CashFlow.GetType().GetProperty(fieldTypeName);
+                                    prop.SetValue(_financialData.CashFlow, field.Value, null);
+                                }
                             }
                             found = true;
                             break;
@@ -316,9 +322,56 @@ namespace IDSA.Modules.PapParser
             return headerStructure;
         }
 
+        private ReportStructure getReportQuarter(string reportType, int month)
+        {
+            var rep = new ReportStructure();
+            switch (reportType)
+            {
+                case "QSr":	//Skonsolidowany raport kwartalny
+                case "QS":
+                case "SA-QS":
+                case "SA-QSr":
+                    rep.IsConsolidated = true;
+                    break;
+                case "Q":	//Raport kwartalny
+                case "SA-Q":
+                    rep.IsConsolidated = true;
+                    if (month > 9 || month < 4)  //3 kwartal
+                        rep.Quarter = 3;
+                    else
+                        rep.Quarter = 1;
+                    break;
+                case "PSr":	//Skonsolidowany raport półroczny
+                case "PS":
+                case "SA-PS":
+                case "SA-PSr":
+                    rep.IsConsolidated = true;
+                    break;
+                case "P":	//Raport półroczny
+                case "SA-P":
+                    rep.IsConsolidated = true;
+                    rep.Quarter = 2;
+                    break;
+                case "RS":	//Skonsolidowany raport roczny
+                case "SA-RS":
+                    rep.IsConsolidated = true;
+                    break;
+                case "R":	//Raport roczny
+                case "SA-R":
+                    rep.IsConsolidated = true;
+                    rep.Quarter = 4;
+                    break;
+                default:
+                    //TODO: FuckUp
+                    rep.Quarter = 0;
+                    break;
+            }
+            return rep;
+        }
+
         private void InitializeReportFields()
         {
-            // 47 fields
+            // 62 fields
             _reportFields = new List<ReportFields>();
 
             //Income Statment (17 items)
