@@ -38,9 +38,12 @@ namespace IDSA.Presenters
         public string parsePapReports(DateTime? date)
         {
             IReportsCrawler crawler = new ReportsCrawler();
+            var cnc = new CompanyNameConverter();
             int counter = 0;
             foreach (var report in _papParser.parseReportsFromDate(date))
             {
+                string str = cnc.ConvertToDbId(report.CompanyId);
+                //if (_dbModel.Companies.GetAll().Contains(cmp => cmp.))
                 _dbModel.Reports.Add(report);
                 //TODO: Show to user report.CompanyNames
                 ++counter;
