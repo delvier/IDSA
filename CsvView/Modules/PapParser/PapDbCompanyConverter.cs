@@ -1,10 +1,12 @@
 ﻿using HtmlAgilityPack;
+using IDSA.Models.Repository;
+using Microsoft.Practices.ServiceLocation;
 
 namespace IDSA.Modules.PapParser
 {
-    public class CompanyNameConverter
+    public class PapDbCompanyConverter
     {
-        public CompanyNameConverter()
+        public PapDbCompanyConverter()
         {
             
         }
@@ -18,19 +20,21 @@ namespace IDSA.Modules.PapParser
                 ("//a [@href=\"/pl/reports/espi/company/" + cmpId.ToString() + ",0,0,0,1]\"\b[1]");
             return data.InnerText;
         }
-
-        public string ConvertToDbId(string name)
+        
+        public int ConvertToDbId(string name)
         {
             if (name.Contains(" SA"))
             {
                 name = name.Remove(name.Length - 3);
             }
-            return name;
+            var model = ServiceLocator.Current.GetInstance<IUnitOfWork>();
+
+            return 0;
         }
 
-        public string ConvertToDbId(int cmpId)
+        public int ConvertToDbId(int papId)
         {
-            return ConvertToDbId(ConvertToName(cmpId));
+            return ConvertToDbId(ConvertToName(papId));
         }
     }
 }

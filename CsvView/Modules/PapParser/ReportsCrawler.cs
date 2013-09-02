@@ -1,8 +1,5 @@
 ﻿using HtmlAgilityPack;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace IDSA.Modules.PapParser
 {
@@ -33,6 +30,9 @@ namespace IDSA.Modules.PapParser
         public void startCrawler(TimeSpan refreshTime)
         {
             TimeSpan lastReportTime = getLatestReportDate();
+            //TODO: Triggerowac godzine i minute pojawienia sie ostatniego raportu. 
+            //Jezeli sie nie zgadza, to parsowac dopoty, dopoki nie spotkamy 
+            //poprzednio zapisanej ostatniej daty.   Po skonczonej robocie
 
         }
 
