@@ -37,6 +37,7 @@ namespace IDSA.Presenters
         #region Public Methods
         public string parsePapReports(DateTime? date)
         {
+            IReportsCrawler crawler = new ReportsCrawler();
             int counter = 0;
             foreach (var report in _papParser.parseReportsFromDate(date))
             {

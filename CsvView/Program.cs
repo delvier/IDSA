@@ -43,6 +43,7 @@ namespace IDSA
             kernel.Bind<IRawData>().To<RawData>();
             kernel.Bind<IDisplayFormat>().To<DisplayFormatService>();
             kernel.Bind<IPapParser>().To<PapParser>();
+            kernel.Bind<IReportsCrawler>().To<ReportsCrawler>();
 
             Application.Run(ServiceLocator.Current.GetInstance<Shell>());
         }
