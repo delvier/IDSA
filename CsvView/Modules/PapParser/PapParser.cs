@@ -20,10 +20,12 @@ namespace IDSA.Modules.PapParser
          * It parse EVERY record from selected year !!!
          * TODO: Need to add delay between parse reports(web crawler).
          */
-        List<List<ReportStructure>> retrieveYearlyReports(int year);
+        List<ReportStructure> retrieveYearlyReports(int year);
         //Dictionary<DateTime, List<ReportStructure>> retrieveYearlyReports(int year);
+        List<ReportStructure> retrieveReportsFromDate(DateTime startDate, DateTime endDate);
         List<ReportStructure> retrieveReportsFromDate(DateTime? date);
 
+        List<FinancialData> parseReportsFromDate(DateTime startDate, DateTime endDate);
         List<FinancialData> parseReportsFromDate(DateTime? date);
         List<FinancialData> parseReports(List<ReportStructure> reports);
         FinancialData parseReport(ReportStructure report);
@@ -48,9 +50,9 @@ namespace IDSA.Modules.PapParser
         #endregion
 
         #region Public Methods
-        public List<List<ReportStructure>> retrieveYearlyReports(int year = 2013)
+        public List<ReportStructure> retrieveYearlyReports(int year = 2013)
         {
-            var repStructure = new List<List<ReportStructure>>();
+            var repStructure = new List<ReportStructure>();
             page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/term," + year + ",0,0,1");
 
             //tabela roczna wszystkich raportow
@@ -72,10 +74,22 @@ namespace IDSA.Modules.PapParser
 
                     DateTime dt = new DateTime(year, i - 1, counter - 1);
                     int numOfReports = Convert.ToInt32(item.InnerText);
-                    repStructure.Add(retrieveReportsFromDate(dt));
+                    repStructure.AddRange(retrieveReportsFromDate(dt));
                 }
             }
             return repStructure;
+        }
+
+        public List<ReportStructure> retrieveReportsFromDate(DateTime beginDate, DateTime endDate)
+        {
+            List<ReportStructure> reportsStruct = new List<ReportStructure>();
+
+            for (DateTime day = beginDate; day <= endDate; day = day.AddDays(1))
+            {
+                reportsStruct.AddRange(retrieveReportsFromDate(day));
+            }
+
+            return reportsStruct;
         }
 
         public List<ReportStructure> retrieveReportsFromDate(DateTime? date)
@@ -92,6 +106,7 @@ namespace IDSA.Modules.PapParser
                 {
                     page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/term,0,0,0,"
                         + pageX.ToString());
+                    date = DateTime.Now;
                 }
                 else
                 {
@@ -131,9 +146,14 @@ namespace IDSA.Modules.PapParser
 
                     reportsStruct.Add(rep);
                 }
-            } while (pageX < numOfPages);
+            } while (++pageX <= numOfPages);
 
             return reportsStruct;
+        }
+
+        public List<FinancialData> parseReportsFromDate(DateTime startDate, DateTime endDate)
+        {
+            return parseReports(retrieveReportsFromDate(startDate, endDate));
         }
 
         public List<FinancialData> parseReportsFromDate(DateTime? date)
@@ -159,6 +179,9 @@ namespace IDSA.Modules.PapParser
             _financialData.IncomeStatement = new IncomeStatmentData();
             _financialData.Balance = new BalanceData();
             _financialData.CashFlow = new CashFlowData();
+            var converter = new PapDbCompanyConverter();
+            _financialData.CompanyId = converter.ConvertToDbId(report.CompanyName);
+            _financialData.Id = Convert.ToInt32(report.Link.Split('/')[5]);
 
             page = hw.Load(@"http://biznes.pap.pl" + report.Link);
 
@@ -166,9 +189,6 @@ namespace IDSA.Modules.PapParser
 
             var header = parseHeader(rows);
             _financialData.Year = header.year;
-
-            var converter = new PapDbCompanyConverter();
-            _financialData.CompanyId = converter.ConvertToDbId(report.CompanyName);
 
             if (rows.Count() <= 4)       //Financial data not showed on side
                 return _financialData;
@@ -194,6 +214,8 @@ namespace IDSA.Modules.PapParser
                     break;
                 if (row[1].InnerText.IndexOf("finansowe ", 0, StringComparison.CurrentCultureIgnoreCase) != -1)
                     break;
+                if (row[1].InnerText.IndexOf(report.CompanyName, 0, StringComparison.CurrentCultureIgnoreCase) != -1)
+                    break;
                 if (row[1].InnerText.Trim() == string.Empty)
                     continue;
 
@@ -206,6 +228,11 @@ namespace IDSA.Modules.PapParser
                     {
                         if (string.Equals(item, name))  // Field is found!!!
                         {
+                            //if (field.Value != 0)
+                            //{
+                            //    found = true;
+                            //    break;
+                            //}
                             field.Value = 1;
                             var value = row[2].InnerText.TrimStart();
                             if (value.Contains('('))  //remove brackets
@@ -288,7 +315,7 @@ namespace IDSA.Modules.PapParser
             {
                 headerStructure.factor = 1000;
             }
-            else if (headerRow[2].InnerText.Contains("tys."))    // row[3] mln.
+            else if (headerRow[2].InnerText.Contains("mln."))    // row[3] mln.
             {
                 headerStructure.factor = 1000000;
             }
@@ -298,17 +325,17 @@ namespace IDSA.Modules.PapParser
                 headerStructure.currency = "PLN";
             else headerStructure.currency = currency.Trim();
 
-            headerRow = rows[i + 1].SelectNodes("./td");
+            headerRow = rows[i+1].SelectNodes("./td");
 
-            var t = headerRow[i + 1].InnerText.Split('/');
+            var t = headerRow[i+1].InnerText.Split('/');
             headerStructure.period = t[0].Trim();
             headerStructure.year = Convert.ToInt32(t[1].Trim());
 
             int temp = 0;
-            t = headerRow[2].InnerText.Split('/');
+            t = headerRow[i+2].InnerText.Split('/');
             if (t.Count() == 1)
             {
-                t = headerRow[2].InnerText.TrimStart().Split(' ');
+                t = headerRow[i+2].InnerText.TrimStart().Split(' ');
                 ++temp;
             }
             headerStructure.periodOld = t[temp].Trim();
@@ -332,10 +359,13 @@ namespace IDSA.Modules.PapParser
                 case "SA-QS":
                 case "SA-QSr":
                     rep.IsConsolidated = true;
+                    if (month > 9 || month < 4)  //3 kwartal
+                        rep.Quarter = 3;
+                    else
+                        rep.Quarter = 1;
                     break;
                 case "Q":	//Raport kwartalny
                 case "SA-Q":
-                    rep.IsConsolidated = true;
                     if (month > 9 || month < 4)  //3 kwartal
                         rep.Quarter = 3;
                     else
@@ -346,19 +376,19 @@ namespace IDSA.Modules.PapParser
                 case "SA-PS":
                 case "SA-PSr":
                     rep.IsConsolidated = true;
+                    rep.Quarter = 2;
                     break;
                 case "P":	//Raport półroczny
                 case "SA-P":
-                    rep.IsConsolidated = true;
                     rep.Quarter = 2;
                     break;
                 case "RS":	//Skonsolidowany raport roczny
                 case "SA-RS":
                     rep.IsConsolidated = true;
+                    rep.Quarter = 4;
                     break;
                 case "R":	//Raport roczny
                 case "SA-R":
-                    rep.IsConsolidated = true;
                     rep.Quarter = 4;
                     break;
                 default:

@@ -20,36 +20,38 @@ namespace IDSA.Presenters
     {
         #region Props
         private readonly IDataFromHtmlView _view;
-        private readonly IUnitOfWork _dbModel;
+        //private readonly IUnitOfWork _dbModel;
         private readonly IPapParser _papParser;
-        private Dictionary<string, long> values = new Dictionary<string, long>();
+        //private Dictionary<string, long> values = new Dictionary<string, long>();
         #endregion
 
         #region Ctors
         public DataFromHtmlPresenter(IDataFromHtmlView view)
         {
             this._view = view;
-            _dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();
+            //_dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();
             _papParser = ServiceLocator.Current.GetInstance<IPapParser>();
         }
         #endregion
 
         #region Public Methods
-        public string parsePapReports(DateTime? date)
+        public string parsePapReports(DateTime startDate, DateTime endDate)
         {
-            IReportsCrawler crawler = new ReportsCrawler();
-            var cnc = new PapDbCompanyConverter();
-            int counter = 0;
-            foreach (var report in _papParser.parseReportsFromDate(date))
+            //IReportsCrawler crawler = new ReportsCrawler();
+            if (startDate > endDate)
             {
-                var id = cnc.ConvertToDbId(report.CompanyId);
-                //if (_dbModel.Companies.GetAll().Contains(cmp => cmp.))
-                //_dbModel.Reports.Add(report);
-                //TODO: Show to user report.CompanyNames
-                ++counter;
+                var temp = startDate;
+                startDate = endDate;
+                endDate = temp;
             }
-
-            return counter.ToString() + " new reports saved in Db";
+            var finData = _papParser.parseReportsFromDate(startDate, endDate);
+            var str = "";
+            foreach (var report in finData)
+            {
+                str += report.CompanyId;
+                str += " " + report.Quarter + " " + report.Id;
+            }
+            return finData.Count.ToString() + " new reports parsed.\n" + str;
         }
 
         public string GetExchangeFromHtmlAddress(string companyId)

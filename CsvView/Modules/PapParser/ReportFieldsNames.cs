@@ -8,6 +8,9 @@ namespace IDSA.Modules.PapParser
         long Value { get; set; }
     }
 
+    //II. Krezus SA
+    //Zysk (strata) ze sprzedaży akcji i udział&oacute;w
+
     //Zysk (strata) netto przypadający akcjonariuszom podmiotu dominującego
     //Zmiana netto stanu środków pieniężnych i ich ekwiwalentów
     //Kapitał własny przypadający akcjonariuszom jednostki dominującej
@@ -17,7 +20,6 @@ namespace IDSA.Modules.PapParser
 
     //ZYSK (STRATA) BRUTTO
     //"Strata operacyjna"
-    //"Przychody z tytułu odsetek"
     //Przychody z tytułu prowizji"
     //"Zysk (strata) brutto"
     //"Całkowite dochody"
@@ -91,9 +93,12 @@ namespace IDSA.Modules.PapParser
         {
             Names = new List<string> { "Przychody ze sprzedaży",
                     "Przychody ze sprzedaży netto",
+                    "Przychody ze sprzedaży akcji",
                     "Przychody netto ze sprzedaży produkt&oacute;w, towar&oacute;w i materiał&oacute;w",
                     "PRZYCHODY NETTO ZE SPRZEDAŻY PRODUKT&Oacute;W, TOWAR&Oacute;W I MATERIAŁ&Oacute;W",
-                    "Składki ubezpieczeniowe przypisane brutto" };
+                    "Składki ubezpieczeniowe przypisane brutto",
+                    "Działaln. kontyn. przychody ze sprzedaży",
+                    "Przychody z tytułu odsetek" };
         }
     }
 
@@ -196,6 +201,7 @@ namespace IDSA.Modules.PapParser
         public EarningBeforeTaxes()
         {
             Names = new List<string> { "Zysk (strata) przed opodatkowaniem",
+                                        "Zysk / (Strata) przed opodatkowaniem",
                                         "Strata przed opodatkowaniem", 
                                         "Zysk przed opodatkowaniem" };
         }
@@ -221,7 +227,8 @@ namespace IDSA.Modules.PapParser
         {
             Names = new List<string> { "Zysk (strata) netto", "Zysk netto", 
                                         "ZYSK (STRATA) NETTO",
-                                        "Zysk netto okresu sprawozdawczego" };
+                                        "Zysk netto okresu sprawozdawczego",
+                                        "Zysk / (Strata) netto z działalności kontynuowanej przypadający na akcjonariuszy Emitenta" };
         }
     }
 
@@ -423,6 +430,7 @@ namespace IDSA.Modules.PapParser
         public AssetsPrimary()
         {
             Names = new List<string> { "Aktywa", "Aktywa razem", "Aktywa ogolem",
+                                        "Aktywa og&oacute;łem", 
                                         "AKTYWA RAZEM", "A k t y w a r a z e m",
                     "Aktywa razem (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
         }
@@ -452,7 +460,7 @@ namespace IDSA.Modules.PapParser
 
         public FixedAssets()
         {
-            Names = new List<string> { "Aktywa trwale" };
+            Names = new List<string> { "Aktywa trwale", "Aktywa trwałe" };
         }
     }
 

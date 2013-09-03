@@ -24,8 +24,8 @@ namespace IDSA.Views
 
         private void searchExchangeBtn_Click(object sender, EventArgs e)
         {
-            presenter.parsePapReports(null);
-            exchangeLabel.Text = presenter.GetExchangeFromHtmlAddress(compIDTextBox.Text);
+            this.errors.Text = presenter.parsePapReports(this.startDatePicker.Value.Date, this.endDatePicker.Value.Date);
+            //exchangeLabel.Text = presenter.GetExchangeFromHtmlAddress(compIDTextBox.Text);
         }
 
         //private void RefreshView(bool isCreated)
