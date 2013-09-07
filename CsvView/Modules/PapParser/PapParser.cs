@@ -106,7 +106,7 @@ namespace IDSA.Modules.PapParser
                 {
                     page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/term,0,0,0,"
                         + pageX.ToString());
-                    date = DateTime.Now;
+                    date = DateTime.Today;
                 }
                 else
                 {
@@ -130,6 +130,7 @@ namespace IDSA.Modules.PapParser
 
                 for (int i = 2; i < rows.Count(); ++i)
                 {
+                    //TODO: getReportsDataFromRow()
                     var row = rows.ElementAt(i);
 
                     var temp = row.SelectSingleNode("./td[1]").InnerText.Split(':');
@@ -139,7 +140,22 @@ namespace IDSA.Modules.PapParser
                         Replace('\n', ' ').Replace('\t', ' ').Replace('\r', ' ').Trim();
 
                     ReportStructure rep = getReportQuarter(reportType, date.Value.Month);
-
+                    rep.ReleaseDate = date.Value;
+                    switch(rep.Quarter)
+                    {
+                        case 1:
+                            rep.FinancialStatmentDate = new DateTime(2013, 03, 31);
+                            break;
+                        case 2:
+                            rep.FinancialStatmentDate = new DateTime(2013, 06, 30);
+                            break;
+                        case 3:
+                            rep.FinancialStatmentDate = new DateTime(2013, 09, 30);
+                            break;
+                        case 4:
+                            rep.FinancialStatmentDate = new DateTime(2013, 12, 31);
+                            break;
+                    }
                     rep.CompanyLink = row.SelectSingleNode(XPathCmp).ParentNode.Attributes["href"].Value;
                     rep.CompanyName = row.SelectSingleNode(XPathCmp).InnerText;
                     rep.Link = row.SelectSingleNode("./td[4]/a[1]").Attributes["href"].Value;
@@ -182,6 +198,8 @@ namespace IDSA.Modules.PapParser
             var converter = new PapDbCompanyConverter();
             _financialData.CompanyId = converter.ConvertToDbId(report.CompanyName);
             _financialData.Id = Convert.ToInt32(report.Link.Split('/')[5]);
+            _financialData.FinancialReportReleaseDate = report.ReleaseDate;
+            _financialData.FinancialStatmentDate = report.FinancialStatmentDate;
 
             page = hw.Load(@"http://biznes.pap.pl" + report.Link);
 
@@ -325,17 +343,17 @@ namespace IDSA.Modules.PapParser
                 headerStructure.currency = "PLN";
             else headerStructure.currency = currency.Trim();
 
-            headerRow = rows[i+1].SelectNodes("./td");
+            headerRow = rows[i + 1].SelectNodes("./td");
 
-            var t = headerRow[i+1].InnerText.Split('/');
+            var t = headerRow[i + 1].InnerText.Split('/');
             headerStructure.period = t[0].Trim();
-            headerStructure.year = Convert.ToInt32(t[1].Trim());
+            headerStructure.year = Convert.ToInt32(t[1].TrimStart().Split(' ')[0]);
 
             int temp = 0;
-            t = headerRow[i+2].InnerText.Split('/');
+            t = headerRow[i + 2].InnerText.Split('/');
             if (t.Count() == 1)
             {
-                t = headerRow[i+2].InnerText.TrimStart().Split(' ');
+                t = headerRow[i + 2].InnerText.TrimStart().Split(' ');
                 ++temp;
             }
             headerStructure.periodOld = t[temp].Trim();

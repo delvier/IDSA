@@ -18,6 +18,8 @@ namespace IDSA.Modules.PapParser
         public string Link { get; set; }
         public int Quarter { get; set; }
         public bool IsConsolidated { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public DateTime FinancialStatmentDate { get; set; }
     }
 
     public class HeaderStructure

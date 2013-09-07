@@ -48,8 +48,9 @@ namespace IDSA.Presenters
             var str = "";
             foreach (var report in finData)
             {
-                str += report.CompanyId;
-                str += " " + report.Quarter + " " + report.Id;
+                str += "cmpID:" + report.CompanyId;
+                str += " Q:" + report.Quarter + " Y:" + report.Year + " ID:" + report.Id;
+                str += " Assets:" + report.Balance.AssetsPrimary + " PzS:" + report.IncomeStatement.EarningOnSales + "\n";
             }
             return finData.Count.ToString() + " new reports parsed.\n" + str;
         }
