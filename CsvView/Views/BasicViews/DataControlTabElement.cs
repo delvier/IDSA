@@ -65,7 +65,7 @@ namespace IDSA.Views.BasicViews
             this.Controls.Add(this.fieldName);
             this.Controls.Add(this.fieldValue);
             this.Name = "DataControlTabElement";
-            this.Size = new System.Drawing.Size(176, 50);
+            this.Size = new System.Drawing.Size(176, 46);
             this.ResumeLayout(false);
             this.PerformLayout();
 
