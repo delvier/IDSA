@@ -47,10 +47,14 @@ namespace IDSA.Views.BasicViews
             // 
             // fieldValue
             // 
-            this.fieldValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.fieldValue.Location = new System.Drawing.Point(80, 3);
+            this.fieldValue.AcceptsReturn = true;
+            this.fieldValue.AcceptsTab = true;
+            this.fieldValue.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.fieldValue.Location = new System.Drawing.Point(3, 22);
             this.fieldValue.Name = "fieldValue";
-            this.fieldValue.Size = new System.Drawing.Size(72, 20);
+            this.fieldValue.Size = new System.Drawing.Size(171, 20);
             this.fieldValue.TabIndex = 1;
             // 
             // DataControlTabElement
@@ -61,7 +65,7 @@ namespace IDSA.Views.BasicViews
             this.Controls.Add(this.fieldName);
             this.Controls.Add(this.fieldValue);
             this.Name = "DataControlTabElement";
-            this.Size = new System.Drawing.Size(155, 28);
+            this.Size = new System.Drawing.Size(176, 50);
             this.ResumeLayout(false);
             this.PerformLayout();
 
