@@ -38,14 +38,14 @@ namespace IDSA.Modules.PapParser
         #region Fields
         private HtmlWeb hw;
         private HtmlAgilityPack.HtmlDocument page;
-        private List<ReportFields> _reportFields;
+        private List<IReportFields> _IReportFields;
         #endregion
 
         #region Ctors
         public PapParser()
         {
             hw = new HtmlWeb();
-            InitializeReportFields();
+            InitializeIReportFields();
         }
         #endregion
 
@@ -121,46 +121,14 @@ namespace IDSA.Modules.PapParser
                     numOfPages = data == null ? 1 : Convert.ToInt32(data.InnerText);
                 }
 
-                //tabela raportow
+                // Reports table
                 data = page.DocumentNode.SelectSingleNode("//table [@class=\"espi\"]");
-
-                string XPathCmp = "./td[3]/a[1]/b[1]";
-
                 var rows = data.Descendants("TR");
 
+                // For each report
                 for (int i = 2; i < rows.Count(); ++i)
                 {
-                    //TODO: getReportsDataFromRow()
-                    var row = rows.ElementAt(i);
-
-                    var temp = row.SelectSingleNode("./td[1]").InnerText.Split(':');
-                    TimeSpan reportTime = new TimeSpan(Convert.ToInt32(temp[0]), Convert.ToInt32(temp[1]), 0);
-
-                    var reportType = row.SelectSingleNode("./td[2]").InnerText.
-                        Replace('\n', ' ').Replace('\t', ' ').Replace('\r', ' ').Trim();
-
-                    ReportStructure rep = getReportQuarter(reportType, date.Value.Month);
-                    rep.ReleaseDate = date.Value;
-                    switch(rep.Quarter)
-                    {
-                        case 1:
-                            rep.FinancialStatmentDate = new DateTime(2013, 03, 31);
-                            break;
-                        case 2:
-                            rep.FinancialStatmentDate = new DateTime(2013, 06, 30);
-                            break;
-                        case 3:
-                            rep.FinancialStatmentDate = new DateTime(2013, 09, 30);
-                            break;
-                        case 4:
-                            rep.FinancialStatmentDate = new DateTime(2013, 12, 31);
-                            break;
-                    }
-                    rep.CompanyLink = row.SelectSingleNode(XPathCmp).ParentNode.Attributes["href"].Value;
-                    rep.CompanyName = row.SelectSingleNode(XPathCmp).InnerText;
-                    rep.Link = row.SelectSingleNode("./td[4]/a[1]").Attributes["href"].Value;
-
-                    reportsStruct.Add(rep);
+                    reportsStruct.Add(getReportsDataFromRow(rows.ElementAt(i), date.Value));
                 }
             } while (++pageX <= numOfPages);
 
@@ -240,7 +208,7 @@ namespace IDSA.Modules.PapParser
                 var name = row[1].InnerText.Split('.').Last().Trim();
 
                 found = false;
-                foreach (var field in _reportFields)
+                foreach (var field in _IReportFields)
                 {
                     foreach (var item in field.Names)
                     {
@@ -277,7 +245,7 @@ namespace IDSA.Modules.PapParser
                             }
                             field.Value *= Convert.ToInt64(value) * header.factor + afterComma;
 
-                            //Move values from ReportFieldsNames to IncomeStatementData and to BalanceData
+                            //Move values from IReportFieldsNames to IncomeStatementData and to BalanceData
                             //Slow because of using REFLECTION ;)
                             var fieldTypeName = field.GetType().Name;
                             var prop = _financialData.IncomeStatement.GetType().GetProperty(fieldTypeName);
@@ -308,7 +276,7 @@ namespace IDSA.Modules.PapParser
             }
 
             //TODO: Move values to IncomeStatementData not by REFLECTION
-            //income.Sales = _reportFields[0].Value;
+            //income.Sales = _IReportFields[0].Value;
 
             return _financialData;
         }
@@ -367,9 +335,28 @@ namespace IDSA.Modules.PapParser
             return headerStructure;
         }
 
-        private ReportStructure getReportQuarter(string reportType, int month)
+
+        private ReportStructure getReportsDataFromRow(HtmlNode row, DateTime date)
+        {
+            ReportStructure rep = getReportQuarter(row, date.Month);
+            rep.FinancialStatmentDate = getReportFinancialDate(rep.Quarter, date.Year);
+            rep.ReleaseDate = date;
+
+            string XPathCmp = "./td[3]/a[1]/b[1]";
+            rep.CompanyLink = row.SelectSingleNode(XPathCmp).ParentNode.Attributes["href"].Value;
+            rep.CompanyName = row.SelectSingleNode(XPathCmp).InnerText;
+            rep.Link = row.SelectSingleNode("./td[4]/a[1]").Attributes["href"].Value;
+
+            return rep;
+        }
+
+        private ReportStructure getReportQuarter(HtmlNode row, int month)
         {
             var rep = new ReportStructure();
+
+            var reportType = row.SelectSingleNode("./td[2]").InnerText.
+                Replace('\n', ' ').Replace('\t', ' ').Replace('\r', ' ').Trim();
+
             switch (reportType)
             {
                 case "QSr":	//Skonsolidowany raport kwartalny
@@ -417,78 +404,95 @@ namespace IDSA.Modules.PapParser
             return rep;
         }
 
-        private void InitializeReportFields()
+        private DateTime getReportFinancialDate(int quarter, int year)
+        {
+            switch (quarter)
+            {
+                case 1:
+                    return new DateTime(year, 03, 31);
+                case 2:
+                    return new DateTime(year, 06, 30);
+                case 3:
+                    return new DateTime(year, 09, 30);
+                case 4:
+                    return new DateTime(year, 12, 31);
+                default:
+                    return new DateTime(2000, 12, 31);
+            }
+        }
+
+        private void InitializeIReportFields()
         {
             // 62 fields
-            _reportFields = new List<ReportFields>();
+            _IReportFields = new List<IReportFields>();
 
             //Income Statment (17 items)
-            _reportFields.Add(new Sales());
-            _reportFields.Add(new OwnSaleCosts());
-            _reportFields.Add(new SalesCost1());
-            _reportFields.Add(new SalesCost2());
-            _reportFields.Add(new EarningOnSales());
-            _reportFields.Add(new OtherOperationalActivity1());
-            _reportFields.Add(new OtherOperationalActivity2());
-            _reportFields.Add(new EBIT());
-            _reportFields.Add(new FinancialActivity1());
-            _reportFields.Add(new FinancialActivity2());
-            _reportFields.Add(new OtherCostOrSales());
-            _reportFields.Add(new SalesOnEconomicActivity());
-            _reportFields.Add(new ExceptionalOccurence());
-            _reportFields.Add(new EarningBeforeTaxes());
-            _reportFields.Add(new DiscontinuedOperations());
-            _reportFields.Add(new NetProfit());
-            _reportFields.Add(new NetParentProfit());
+            _IReportFields.Add(new Sales());
+            _IReportFields.Add(new OwnSaleCosts());
+            _IReportFields.Add(new SalesCost1());
+            _IReportFields.Add(new SalesCost2());
+            _IReportFields.Add(new EarningOnSales());
+            _IReportFields.Add(new OtherOperationalActivity1());
+            _IReportFields.Add(new OtherOperationalActivity2());
+            _IReportFields.Add(new EBIT());
+            _IReportFields.Add(new FinancialActivity1());
+            _IReportFields.Add(new FinancialActivity2());
+            _IReportFields.Add(new OtherCostOrSales());
+            _IReportFields.Add(new SalesOnEconomicActivity());
+            _IReportFields.Add(new ExceptionalOccurence());
+            _IReportFields.Add(new EarningBeforeTaxes());
+            _IReportFields.Add(new DiscontinuedOperations());
+            _IReportFields.Add(new NetProfit());
+            _IReportFields.Add(new NetParentProfit());
 
             //Cash Flow Data (15 items)
-            _reportFields.Add(new OperatingActivitiesCF());
-            _reportFields.Add(new Depreciation());
-            _reportFields.Add(new ReceivablesChange());
-            _reportFields.Add(new ObligationsStateChange());
-            _reportFields.Add(new ReserveAndOtherChange());
-            _reportFields.Add(new WorkingCapital());
-            _reportFields.Add(new InvestmentCF());
-            _reportFields.Add(new CapexIntangible());
-            _reportFields.Add(new FinancialCF());
-            _reportFields.Add(new SharesIssue());
-            _reportFields.Add(new LoansAndAdvancesObtained());
-            _reportFields.Add(new LoansAndAdvancesRepayed());
-            _reportFields.Add(new LiabilitiesChange());
-            _reportFields.Add(new Dividend());
-            _reportFields.Add(new TotalCF());
+            _IReportFields.Add(new OperatingActivitiesCF());
+            _IReportFields.Add(new Depreciation());
+            _IReportFields.Add(new ReceivablesChange());
+            _IReportFields.Add(new ObligationsStateChange());
+            _IReportFields.Add(new ReserveAndOtherChange());
+            _IReportFields.Add(new WorkingCapital());
+            _IReportFields.Add(new InvestmentCF());
+            _IReportFields.Add(new CapexIntangible());
+            _IReportFields.Add(new FinancialCF());
+            _IReportFields.Add(new SharesIssue());
+            _IReportFields.Add(new LoansAndAdvancesObtained());
+            _IReportFields.Add(new LoansAndAdvancesRepayed());
+            _IReportFields.Add(new LiabilitiesChange());
+            _IReportFields.Add(new Dividend());
+            _IReportFields.Add(new TotalCF());
 
             //Balance Data (30 items)
-            _reportFields.Add(new AssetsPrimary());
-            _reportFields.Add(new LiabilitiesPrimary());
-            _reportFields.Add(new FixedAssets());
-            _reportFields.Add(new IntangibleAssets());
-            _reportFields.Add(new TangibleFixedAssets());
-            _reportFields.Add(new LongTermReceivablesFixA());
-            _reportFields.Add(new LongTermInvestmentFixA());
-            _reportFields.Add(new OtherFixedAssets());
-            _reportFields.Add(new CurrentAssets());
-            _reportFields.Add(new Inventory());
-            _reportFields.Add(new LongTermReceivablesCurA());
-            _reportFields.Add(new LongTermInvestmentCurA());
-            _reportFields.Add(new Cash());
-            _reportFields.Add(new OtherCurentAssets());
-            _reportFields.Add(new AssetsForSale());
-            _reportFields.Add(new Equity());
-            _reportFields.Add(new CapitalMasterFund());
-            _reportFields.Add(new ShareOfTreasuryStock());
-            _reportFields.Add(new CapitalreserveFund());
-            _reportFields.Add(new NonControllingInterests());
-            _reportFields.Add(new LongTermLiabilities());
-            _reportFields.Add(new SuppliesAndServicesLT());
-            _reportFields.Add(new LoansAndAdvancesLT());
-            _reportFields.Add(new OtherFinancialLT());
-            _reportFields.Add(new OtherLT());
-            _reportFields.Add(new ShortTermLiabilities());
-            _reportFields.Add(new SuppliesAndServicesST());
-            _reportFields.Add(new LoansAndAdvancesST());
-            _reportFields.Add(new OtherFinancialST());
-            _reportFields.Add(new OtherST());
+            _IReportFields.Add(new AssetsPrimary());
+            _IReportFields.Add(new LiabilitiesPrimary());
+            _IReportFields.Add(new FixedAssets());
+            _IReportFields.Add(new IntangibleAssets());
+            _IReportFields.Add(new TangibleFixedAssets());
+            _IReportFields.Add(new LongTermReceivablesFixA());
+            _IReportFields.Add(new LongTermInvestmentFixA());
+            _IReportFields.Add(new OtherFixedAssets());
+            _IReportFields.Add(new CurrentAssets());
+            _IReportFields.Add(new Inventory());
+            _IReportFields.Add(new LongTermReceivablesCurA());
+            _IReportFields.Add(new LongTermInvestmentCurA());
+            _IReportFields.Add(new Cash());
+            _IReportFields.Add(new OtherCurentAssets());
+            _IReportFields.Add(new AssetsForSale());
+            _IReportFields.Add(new Equity());
+            _IReportFields.Add(new CapitalMasterFund());
+            _IReportFields.Add(new ShareOfTreasuryStock());
+            _IReportFields.Add(new CapitalreserveFund());
+            _IReportFields.Add(new NonControllingInterests());
+            _IReportFields.Add(new LongTermLiabilities());
+            _IReportFields.Add(new SuppliesAndServicesLT());
+            _IReportFields.Add(new LoansAndAdvancesLT());
+            _IReportFields.Add(new OtherFinancialLT());
+            _IReportFields.Add(new OtherLT());
+            _IReportFields.Add(new ShortTermLiabilities());
+            _IReportFields.Add(new SuppliesAndServicesST());
+            _IReportFields.Add(new LoansAndAdvancesST());
+            _IReportFields.Add(new OtherFinancialST());
+            _IReportFields.Add(new OtherST());
         }
         #endregion
     }
