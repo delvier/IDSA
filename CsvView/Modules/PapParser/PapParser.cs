@@ -163,6 +163,7 @@ namespace IDSA.Modules.PapParser
             _financialData.IncomeStatement = new IncomeStatmentData();
             _financialData.Balance = new BalanceData();
             _financialData.CashFlow = new CashFlowData();
+
             var converter = new PapDbCompanyConverter();
             _financialData.CompanyId = converter.ConvertToDbId(report.CompanyName);
             _financialData.Id = Convert.ToInt32(report.Link.Split('/')[5]);
@@ -173,8 +174,29 @@ namespace IDSA.Modules.PapParser
 
             var rows = page.DocumentNode.SelectNodes("/html[1]/span[1]/table[5]/tr[1]/td[1]/table[1]/tr");
 
-            var header = parseHeader(rows);
+            var matchStart = Regex.Match(page.DocumentNode.InnerText, "Nazwa arkusza: WYBRANE DANE FINANSOWE");
+            var matchEnd = Regex.Match(page.DocumentNode.InnerText, "Nazwa arkusza: KOREKTA RAPORTU");
+            var strX = page.DocumentNode.InnerText.Substring(matchStart.Index, matchEnd.Index - matchStart.Index);
+            var match = Regex.Match(strX, " I. ");
+
+            HeaderStructure header = match.Success ?
+                parseHeader(strX.Substring(0, match.Index))
+                : parseHeader(strX);
+
             _financialData.Year = header.year;
+
+            //TODO: parseBaseData(rows2.InnerText)
+
+            if (!match.Success)         //Financial data has no data
+            {
+                return _financialData;
+            }
+
+            matchStart = Regex.Match(page.DocumentNode.InnerHtml, "WYBRANE DANE FINANSOWE</TD>");
+            matchEnd = Regex.Match(page.DocumentNode.InnerHtml, "KOREKTA RAPORTU</a>");
+
+            // Refactoring continue here
+
 
             if (rows.Count() <= 4)       //Financial data not showed on side
                 return _financialData;
@@ -284,57 +306,56 @@ namespace IDSA.Modules.PapParser
 
         #region Private Methods
 
-        private HeaderStructure parseHeader(HtmlNodeCollection rows)
+        /*
+         * Take from header:
+         * year,
+         * currency,
+         * factor
+         */
+        private HeaderStructure parseHeader(string rows)
         {
             var headerStructure = new HeaderStructure();
 
-            int i = 0;
-            var headerRow = rows[i].SelectNodes("./td");
-            if (headerRow[2].InnerText.Trim() != "WYBRANE DANE FINANSOWE" && headerRow[1].InnerText.Trim() != "WYBRANE DANE FINANSOWE")
+            //Year
+            var matches = Regex.Matches(rows, "2[0-9]{3}[ \n\r]{1}");
+            if (matches.Count == 4 || matches.Count == 2)
             {
-                ++i;
-                headerRow = rows[i].SelectNodes("./td");
+                int year = Convert.ToInt32(matches[0].Value);
+                int oldYear = Convert.ToInt32(matches[1].Value);
+
+                headerStructure.year = year <= oldYear ? oldYear : year;
+            }
+            else  //Exceptional occurrence
+            {
+                matches = Regex.Matches(rows, "2[0-9]{3}-[0-9]{2}-[0-9]{2}");
+                if (matches.Count == 8) ;//OK
             }
 
-            headerStructure.factor = 1;
-            if (headerRow[2].InnerText.Contains("tys."))    // row[3] tys.
+            // currency
+            var currencyMatch = Regex.Match(rows, "zł");
+            if (currencyMatch.Success)
             {
-                headerStructure.factor = 1000;
-            }
-            else if (headerRow[2].InnerText.Contains("mln."))    // row[3] mln.
-            {
-                headerStructure.factor = 1000000;
-            }
-
-            var currency = headerRow[3].InnerText;      // row[4] zl. EUR
-            if (currency.Trim() == string.Empty)
                 headerStructure.currency = "PLN";
-            else headerStructure.currency = currency.Trim();
-
-            headerRow = rows[i + 1].SelectNodes("./td");
-
-            var t = headerRow[i + 1].InnerText.Split('/');
-            headerStructure.period = t[0].Trim();
-            headerStructure.year = Convert.ToInt32(t[1].TrimStart().Split(' ')[0]);
-
-            int temp = 0;
-            t = headerRow[i + 2].InnerText.Split('/');
-            if (t.Count() == 1)
-            {
-                t = headerRow[i + 2].InnerText.TrimStart().Split(' ');
-                ++temp;
-            }
-            headerStructure.periodOld = t[temp].Trim();
-            if (t[temp + 1].Trim() == string.Empty)
-            {
-                headerStructure.yearOld = headerStructure.year - 1;
             }
             else
-                headerStructure.yearOld = Convert.ToInt32(t[temp + 1].Trim());
+            {
+                var currencyMatch1 = Regex.Matches(rows, "EUR");
+                if (currencyMatch1.Count == 2)
+                    headerStructure.currency = "EUR";
+                else
+                    headerStructure.currency = "PLN";
+            }
+
+            // factor
+            if (Regex.Match(rows, "tys.").Success)
+                headerStructure.factor = 1000;
+            else if (Regex.Match(rows, "mln.").Success)
+                headerStructure.factor = 1000000;
+            else
+                headerStructure.factor = 1;
 
             return headerStructure;
         }
-
 
         private ReportStructure getReportsDataFromRow(HtmlNode row, DateTime date)
         {
