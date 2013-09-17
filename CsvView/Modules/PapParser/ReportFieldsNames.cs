@@ -2,12 +2,38 @@
 
 namespace IDSA.Modules.PapParser
 {
-    public interface ReportFields
+    public interface IReportFields
     {
         List<string> Names { get; }
         long Value { get; set; }
     }
 
+    public class ReportFields
+    {
+        private Dictionary<string, List<string>> dict;
+
+        public ReportFields()
+        {
+            dict = new Dictionary<string, List<string>>();
+            dict.Add("EarningOnSales", EarningOnSales); //IncomeStatmentDataKey 45
+        }
+
+        public Dictionary<string, List<string>>  getAllFields()
+        {
+            return dict;
+        }
+        //dict.Keys() klucze dla foreach()
+
+        private List<string> EarningOnSales = new List<string> { "Przychody ze sprzedaży",
+                    "Przychody ze sprzedaży netto",
+                    "Przychody ze sprzedaży akcji",
+                    "Przychody netto ze sprzedaży produkt&oacute;w, towar&oacute;w i materiał&oacute;w",
+                    "PRZYCHODY NETTO ZE SPRZEDAŻY PRODUKT&Oacute;W, TOWAR&Oacute;W I MATERIAŁ&Oacute;W",
+                    "Składki ubezpieczeniowe przypisane brutto",
+                    "Działaln. kontyn. przychody ze sprzedaży",
+                    "Przychody z tytułu odsetek" };
+    }
+        
     //II. Krezus SA
     //Zysk (strata) ze sprzedaży akcji i udział&oacute;w
 
@@ -43,7 +69,7 @@ namespace IDSA.Modules.PapParser
     //Rozwodniona wartość księgowa na akcję (w PLN/EUR na jedną akcję)
     //Rozwodniona wartość księgowa na jedną akcję (w zł / EURO)
 
-    public class Sales : ReportFields    //IncomeStatmentDataKey 41
+    public class Sales : IReportFields    //IncomeStatmentDataKey 41
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -54,7 +80,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class OwnSaleCosts : ReportFields    //IncomeStatmentDataKey 42
+    public class OwnSaleCosts : IReportFields    //IncomeStatmentDataKey 42
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -64,7 +90,7 @@ namespace IDSA.Modules.PapParser
             Names = new List<string> { "" };
         }
     }
-    public class SalesCost1 : ReportFields    //IncomeStatmentDataKey 43
+    public class SalesCost1 : IReportFields    //IncomeStatmentDataKey 43
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -74,7 +100,7 @@ namespace IDSA.Modules.PapParser
             Names = new List<string> { "" };
         }
     }
-    public class SalesCost2 : ReportFields    //IncomeStatmentDataKey 44
+    public class SalesCost2 : IReportFields    //IncomeStatmentDataKey 44
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -84,7 +110,7 @@ namespace IDSA.Modules.PapParser
             Names = new List<string> { "" };
         }
     }
-    public class EarningOnSales : ReportFields    //IncomeStatmentDataKey 45
+    public class EarningOnSales : IReportFields    //IncomeStatmentDataKey 45
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -103,7 +129,7 @@ namespace IDSA.Modules.PapParser
     }
 
 
-    public class OtherOperationalActivity1 : ReportFields    //IncomeStatmentDataKey 46
+    public class OtherOperationalActivity1 : IReportFields    //IncomeStatmentDataKey 46
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -114,7 +140,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class OtherOperationalActivity2 : ReportFields    //IncomeStatmentDataKey 47
+    public class OtherOperationalActivity2 : IReportFields    //IncomeStatmentDataKey 47
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -125,7 +151,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class EBIT : ReportFields    //IncomeStatmentDataKey 48
+    public class EBIT : IReportFields    //IncomeStatmentDataKey 48
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -138,7 +164,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class FinancialActivity1 : ReportFields    //IncomeStatmentDataKey 49
+    public class FinancialActivity1 : IReportFields    //IncomeStatmentDataKey 49
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -149,7 +175,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class FinancialActivity2 : ReportFields    //IncomeStatmentDataKey 50
+    public class FinancialActivity2 : IReportFields    //IncomeStatmentDataKey 50
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -160,7 +186,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class OtherCostOrSales : ReportFields    //IncomeStatmentDataKey 51
+    public class OtherCostOrSales : IReportFields    //IncomeStatmentDataKey 51
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -171,7 +197,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class SalesOnEconomicActivity : ReportFields    //IncomeStatmentDataKey 52
+    public class SalesOnEconomicActivity : IReportFields    //IncomeStatmentDataKey 52
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -182,7 +208,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class ExceptionalOccurence : ReportFields    //IncomeStatmentDataKey 53
+    public class ExceptionalOccurence : IReportFields    //IncomeStatmentDataKey 53
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -193,7 +219,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class EarningBeforeTaxes : ReportFields    //IncomeStatmentDataKey 54
+    public class EarningBeforeTaxes : IReportFields    //IncomeStatmentDataKey 54
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -207,7 +233,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class DiscontinuedOperations : ReportFields    //IncomeStatmentDataKey 55
+    public class DiscontinuedOperations : IReportFields    //IncomeStatmentDataKey 55
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -218,7 +244,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class NetProfit : ReportFields    //IncomeStatmentDataKey 56
+    public class NetProfit : IReportFields    //IncomeStatmentDataKey 56
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -232,7 +258,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class NetParentProfit : ReportFields    //IncomeStatmentDataKey 57
+    public class NetParentProfit : IReportFields    //IncomeStatmentDataKey 57
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -245,7 +271,7 @@ namespace IDSA.Modules.PapParser
 
     //Cash Flow Data
 
-    public class OperatingActivitiesCF : ReportFields    //ICashFlowDataKey 57
+    public class OperatingActivitiesCF : IReportFields    //ICashFlowDataKey 57
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -258,7 +284,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class Depreciation : ReportFields    //ICashFlowDataKey 58
+    public class Depreciation : IReportFields    //ICashFlowDataKey 58
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -269,7 +295,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class ReceivablesChange : ReportFields    //ICashFlowDataKey 59
+    public class ReceivablesChange : IReportFields    //ICashFlowDataKey 59
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -280,7 +306,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class ObligationsStateChange : ReportFields    //ICashFlowDataKey 60
+    public class ObligationsStateChange : IReportFields    //ICashFlowDataKey 60
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -291,7 +317,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class ReserveAndOtherChange : ReportFields    //ICashFlowDataKey 61
+    public class ReserveAndOtherChange : IReportFields    //ICashFlowDataKey 61
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -302,7 +328,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class WorkingCapital : ReportFields    //ICashFlowDataKey 62
+    public class WorkingCapital : IReportFields    //ICashFlowDataKey 62
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -315,7 +341,7 @@ namespace IDSA.Modules.PapParser
 
     //ColumnBL,                                  //64 ? hm...
 
-    public class InvestmentCF : ReportFields    //ICashFlowDataKey 64
+    public class InvestmentCF : IReportFields    //ICashFlowDataKey 64
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -328,7 +354,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class CapexIntangible : ReportFields    //ICashFlowDataKey 65
+    public class CapexIntangible : IReportFields    //ICashFlowDataKey 65
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -339,7 +365,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class FinancialCF : ReportFields    //ICashFlowDataKey 66
+    public class FinancialCF : IReportFields    //ICashFlowDataKey 66
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -352,7 +378,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class SharesIssue : ReportFields    //ICashFlowDataKey 67
+    public class SharesIssue : IReportFields    //ICashFlowDataKey 67
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -364,7 +390,7 @@ namespace IDSA.Modules.PapParser
     }
 
 
-    public class LoansAndAdvancesObtained : ReportFields    //ICashFlowDataKey 68
+    public class LoansAndAdvancesObtained : IReportFields    //ICashFlowDataKey 68
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -375,7 +401,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class LoansAndAdvancesRepayed : ReportFields    //ICashFlowDataKey 69
+    public class LoansAndAdvancesRepayed : IReportFields    //ICashFlowDataKey 69
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -386,7 +412,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class LiabilitiesChange : ReportFields    //ICashFlowDataKey 70
+    public class LiabilitiesChange : IReportFields    //ICashFlowDataKey 70
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -397,7 +423,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class Dividend : ReportFields    //ICashFlowDataKey 71
+    public class Dividend : IReportFields    //ICashFlowDataKey 71
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -408,7 +434,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class TotalCF : ReportFields    //ICashFlowDataKey 72
+    public class TotalCF : IReportFields    //ICashFlowDataKey 72
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -422,7 +448,7 @@ namespace IDSA.Modules.PapParser
 
     //Balance Data
 
-    public class AssetsPrimary : ReportFields         //BalanceDataKey 5
+    public class AssetsPrimary : IReportFields         //BalanceDataKey 5
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -441,7 +467,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class LiabilitiesPrimary : ReportFields    //BalanceDataKey 6
+    public class LiabilitiesPrimary : IReportFields    //BalanceDataKey 6
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -453,7 +479,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class FixedAssets : ReportFields           //BalanceDataKey 7
+    public class FixedAssets : IReportFields           //BalanceDataKey 7
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -464,7 +490,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class IntangibleAssets : ReportFields      //BalanceDataKey 8
+    public class IntangibleAssets : IReportFields      //BalanceDataKey 8
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -477,7 +503,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class TangibleFixedAssets : ReportFields   //BalanceDataKey 9
+    public class TangibleFixedAssets : IReportFields   //BalanceDataKey 9
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -490,7 +516,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class LongTermReceivablesFixA : ReportFields
+    public class LongTermReceivablesFixA : IReportFields
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -502,7 +528,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class LongTermInvestmentFixA : ReportFields
+    public class LongTermInvestmentFixA : IReportFields
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -514,7 +540,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class OtherFixedAssets : ReportFields
+    public class OtherFixedAssets : IReportFields
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -529,7 +555,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class CurrentAssets : ReportFields
+    public class CurrentAssets : IReportFields
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -540,7 +566,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class Inventory : ReportFields
+    public class Inventory : IReportFields
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -551,7 +577,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class LongTermReceivablesCurA : ReportFields
+    public class LongTermReceivablesCurA : IReportFields
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -563,7 +589,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class LongTermInvestmentCurA : ReportFields
+    public class LongTermInvestmentCurA : IReportFields
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -574,7 +600,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class Cash : ReportFields
+    public class Cash : IReportFields
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -586,7 +612,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class OtherCurentAssets : ReportFields
+    public class OtherCurentAssets : IReportFields
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -597,7 +623,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class AssetsForSale : ReportFields //20 //Aktywa przeznaczone do sprzedaży
+    public class AssetsForSale : IReportFields //20 //Aktywa przeznaczone do sprzedaży
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -611,7 +637,7 @@ namespace IDSA.Modules.PapParser
 
     //EQUITY - pasywa
 
-    public class Equity : ReportFields
+    public class Equity : IReportFields
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -624,7 +650,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class CapitalMasterFund : ReportFields
+    public class CapitalMasterFund : IReportFields
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -636,7 +662,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class ShareOfTreasuryStock : ReportFields
+    public class ShareOfTreasuryStock : IReportFields
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -647,7 +673,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class CapitalreserveFund : ReportFields
+    public class CapitalreserveFund : IReportFields
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -661,7 +687,7 @@ namespace IDSA.Modules.PapParser
     // ColumnY,                   //25  ? 0
     // ColumnZ,                   //26  ? 0
 
-    public class NonControllingInterests : ReportFields
+    public class NonControllingInterests : IReportFields
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -673,7 +699,7 @@ namespace IDSA.Modules.PapParser
     }
 
 
-    public class LongTermLiabilities : ReportFields       //28 //ZOBOWIĄZANIA DŁUGOTERMINOWE
+    public class LongTermLiabilities : IReportFields       //28 //ZOBOWIĄZANIA DŁUGOTERMINOWE
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -687,7 +713,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class SuppliesAndServicesLT : ReportFields     //29 //Z tytułu dostaw i usług
+    public class SuppliesAndServicesLT : IReportFields     //29 //Z tytułu dostaw i usług
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -698,7 +724,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class LoansAndAdvancesLT : ReportFields        //30 //!* Kredyty i pożyczki
+    public class LoansAndAdvancesLT : IReportFields        //30 //!* Kredyty i pożyczki
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -710,7 +736,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class OtherFinancialLT : ReportFields        //32 //!* Inne finansowe zob. długoterminowe
+    public class OtherFinancialLT : IReportFields        //32 //!* Inne finansowe zob. długoterminowe
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -721,7 +747,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class OtherLT : ReportFields        //33 //Inne zobowiązania długoterminowe
+    public class OtherLT : IReportFields        //33 //Inne zobowiązania długoterminowe
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -732,7 +758,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class ShortTermLiabilities : ReportFields  //34 //ZOBOWIĄZANIA KRÓTKOTERMINOWE
+    public class ShortTermLiabilities : IReportFields  //34 //ZOBOWIĄZANIA KRÓTKOTERMINOWE
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -747,7 +773,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class SuppliesAndServicesST : ReportFields  //35 //Z tytułu dostaw i usług
+    public class SuppliesAndServicesST : IReportFields  //35 //Z tytułu dostaw i usług
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -759,7 +785,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class LoansAndAdvancesST : ReportFields  //36 //!*Kredyty i pożyczki
+    public class LoansAndAdvancesST : IReportFields  //36 //!*Kredyty i pożyczki
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -773,7 +799,7 @@ namespace IDSA.Modules.PapParser
 
     //        ColumnAK,                //37  ? 0
 
-    public class OtherFinancialST : ReportFields  //38 //!*Inne finanoswe zob. krótkoterminowe
+    public class OtherFinancialST : IReportFields  //38 //!*Inne finanoswe zob. krótkoterminowe
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
@@ -784,7 +810,7 @@ namespace IDSA.Modules.PapParser
         }
     }
 
-    public class OtherST : ReportFields  //39 //Inne zobowiązania krótkoterminowe.
+    public class OtherST : IReportFields  //39 //Inne zobowiązania krótkoterminowe.
     {
         public List<string> Names { get; private set; }
         public long Value { get; set; }
