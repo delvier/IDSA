@@ -66,6 +66,7 @@ namespace IDSA.Views.BasicViews
         private void InitInternalTabs ()
         {
             var structDict = new PropertiesExtractorService(typeof(FinancialData)).GetStructureDict();
+            // *****************************
             // optimalize as viewProvider.cs
             foreach (var dictElement in structDict)
             {
@@ -81,6 +82,7 @@ namespace IDSA.Views.BasicViews
                 singleTabPage.Controls.Add(flowPanel);
                 tabDataControl.Controls.Add(singleTabPage);    
             }
+            // ******** TODO: This should be done by some tabprovider, or sth *******
         }
 
         public void Bind()
