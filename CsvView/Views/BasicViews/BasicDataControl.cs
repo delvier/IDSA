@@ -14,6 +14,7 @@ using IDSA.Models;
 using IDSA.Models.DataStruct;
 using System.Reflection;
 using System.Collections;
+using IDSA.Services;
 
 namespace IDSA.Views.BasicViews
 {
@@ -64,7 +65,7 @@ namespace IDSA.Views.BasicViews
 
         private void InitInternalTabs ()
         {
-            var structDict = new PropertiesExtractor(typeof(FinancialData)).GetStructureDict();
+            var structDict = new PropertiesExtractorService(typeof(FinancialData)).GetStructureDict();
             // optimalize as viewProvider.cs
             foreach (var dictElement in structDict)
             {
@@ -91,39 +92,5 @@ namespace IDSA.Views.BasicViews
         public abstract void SetActionBtnLabel();
         public abstract void SetVisibleBoxOption();
         public abstract void BtnOnClickAction();
-    }
-
-
-    public class PropertiesExtractor
-    {
-        private Type _breakingType { get; set; }
-        private PropertyInfo[] _breakingProperties { get; set; }
-
-        public PropertiesExtractor(Type breakingType)
-        {
-            this._breakingType = breakingType;
-            this._breakingProperties = breakingType.GetProperties();
-        }
-
-        public IEnumerable<PropertyInfo> GetClasses()
-        {
-            return _breakingProperties.Where(prop => prop.PropertyType.IsClass);
-        }
-
-        public IEnumerable<PropertyInfo> GetBaseProperties()
-        {
-            return _breakingProperties.Where(prop => !prop.PropertyType.IsClass);
-        }
-
-        public Dictionary<string,IEnumerable<PropertyInfo>> GetStructureDict()
-        {
-            var dict = new Dictionary<string, IEnumerable<PropertyInfo>>();
-            dict.Add("Base", GetBaseProperties());
-            foreach (var classProperty in GetClasses())
-            {
-                dict.Add(classProperty.PropertyType.Name, classProperty.PropertyType.GetProperties());
-            }
-            return dict;
-        }
     }
 }

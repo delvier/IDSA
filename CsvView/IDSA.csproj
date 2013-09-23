@@ -144,6 +144,7 @@
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Events\DbEvents\DatabaseCreatedEvent.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\FinancialInternalTabbedProvider.cs" />
+    <Compile Include="Services\PropertiesExtractor.cs" />
     <Compile Include="Views\BasicViews\DataControlTabElement.cs">
       <SubType>UserControl</SubType>
     </Compile>
