@@ -174,28 +174,76 @@ namespace IDSA.Modules.PapParser
 
             var rows = page.DocumentNode.SelectNodes("/html[1]/span[1]/table[5]/tr[1]/td[1]/table[1]/tr");
 
-            var matchStart = Regex.Match(page.DocumentNode.InnerText, "Nazwa arkusza: WYBRANE DANE FINANSOWE");
-            var matchEnd = Regex.Match(page.DocumentNode.InnerText, "Nazwa arkusza: KOREKTA RAPORTU");
-            var strX = page.DocumentNode.InnerText.Substring(matchStart.Index, matchEnd.Index - matchStart.Index);
+            //var matchStart = Regex.Match(page.DocumentNode.InnerText, "Nazwa arkusza: WYBRANE DANE FINANSOWE");
+            //var matchEnd = Regex.Match(page.DocumentNode.InnerText, "Nazwa arkusza: KOREKTA RAPORTU");
+            //var strX = page.DocumentNode.InnerText.Substring(matchStart.Index, matchEnd.Index - matchStart.Index);
+            //var match = Regex.Match(strX, " I. ");
+
+            var matchStart = Regex.Match(page.DocumentNode.InnerHtml, "WYBRANE DANE FINANSOWE</td>");
+            var matchEnd = Regex.Matches(page.DocumentNode.InnerHtml, "KOREKTA RAPORTU</a>");
+            var strX = page.DocumentNode.InnerHtml.Substring(matchStart.Index, matchEnd[matchEnd.Count - 1].Index - matchStart.Index);
             var match = Regex.Match(strX, " I. ");
-
-            HeaderStructure header = match.Success ?
-                parseHeader(strX.Substring(0, match.Index))
-                : parseHeader(strX);
-
-            _financialData.Year = header.year;
-
-            //TODO: parseBaseData(rows2.InnerText)
 
             if (!match.Success)         //Financial data has no data
             {
                 return _financialData;
             }
 
-            matchStart = Regex.Match(page.DocumentNode.InnerHtml, "WYBRANE DANE FINANSOWE</TD>");
-            matchEnd = Regex.Match(page.DocumentNode.InnerHtml, "KOREKTA RAPORTU</a>");
+            //HeaderStructure header = match.Success ?
+            //    parseHeader(strX.Substring(0, match.Index))
+            //    : parseHeader(strX);
+            HeaderStructure header = parseHeader(strX.Substring(0, match.Index));
+
+            _financialData.Year = header.year;
+
+            //TODO: parseBaseData(rows2.InnerText)
+
+
 
             // Refactoring continue here
+            strX = strX.Substring(match.Index);
+            var matches = Regex.Matches(strX, " [VXIL]{1,}. [a-zA-ZĄąćĆĘężŻŚśŁł&oacute;,/() ]*"); //^.*?(?=<)
+
+            var reportFields = new ReportFields();
+
+            foreach (Match item in matches)
+            {
+                // remove prefix " XVI. "
+                int index = item.Value.IndexOf(' ');
+                index = item.Value.IndexOf(' ', index + 1);
+
+                var field = reportFields.findKey(item.Value.Substring(index+1));
+                if (field == null)
+                    continue;
+
+                // Field is found!!!  get value now
+                var str = strX.Substring(item.Value.Length + item.Index, 100);
+                var match123 = Regex.Matches(str, "[1-9][0-9 ]{1,}");
+                str = match123[0].Value.Replace(" ", string.Empty);
+                long val = Convert.ToInt64(str) * header.factor;
+                
+                // and write by reflection to object's field
+                
+                var prop = _financialData.IncomeStatement.GetType().GetProperty(field);
+                if (prop != null)
+                {
+                    prop.SetValue(_financialData.IncomeStatement, val, null);
+                }
+                else
+                {
+                    prop = _financialData.Balance.GetType().GetProperty(field);
+                    if (prop != null)
+                    {
+                        prop.SetValue(_financialData.Balance, val, null);
+                    }
+                    else
+                    {
+                        prop = _financialData.CashFlow.GetType().GetProperty(field);
+                        prop.SetValue(_financialData.CashFlow, val, null);
+                    }
+                }
+            }
+
 
 
             if (rows.Count() <= 4)       //Financial data not showed on side
@@ -317,7 +365,7 @@ namespace IDSA.Modules.PapParser
             var headerStructure = new HeaderStructure();
 
             //Year
-            var matches = Regex.Matches(rows, "2[0-9]{3}[ \n\r]{1}");
+            var matches = Regex.Matches(rows, "2[0-9]{3}"); //[</TD> \n\r] vs [ \n\r]{1}
             if (matches.Count == 4 || matches.Count == 2)
             {
                 int year = Convert.ToInt32(matches[0].Value);

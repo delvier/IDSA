@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace IDSA.Modules.PapParser
 {
@@ -16,6 +17,15 @@ namespace IDSA.Modules.PapParser
         {
             dict = new Dictionary<string, List<string>>();
             dict.Add("EarningOnSales", EarningOnSales); //IncomeStatmentDataKey 45
+            dict.Add("EBIT", EBIT); //IncomeStatmentDataKey 48
+        }
+
+        public string findKey(string value)
+        {
+            return dict.FirstOrDefault(el 
+                => 
+                el.Value.Contains(value) == true)
+                .Key;
         }
 
         public Dictionary<string, List<string>>  getAllFields()
@@ -28,10 +38,16 @@ namespace IDSA.Modules.PapParser
                     "Przychody ze sprzedaży netto",
                     "Przychody ze sprzedaży akcji",
                     "Przychody netto ze sprzedaży produkt&oacute;w, towar&oacute;w i materiał&oacute;w",
+                    "Przychody netto ze sprzedaży produkt&oacute;w,  towar&oacute;w i materiał&oacute;w",
                     "PRZYCHODY NETTO ZE SPRZEDAŻY PRODUKT&Oacute;W, TOWAR&Oacute;W I MATERIAŁ&Oacute;W",
                     "Składki ubezpieczeniowe przypisane brutto",
                     "Działaln. kontyn. przychody ze sprzedaży",
                     "Przychody z tytułu odsetek" };
+
+        private List<string> EBIT = new List<string> { "Zysk z działalności operacyjnej",
+                    "Zysk (strata) z działalności operacyjnej",
+                    "Zysk (strata) na działalności operacyjnej",
+                    "ZYSK (STRATA) NA DZIAŁALNOŚCI OPERACYJNEJ" };
     }
         
     //II. Krezus SA
