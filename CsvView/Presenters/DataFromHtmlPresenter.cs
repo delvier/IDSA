@@ -44,8 +44,19 @@ namespace IDSA.Presenters
                 startDate = endDate;
                 endDate = temp;
             }
-            var finData = _papParser.parseReportsFromDate(startDate, endDate);
+
+            List<FinancialData> finData = new List<FinancialData>();
             var str = "";
+
+            try
+            {
+                finData = _papParser.parseReportsFromDate(startDate, endDate);
+            }
+            catch (Exception e)
+            {
+                str += e.Message + "\n";
+            }
+
             foreach (var report in finData)
             {
                 str += "cmpID:" + report.CompanyId;

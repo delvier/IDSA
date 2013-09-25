@@ -202,7 +202,7 @@ namespace IDSA.Modules.PapParser
 
             // Refactoring continue here
             strX = strX.Substring(match.Index);
-            var matches = Regex.Matches(strX, " [VXIL]{1,}. [a-zA-ZĄąćĆĘężŻŚśŁł&oacute;,/() ]*"); //^.*?(?=<)
+            var matches = Regex.Matches(strX, " [VXIL]{1,}. [a-zA-ZĄąćĆĘężŻŚśŁł&oacute;:,./() ]*"); //^.*?(?=<)
 
             var reportFields = new ReportFields();
 
@@ -212,18 +212,51 @@ namespace IDSA.Modules.PapParser
                 int index = item.Value.IndexOf(' ');
                 index = item.Value.IndexOf(' ', index + 1);
 
-                var field = reportFields.findKey(item.Value.Substring(index+1));
+                var field = reportFields.findKey(item.Value.Substring(index + 1).Trim());
                 if (field == null)
-                    continue;
-
+                {
+                    throw new Exception("report ID:" + _financialData.Id + 
+                        "\n" + item.Value.Substring(index + 1) + " IS NOT FOUND!!!!!!");
+                    //continue;
+                }
                 // Field is found!!!  get value now
                 var str = strX.Substring(item.Value.Length + item.Index, 100);
-                var match123 = Regex.Matches(str, "[1-9][0-9 ]{1,}");
-                str = match123[0].Value.Replace(" ", string.Empty);
-                long val = Convert.ToInt64(str) * header.factor;
-                
+                var match123 = Regex.Matches(str, "[0-9][0-9,. ]{0,}");
+                if (match123.Count == 0 || match123[0].Success != true)
+                {
+                    //TODO only - sign instead of numbers
+                    match123 = Regex.Matches(str, "[-0-9][-0-9,. ]{0,}");
+                    if (match123.Count == 0 || match123[0].Success != true)
+                    {
+                        throw new Exception("report ID:" + _financialData.Id +
+                            "\n" + field + " VALUE IS UNPROPER :(");
+                    }
+                    //continue;
+                }
+
+                var strVal = match123[0].Value.Replace(" ", string.Empty);
+                int afterComma = 0;
+                if (str.Contains(','))
+                {
+                    afterComma = Convert.ToInt32(strVal.Split(',')[1]);
+                    afterComma *= header.factor / (int)Math.Pow(10, strVal.Split(',')[1].Length);
+                    strVal = strVal.Split(',')[0];
+                }
+                long val;
+                if (strVal == "-")
+                {
+                    val = 0;
+                }
+                else
+                    val = Convert.ToInt64(strVal) * header.factor + afterComma;
+
+                if (str.ElementAt(match123[0].Index - 1) == '-'
+                    || str.ElementAt(match123[0].Index - 1) == '(') //minus value
+                {
+                    val *= -1;
+                }
+
                 // and write by reflection to object's field
-                
                 var prop = _financialData.IncomeStatement.GetType().GetProperty(field);
                 if (prop != null)
                 {
@@ -239,7 +272,15 @@ namespace IDSA.Modules.PapParser
                     else
                     {
                         prop = _financialData.CashFlow.GetType().GetProperty(field);
-                        prop.SetValue(_financialData.CashFlow, val, null);
+                        if (prop != null)
+                        {
+                            prop.SetValue(_financialData.CashFlow, val, null);
+                        }
+                        else
+                        {
+                            continue;
+                            //throw new Exception(field + " has value " + val.ToString() + " but NO PROPERTY!!!!!!!!!!!!!");
+                        }
                     }
                 }
             }
