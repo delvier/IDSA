@@ -16,40 +16,163 @@ namespace IDSA.Modules.PapParser
         public ReportFields()
         {
             dict = new Dictionary<string, List<string>>();
-            dict.Add("EarningOnSales", EarningOnSales); //IncomeStatmentDataKey 45
-            dict.Add("EBIT", EBIT); //IncomeStatmentDataKey 48
+
+            dict.Add("EarningOnSales", EarningOnSales);                 //IncomeStatmentDataKey 45
+            dict.Add("EBIT", EBIT);                                     //IncomeStatmentDataKey 48
+            dict.Add("EarningBeforeTaxes", EarningBeforeTaxes);         //IncomeStatmentDataKey 54
+            dict.Add("NetProfit", NetProfit);                           //IncomeStatmentDataKey 56
+
+            dict.Add("OperatingActivitiesCF", OperatingActivitiesCF);   //ICashFlowDataKey 57
+            dict.Add("WorkingCapital", WorkingCapital);                 //ICashFlowDataKey 62
+            dict.Add("InvestmentCF", InvestmentCF);                     //ICashFlowDataKey 64
+            dict.Add("FinancialCF", FinancialCF);                       //ICashFlowDataKey 66
+            dict.Add("TotalCF", TotalCF);                               //ICashFlowDataKey 72
+
+            dict.Add("AssetsPrimary", AssetsPrimary);                   //BalanceDataKey 5
+            dict.Add("LiabilitiesPrimary", LiabilitiesPrimary);         //BalanceDataKey 6
+            dict.Add("Equity", Equity);                                 //BalanceDataKey 21
+            dict.Add("CapitalMasterFund", CapitalMasterFund);           //BalanceDataKey 22
+            dict.Add("LongTermLiabilities", LongTermLiabilities);       //BalanceDataKey 28
+            dict.Add("ShortTermLiabilities", ShortTermLiabilities);     //BalanceDataKey 34
+
+            dict.Add("ShareNumbers", ShareNumbers);                     //XXXX
+            dict.Add("Other", Other);                                   //XXXX
         }
 
         public string findKey(string value)
         {
-            return dict.FirstOrDefault(el 
-                => 
+            return dict.FirstOrDefault(el
+                =>
                 el.Value.Contains(value) == true)
                 .Key;
         }
 
-        public Dictionary<string, List<string>>  getAllFields()
+        public Dictionary<string, List<string>> getAllFields()
         {
             return dict;
         }
         //dict.Keys() klucze dla foreach()
 
-        private List<string> EarningOnSales = new List<string> { "Przychody ze sprzedaży",
-                    "Przychody ze sprzedaży netto",
-                    "Przychody ze sprzedaży akcji",
-                    "Przychody netto ze sprzedaży produkt&oacute;w, towar&oacute;w i materiał&oacute;w",
-                    "Przychody netto ze sprzedaży produkt&oacute;w,  towar&oacute;w i materiał&oacute;w",
-                    "PRZYCHODY NETTO ZE SPRZEDAŻY PRODUKT&Oacute;W, TOWAR&Oacute;W I MATERIAŁ&Oacute;W",
-                    "Składki ubezpieczeniowe przypisane brutto",
-                    "Działaln. kontyn. przychody ze sprzedaży",
-                    "Przychody z tytułu odsetek" };
+        private List<string> EarningOnSales = new List<string> {
+            "Przychody ze sprzedaży",
+            "Przychody ze sprzedaży netto",
+            "Przychody ze sprzedaży akcji",
+            "Przychody netto ze sprzedaży produkt&oacute;w, towar&oacute;w i materiał&oacute;w",
+            "Przychody netto ze sprzedaży produkt&oacute;w,  towar&oacute;w i materiał&oacute;w",
+            "PRZYCHODY NETTO ZE SPRZEDAŻY PRODUKT&Oacute;W, TOWAR&Oacute;W I MATERIAŁ&Oacute;W",
+            "Składki ubezpieczeniowe przypisane brutto",
+            "Działaln. kontyn. przychody ze sprzedaży",
+            "Przychody z tytułu odsetek" };
 
-        private List<string> EBIT = new List<string> { "Zysk z działalności operacyjnej",
-                    "Zysk (strata) z działalności operacyjnej",
-                    "Zysk (strata) na działalności operacyjnej",
-                    "ZYSK (STRATA) NA DZIAŁALNOŚCI OPERACYJNEJ" };
-    }
+        private List<string> EBIT = new List<string> {
+            "Zysk z działalności operacyjnej",
+            "Zysk (strata) z działalności operacyjnej",
+            "Zysk (strata) na działalności operacyjnej",
+            "ZYSK (STRATA) NA DZIAŁALNOŚCI OPERACYJNEJ" };
+
+        private List<string> EarningBeforeTaxes = new List<string> { 
+            "Zysk (strata) przed opodatkowaniem",
+            "Zysk / (Strata) przed opodatkowaniem",
+            "Strata przed opodatkowaniem", 
+            "Zysk przed opodatkowaniem",
+            "Zysk (strata) brutto" };   // ???????????????
+
+        private List<string> NetProfit = new List<string> { 
+            "Zysk (strata) netto", "Zysk netto", 
+            "ZYSK (STRATA) NETTO",
+            "Zysk netto okresu sprawozdawczego",
+            "Zysk / (Strata) netto z działalności kontynuowanej przypadający na akcjonariuszy Emitenta" };
+
+        private List<string> OperatingActivitiesCF = new List<string> {
+            "Środki pieniężne netto z działalności operacyjnej",
+            "Przepływy pieniężne netto z działalności operacyjnej",
+            "PRZEPŁYWY PIENIĘŻNE NETTO Z DZIAŁALNOŚCI OPERACYJNEJ" };
+
+        private List<string> WorkingCapital = new List<string> {
+            "Kapitał obrotowy" };
+
+        private List<string> InvestmentCF = new List<string> {
+            "Środki pieniężne netto z działalności inwestycyjnej",
+            "Przepływy pieniężne netto z działalności inwestycyjnej",
+            "PRZEPŁYWY PIENIĘŻNE NETTO Z DZIAŁALNOŚCI INWESTYCYJNEJ" };
+
+        private List<string> FinancialCF = new List<string> {
+            "Środki pieniężne netto z działalności finansowej",
+            "Przepływy pieniężne netto z działalności finansowej",
+            "PRZEPŁYWY PIENIĘŻNE NETTO Z DZIAŁALNOŚCI FINANSOWEJ" };
+
+        private List<string> TotalCF = new List<string> {
+            "PRZEPŁYWY PIENIĘŻNE NETTO RAZEM",
+            "Przepływy pieniężne netto, razem" };
+
+        private List<string> AssetsPrimary = new List<string> {
+            "Aktywa",
+            "Aktywa razem",
+            "Aktywa, razem",
+            "Aktywa ogolem",
+            "Aktywa og&oacute;łem", 
+            "AKTYWA RAZEM",
+            "A k t y w a r a z e m",
+            "Aktywa razem (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
+
+        private List<string> LiabilitiesPrimary = new List<string> {
+            "Pasywa razem",
+            "Pasywa ogolem",
+           "P a s y w a r a z e m" };
+
+        private List<string> Equity = new List<string> {
+            "Kapitał własny",
+            "Kapital wlasny", 
+            "KAPITAŁ WŁASNY",
+            "Kapitał własny (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
+
+        private List<string> CapitalMasterFund = new List<string> {
+            "Kapitał zakładowy",
+            "KAPITAŁ ZAKŁADOWY",
+            "Kapitał podstawowy",
+            "Kapitał zakładowy  (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
+
+        private List<string> LongTermLiabilities = new List<string> {
+            "Zobowiązania długoterminowe",
+            "Zobowiązanie długoterminowe",
+            "ZOBOWIĄZANIA DŁUGOTERMINOWE",
+            "Zobowiazania dlugoterminowe",
+            "Zobowiązania długoterminowe (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
+
+        private List<string> ShortTermLiabilities = new List<string> {
+            "Zobowiązania kr&oacute;tkoterminowe",
+            "ZOBOWIAZANIA KRÓTKOTERMINOWE",
+            "Zobowiazania krotkoterminowe",
+            "Zobowiazania krótkoterminowe",
+            "Zobowiązania kr&oacute;tkoterminowe (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
+
+        private List<string> ShareNumbers = new List<string> {
+            "Liczba akcji",
+            "Liczba akcji (w szt.)",
+            "Ilość akcji zwykłych (co do dywidendy)" };
+
+        private List<string> Other = new List<string> {
+            "Zobowiązania i rezerwy na zobowiązania",
+            "",
+            "i",
+
+            "Zwiększenie /(zmniejszenie) netto środk&oacute;w pieniężnych i ich ekwiwalent&oacute;w", //??????????????????
+            
+            
+            "Podstawowy i rozwodniony zysk (strata) na jedną akcję zwykłą (w zł)",
+            "Rozwodniony zysk (strata) na jedną akcję zwykłą (w zł/EUR)",
+            "Zysk (strata) na jedną akcję zwykłą (w zł/ EUR)",
+            "Zysk (strata) na jedną akcję zwykłą",
+
+            "Wartość księgowa na jedną akcję",
+            "Wartość księgowa na jedną akcję (w zł/EUR)",
+            "Rozwodniona wartość księgowa na jedną akcję (w zł/EUR)",
+
+            "Przypadający: Akcjonariuszom podmiotu dominującego",
         
+            "Zadeklarowana lub wypłacona dywidenda na jedną akcję (w zł/EUR)" };
+    }
+
     //II. Krezus SA
     //Zysk (strata) ze sprzedaży akcji i udział&oacute;w
 
