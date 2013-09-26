@@ -60,6 +60,8 @@ namespace IDSA.Modules.PapParser
             "Przychody netto ze sprzedaży produkt&oacute;w, towar&oacute;w i materiał&oacute;w",
             "Przychody netto ze sprzedaży produkt&oacute;w,  towar&oacute;w i materiał&oacute;w",
             "PRZYCHODY NETTO ZE SPRZEDAŻY PRODUKT&Oacute;W, TOWAR&Oacute;W I MATERIAŁ&Oacute;W",
+            "Przychody netto ze sprzedaży produkt&oacute;w, towar&oacute;w i usług",
+            "Przychody og&oacute;łem",
             "Składki ubezpieczeniowe przypisane brutto",
             "Działaln. kontyn. przychody ze sprzedaży",
             "Przychody z tytułu odsetek" };
@@ -67,6 +69,8 @@ namespace IDSA.Modules.PapParser
         private List<string> EBIT = new List<string> {
             "Zysk z działalności operacyjnej",
             "Zysk (strata) z działalności operacyjnej",
+            "Zysk / strata z działalności operacyjnej",
+            "Zysk / (strata) operacyjny",
             "Zysk (strata) na działalności operacyjnej",
             "ZYSK (STRATA) NA DZIAŁALNOŚCI OPERACYJNEJ" };
 
@@ -75,12 +79,17 @@ namespace IDSA.Modules.PapParser
             "Zysk / (Strata) przed opodatkowaniem",
             "Strata przed opodatkowaniem", 
             "Zysk przed opodatkowaniem",
+            "Zysk / strata brutto",     // ???????????????
             "Zysk (strata) brutto" };   // ???????????????
 
         private List<string> NetProfit = new List<string> { 
-            "Zysk (strata) netto", "Zysk netto", 
+            "Zysk (strata) netto",
+            "Zysk netto",
             "ZYSK (STRATA) NETTO",
+            "Zysk / (strata) netto",
             "Zysk netto okresu sprawozdawczego",
+            "Zysk / strata netto przypadający na akcjonariuszy jednostki dominującej",
+            "Zysk (strata) netto przypadający na akcjonariuszy jednostki dominującj",
             "Zysk / (Strata) netto z działalności kontynuowanej przypadający na akcjonariuszy Emitenta" };
 
         private List<string> OperatingActivitiesCF = new List<string> {
@@ -113,6 +122,7 @@ namespace IDSA.Modules.PapParser
             "Aktywa og&oacute;łem", 
             "AKTYWA RAZEM",
             "A k t y w a r a z e m",
+            "Aktywa, razem (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)",
             "Aktywa razem (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
 
         private List<string> LiabilitiesPrimary = new List<string> {
@@ -124,12 +134,15 @@ namespace IDSA.Modules.PapParser
             "Kapitał własny",
             "Kapital wlasny", 
             "KAPITAŁ WŁASNY",
+            "Kapitał własny og&oacute;łem",
+            "Kapitał własny przypadający na akcjonariuszy jednostki dominującej",
             "Kapitał własny (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
 
         private List<string> CapitalMasterFund = new List<string> {
             "Kapitał zakładowy",
             "KAPITAŁ ZAKŁADOWY",
             "Kapitał podstawowy",
+            "Kapitał zakładowy (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)",
             "Kapitał zakładowy  (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
 
         private List<string> LongTermLiabilities = new List<string> {
@@ -149,10 +162,21 @@ namespace IDSA.Modules.PapParser
         private List<string> ShareNumbers = new List<string> {
             "Liczba akcji",
             "Liczba akcji (w szt.)",
-            "Ilość akcji zwykłych (co do dywidendy)" };
+            "Liczba akcji  (w szt.)",
+            "Liczba akcji ( w szt. )",
+            "Ilość akcji",
+            "Ilość akcji zwykłych (co do dywidendy)",
+            "Liczba akcji (w szt.) (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
 
         private List<string> Other = new List<string> {
             "Zobowiązania i rezerwy na zobowiązania",
+            "Zobowiązania i rezerwy na zobowiązania (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)",
+            
+            "Zadłużenie netto/ (środki pieniężne netto)",
+            "Nakłady kapitałowe",
+            
+            "Zysk EBITDA",
+            
             "",
             "i",
 
@@ -161,16 +185,24 @@ namespace IDSA.Modules.PapParser
             
             "Podstawowy i rozwodniony zysk (strata) na jedną akcję zwykłą (w zł)",
             "Rozwodniony zysk (strata) na jedną akcję zwykłą (w zł/EUR)",
+            "Zysk (strata) netto na jedną akcję zwykłą (w zł /  EUR) przypadający na akcjonariuszy jednostki dominującej",
+            "Zysk / (strata) na jedną akcję zwykłą (w PLN/EUR)",
             "Zysk (strata) na jedną akcję zwykłą (w zł/ EUR)",
+            "Zysk / strata na jedną akcję zwykłą ( w zł/EUR )",
             "Zysk (strata) na jedną akcję zwykłą",
 
             "Wartość księgowa na jedną akcję",
             "Wartość księgowa na jedną akcję (w zł/EUR)",
+            "Wartość księgowa na jedną akcję ( w zł/EUR )",
+            "Wartość księgowa na jedną akcję (w zł / EUR)",
+            "Wartość księgowa na jedną akcję (w zł/EUR) (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)",
             "Rozwodniona wartość księgowa na jedną akcję (w zł/EUR)",
+            "Rozwodniona wartość księgowa na jedną akcję (w zł/EUR) (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)",
 
             "Przypadający: Akcjonariuszom podmiotu dominującego",
-        
-            "Zadeklarowana lub wypłacona dywidenda na jedną akcję (w zł/EUR)" };
+            
+            "Zadeklarowana lub wypłacona dywidenda na jedną akcję (w zł/EUR)",
+            "Zadeklarowana lub wypłacona dywidenda na jedną akcję (w zł / EUR)" };
     }
 
     //II. Krezus SA
