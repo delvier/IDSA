@@ -29,6 +29,7 @@ namespace IDSA.Modules.PapParser
         List<FinancialData> parseReportsFromDate(DateTime? date);
         List<FinancialData> parseReports(List<ReportStructure> reports);
         FinancialData parseReport(ReportStructure report);
+        string getErrors();
     }
 
     //TODO: Odroznic raport od skonsolidowanego raportu dla danej spolki.
@@ -39,6 +40,7 @@ namespace IDSA.Modules.PapParser
         private HtmlWeb hw;
         private HtmlAgilityPack.HtmlDocument page;
         private List<IReportFields> _IReportFields;
+        private string errorContainer;
         #endregion
 
         #region Ctors
@@ -50,6 +52,11 @@ namespace IDSA.Modules.PapParser
         #endregion
 
         #region Public Methods
+        public string getErrors()
+        {
+            return errorContainer;
+        }
+        
         public List<ReportStructure> retrieveYearlyReports(int year = 2013)
         {
             var repStructure = new List<ReportStructure>();
@@ -169,6 +176,8 @@ namespace IDSA.Modules.PapParser
             _financialData.Id = Convert.ToInt32(report.Link.Split('/')[5]);
             _financialData.FinancialReportReleaseDate = report.ReleaseDate;
             _financialData.FinancialStatmentDate = report.FinancialStatmentDate;
+            _financialData.Year = report.ReleaseDate.Year;
+            _financialData.Quarter = report.Quarter;
 
             page = hw.Load(@"http://biznes.pap.pl" + report.Link);
 
@@ -189,16 +198,14 @@ namespace IDSA.Modules.PapParser
                 return _financialData;
             }
 
-            //HeaderStructure header = match.Success ?
-            //    parseHeader(strX.Substring(0, match.Index))
-            //    : parseHeader(strX);
             HeaderStructure header = parseHeader(strX.Substring(0, match.Index));
 
             _financialData.Year = header.year;
 
             //TODO: parseBaseData(rows2.InnerText)
 
-
+            // container for fields, that are in dict, but not in financialData (for testing purposes)
+            errorContainer = string.Empty;
 
             // Refactoring continue here
             strX = strX.Substring(match.Index);
@@ -211,11 +218,16 @@ namespace IDSA.Modules.PapParser
                 // remove prefix " XVI. "
                 int index = item.Value.IndexOf(' ');
                 index = item.Value.IndexOf(' ', index + 1);
+                var tempMatch = Regex.Match(item.Value.Substring(index + 1), " [VXIL]{1,}. ");
+                if (tempMatch.Success == true)
+                {
+                    index = item.Value.IndexOf(' ', index + 1);
+                }
 
                 var field = reportFields.findKey(item.Value.Substring(index + 1).Trim());
                 if (field == null)
                 {
-                    throw new Exception("report ID:" + _financialData.Id + 
+                    throw new Exception("report ID:" + _financialData.Id +
                         "\n" + item.Value.Substring(index + 1) + " IS NOT FOUND!!!!!!");
                     //continue;
                 }
@@ -278,6 +290,9 @@ namespace IDSA.Modules.PapParser
                         }
                         else
                         {
+                            errorContainer += "report ID:" + _financialData.Id +
+                                "    " + item.Value + " has value: " + val
+                                + " is not in financialData!";
                             continue;
                             //throw new Exception(field + " has value " + val.ToString() + " but NO PROPERTY!!!!!!!!!!!!!");
                         }
