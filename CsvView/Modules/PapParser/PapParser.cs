@@ -209,7 +209,7 @@ namespace IDSA.Modules.PapParser
 
             // Refactoring continue here
             strX = strX.Substring(match.Index);
-            var matches = Regex.Matches(strX, " [VXIL]{1,}. [a-zA-ZĄąćĆĘężŻŚśŁł&oacute;:,./() ]*"); //^.*?(?=<)
+            var matches = Regex.Matches(strX, " [VXIL]{1,}. [^<]*");
 
             var reportFields = new ReportFields();
 
@@ -243,10 +243,16 @@ namespace IDSA.Modules.PapParser
                         throw new Exception("report ID:" + _financialData.Id +
                             "\n" + field + " VALUE IS UNPROPER :(");
                     }
-                    //continue;
+                    if (match123[0].Value.Trim() == "-")
+                        continue;
                 }
 
                 var strVal = match123[0].Value.Replace(" ", string.Empty);
+                if (strVal.Contains('.'))
+                {
+                    if (strVal.Split('.').Count() == 3)
+                        continue;
+                }
                 int afterComma = 0;
                 if (str.Contains(','))
                 {
@@ -422,7 +428,7 @@ namespace IDSA.Modules.PapParser
 
             //Year
             var matches = Regex.Matches(rows, "2[0-9]{3}"); //[</TD> \n\r] vs [ \n\r]{1}
-            if (matches.Count == 4 || matches.Count == 2)
+            if (matches.Count >= 2)
             {
                 int year = Convert.ToInt32(matches[0].Value);
                 int oldYear = Convert.ToInt32(matches[1].Value);
@@ -432,7 +438,8 @@ namespace IDSA.Modules.PapParser
             else  //Exceptional occurrence
             {
                 matches = Regex.Matches(rows, "2[0-9]{3}-[0-9]{2}-[0-9]{2}");
-                if (matches.Count == 8) ;//OK
+                if (matches.Count == 8 || matches.Count == 4)
+                    headerStructure.year = Convert.ToInt32(matches[0].Value.Substring(0, 4));//TODO: check
             }
 
             // currency
