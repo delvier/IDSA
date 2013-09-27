@@ -104,10 +104,12 @@
     <Compile Include="Models\Utilities\MultiSortableBindingListView.cs" />
     <Compile Include="Models\Utilities\PropertyComparer.cs" />
     <Compile Include="Modules\DataCalculation\ICalculationService.cs" />
+    <Compile Include="Presenters\ReportManagment\BasicSingleTabPresenter.cs" />
     <Compile Include="Presenters\BasicViewsPresenters\BasicDataControlPresenter.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\BalancePresenter.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\CashFlowPresenter.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\IncomeStatmentPresentercs.cs" />
+    <Compile Include="Presenters\ReportManagment\FinancialInternalTabProvider.cs" />
     <Compile Include="Services\CacheService.cs" />
     <Compile Include="Modules\CachedListContainer\CompanyCacheDataContainer.cs" />
     <Compile Include="Modules\CachedListContainer\DataContainer.cs" />
@@ -293,9 +295,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Presenters\ReportManagment\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

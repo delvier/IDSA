@@ -6,6 +6,11 @@ using System.Reflection;
 
 namespace IDSA.Services
 {
+    /**
+     * Breaking class as smaller class-properties dictionary.
+     * This service support only 1 level of depth into the tree of class 
+     * which mean class->class->class dict is not provided.
+     */
     public class PropertiesExtractorService
     {
         private Type _breakingType { get; set; }

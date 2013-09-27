@@ -17,6 +17,21 @@ namespace IDSA.Views.BasicViews
         private Label fieldName;
         private TextBox fieldValue;
 
+        public String GetFieldName()
+        {
+            return fieldName.Text;
+        }
+
+        public String GetFieldValue()
+        {
+            return fieldValue.Text.Trim();
+        }
+
+        public void SetFieldValue(String setText)
+        {
+            fieldValue.Text = setText;
+        }
+
         public DataControlTabElement(String fieldName)
         {
             InitializeComponent();

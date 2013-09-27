@@ -6,37 +6,39 @@ using IDSA.Views.ReportManagment;
 
 namespace IDSA
 {
-	public partial class Shell : Form
-	{
-		public Shell(IViewProvider<MixedViewItemDescriptor> viewProvider)
-		{
-			InitializeComponent();
+    public partial class Shell : Form
+    {
+        public Shell(IViewProvider<MixedViewItemDescriptor> viewProvider)
+        {
+            InitializeComponent();
 
-			foreach (var viewItem in viewProvider.GetViews())
-			{
-				if (viewItem.Type == EProjectionType.Tabbed)
-				{
-					var view = (Control)ServiceLocator.Current.GetInstance(viewItem.View);
-					view.Dock = DockStyle.Fill;
-					var tp = new TabPage(viewItem.Header);
-					tp.Controls.Add(view);
-					mainTabControl.TabPages.Add(tp);
+            foreach (var viewItem in viewProvider.GetViews())
+            {
+                if (viewItem.Type == EProjectionType.Tabbed)
+                {
+                    var view = (Control)ServiceLocator.Current.GetInstance(viewItem.View);
+                    view.Dock = DockStyle.Fill;
+                    var tp = new TabPage(viewItem.Header);
+                    tp.Controls.Add(view);
+                    mainTabControl.TabPages.Add(tp);
 
-				}
-				else if (viewItem.Type == EProjectionType.Modal)
-				{
+                }
+                else if (viewItem.Type == EProjectionType.Modal)
+                {
                     EventHandler handlerOnClick = giveMeHandler(viewItem.View);
-					var item = new ToolStripMenuItem(viewItem.Header, null, handlerOnClick);
-					mainStripMenu.Items.Add(item);
-				}
-			}
-		}
+                    var item = new ToolStripMenuItem(viewItem.Header, null, handlerOnClick);
+                    mainStripMenu.Items.Add(item);
+                }
+            }
+        }
 
         private EventHandler giveMeHandler(Type typeView)
         {
             return new EventHandler((s, e) =>
             {
                 var form = new Form();
+                form.Width = 600;
+                form.Height = 700;
                 var view = (Control)ServiceLocator.Current.GetService(typeView);
                 view.Dock = DockStyle.Fill;
                 form.Controls.Add(view);
@@ -44,10 +46,10 @@ namespace IDSA
             });
         }
 
-		protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
-		{
-			base.OnClosing(e);
-			ServiceLocator.Current.GetInstance<IUnitOfWork>().Dispose();
-		}
-	}
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            ServiceLocator.Current.GetInstance<IUnitOfWork>().Dispose();
+        }
+    }
 }

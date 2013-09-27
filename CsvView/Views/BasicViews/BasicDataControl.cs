@@ -15,6 +15,7 @@ using IDSA.Models.DataStruct;
 using System.Reflection;
 using System.Collections;
 using IDSA.Services;
+using IDSA.Presenters.ReportManagment;
 
 namespace IDSA.Views.BasicViews
 {
@@ -26,10 +27,13 @@ namespace IDSA.Views.BasicViews
         protected bool EnableReportBox { set { reportsBox.Visible = value; } }
         protected bool EnableCompanyBox { set { companyBox.Visible = value; } }
 
+        private FinancialInternalTabProvider _internalTabProvider;
+
         public BasicDataControl()
         {
             this._presenter =  new BasicDataControlPresenter(this);
             this._eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+            this._internalTabProvider = new FinancialInternalTabProvider();
 
             InitializeComponent();
             InitPresenterData();
@@ -65,24 +69,10 @@ namespace IDSA.Views.BasicViews
 
         private void InitInternalTabs ()
         {
-            var structDict = new PropertiesExtractorService(typeof(FinancialData)).GetStructureDict();
-            // *****************************
-            // optimalize as viewProvider.cs
-            foreach (var dictElement in structDict)
+            foreach (TabPage tabPage in _internalTabProvider.GetTabs() )
             {
-                var flowPanel = new FlowLayoutPanel();
-                flowPanel.AutoSize = true;
-                flowPanel.Dock = DockStyle.Fill;
-                flowPanel.AutoScrollMinSize = new System.Drawing.Size(350, 350);
-                foreach (var prop in dictElement.Value)
-                {
-                    flowPanel.Controls.Add(new DataControlTabElement(prop.Name));
-                }
-                var singleTabPage = new TabPage(dictElement.Key);
-                singleTabPage.Controls.Add(flowPanel);
-                tabDataControl.Controls.Add(singleTabPage);    
+                tabDataControl.Controls.Add(tabPage);  
             }
-            // ******** TODO: This should be done by some tabprovider, or sth *******
         }
 
         public void Bind()
