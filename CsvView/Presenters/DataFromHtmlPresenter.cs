@@ -1,12 +1,10 @@
 ﻿using HtmlAgilityPack;
 using IDSA.Models.DataStruct;
-using IDSA.Models.Repository;
 using IDSA.Modules.PapParser;
 using IDSA.Views;
 using Microsoft.Practices.ServiceLocation;
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace IDSA.Presenters
@@ -22,7 +20,6 @@ namespace IDSA.Presenters
         private readonly IDataFromHtmlView _view;
         //private readonly IUnitOfWork _dbModel;
         private readonly IPapParser _papParser;
-        //private Dictionary<string, long> values = new Dictionary<string, long>();
         #endregion
 
         #region Ctors
@@ -38,13 +35,6 @@ namespace IDSA.Presenters
         public string parsePapReports(DateTime startDate, DateTime endDate)
         {
             //IReportsCrawler crawler = new ReportsCrawler();
-            if (startDate > endDate)
-            {
-                var temp = startDate;
-                startDate = endDate;
-                endDate = temp;
-            }
-
             List<FinancialData> finData = new List<FinancialData>();
             var str = "";
 
@@ -59,11 +49,11 @@ namespace IDSA.Presenters
 
             foreach (var report in finData)
             {
-                str += "cmpID: " + report.CompanyId;
-                str += "  Q: " + report.Quarter + "  Y: " + report.Year + "  ID: " + report.Id;
-                str += "  Assets: " + report.Balance.AssetsPrimary + "  PzS: " + report.IncomeStatement.EarningOnSales + "\n";
+                str += "cmpID: " + report.CompanyId + "  Q: " + report.Quarter
+                    + "  Y: " + report.Year + "  ID: " + report.Id
+                    + "  Assets: " + report.Balance.AssetsPrimary
+                    + "  successfully parsed.\n";
             }
-            str += _papParser.getErrors();
             return finData.Count.ToString() + " new reports parsed.\n" + str;
         }
 
