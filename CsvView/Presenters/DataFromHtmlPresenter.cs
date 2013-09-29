@@ -35,17 +35,9 @@ namespace IDSA.Presenters
         public string parsePapReports(DateTime startDate, DateTime endDate)
         {
             //IReportsCrawler crawler = new ReportsCrawler();
-            List<FinancialData> finData = new List<FinancialData>();
-            var str = "";
+            var finData = _papParser.parseReportsFromDate(startDate, endDate);
 
-            try
-            {
-                finData = _papParser.parseReportsFromDate(startDate, endDate);
-            }
-            catch (Exception e)
-            {
-                str += e.Message + "\n";
-            }
+            var str = finData.Count.ToString() + " new reports parsed.\n";
 
             foreach (var report in finData)
             {
@@ -54,7 +46,7 @@ namespace IDSA.Presenters
                     + "  Assets: " + report.Balance.AssetsPrimary
                     + "  successfully parsed.\n";
             }
-            return finData.Count.ToString() + " new reports parsed.\n" + str;
+            return str;
         }
 
         public string GetExchangeFromHtmlAddress(string companyId)

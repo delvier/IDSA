@@ -30,6 +30,8 @@ namespace IDSA.Modules.PapParser
 
             dict.Add("AssetsPrimary", AssetsPrimary);                   //BalanceDataKey 5
             dict.Add("LiabilitiesPrimary", LiabilitiesPrimary);         //BalanceDataKey 6
+            dict.Add("FixedAssets", FixedAssets);                       //BalanceDataKey 7
+            dict.Add("CurrentAssets", CurrentAssets);                   //BalanceDataKey 13
             dict.Add("Equity", Equity);                                 //BalanceDataKey 21
             dict.Add("CapitalMasterFund", CapitalMasterFund);           //BalanceDataKey 22
             dict.Add("LongTermLiabilities", LongTermLiabilities);       //BalanceDataKey 28
@@ -57,6 +59,7 @@ namespace IDSA.Modules.PapParser
             "Przychody ze sprzedaży",
             "Przychody ze sprzedaży netto",
             "Przychody ze sprzedaży akcji",
+            "Przychody ze sprzedaży produkt&oacute;w i towar&oacute;w",
             "Przychody netto ze sprzedaży produkt&oacute;w, towar&oacute;w i materiał&oacute;w",
             "Przychody netto ze sprzedaży produkt&oacute;w,  towar&oacute;w i materiał&oacute;w",
             "PRZYCHODY NETTO ZE SPRZEDAŻY PRODUKT&Oacute;W, TOWAR&Oacute;W I MATERIAŁ&Oacute;W",
@@ -65,7 +68,8 @@ namespace IDSA.Modules.PapParser
             "Przychody ze sprzedaży i zr&oacute;wnane z nimi",
             "Składki ubezpieczeniowe przypisane brutto",
             "Działaln. kontyn. przychody ze sprzedaży",
-            "Przychody z tytułu odsetek" };
+            "Przychody z tytułu odsetek",
+            "Suma przychod&oacute;w operacyjnych" };
 
         private List<string> EBIT = new List<string> {
             "Zysk z działalności operacyjnej",
@@ -78,9 +82,12 @@ namespace IDSA.Modules.PapParser
 
         private List<string> EarningBeforeTaxes = new List<string> { 
             "Zysk (strata) przed opodatkowaniem",
+            "Zysk / (strata) przed opodatkowaniem",
             "Zysk / (Strata) przed opodatkowaniem",
             "Strata przed opodatkowaniem", 
             "Zysk przed opodatkowaniem",
+            "Wynik brutto",             // ???????????????
+            "Zysk brutto",              // ???????????????
             "Zysk/strata brutto",       // ???????????????
             "Zysk / strata brutto",     // ???????????????
             "Zysk (strata) brutto" };   // ???????????????
@@ -92,37 +99,51 @@ namespace IDSA.Modules.PapParser
             "Zysk / (strata) netto",
             "Zysk/strata netto",
             "Zysk netto okresu sprawozdawczego",
+            "Zysk (strata) netto za okres",
             "Zysk (strata) netto podmiotu dominującego",
             "Zysk / strata netto przypadający na akcjonariuszy jednostki dominującej",
             "Zysk (strata) netto przypadający na akcjonariuszy jednostki dominującj",
-            "Zysk / (Strata) netto z działalności kontynuowanej przypadający na akcjonariuszy Emitenta" };
+            "Zysk (strata) netto z działalności kontynuowanej",
+            "Zysk / (Strata) netto z działalności kontynuowanej przypadający na akcjonariuszy Emitenta",
+            "Zysk za okres sprawozdawczy",
+            "Zysk za okres sprawozdawczy przypadający Akcjonariuszom Jednostki Dominującej",
+            "Wynik netto przypadający akcjonariuszom ING Banku Śląskiego S.A.",
+            "Zysk za okres" };
 
         private List<string> OperatingActivitiesCF = new List<string> {
             "Środki pieniężne netto z działalności operacyjnej",
             "Przepływy pieniężne netto z działalności operacyjnej",
             "PRZEPŁYWY PIENIĘŻNE NETTO Z DZIAŁALNOŚCI OPERACYJNEJ",
-            "Przepływy pieniężne z działalności operacyjnej" };
+            "Przepływy pieniężne z działalności operacyjnej",
+            "Przepływy środk&oacute;w pieniężnych z działalności operacyjnej",
+            "Przepływy środk&oacute;w pieniężnych w działalności operacyjnej" };
 
         private List<string> WorkingCapital = new List<string> {
             "Kapitał obrotowy" };
 
         private List<string> InvestmentCF = new List<string> {
             "Środki pieniężne netto z działalności inwestycyjnej",
+            "Środki pieniężne neto z działalności inwestycyjnej",
             "Przepływy pieniężne netto z działalności inwestycyjnej",
             "PRZEPŁYWY PIENIĘŻNE NETTO Z DZIAŁALNOŚCI INWESTYCYJNEJ",
-            "Przepływy pieniężne z działalności inwestycyjnej" };
+            "Przepływy pieniężne z działalności inwestycyjnej",
+            "Przepływy środk&oacute;w pieniężnych z działalności inwestycyjnej",
+            "Przepływy środk&oacute;w pieniężnych w działalności inwestycyjnej" };
 
         private List<string> FinancialCF = new List<string> {
             "Środki pieniężne netto z działalności finansowej",
             "Przepływy pieniężne netto z działalności finansowej",
             "PRZEPŁYWY PIENIĘŻNE NETTO Z DZIAŁALNOŚCI FINANSOWEJ",
-            "Przepływy pieniężne z działalności finansowej" };
+            "Przepływy pieniężne z działalności finansowej",
+            "Przepływy środk&oacute;w pieniężnych z działalności finansowej",
+            "Przepływy środk&oacute;w pieniężnych w działalności finansowej" };
 
         private List<string> TotalCF = new List<string> {
             "PRZEPŁYWY PIENIĘŻNE NETTO RAZEM",
             "Przepływy pieniężne netto, razem",
             "Przepływy pieniężne netto razem",
-            "Przepływy pieniężne razem" };
+            "Przepływy pieniężne razem",
+            "Przepływy środk&oacute;w pieniężnych w danym roku" };
 
         private List<string> AssetsPrimary = new List<string> {
             "Aktywa",
@@ -132,22 +153,35 @@ namespace IDSA.Modules.PapParser
             "Aktywa og&oacute;łem", 
             "AKTYWA RAZEM",
             "A k t y w a r a z e m",
+            "Aktywa razem (*)",
             "Aktywa, razem (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)",
             "Aktywa razem (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
 
         private List<string> LiabilitiesPrimary = new List<string> {
             "Pasywa razem",
             "Pasywa ogolem",
-           "P a s y w a r a z e m" };
+            "P a s y w a r a z e m",
+            "Pasywa razem (*)" };
+
+        private List<string> FixedAssets = new List<string> {
+            "Aktywa trwałe",
+            "Aktywa trwałe (*)",
+            "Aktywa trwale" };
 
         private List<string> Equity = new List<string> {
             "Kapitał własny",
             "Kapital wlasny", 
             "KAPITAŁ WŁASNY",
             "Kapitał własny og&oacute;łem",
+            "Kapitały własne og&oacute;łem",
             "Kapitał własny przypadający na akcjonariuszy jednostki dominującej",
             "Kapitał własny przypadający na akcjonariuszy Emitenta",
+            "Kapitał własny (*)",
             "Kapitał własny (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
+
+        private List<string> CurrentAssets = new List<string> {
+            "Aktywa obrotowe",
+            "Aktywa obrotowe i przeznaczone do sprzedaży (*)" };
 
         private List<string> CapitalMasterFund = new List<string> {
             "Kapitał zakładowy",
@@ -161,6 +195,8 @@ namespace IDSA.Modules.PapParser
             "Zobowiązanie długoterminowe",
             "ZOBOWIĄZANIA DŁUGOTERMINOWE",
             "Zobowiazania dlugoterminowe",
+            "Zobowiązania długoterminowe i rezerwy",
+            "Zobowiązania długoterminowe (*)",
             "Zobowiązania długoterminowe (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
 
         private List<string> ShortTermLiabilities = new List<string> {
@@ -169,6 +205,7 @@ namespace IDSA.Modules.PapParser
             "Zobowiazania krotkoterminowe",
             "Zobowiazania krótkoterminowe",
             "w tym zobowiązania kr&oacute;tkoterminowe",
+            "Zobowiązania kr&oacute;tkoterminowe (*)",
             "Zobowiązania kr&oacute;tkoterminowe (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)" };
 
         private List<string> ShareNumbers = new List<string> {
@@ -181,7 +218,10 @@ namespace IDSA.Modules.PapParser
             "Liczba akcji na dzień bilansowy",
             "Liczba akcji (w szt.) (na koniec p&oacute;łrocza bieżącego roku obrotowego i na koniec poprzedniego roku obrotowego)",
             "Liczba akcji na dzień bilansowy, pomniejszona o akcje własne (w szt.)",
-            "Liczba akcji na dzień bilansowy (w szt.)" };
+            "Liczba akcji na dzień bilansowy (w szt.)",
+            "Liczba akcji (w szt.) (*)",
+            "Średnia ważona liczba akcji zwykłych (w szt.)",
+            "Średnia ważona liczba akcji w okresie" };
 
         private List<string> Other = new List<string> {
             "Zobowiązania razem",
@@ -193,10 +233,15 @@ namespace IDSA.Modules.PapParser
             "Zadłużenie netto/ (środki pieniężne netto)",
             "Nakłady kapitałowe",
             
+            "Zysk brutto ze sprzedazy",
             "Zyski/ (Straty) ze sprzedaży akcji",
             "Zysk/strata na sprzedaży",
             "Zysk EBITDA",
-            
+            "Zysk (strata) brutto ze sprzedaży",
+
+            "Środki pieniężne i depozyty kr&oacute;tkoterminowe",
+            "Środki pieniężne i ich ekwiwalenty na koniec okresu",
+
             "",
             "i",
 
@@ -206,16 +251,22 @@ namespace IDSA.Modules.PapParser
             "Średnia ważona liczba akcji (w szt.)",
             "Średnia ważona liczba akcji zastosowana do obliczenia rozwodnionego zysku na akcję  (w szt.)",
             "Średnia ważona liczba akcji (w szt.)",
+            "Średnia ważona rozwodniona liczba akcji zwykłych (w szt.)",
 
             "Podstawowy i rozwodniony zysk (strata) na jedną akcję zwykłą (w zł)",
             "Podstawowy zysk / (strata) z działalności kontynuowanej na jedną akcję zwykłą (w zł)",
             "Rozwodniony zysk /(strata)  z działalności kontynuowanej na jedną akcję zwykłą (w zł)",
             "Rozwodniony zysk (strata) na jedną akcję zwykłą (w zł/EUR)",
+            "Rozwodniony zysk za okres sprawozdawczy na jedną akcję zwykłą przypisany Akcjonariuszom Jednostki Dominującej (w PLN/EUR)",
             "Zysk (strata) netto na jedną akcję zwykłą (w zł /  EUR) przypadający na akcjonariuszy jednostki dominującej",
             "Zysk / (strata) na jedną akcję zwykłą (w PLN/EUR)",
             "Zysk (strata) na jedną akcję zwykłą (w zł/ EUR)",
             "Zysk / strata na jedną akcję zwykłą ( w zł/EUR )",
+            "Zysk (strata) na jedną akcję - podstawowy z zysku za okres (w zł/EUR)",
             "Zysk (strata) na jedną akcję zwykłą",
+            "Zysk (strata) na jedną akcję zwykłą (w zł / EUR)",
+            "Zysk netto na jedną akcję zwykłą",
+            "Zysk za okres sprawozdawczy na jedną akcję zwykłą przypisany Akcjonariuszom Jednostki Dominującej (w PLN/EUR)",
 
             "Wartość księgowa na jedną akcję",
             "Wartość księgowa na akcję (zł/euro)",

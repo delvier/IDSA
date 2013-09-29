@@ -7,11 +7,10 @@ namespace IDSA.Modules.PapParser
 {
     public class PapDbCompanyConverter
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public PapDbCompanyConverter()
         {
-            logger = LogManager.GetLogger("PapDbCompanyConverter");
         }
 
         public string ConvertToDbName(string papName)

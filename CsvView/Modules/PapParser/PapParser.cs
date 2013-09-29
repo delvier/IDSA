@@ -39,15 +39,13 @@ namespace IDSA.Modules.PapParser
         private HtmlWeb hw;
         private HtmlAgilityPack.HtmlDocument page;
         private ReportFields _reportFields;
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private readonly Logger logger = LogManager.GetCurrentClassLogger();
         #endregion
 
         #region Ctors
         public PapParser()
         {
-            logger = LogManager.GetLogger("PapParser");
             hw = new HtmlWeb();
-            //hw.OverrideEncoding = System.Text.Encoding.UTF8;
             _reportFields = new ReportFields();
         }
         #endregion
@@ -158,7 +156,14 @@ namespace IDSA.Modules.PapParser
 
             foreach (var item in reports)
             {
-                finData.Add(parseReport(item));
+                try
+                {
+                    finData.Add(parseReport(item));
+                }
+                catch (Exception e)
+                {
+                    logger.Error("************************ {0} ************************", e.Message);
+                }
             }
 
             return finData;
@@ -179,7 +184,8 @@ namespace IDSA.Modules.PapParser
             _financialData.Year = report.ReleaseDate.Year;
             _financialData.Quarter = report.Quarter;
 
-            logger.Debug("Start log for report: --------------------- {0} --------------------- ", _financialData.Id);
+            logger.Debug("Start log for report: --------------------- {0} {1} --------------------- \n",
+                _financialData.Id, report.CompanyName);
 
             page = hw.Load(@"http://biznes.pap.pl" + report.Link);
             var rows = page.DocumentNode.SelectNodes("/html[1]/span[1]/table[5]/tr[1]/td[1]/table[1]/tr");
@@ -196,7 +202,7 @@ namespace IDSA.Modules.PapParser
 
             HeaderStructure header = parseHeader(strX.Substring(0, match.Index));
 
-            //TODO: parseBaseData(rows2.InnerText)
+            //TODO: parseBaseData(strX.Substring(match.Index))
 
             strX = strX.Substring(match.Index);
             var matches = Regex.Matches(strX, " [VXIL]{1,}. [^<]*");
@@ -296,7 +302,8 @@ namespace IDSA.Modules.PapParser
                 }
             }
 
-            logger.Debug("End log for report: --------------------- {0} --------------------- ", _financialData.Id);
+            logger.Debug("End log for report:   --------------------- {0} {1} -------------------\n",
+                _financialData.Id, report.CompanyName);
 
             return _financialData;
         }
