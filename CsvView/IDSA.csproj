@@ -56,6 +56,9 @@
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.0.1.2\lib\net40\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -102,6 +105,11 @@
     <Compile Include="Models\Utilities\MultiSortableBindingListView.cs" />
     <Compile Include="Models\Utilities\PropertyComparer.cs" />
     <Compile Include="Modules\DataCalculation\ICalculationService.cs" />
+    <Compile Include="Modules\PapParser\PapDbCompanyConverter.cs" />
+    <Compile Include="Modules\PapParser\PapParser.cs" />
+    <Compile Include="Modules\PapParser\ReportFieldsNames.cs" />
+    <Compile Include="Modules\PapParser\ReportsCrawler.cs" />
+    <Compile Include="Modules\PapParser\Structures.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\BalancePresenter.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\CashFlowPresenter.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\IncomeStatmentPresentercs.cs" />
@@ -271,6 +279,12 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="ClassDiagram1.cd" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\IDSA.Models.Company.datasource" />
     <None Include="Properties\Settings.settings">

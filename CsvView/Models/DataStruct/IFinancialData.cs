@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IDSA.Models.DataStruct
 {
-    interface IFinancialData
+    public interface IFinancialData
     {
         //BaseFinData Base                   { get; set; }
         BalanceData Balance                { get; set; }

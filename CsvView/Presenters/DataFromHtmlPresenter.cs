@@ -1,12 +1,11 @@
-﻿using System;
-using System.ComponentModel;
-using System.Windows.Forms;
-using HtmlAgilityPack;
-using IDSA.Models;
-using IDSA.Models.Repository;
-using IDSA.Services;
+﻿using HtmlAgilityPack;
+using IDSA.Models.DataStruct;
+using IDSA.Modules.PapParser;
 using IDSA.Views;
 using Microsoft.Practices.ServiceLocation;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace IDSA.Presenters
 {
@@ -17,15 +16,37 @@ namespace IDSA.Presenters
 
     public class DataFromHtmlPresenter
     {
-        DataFromHtmlView _view;
-        private readonly IUnitOfWork _dbModel;
-        private readonly IDataService<ICompany> _companyDataService;
+        #region Props
+        private readonly IDataFromHtmlView _view;
+        //private readonly IUnitOfWork _dbModel;
+        private readonly IPapParser _papParser;
+        #endregion
 
-        public DataFromHtmlPresenter(DataFromHtmlView view)
+        #region Ctors
+        public DataFromHtmlPresenter(IDataFromHtmlView view)
         {
-            this._companyDataService = (IDataService<Company>)(new CompanyDataService());
             this._view = view;
-            _dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();
+            //_dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();
+            _papParser = ServiceLocator.Current.GetInstance<IPapParser>();
+        }
+        #endregion
+
+        #region Public Methods
+        public string parsePapReports(DateTime startDate, DateTime endDate)
+        {
+            //IReportsCrawler crawler = new ReportsCrawler();
+            var finData = _papParser.parseReportsFromDate(startDate, endDate);
+
+            var str = finData.Count.ToString() + " new reports parsed.\n";
+
+            foreach (var report in finData)
+            {
+                str += "cmpID: " + report.CompanyId + "  Q: " + report.Quarter
+                    + "  Y: " + report.Year + "  ID: " + report.Id
+                    + "  Assets: " + report.Balance.AssetsPrimary
+                    + "  successfully parsed.\n";
+            }
+            return str;
         }
 
         public string GetExchangeFromHtmlAddress(string companyId)
@@ -48,13 +69,15 @@ namespace IDSA.Presenters
             }
             return exchange;
         }
+        #endregion
 
+        #region Private Methods
         private string GetTypeOfData(TypeOfData data, string companyId)
         {
             string link = "//span [@id='aq_" + companyId.ToLower();
-            switch(data)
+            switch (data)
             {
-                case TypeOfData.Exchange: 
+                case TypeOfData.Exchange:
                     link += "_c2']";
                     break;
                 case TypeOfData.Change:
@@ -65,11 +88,12 @@ namespace IDSA.Presenters
                     break;
                 case TypeOfData.Time:
                     link += "_t2']";
-                        break;
+                    break;
                 default:
                     break;
             }
             return link;
         }
+        #endregion
     }
 }

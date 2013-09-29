@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using IDSA.Models.DataStruct;
 using IDSA.Modules.CachedListContainer;
 using IDSA.Modules.DataCalculation;
+using IDSA.Modules.PapParser;
 
 namespace IDSA
 {
@@ -41,8 +42,8 @@ namespace IDSA
             kernel.Bind<ICalculationService>().To<CalculationService>();
             kernel.Bind<IRawData>().To<RawData>();
             kernel.Bind<IDisplayFormat>().To<DisplayFormatService>();
-            
-            
+            kernel.Bind<IPapParser>().To<PapParser>();
+            kernel.Bind<IReportsCrawler>().To<ReportsCrawler>();
 
             Application.Run(ServiceLocator.Current.GetInstance<Shell>());
         }
