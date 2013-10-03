@@ -49,3 +49,10 @@ namespace IDSA.Presenters.ReportManagment
 
     }
 }
+
+//              tab master.  ( GET_FIN_DATA , SET_FIN_DATA )
+// tab1 -      tab2 -        tab3.
+// income d.   balance d.    cash flow d.
+//  \/          \/              \/
+// [][][] |    [][][][]   ||  [][][]= ui components.
+//  
