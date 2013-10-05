@@ -32,7 +32,7 @@ namespace IDSA.Presenters
         #endregion
 
         #region Public Methods
-        public string parsePapReports(DateTime startDate, DateTime endDate)
+        public string parsePapReports(DateTime startDate, DateTime endDate, bool saveReportsInDb)
         {
             //IReportsCrawler crawler = new ReportsCrawler();
             var finData = _papParser.parseReportsFromDate(startDate, endDate);

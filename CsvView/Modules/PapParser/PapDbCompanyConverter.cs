@@ -41,11 +41,11 @@ namespace IDSA.Modules.PapParser
                 return "Asseco Central Europe, a.s.";
             if (papName.Contains("Quercus Towarzystwo Funduszy Inwestycyjnych S.A."))
                 return "Quercus TFI S.A.";
-                
+
             return papName;
         }
 
-        public int ConvertToDbId(string papName)
+        public Models.Company ConvertToDb(string papName)
         {
             string dbName = ConvertToDbName(papName);
 
@@ -56,9 +56,8 @@ namespace IDSA.Modules.PapParser
                 //TODO: Add to DB new company; Non existing cmp list:
                 //Serinus Energy Inc.
                 logger.Error("Company name: {0} doesn't exist in Db.", papName);
-                return -1;
             }
-            return cmp.Id;
+            return cmp;
         }
     }
 }

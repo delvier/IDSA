@@ -177,7 +177,7 @@ namespace IDSA.Modules.PapParser
             _financialData.CashFlow = new CashFlowData();
 
             var converter = new PapDbCompanyConverter();
-            _financialData.CompanyId = converter.ConvertToDbId(report.CompanyName);
+            _financialData.Company = converter.ConvertToDb(report.CompanyName);
             _financialData.Id = Convert.ToInt32(report.Link.Split('/')[5]);
             _financialData.FinancialReportReleaseDate = report.ReleaseDate;
             _financialData.FinancialStatmentDate = report.FinancialStatmentDate;
