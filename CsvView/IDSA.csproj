@@ -104,12 +104,18 @@
     <Compile Include="Models\Utilities\MultiSortableBindingListView.cs" />
     <Compile Include="Models\Utilities\PropertyComparer.cs" />
     <Compile Include="Modules\DataCalculation\ICalculationService.cs" />
-    <Compile Include="Presenters\ReportManagment\BasicSingleTabPresenter.cs" />
     <Compile Include="Presenters\BasicViewsPresenters\BasicDataControlPresenter.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\BalancePresenter.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\CashFlowPresenter.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\IncomeStatmentPresentercs.cs" />
     <Compile Include="Presenters\ReportManagment\FinancialInternalTabProvider.cs" />
+    <Compile Include="Presenters\ReportManagment\MasterTabFinData.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Presenters\ReportManagment\MasterTabFinData.Designer.cs">
+      <DependentUpon>MasterTabFinData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presenters\ReportManagment\MultiTabFinDataPresenter.cs" />
     <Compile Include="Services\CacheService.cs" />
     <Compile Include="Modules\CachedListContainer\CompanyCacheDataContainer.cs" />
     <Compile Include="Modules\CachedListContainer\DataContainer.cs" />
@@ -230,6 +236,9 @@
     <Compile Include="ViewItemDescriptor.cs">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="Presenters\ReportManagment\MasterTabFinData.resx">
+      <DependentUpon>MasterTabFinData.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\BasicViews\BasicDataControl.resx">
       <DependentUpon>BasicDataControl.cs</DependentUpon>
     </EmbeddedResource>

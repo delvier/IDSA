@@ -18,9 +18,14 @@ namespace IDSA.Presenters.BasicViewsPresenters
         }
 
 
-        internal object GetFinData()
+        public FinancialData GetFinData()
         {
             return _finData;
+        }
+
+        public void ChangeFinData()
+        {
+            _finData.Year = 1933;
         }
     }
 }

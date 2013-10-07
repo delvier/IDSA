@@ -69,10 +69,16 @@ namespace IDSA.Views.BasicViews
 
         private void InitInternalTabs ()
         {
-            foreach (TabPage tabPage in _internalTabProvider.GetTabs() )
-            {
-                tabDataControl.Controls.Add(tabPage);  
-            }
+            //foreach (TabPage tabPage in _internalTabProvider.GetTabs() )
+            //{
+            //    tabDataControl.Controls.Add(tabPage);  
+            //}
+            var tabPage = new TabPage();
+            var view = (Control)new MasterTabFinData();
+            view.Dock = DockStyle.Fill;
+            tabPage.Controls.Add(view);
+            tabDataControl.Controls.Add(tabPage);
+                
         }
 
         public void Bind()
