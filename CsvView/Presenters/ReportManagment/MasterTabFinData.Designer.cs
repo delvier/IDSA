@@ -38,7 +38,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "MasterTabFinData";
-            this.Size = new System.Drawing.Size(548, 382);
+            this.Size = new System.Drawing.Size(595, 382);
             ((System.ComponentModel.ISupportInitialize)(this.financialDataBindingSource)).EndInit();
             this.ResumeLayout(false);
 
