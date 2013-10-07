@@ -40,7 +40,6 @@ namespace IDSA.Views
             this.companyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.companyBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
-            this.companyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorMoveFirstItem = new System.Windows.Forms.ToolStripButton();
@@ -54,19 +53,10 @@ namespace IDSA.Views
             this.companyBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.companyDataGridView = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Shortcut = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.reportsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.reportsDataGridView = new System.Windows.Forms.DataGridView();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CompanyId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quarter = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EBIT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Sales = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EarningOnSales = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -76,9 +66,20 @@ namespace IDSA.Views
             this.CreateDatabase = new System.Windows.Forms.Button();
             this.Info = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.companyBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.yearDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quarterDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.companyIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.financialStatmentDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.financialReportReleaseDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.balanceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.incomeStatementDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cashFlowDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.companyDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.companyBindingNavigator)).BeginInit();
             this.companyBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.companyDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsDataGridView)).BeginInit();
@@ -91,6 +92,7 @@ namespace IDSA.Views
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -190,10 +192,6 @@ namespace IDSA.Views
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
             this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
             this.bindingNavigatorAddNewItem.Text = "Add new";
-            // 
-            // companyBindingSource
-            // 
-            this.companyBindingSource.DataSource = typeof(IDSA.Models.Company);
             // 
             // bindingNavigatorCountItem
             // 
@@ -306,12 +304,6 @@ namespace IDSA.Views
             this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Column1.Width = 50;
             // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Name";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
             // Shortcut
             // 
             this.Shortcut.DataPropertyName = "Shortcut";
@@ -338,14 +330,16 @@ namespace IDSA.Views
             this.reportsDataGridView.AutoGenerateColumns = false;
             this.reportsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.reportsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column2,
-            this.CompanyId,
-            this.dataGridViewTextBoxColumn10,
-            this.Quarter,
-            this.EBIT,
-            this.Sales,
-            this.EarningOnSales,
-            this.dataGridViewTextBoxColumn13});
+            this.idDataGridViewTextBoxColumn1,
+            this.yearDataGridViewTextBoxColumn,
+            this.quarterDataGridViewTextBoxColumn,
+            this.companyIdDataGridViewTextBoxColumn,
+            this.financialStatmentDateDataGridViewTextBoxColumn,
+            this.financialReportReleaseDateDataGridViewTextBoxColumn,
+            this.balanceDataGridViewTextBoxColumn,
+            this.incomeStatementDataGridViewTextBoxColumn,
+            this.cashFlowDataGridViewTextBoxColumn,
+            this.companyDataGridViewTextBoxColumn1});
             this.reportsDataGridView.DataSource = this.reportsBindingSource;
             this.reportsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.reportsDataGridView.Location = new System.Drawing.Point(0, 0);
@@ -354,55 +348,6 @@ namespace IDSA.Views
             this.reportsDataGridView.RowTemplate.Height = 24;
             this.reportsDataGridView.Size = new System.Drawing.Size(633, 350);
             this.reportsDataGridView.TabIndex = 5;
-            // 
-            // Column2
-            // 
-            this.Column2.DataPropertyName = "Id";
-            this.Column2.HeaderText = "Id";
-            this.Column2.Name = "Column2";
-            // 
-            // CompanyId
-            // 
-            this.CompanyId.DataPropertyName = "CompanyId";
-            this.CompanyId.HeaderText = "CompanyId";
-            this.CompanyId.Name = "CompanyId";
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.DataPropertyName = "Year";
-            this.dataGridViewTextBoxColumn10.HeaderText = "Year";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            // 
-            // Quarter
-            // 
-            this.Quarter.DataPropertyName = "Quarter";
-            this.Quarter.HeaderText = "Quarter";
-            this.Quarter.Name = "Quarter";
-            // 
-            // EBIT
-            // 
-            this.EBIT.DataPropertyName = "EBIT";
-            this.EBIT.HeaderText = "EBIT";
-            this.EBIT.Name = "EBIT";
-            // 
-            // Sales
-            // 
-            this.Sales.DataPropertyName = "Sales";
-            this.Sales.HeaderText = "Sales";
-            this.Sales.Name = "Sales";
-            // 
-            // EarningOnSales
-            // 
-            this.EarningOnSales.DataPropertyName = "EarningOnSales";
-            this.EarningOnSales.HeaderText = "EarningOnSales";
-            this.EarningOnSales.Name = "EarningOnSales";
-            // 
-            // dataGridViewTextBoxColumn13
-            // 
-            this.dataGridViewTextBoxColumn13.DataPropertyName = "NetProfit";
-            this.dataGridViewTextBoxColumn13.HeaderText = "NetProfit";
-            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
-            this.dataGridViewTextBoxColumn13.Visible = false;
             // 
             // splitContainer1
             // 
@@ -457,7 +402,7 @@ namespace IDSA.Views
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(202, 66);
-            this.textBox1.Name = "fieldValue";
+            this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(46, 20);
             this.textBox1.TabIndex = 11;
             this.textBox1.Text = "400";
@@ -478,7 +423,7 @@ namespace IDSA.Views
             // trackBar1
             // 
             this.trackBar1.Location = new System.Drawing.Point(174, 47);
-            this.trackBar1.Maximum = 886; // TODO: ADD INTELIGENT LOGIC PASS THE REAL CSV COUNT ROW NUMBER....
+            this.trackBar1.Maximum = 886;
             this.trackBar1.Minimum = 1;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(104, 45);
@@ -517,6 +462,76 @@ namespace IDSA.Views
             this.Info.TabIndex = 5;
             this.Info.Text = "DB is still loading.\r\n... please wait ...\r\n";
             // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Name";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // companyBindingSource
+            // 
+            this.companyBindingSource.DataSource = typeof(IDSA.Models.Company);
+            // 
+            // idDataGridViewTextBoxColumn1
+            // 
+            this.idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn1.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
+            // 
+            // yearDataGridViewTextBoxColumn
+            // 
+            this.yearDataGridViewTextBoxColumn.DataPropertyName = "Year";
+            this.yearDataGridViewTextBoxColumn.HeaderText = "Year";
+            this.yearDataGridViewTextBoxColumn.Name = "yearDataGridViewTextBoxColumn";
+            // 
+            // quarterDataGridViewTextBoxColumn
+            // 
+            this.quarterDataGridViewTextBoxColumn.DataPropertyName = "Quarter";
+            this.quarterDataGridViewTextBoxColumn.HeaderText = "Quarter";
+            this.quarterDataGridViewTextBoxColumn.Name = "quarterDataGridViewTextBoxColumn";
+            // 
+            // companyIdDataGridViewTextBoxColumn
+            // 
+            this.companyIdDataGridViewTextBoxColumn.DataPropertyName = "CompanyId";
+            this.companyIdDataGridViewTextBoxColumn.HeaderText = "CompanyId";
+            this.companyIdDataGridViewTextBoxColumn.Name = "companyIdDataGridViewTextBoxColumn";
+            // 
+            // financialStatmentDateDataGridViewTextBoxColumn
+            // 
+            this.financialStatmentDateDataGridViewTextBoxColumn.DataPropertyName = "FinancialStatmentDate";
+            this.financialStatmentDateDataGridViewTextBoxColumn.HeaderText = "FinancialStatmentDate";
+            this.financialStatmentDateDataGridViewTextBoxColumn.Name = "financialStatmentDateDataGridViewTextBoxColumn";
+            // 
+            // financialReportReleaseDateDataGridViewTextBoxColumn
+            // 
+            this.financialReportReleaseDateDataGridViewTextBoxColumn.DataPropertyName = "FinancialReportReleaseDate";
+            this.financialReportReleaseDateDataGridViewTextBoxColumn.HeaderText = "FinancialReportReleaseDate";
+            this.financialReportReleaseDateDataGridViewTextBoxColumn.Name = "financialReportReleaseDateDataGridViewTextBoxColumn";
+            // 
+            // balanceDataGridViewTextBoxColumn
+            // 
+            this.balanceDataGridViewTextBoxColumn.DataPropertyName = "Balance";
+            this.balanceDataGridViewTextBoxColumn.HeaderText = "Balance";
+            this.balanceDataGridViewTextBoxColumn.Name = "balanceDataGridViewTextBoxColumn";
+            // 
+            // incomeStatementDataGridViewTextBoxColumn
+            // 
+            this.incomeStatementDataGridViewTextBoxColumn.DataPropertyName = "IncomeStatement";
+            this.incomeStatementDataGridViewTextBoxColumn.HeaderText = "IncomeStatement";
+            this.incomeStatementDataGridViewTextBoxColumn.Name = "incomeStatementDataGridViewTextBoxColumn";
+            // 
+            // cashFlowDataGridViewTextBoxColumn
+            // 
+            this.cashFlowDataGridViewTextBoxColumn.DataPropertyName = "CashFlow";
+            this.cashFlowDataGridViewTextBoxColumn.HeaderText = "CashFlow";
+            this.cashFlowDataGridViewTextBoxColumn.Name = "cashFlowDataGridViewTextBoxColumn";
+            // 
+            // companyDataGridViewTextBoxColumn1
+            // 
+            this.companyDataGridViewTextBoxColumn1.DataPropertyName = "Company";
+            this.companyDataGridViewTextBoxColumn1.HeaderText = "Company";
+            this.companyDataGridViewTextBoxColumn1.Name = "companyDataGridViewTextBoxColumn1";
+            // 
             // DBView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -529,7 +544,6 @@ namespace IDSA.Views
             ((System.ComponentModel.ISupportInitialize)(this.companyBindingNavigator)).EndInit();
             this.companyBindingNavigator.ResumeLayout(false);
             this.companyBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.companyDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportsDataGridView)).EndInit();
@@ -543,6 +557,7 @@ namespace IDSA.Views
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -575,13 +590,6 @@ namespace IDSA.Views
         private System.Windows.Forms.DataGridView companyDataGridView;
         private System.Windows.Forms.BindingSource reportsBindingSource;
         private System.Windows.Forms.DataGridView reportsDataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CompanyId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Quarter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EBIT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Sales;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EarningOnSales;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
@@ -596,6 +604,16 @@ namespace IDSA.Views
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Shortcut;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn yearDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn quarterDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn companyIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn financialStatmentDateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn financialReportReleaseDateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn balanceDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn incomeStatementDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cashFlowDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn companyDataGridViewTextBoxColumn1;
     }
 }
 
