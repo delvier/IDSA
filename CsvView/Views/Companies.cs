@@ -23,7 +23,7 @@ namespace IDSA.Views
 
     public partial class Companies : UserControl, ICompanies
     {
-        CompaniesPresenter presenter;
+        private readonly CompaniesPresenter presenter;
         private readonly IEventAggregator _eventAggregator;
 
         public Companies(IEventAggregator eventAggregator, IChartService chartService, ICalculationService calculationService)

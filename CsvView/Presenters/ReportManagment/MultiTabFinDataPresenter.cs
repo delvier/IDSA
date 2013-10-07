@@ -10,15 +10,18 @@ namespace IDSA.Presenters.BasicViewsPresenters
     public class MultiTabFinDataPresenter
     {
         private FinancialData _finData;
-        public IList<DataControlTabElement> _dataControlTabElements { get; set; }
+        //public IList<DataControlTabElement> _dataControlTabElements { get; set; }
         public MultiTabFinDataPresenter()
         {
-            this._dataControlTabElements = new List<DataControlTabElement>();
-            var tempTest = new DataControlTabElement("test");
-            
-            
+            //this._dataControlTabElements = new List<DataControlTabElement>();
+            _finData = new FinancialData();
         }
-        
+
+
+        internal object GetFinData()
+        {
+            return _finData;
+        }
     }
 }
 
