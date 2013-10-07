@@ -222,6 +222,8 @@ namespace IDSA.Modules.PapParser
                 var field = _reportFields.findKey(item.Value.Substring(index + 1).Trim());
                 if (field == null)
                 {
+                    if (field.Contains("akcję"))
+                        logger.Trace("Item {0} was NOT FOUND!!!", item.Value.Substring(index + 1));
                     logger.Debug("Item {0} was NOT FOUND!!!", item.Value.Substring(index + 1));
                     continue;
                 }
