@@ -1,10 +1,10 @@
 ﻿using HtmlAgilityPack;
-using IDSA.Models.DataStruct;
+using IDSA.Models.Repository;
+using IDSA.Modules.CachedListContainer;
 using IDSA.Modules.PapParser;
 using IDSA.Views;
 using Microsoft.Practices.ServiceLocation;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace IDSA.Presenters
@@ -18,7 +18,6 @@ namespace IDSA.Presenters
     {
         #region Props
         private readonly IDataFromHtmlView _view;
-        //private readonly IUnitOfWork _dbModel;
         private readonly IPapParser _papParser;
         #endregion
 
@@ -26,7 +25,6 @@ namespace IDSA.Presenters
         public DataFromHtmlPresenter(IDataFromHtmlView view)
         {
             this._view = view;
-            //_dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();
             _papParser = ServiceLocator.Current.GetInstance<IPapParser>();
         }
         #endregion
@@ -34,8 +32,22 @@ namespace IDSA.Presenters
         #region Public Methods
         public string parsePapReports(DateTime startDate, DateTime endDate, bool saveReportsInDb)
         {
-            //IReportsCrawler crawler = new ReportsCrawler();
             var finData = _papParser.parseReportsFromDate(startDate, endDate);
+
+            if (saveReportsInDb)
+            {
+                var cache = ServiceLocator.Current.GetInstance<ICacheService>();
+                var _dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();
+
+                foreach (var item in finData)
+                {
+                    if (item.Company != null && !cache.GetCompany(item.Company.Name).Reports.Contains(item))
+                    {
+                        _dbModel.Reports.Add(item);
+                    }
+                }
+                _dbModel.Commit();
+            }
 
             var str = finData.Count.ToString() + " new reports parsed.\n";
 
@@ -47,6 +59,13 @@ namespace IDSA.Presenters
                     + "  successfully parsed.\n";
             }
             return str;
+        }
+
+        public bool startReportsCrawler()
+        {
+            IReportsCrawler crawler = new ReportsCrawler();
+
+            return true;
         }
 
         public string GetExchangeFromHtmlAddress(string companyId)
