@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using IDSA.Presenters.BasicViewsPresenters;
 using Microsoft.Practices.Prism.Events;
 using IDSA.Views.BasicViews;
+using IDSA.Services;
+using IDSA.Models.DataStruct;
 
 namespace IDSA.Presenters.ReportManagment
 {
@@ -31,10 +33,14 @@ namespace IDSA.Presenters.ReportManagment
             flowPanel.AutoSize = true;
             flowPanel.Dock = DockStyle.Fill;
 
-            var testTabElement = new DataControlTabElement("test");
-            String propertyName = "fieldValueText";
-            testTabElement.DataBindings.Add(propertyName, financialDataBindingSource, "Balance.FixedAssets");
-            flowPanel.Controls.Add(testTabElement);
+            //generating base fin data.
+            var basePropertiesFinDatas = new PropertiesExtractorService(typeof(FinancialData)).GetBaseProperties();
+            foreach (var baseProp in basePropertiesFinDatas)
+            {
+                var uiElement = new DataControlTabElement(baseProp.Name);
+                uiElement.DataBindings.Add("fieldValueText", financialDataBindingSource, baseProp.Name);
+                flowPanel.Controls.Add(uiElement);
+            }
 
             //test bind label property.
             var label = new Label() { Text = "Test Bind Label" };
