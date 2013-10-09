@@ -197,6 +197,9 @@ namespace IDSA.Modules.PapParser
 
             if (!match.Success)         //Financial data has no data
             {
+                logger.Debug("------------ There is no data in report ------------");
+                logger.Debug("End log for report:   --------------------- {0} {1} -------------------\n",
+                _financialData.Id, report.CompanyName);
                 return _financialData;
             }
 
@@ -212,7 +215,7 @@ namespace IDSA.Modules.PapParser
                 // remove prefix " XVI. "
                 int index = item.Value.IndexOf(' ');
                 index = item.Value.IndexOf(' ', index + 1);
-                var tempMatch = Regex.Match(item.Value.Substring(index + 1), " [VXIL]{1,}. ");
+                var tempMatch = Regex.Match(item.Value.Substring(index + 1), "[VXIL]{1,}. ");
 
                 if (tempMatch.Success == true)  //// remove prefix if is twice
                 {
@@ -222,7 +225,9 @@ namespace IDSA.Modules.PapParser
                 var field = _reportFields.findKey(item.Value.Substring(index + 1).Trim());
                 if (field == null)
                 {
-                    if (field.Contains("akcję"))
+                    if (item.Value.Contains("jednostkowe"))
+                        break;
+                    if (item.Value.Contains("akcję"))
                         logger.Trace("Item {0} was NOT FOUND!!!", item.Value.Substring(index + 1));
                     logger.Debug("Item {0} was NOT FOUND!!!", item.Value.Substring(index + 1));
                     continue;
