@@ -29,6 +29,8 @@ namespace IDSA.Modules.PapParser
         List<FinancialData> parseReportsFromDate(DateTime? date);
         List<FinancialData> parseReports(List<ReportStructure> reports);
         FinancialData parseReport(ReportStructure report);
+
+        List<string> GetCompanyNames();
     }
 
     //TODO: Odroznic raport od skonsolidowanego raportu dla danej spolki.
@@ -51,6 +53,39 @@ namespace IDSA.Modules.PapParser
         #endregion
 
         #region Public Methods
+        public List<string> GetCompanyNames()
+        {
+            var names = new List<string>();
+            int pageX = 1;
+            int numOfPages = 0;
+            HtmlNode data;
+
+            do
+            {
+
+                page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/companies/" + pageX.ToString());
+
+                if (numOfPages == 0)    // Counting pages
+                {
+                    data = page.DocumentNode.SelectSingleNode("//div [@class=\"stronicowanie\"]/b[2]");
+                    numOfPages = data == null ? 1 : Convert.ToInt32(data.InnerText);
+                }
+                
+                // Reports table
+                data = page.DocumentNode.SelectSingleNode("//table [@class=\"espi\"]");
+                var rows = data.Descendants("TR");
+
+                // For each report
+                for (int i = 1; i < rows.Count(); ++i)
+                {
+                    names.Add(rows.ElementAt(i).SelectSingleNode("./td[1]/a[1]").InnerText);
+                }
+
+            } while (++pageX <= numOfPages);
+
+            return names;
+        }
+        
         public List<ReportStructure> retrieveYearlyReports(int year = 2013)
         {
             var repStructure = new List<ReportStructure>();
