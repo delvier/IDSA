@@ -41,9 +41,8 @@ namespace IDSA
             kernel.Bind<ICalculationService>().To<CalculationService>();
             kernel.Bind<IRawData>().To<RawData>();
             kernel.Bind<IDisplayFormat>().To<DisplayFormatService>();
+            kernel.Bind<IReportStoreService>().To<ReportStoreService>().InSingletonScope();
             
-            
-
             Application.Run(ServiceLocator.Current.GetInstance<Shell>());
         }
     }

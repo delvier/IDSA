@@ -15,8 +15,8 @@ namespace IDSA.Presenters.ReportManagment
 
         public FinancialDataTabDescriptorProvider()
         {
-            _tabDescriptors.Add( new ViewItemDescriptor() {  Header = "IncomeStatement" , View = typeof(IncomeStatmentData) }  );
-            _tabDescriptors.Add( new ViewItemDescriptor() {  Header = "Balance" , View = typeof(BalanceData) }  );
+            _tabDescriptors.Add( new ViewItemDescriptor() { Header = "IncomeStatement" , View = typeof(IncomeStatmentData) }  );
+            _tabDescriptors.Add( new ViewItemDescriptor() { Header = "Balance" , View = typeof(BalanceData) }  );
             _tabDescriptors.Add( new ViewItemDescriptor() { Header = "CashFlow", View = typeof(CashFlowData) });
         }
 

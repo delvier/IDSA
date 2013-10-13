@@ -17,15 +17,20 @@ namespace IDSA.Presenters.ReportManagment
     public partial class MasterTabFinData : UserControl
     {
         private readonly IEventAggregator _eventAggregator;
-        private readonly MultiTabFinDataPresenter _presenter;
+        private readonly MasterTabFinDataPresenter _presenter;
 
         public MasterTabFinData()
         {
-            _presenter = new MultiTabFinDataPresenter();
+            _presenter = new MasterTabFinDataPresenter(this);
             InitializeComponent();
-            financialDataBindingSource.DataSource = _presenter.GetFinData();
+            Refresh(); // init bind
             //after base init.
             InitTabElements();
+        }
+
+        public void Refresh()
+        {
+            financialDataBindingSource.DataSource = _presenter.GetFinData(); //rebind
         }
 
         public void InitTabElements()

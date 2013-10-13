@@ -27,17 +27,14 @@ namespace IDSA.Views.BasicViews
         protected bool EnableReportBox { set { reportsBox.Visible = value; } }
         protected bool EnableCompanyBox { set { companyBox.Visible = value; } }
 
-        private FinancialDataTabDescriptorProvider _internalTabProvider;
-
         public BasicDataControl()
         {
             this._presenter =  new BasicDataControlPresenter(this);
             this._eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
-            this._internalTabProvider = new FinancialDataTabDescriptorProvider();
 
             InitializeComponent();
             InitPresenterData();
-            InitInternalTabs();
+            InitMasterTabFinDataView();
 
             /*presenter events subscribe*/
             _presenter.CompanyDataChange += new PropertyChangedEventHandler((s, e) => Bind());
@@ -67,7 +64,7 @@ namespace IDSA.Views.BasicViews
             SetVisibleBoxOption();
         }
 
-        private void InitInternalTabs ()
+        private void InitMasterTabFinDataView ()
         {
             var view = (Control)new MasterTabFinData();
             view.Dock = DockStyle.Fill;

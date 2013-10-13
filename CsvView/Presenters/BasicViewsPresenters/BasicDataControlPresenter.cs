@@ -11,6 +11,7 @@ using System.ComponentModel;
 using IDSA.Events.MainEvents;
 using Microsoft.Practices.Prism.Events;
 using IDSA.Events.DataControlEvents;
+using IDSA.Services;
 
 namespace IDSA.Presenters.BasicViewsPresenters
 {
@@ -26,6 +27,7 @@ namespace IDSA.Presenters.BasicViewsPresenters
         private readonly BasicDataControl _view;
         private readonly ICacheService _cache;
         private readonly IEventAggregator _eventAggregator;
+        private readonly IReportStoreService _reportStore;
 
         private IBindingList _reports = new BindingList<FinancialData>();
 
@@ -34,6 +36,8 @@ namespace IDSA.Presenters.BasicViewsPresenters
             this._view = view;
             this._cache = ServiceLocator.Current.GetInstance<ICacheService>();
             this._eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+            this._reportStore = ServiceLocator.Current.GetInstance<IReportStoreService>();
+
             //subscribe to events.
             _eventAggregator.GetEvent<CompanyInDataControlChangeEvent>().Subscribe(UpdateReports);
             _eventAggregator.GetEvent<ReportInDataControlChangeEvent>().Subscribe(UpdateReportFields);
@@ -45,8 +49,8 @@ namespace IDSA.Presenters.BasicViewsPresenters
         }
 
         private void UpdateReportFields(FinancialData report)
-        { 
-            //update fields data.
+        {
+            _reportStore.financialData = report;
         }
 
         public IBindingList CompanyBoxData
