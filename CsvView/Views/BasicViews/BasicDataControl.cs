@@ -27,13 +27,13 @@ namespace IDSA.Views.BasicViews
         protected bool EnableReportBox { set { reportsBox.Visible = value; } }
         protected bool EnableCompanyBox { set { companyBox.Visible = value; } }
 
-        private FinancialInternalTabProvider _internalTabProvider;
+        private FinancialDataTabDescriptorProvider _internalTabProvider;
 
         public BasicDataControl()
         {
             this._presenter =  new BasicDataControlPresenter(this);
             this._eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
-            this._internalTabProvider = new FinancialInternalTabProvider();
+            this._internalTabProvider = new FinancialDataTabDescriptorProvider();
 
             InitializeComponent();
             InitPresenterData();
@@ -69,16 +69,9 @@ namespace IDSA.Views.BasicViews
 
         private void InitInternalTabs ()
         {
-            //foreach (TabPage tabPage in _internalTabProvider.GetTabs() )
-            //{
-            //    tabDataControl.Controls.Add(tabPage);  
-            //}
-            var tabPage = new TabPage();
             var view = (Control)new MasterTabFinData();
             view.Dock = DockStyle.Fill;
-            tabPage.Controls.Add(view);
-            tabDataControl.Controls.Add(tabPage);
-                
+            mainTabPanel.Controls.Add(view);       
         }
 
         public void Bind()

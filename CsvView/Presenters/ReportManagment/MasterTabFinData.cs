@@ -18,6 +18,7 @@ namespace IDSA.Presenters.ReportManagment
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly MultiTabFinDataPresenter _presenter;
+
         public MasterTabFinData()
         {
             _presenter = new MultiTabFinDataPresenter();
@@ -27,33 +28,56 @@ namespace IDSA.Presenters.ReportManagment
             InitTabElements();
         }
 
-        public void InitTabElements ()
+        public void InitTabElements()
         {
-            var flowPanel = new FlowLayoutPanel();
-            flowPanel.AutoSize = true;
-            flowPanel.Dock = DockStyle.Fill;
+            var financialBaseDataFlowPanel = new FlowLayoutPanel();
+            financialBaseDataFlowPanel.AutoSize = true;
+            financialBaseDataFlowPanel.Dock = DockStyle.Fill;
 
-            //generating base fin data.
-            var basePropertiesFinDatas = new PropertiesExtractorService(typeof(FinancialData)).GetBaseProperties();
-            foreach (var baseProp in basePropertiesFinDatas)
+            //generating base fin data
+            var basePropertiesFinData = new PropertiesExtractorService(typeof(FinancialData)).GetBaseProperties();
+            foreach (var baseProp in basePropertiesFinData)
             {
                 var uiElement = new DataControlTabElement(baseProp.Name);
                 uiElement.DataBindings.Add("fieldValueText", financialDataBindingSource, baseProp.Name);
-                flowPanel.Controls.Add(uiElement);
+                financialBaseDataFlowPanel.Controls.Add(uiElement);
             }
 
-            //test bind label property.
-            var label = new Label() { Text = "Test Bind Label" };
-            label.DataBindings.Add("Text" , financialDataBindingSource, "Year");
-            flowPanel.Controls.Add(label);
+            /* this should be done by using provider ? */
+            var tabPage = new TabPage("BaseData");
+            tabPage.Controls.Add(financialBaseDataFlowPanel);
+            masterTabControl.Controls.Add(tabPage);
 
-            // master holder flow pan.
-            this.Controls.Add(flowPanel);
+            foreach (var tabDescriptor in new FinancialDataTabDescriptorProvider().GetDescriptors())
+            {
+                var tabPage2 = new TabPage(tabDescriptor.Header);
+                tabPage2.Controls.Add(
+                    buildFlowPanelBasedOnBindingSource(financialDataBindingSource, tabDescriptor.Header, tabDescriptor.View)
+                    );
+                masterTabControl.Controls.Add(tabPage2);    
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        /*
+         * Used to build bindable flow panels for the tabs.
+         */
+        private FlowLayoutPanel buildFlowPanelBasedOnBindingSource
+            (BindingSource mainBindingSource, String bindingPropertyName, Type dataType)
         {
-            _presenter.ChangeFinData();
+            var internalFlowPanel = new FlowLayoutPanel();
+            internalFlowPanel.AutoSize = true;
+            internalFlowPanel.Dock = DockStyle.Fill;
+
+            var innerDataBindingSource = new BindingSource(mainBindingSource, bindingPropertyName);
+
+            var propertiesCollection = dataType.GetProperties();
+            foreach (var property in propertiesCollection)
+            {
+                var uiElement = new DataControlTabElement(property.Name);
+                uiElement.DataBindings.Add("fieldValueText", innerDataBindingSource, property.Name);
+                internalFlowPanel.Controls.Add(uiElement);
+            }
+            return internalFlowPanel;
         }
     }
 }

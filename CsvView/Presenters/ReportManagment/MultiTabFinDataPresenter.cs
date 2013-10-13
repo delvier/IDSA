@@ -4,17 +4,23 @@ using System.Linq;
 using System.Text;
 using IDSA.Views.BasicViews;
 using IDSA.Models.DataStruct;
+using IDSA.Modules.CachedListContainer;
+using Microsoft.Practices.ServiceLocation;
 
 namespace IDSA.Presenters.BasicViewsPresenters
 {
     public class MultiTabFinDataPresenter
     {
         private FinancialData _finData;
+        private ICacheService _cache;
         //public IList<DataControlTabElement> _dataControlTabElements { get; set; }
         public MultiTabFinDataPresenter()
         {
-            //this._dataControlTabElements = new List<DataControlTabElement>();
+            this._cache = ServiceLocator.Current.GetInstance<ICacheService>();
             _finData = new FinancialData();
+            
+            // pro !
+            //finData = _cache.GetCompany("Relpol").Reports.First();
         }
 
 

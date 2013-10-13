@@ -30,25 +30,24 @@
         {
             this.components = new System.ComponentModel.Container();
             this.financialDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.button1 = new System.Windows.Forms.Button();
+            this.masterTabControl = new System.Windows.Forms.TabControl();
             ((System.ComponentModel.ISupportInitialize)(this.financialDataBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // masterFinancialDataTab
             // 
-            this.button1.Location = new System.Drawing.Point(3, 95);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "TempTest!";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.masterTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.masterTabControl.Location = new System.Drawing.Point(0, 0);
+            this.masterTabControl.Name = "masterFinancialDataTab";
+            this.masterTabControl.SelectedIndex = 0;
+            this.masterTabControl.Size = new System.Drawing.Size(595, 382);
+            this.masterTabControl.TabIndex = 0;
             // 
             // MasterTabFinData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.masterTabControl);
             this.Name = "MasterTabFinData";
             this.Size = new System.Drawing.Size(595, 382);
             ((System.ComponentModel.ISupportInitialize)(this.financialDataBindingSource)).EndInit();
@@ -59,6 +58,6 @@
         #endregion
 
         private System.Windows.Forms.BindingSource financialDataBindingSource;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabControl masterTabControl;
     }
 }

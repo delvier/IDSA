@@ -108,7 +108,7 @@
     <Compile Include="Presenters\Financial_InternalTabs\BalancePresenter.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\CashFlowPresenter.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\IncomeStatmentPresentercs.cs" />
-    <Compile Include="Presenters\ReportManagment\FinancialInternalTabProvider.cs" />
+    <Compile Include="Presenters\ReportManagment\FinancialDataTabDescriptorProvider.cs" />
     <Compile Include="Presenters\ReportManagment\MasterTabFinData.cs">
       <SubType>UserControl</SubType>
     </Compile>
