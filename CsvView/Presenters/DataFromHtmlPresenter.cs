@@ -2,6 +2,7 @@
 using IDSA.Models.Repository;
 using IDSA.Modules.CachedListContainer;
 using IDSA.Modules.PapParser;
+using IDSA.Services;
 using IDSA.Views;
 using Microsoft.Practices.ServiceLocation;
 using System;
@@ -19,6 +20,7 @@ namespace IDSA.Presenters
         #region Props
         private readonly IDataFromHtmlView _view;
         private readonly IPapParser _papParser;
+        private readonly DbManageService _dbManageService;
         #endregion
 
         #region Ctors
@@ -26,12 +28,20 @@ namespace IDSA.Presenters
         {
             this._view = view;
             _papParser = ServiceLocator.Current.GetInstance<IPapParser>();
+            _dbManageService = ServiceLocator.Current.GetInstance<DbManageService>();
         }
         #endregion
 
         #region Public Methods
         public string updateDatabase()
         {
+            //only for testing purposes
+            //_papParser.GetCompanyDataFromPAP("AGORA SA", 18);
+            //var names = _papParser.GetCompanyNames(); 
+            //_dbManageService.ComparePapDbCompanyNames(names);
+            
+            _dbManageService.Update1CompanyNames();
+            _dbManageService.Update2CompanyNames();
             
             return "DB successfully updated\n";
         }
@@ -42,17 +52,7 @@ namespace IDSA.Presenters
 
             if (saveReportsInDb)
             {
-                var cache = ServiceLocator.Current.GetInstance<ICacheService>();
-                var _dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();
-
-                foreach (var item in finData)
-                {
-                    if (item.Company != null && !cache.GetCompany(item.Company.Name).Reports.Contains(item))
-                    {
-                        _dbModel.Reports.Add(item);
-                    }
-                }
-                _dbModel.Commit();
+                _dbManageService.AddReportsToDb(finData);
             }
 
             var str = finData.Count.ToString() + " new reports parsed.\n";
