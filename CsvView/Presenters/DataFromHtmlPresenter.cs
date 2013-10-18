@@ -30,6 +30,12 @@ namespace IDSA.Presenters
         #endregion
 
         #region Public Methods
+        public string updateDatabase()
+        {
+            
+            return "DB successfully updated\n";
+        }
+
         public string parsePapReports(DateTime startDate, DateTime endDate, bool saveReportsInDb)
         {
             var finData = _papParser.parseReportsFromDate(startDate, endDate);

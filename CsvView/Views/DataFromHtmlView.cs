@@ -32,6 +32,11 @@ namespace IDSA.Views
             //exchangeLabel.Text = presenter.GetExchangeFromHtmlAddress(compIDTextBox.Text);
         }
 
+        private void UpdateDB_Click(object sender, EventArgs e)
+        {
+            this.errors.Text = presenter.updateDatabase();
+        }
+
         //private void RefreshView(bool isCreated)
         //{
         //    if (this.InvokeRequired)

@@ -37,6 +37,7 @@
             this.endDatePicker = new System.Windows.Forms.DateTimePicker();
             this.addReportsToDb = new System.Windows.Forms.Button();
             this.errors = new System.Windows.Forms.Label();
+            this.UpdateDB = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -52,7 +53,7 @@
             // compIDTextBox
             // 
             this.compIDTextBox.Location = new System.Drawing.Point(11, 32);
-            this.compIDTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.compIDTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.compIDTextBox.Name = "compIDTextBox";
             this.compIDTextBox.Size = new System.Drawing.Size(96, 20);
             this.compIDTextBox.TabIndex = 1;
@@ -60,7 +61,7 @@
             // searchExchangeBtn
             // 
             this.searchExchangeBtn.Location = new System.Drawing.Point(12, 54);
-            this.searchExchangeBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.searchExchangeBtn.Margin = new System.Windows.Forms.Padding(2);
             this.searchExchangeBtn.Name = "searchExchangeBtn";
             this.searchExchangeBtn.Size = new System.Drawing.Size(94, 22);
             this.searchExchangeBtn.TabIndex = 2;
@@ -123,10 +124,21 @@
             this.errors.Size = new System.Drawing.Size(0, 13);
             this.errors.TabIndex = 9;
             // 
+            // UpdateDB
+            // 
+            this.UpdateDB.Location = new System.Drawing.Point(138, 140);
+            this.UpdateDB.Name = "UpdateDB";
+            this.UpdateDB.Size = new System.Drawing.Size(75, 23);
+            this.UpdateDB.TabIndex = 10;
+            this.UpdateDB.Text = "Update DB";
+            this.UpdateDB.UseVisualStyleBackColor = true;
+            this.UpdateDB.Click += new System.EventHandler(this.UpdateDB_Click);
+            // 
             // DataFromHtmlView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.UpdateDB);
             this.Controls.Add(this.errors);
             this.Controls.Add(this.addReportsToDb);
             this.Controls.Add(this.endDatePicker);
@@ -136,7 +148,7 @@
             this.Controls.Add(this.searchExchangeBtn);
             this.Controls.Add(this.compIDTextBox);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "DataFromHtmlView";
             this.Size = new System.Drawing.Size(606, 432);
             this.ResumeLayout(false);
@@ -155,5 +167,6 @@
         private System.Windows.Forms.DateTimePicker endDatePicker;
         private System.Windows.Forms.Button addReportsToDb;
         private System.Windows.Forms.Label errors;
+        private System.Windows.Forms.Button UpdateDB;
     }
 }
