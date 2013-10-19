@@ -43,9 +43,14 @@ namespace IDSA.Modules.CachedListContainer
             return _dataContainer;
         }
 
-        public Models.Company GetCompany(String name)
+        public Company GetCompany(String name)
         {
             return _dataContainer.GetCompany(name);
+        }
+
+        public void AddCompany(Company company)
+        {
+            _dataContainer.Add(company);
         }
 
         public void RefreshData()

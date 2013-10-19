@@ -28,6 +28,11 @@ namespace IDSA.Modules.CachedDataContainer
             return _cacheLst.IndexOf(item);
         }
 
+        //public void Recreate(IList<T> cacheLst)
+        //{
+        //    this._cacheLst = cacheLst;
+        //}
+
         public void Insert(int index, T item)
         {
             _cacheLst.Insert(index, item);
