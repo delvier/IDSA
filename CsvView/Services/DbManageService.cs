@@ -1,10 +1,12 @@
-﻿using IDSA.Models.DataStruct;
+﻿using IDSA.Models;
+using IDSA.Models.DataStruct;
 using IDSA.Models.Repository;
 using IDSA.Modules.CachedListContainer;
 using IDSA.Modules.PapParser;
 using Microsoft.Practices.ServiceLocation;
 using NLog;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace IDSA.Services
@@ -47,6 +49,7 @@ namespace IDSA.Services
                 if (item.Company != null && !cache.GetCompany(item.Company.Name).Reports.Contains(item))
                 {
                     model.Reports.Add(item);
+                    cache.GetCompany(item.Company.Name).Reports.Add(item);
                     ++counter;
                 }
             }
@@ -54,7 +57,7 @@ namespace IDSA.Services
             logger.Info("\nAdd {0} new reports.\n", counter);
         }
 
-        public Models.Company GetCompanyFromData(string name, int id)
+        public Company GetCompanyFromData(string name, int id)
         {
             return cache.GetAll().FirstOrDefault(c => c.FullName.ToUpper() == name.ToUpper());
         }
@@ -75,6 +78,14 @@ namespace IDSA.Services
             logger.Info("-------- {0} Companies are not recognised in Db", counter);
         }
 
+        /// <summary>
+        /// Update Company Names in Database in comparison to PAP names.
+        /// At first update names, which were completly different
+        /// At second remove dots from 'S.A' to 'SA' form
+        /// At last add new companies
+        /// 
+        /// THIS ACTION MAY TAKE LONG TIME -> MORE THAN 1-2 minutes
+        /// </summary>
         public void Update1CompanyNames()
         {
             int counter = 0;
@@ -95,9 +106,12 @@ namespace IDSA.Services
 
             RemoveDotsFromSA();
 
-            //AddNewCompanies();
+            AddNewCompanies();
         }
 
+        /// <summary>
+        /// Update newly company names added to the container by AddCompanyNamesToUpdate() function
+        /// </summary>
         public void Update2CompanyNames()
         {
             int counter = 0;
@@ -116,6 +130,11 @@ namespace IDSA.Services
             logger.Debug("------------\n {0} of {1} companies updated(2)\n", counter, addedCmpNames.Count);
         }
 
+        /// <summary>
+        /// Add new names for company to update in database
+        /// </summary>
+        /// <param name="dict"></param>
+        /// Key(old name), Value(new name) pair
         public void AddCompanyNamesToUpdate(Dictionary<string, string> dict)
         {
             foreach (var name in dict)
@@ -146,23 +165,43 @@ namespace IDSA.Services
 
         private void AddNewCompanies()
         {
-            //TODO: not working in 100% properly
-            //TODO: clean model for faster adding ;)
+            Context context = new Context();
+            context.Configuration.AutoDetectChangesEnabled = false;
+            context.Configuration.ValidateOnSaveEnabled = false;
+            context.Companies.Load();
             int counter = 0;
+
             foreach (var company in newCmpNames)
             {
-                if (model.Companies.Query().FirstOrDefault(c => c.FullName == company) == null)
+                if (context.Companies.FirstOrDefault(c => c.FullName == company) == null)
                 {
                     var papParser = ServiceLocator.Current.GetInstance<IPapParser>();
                     var tempCmp = papParser.GetCompanyDataFromPAP(company);
 
-                    model.Companies.Add(tempCmp);
+                    if (!CompanyValidate(tempCmp))
+                    {
+                        logger.Error("\nAdd company -- {0} -- failed because of validation problems: --ID-- {1} -- --NAME-- {2}\n",
+                            company, tempCmp.Id, tempCmp.Name);
+                        continue;
+                    }
+
+                    context.Companies.Add(tempCmp);
+                    context.SaveChanges();
+                    cache.AddCompany(tempCmp);
                     ++counter;
                 }
             }
-            if (counter != 0)
-                model.Commit();
+            context.Dispose();
             logger.Debug("\nAdd {0} new companies.\n", counter);
+        }
+
+        private bool CompanyValidate(Company cmp)
+        {
+            if (cmp.Name == null)
+                return false;
+            if (model.Companies.Query().FirstOrDefault(c => c.Id == cmp.Id) != null)
+                return false;
+            return true;
         }
 
         private void InitializeFields()
