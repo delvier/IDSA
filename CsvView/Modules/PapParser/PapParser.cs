@@ -1,5 +1,8 @@
 ﻿using HtmlAgilityPack;
+using IDSA.Models;
 using IDSA.Models.DataStruct;
+using IDSA.Modules.CachedListContainer;
+using Microsoft.Practices.ServiceLocation;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -29,6 +32,9 @@ namespace IDSA.Modules.PapParser
         List<FinancialData> parseReportsFromDate(DateTime? date);
         List<FinancialData> parseReports(List<ReportStructure> reports);
         FinancialData parseReport(ReportStructure report);
+
+        List<string> GetCompanyNames();
+        Models.Company GetCompanyDataFromPAP(string cmpName, int cmpId = 0);
     }
 
     //TODO: Odroznic raport od skonsolidowanego raportu dla danej spolki.
@@ -51,6 +57,130 @@ namespace IDSA.Modules.PapParser
         #endregion
 
         #region Public Methods
+        public List<string> GetCompanyNames()
+        {
+            var names = new List<string>();
+            int pageX = 1;
+            int numOfPages = 0;
+            HtmlNode data;
+
+            do
+            {
+                page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/companies/" + pageX.ToString());
+
+                if (numOfPages == 0)    // Counting pages
+                {
+                    data = page.DocumentNode.SelectSingleNode("//div [@class=\"stronicowanie\"]/b[2]");
+                    numOfPages = data == null ? 1 : Convert.ToInt32(data.InnerText);
+                }
+
+                // Companies table
+                data = page.DocumentNode.SelectSingleNode("//table [@class=\"espi\"]");
+                var rows = data.Descendants("TR");
+
+                // For each company
+                for (int i = 1; i < rows.Count(); ++i)
+                {
+                    names.Add(rows.ElementAt(i).SelectSingleNode("./td[1]/a[1]").InnerText);
+                }
+
+            } while (++pageX <= numOfPages);
+
+            return names;
+        }
+
+        public Models.Company GetCompanyDataFromPAP(string cmpName, int cmpId = 0)
+        {
+            var company = new Company();
+            if (cmpId == 0)
+            {
+                if ((cmpId = GetCompanyId(cmpName)) == 0)
+                    return company;
+                page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/company/" + cmpId.ToString() + ",0,0,0,1");
+            }
+            else
+            {
+                // Validate given company Id from PAP
+                page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/company/" + cmpId.ToString() + ",0,0,0,1");
+                var temp = page.DocumentNode.SelectSingleNode("//table [@class=\"espi\"]");
+                if (!temp.SelectSingleNode("./tr[3]/td[3]/a[1]").InnerText.Contains(cmpName))
+                {
+                    if ((cmpId = GetCompanyId(cmpName)) == 0)
+                        return company;
+                    page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/company/" + cmpId.ToString() + ",0,0,0,1");
+                }
+            }
+
+            var data = page.DocumentNode.SelectSingleNode("//table [@class=\"espi\"]");
+            var link = data.Descendants("TR").ElementAt(2).SelectSingleNode("./td[4]/a[1]").Attributes["href"].Value;
+
+            page = hw.Load(@"http://biznes.pap.pl/" + link);
+            data = page.DocumentNode.SelectNodes("//table [@class=\"nDokument\"]")[2];
+
+            company.FullName = cmpName;// data.SelectSingleNode("./tr[4]/td[2]").InnerText;
+
+            if ((company.Name = data.SelectSingleNode("./tr[5]/td[2]").InnerText) == string.Empty)
+                company.Name = company.FullName;
+
+            company.Profile = data.SelectSingleNode("./tr[7]/td[2]").InnerText;
+
+            if (string.Equals(data.SelectSingleNode("./tr[10]/td[1]").InnerText, "Ulica"))
+            {
+                company.Address = "ul. " + data.SelectSingleNode("./tr[10]/td[2]").InnerText
+                    + " " + data.SelectSingleNode("./tr[11]/td[2]").InnerText
+                    + ", " + data.SelectSingleNode("./tr[8]/td[2]").InnerText
+                    + " " + data.SelectSingleNode("./tr[9]/td[2]").InnerText;
+            }
+
+            company.PhoneNumber = data.SelectSingleNode("./tr[12]/td[2]").InnerText;
+            company.Email = data.SelectSingleNode("./tr[14]/td[2]").InnerText;
+            company.Href = data.SelectSingleNode("./tr[20]/td[2]").InnerText;
+            company.Id = cmpId;
+            company.Date = DateTime.Now;
+
+            return company;
+        }
+
+        private int GetCompanyId(string name)
+        {
+            if (name == string.Empty)
+                return 0;
+
+            int pageX = 1;
+            int numOfPages = 0;
+            HtmlNode data;
+
+            //TODO: add cache for results from searching in PAP page
+
+            do
+            {
+                page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/companies/" + pageX.ToString());
+
+                if (numOfPages == 0)    // Counting pages
+                {
+                    data = page.DocumentNode.SelectSingleNode("//div [@class=\"stronicowanie\"]/b[2]");
+                    numOfPages = data == null ? 1 : Convert.ToInt32(data.InnerText);
+                }
+
+                // Companies table
+                data = page.DocumentNode.SelectSingleNode("//table [@class=\"espi\"]");
+                var rows = data.Descendants("TR");
+
+                // For each company
+                for (int i = 1; i < rows.Count(); ++i)
+                {
+                    if (string.Equals(name, rows.ElementAt(i).SelectSingleNode("./td[1]/a[1]").InnerText))
+                    {
+                        var companyLink = rows.ElementAt(i).SelectSingleNode("./td[1]/a[1]").Attributes["href"].Value;
+                        return Convert.ToInt32(companyLink.Split('/')[5].Split(',')[0]);
+                    }
+                }
+
+            } while (++pageX <= numOfPages);
+
+            return 0;
+        }
+
         public List<ReportStructure> retrieveYearlyReports(int year = 2013)
         {
             var repStructure = new List<ReportStructure>();
@@ -176,8 +306,8 @@ namespace IDSA.Modules.PapParser
             _financialData.Balance = new BalanceData();
             _financialData.CashFlow = new CashFlowData();
 
-            var converter = new PapDbCompanyConverter();
-            _financialData.CompanyId = converter.ConvertToDbId(report.CompanyName);
+            var cache = ServiceLocator.Current.GetInstance<ICacheService>();
+            _financialData.Company = cache.GetCompany(report.CompanyName);
             _financialData.Id = Convert.ToInt32(report.Link.Split('/')[5]);
             _financialData.FinancialReportReleaseDate = report.ReleaseDate;
             _financialData.FinancialStatmentDate = report.FinancialStatmentDate;
@@ -197,6 +327,9 @@ namespace IDSA.Modules.PapParser
 
             if (!match.Success)         //Financial data has no data
             {
+                logger.Debug("------------ There is no data in report ------------");
+                logger.Debug("End log for report:   --------------------- {0} {1} -------------------\n",
+                _financialData.Id, report.CompanyName);
                 return _financialData;
             }
 
@@ -212,7 +345,7 @@ namespace IDSA.Modules.PapParser
                 // remove prefix " XVI. "
                 int index = item.Value.IndexOf(' ');
                 index = item.Value.IndexOf(' ', index + 1);
-                var tempMatch = Regex.Match(item.Value.Substring(index + 1), " [VXIL]{1,}. ");
+                var tempMatch = Regex.Match(item.Value.Substring(index + 1), "[VXIL]{1,}. ");
 
                 if (tempMatch.Success == true)  //// remove prefix if is twice
                 {
@@ -222,6 +355,10 @@ namespace IDSA.Modules.PapParser
                 var field = _reportFields.findKey(item.Value.Substring(index + 1).Trim());
                 if (field == null)
                 {
+                    if (item.Value.Contains("jednostkowe"))
+                        break;
+                    if (item.Value.Contains("akcję"))
+                        logger.Trace("Item {0} was NOT FOUND!!!", item.Value.Substring(index + 1));
                     logger.Debug("Item {0} was NOT FOUND!!!", item.Value.Substring(index + 1));
                     continue;
                 }

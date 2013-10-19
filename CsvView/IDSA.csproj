@@ -105,10 +105,8 @@
     <Compile Include="Models\Utilities\MultiSortableBindingListView.cs" />
     <Compile Include="Models\Utilities\PropertyComparer.cs" />
     <Compile Include="Modules\DataCalculation\ICalculationService.cs" />
-    <Compile Include="Modules\PapParser\PapDbCompanyConverter.cs" />
     <Compile Include="Modules\PapParser\PapParser.cs" />
     <Compile Include="Modules\PapParser\ReportFieldsNames.cs" />
-    <Compile Include="Modules\PapParser\ReportsCrawler.cs" />
     <Compile Include="Modules\PapParser\Structures.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\BalancePresenter.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\CashFlowPresenter.cs" />
@@ -145,6 +143,7 @@
     <Compile Include="Presenters\BasicViewsPresenters\BasicGridPresenter.cs" />
     <Compile Include="Services\ChartService.cs" />
     <Compile Include="Services\CompanyDataService.cs" />
+    <Compile Include="Services\DbManageService.cs" />
     <Compile Include="Services\DisplayFormatService.cs" />
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Events\DbEvents\DatabaseCreatedEvent.cs" />

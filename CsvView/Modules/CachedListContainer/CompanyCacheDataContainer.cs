@@ -29,7 +29,16 @@ namespace IDSA.Modules.CachedDataContainer
         {
             return _cacheLst.Where(c => c.Name == name).FirstOrDefault();
         }
-        
+
+        public void AddCompany(Company company)
+        {
+            _cacheLst.Add(company);
+        }
+
+        public void Recreate(IList<Company> cacheLst)
+        {
+            _cacheLst = cacheLst;
+        }
     }
 
     public static class CollectionExtensions

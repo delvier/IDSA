@@ -1,8 +1,7 @@
-﻿using System;
+﻿using IDSA.Models;
+using IDSA.Models.DataStruct;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using IDSA.Models;
 
 namespace IDSA.Modules.CachedListContainer
 {
@@ -16,6 +15,8 @@ namespace IDSA.Modules.CachedListContainer
         
         /* Get specified company by name */
         Company GetCompany(String name);
+
+        void AddCompany(Company company);
 
         /* Somtimes we need all data */
         IList<Company> GetAll();

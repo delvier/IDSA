@@ -40,11 +40,11 @@ namespace IDSA
             kernel.Bind<IViewProvider<MixedViewItemDescriptor>>().To<MixedViewProvider>();
             kernel.Bind<IChartService>().To<ChartService>();
             kernel.Bind<ICalculationService>().To<CalculationService>();
+            kernel.Bind<DbManageService>().To<DbManageService>();
             kernel.Bind<IRawData>().To<RawData>();
             kernel.Bind<IDisplayFormat>().To<DisplayFormatService>();
             kernel.Bind<IPapParser>().To<PapParser>();
-            kernel.Bind<IReportsCrawler>().To<ReportsCrawler>();
-
+            
             Application.Run(ServiceLocator.Current.GetInstance<Shell>());
         }
     }

@@ -2,12 +2,18 @@
 
 namespace IDSA.OldServiceLocator
 {
+    /// <summary>
+    /// ... OBSOLETE INTERFACE ...
+    /// </summary>
     interface IServiceLocator
     {
         void Register<T>(T svc);
         T Resolve<T>() where T : class;
     }
 
+    /// <summary>
+    /// ... OBSOLETE CLASS ...
+    /// </summary>
     class ServiceLocator : IServiceLocator
     {
         static ServiceLocator()

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using IDSA.Events;
+using IDSA.Models;
 using IDSA.Models.Repository;
-using Microsoft.Practices.ServiceLocation;
 using IDSA.Modules.CachedDataContainer;
 using Microsoft.Practices.Prism.Events;
-using IDSA.Models;
+using Microsoft.Practices.ServiceLocation;
+using System;
+using System.Collections.Generic;
 
 namespace IDSA.Modules.CachedListContainer
 {
@@ -22,10 +21,16 @@ namespace IDSA.Modules.CachedListContainer
         public CacheService(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
-            _dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();            
+            _eventAggregator.GetEvent<DatabaseUpdatedEvent>().Subscribe(Update);
+            _dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();
             _dataContainer = new CompanyDataContainer(_dbModel.Companies.GetAll());
             /*initial sort*/
             SortReports();
+        }
+
+        private void Update(bool isUpdated = true)
+        {
+            _dataContainer.Recreate(_dbModel.Companies.GetAll());
         }
 
         public void SortReports()
@@ -38,9 +43,14 @@ namespace IDSA.Modules.CachedListContainer
             return _dataContainer;
         }
 
-        public Models.Company GetCompany(String name)
+        public Company GetCompany(String name)
         {
             return _dataContainer.GetCompany(name);
+        }
+
+        public void AddCompany(Company company)
+        {
+            _dataContainer.Add(company);
         }
 
         public void RefreshData()

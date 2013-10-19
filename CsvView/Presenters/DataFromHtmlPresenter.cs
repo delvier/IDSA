@@ -1,10 +1,11 @@
 ﻿using HtmlAgilityPack;
-using IDSA.Models.DataStruct;
+using IDSA.Models.Repository;
+using IDSA.Modules.CachedListContainer;
 using IDSA.Modules.PapParser;
+using IDSA.Services;
 using IDSA.Views;
 using Microsoft.Practices.ServiceLocation;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace IDSA.Presenters
@@ -18,24 +19,41 @@ namespace IDSA.Presenters
     {
         #region Props
         private readonly IDataFromHtmlView _view;
-        //private readonly IUnitOfWork _dbModel;
         private readonly IPapParser _papParser;
+        private readonly DbManageService _dbManageService;
         #endregion
 
         #region Ctors
         public DataFromHtmlPresenter(IDataFromHtmlView view)
         {
             this._view = view;
-            //_dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();
             _papParser = ServiceLocator.Current.GetInstance<IPapParser>();
+            _dbManageService = ServiceLocator.Current.GetInstance<DbManageService>();
         }
         #endregion
 
         #region Public Methods
-        public string parsePapReports(DateTime startDate, DateTime endDate)
+        public string updateDatabase()
         {
-            //IReportsCrawler crawler = new ReportsCrawler();
+            //only for testing purposes
+            //_papParser.GetCompanyDataFromPAP("AGORA SA", 18);
+            //var names = _papParser.GetCompanyNames(); 
+            //_dbManageService.ComparePapDbCompanyNames(names);
+            
+            _dbManageService.Update1CompanyNames();
+            _dbManageService.Update2CompanyNames();
+            
+            return "DB successfully updated\n";
+        }
+
+        public string parsePapReports(DateTime startDate, DateTime endDate, bool saveReportsInDb)
+        {
             var finData = _papParser.parseReportsFromDate(startDate, endDate);
+
+            if (saveReportsInDb)
+            {
+                _dbManageService.AddReportsToDb(finData);
+            }
 
             var str = finData.Count.ToString() + " new reports parsed.\n";
 
@@ -47,6 +65,11 @@ namespace IDSA.Presenters
                     + "  successfully parsed.\n";
             }
             return str;
+        }
+
+        public bool startReportsCrawler()
+        {
+            return false;
         }
 
         public string GetExchangeFromHtmlAddress(string companyId)
