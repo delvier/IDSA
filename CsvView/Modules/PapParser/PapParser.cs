@@ -118,7 +118,10 @@ namespace IDSA.Modules.PapParser
             data = page.DocumentNode.SelectNodes("//table [@class=\"nDokument\"]")[2];
 
             company.FullName = cmpName;// data.SelectSingleNode("./tr[4]/td[2]").InnerText;
-            company.Name = data.SelectSingleNode("./tr[5]/td[2]").InnerText;
+
+            if ((company.Name = data.SelectSingleNode("./tr[5]/td[2]").InnerText) == string.Empty)
+                company.Name = company.FullName;
+
             company.Profile = data.SelectSingleNode("./tr[7]/td[2]").InnerText;
 
             if (string.Equals(data.SelectSingleNode("./tr[10]/td[1]").InnerText, "Ulica"))
@@ -146,6 +149,8 @@ namespace IDSA.Modules.PapParser
             int pageX = 1;
             int numOfPages = 0;
             HtmlNode data;
+
+            //TODO: add cache for results from searching in PAP page
 
             do
             {
