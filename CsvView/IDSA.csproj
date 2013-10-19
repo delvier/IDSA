@@ -108,7 +108,6 @@
     <Compile Include="Modules\PapParser\PapDbCompanyConverter.cs" />
     <Compile Include="Modules\PapParser\PapParser.cs" />
     <Compile Include="Modules\PapParser\ReportFieldsNames.cs" />
-    <Compile Include="Modules\PapParser\ReportsCrawler.cs" />
     <Compile Include="Modules\PapParser\Structures.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\BalancePresenter.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\CashFlowPresenter.cs" />

@@ -69,9 +69,7 @@ namespace IDSA.Presenters
 
         public bool startReportsCrawler()
         {
-            IReportsCrawler crawler = new ReportsCrawler();
-
-            return true;
+            return false;
         }
 
         public string GetExchangeFromHtmlAddress(string companyId)
