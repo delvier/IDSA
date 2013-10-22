@@ -26,6 +26,7 @@ namespace IDSA.Presenters.ReportManagment
             Refresh(); // init bind
             //after base init.
             InitTabElements();
+            
         }
 
         public void Refresh()
@@ -45,6 +46,7 @@ namespace IDSA.Presenters.ReportManagment
             {
                 var uiElement = new DataControlTabElement(baseProp.Name);
                 uiElement.DataBindings.Add("fieldValueText", financialDataBindingSource, baseProp.Name);
+                _presenter.DataControlTabElementsContainer.Add(uiElement);
                 financialBaseDataFlowPanel.Controls.Add(uiElement);
             }
 
@@ -80,9 +82,12 @@ namespace IDSA.Presenters.ReportManagment
             {
                 var uiElement = new DataControlTabElement(property.Name);
                 uiElement.DataBindings.Add("fieldValueText", innerDataBindingSource, property.Name);
+                _presenter.DataControlTabElementsContainer.Add(uiElement);
                 internalFlowPanel.Controls.Add(uiElement);
             }
             return internalFlowPanel;
         }
+
+        
     }
 }

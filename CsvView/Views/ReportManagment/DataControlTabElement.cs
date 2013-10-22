@@ -8,7 +8,7 @@ namespace IDSA.Views.BasicViews
 {
     interface IDataControlTabElement
     {
-        void ValueDisabled();
+        void ValueEditDisabled();
     }
 
     public class DataControlTabElement : UserControl, IDataControlTabElement
@@ -53,7 +53,7 @@ namespace IDSA.Views.BasicViews
             fieldValue.Width = 60;
         }
 
-        public void ValueDisabled()
+        public void ValueEditDisabled()
         {
             fieldValue.Enabled = false;
         }

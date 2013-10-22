@@ -64,6 +64,7 @@ namespace IDSA.Views.BasicViews
             SetVisibleBoxOption();
         }
 
+        /* this construct seperate view - controler for tab data control */
         private void InitMasterTabFinDataView ()
         {
             var view = (Control)new MasterTabFinData();

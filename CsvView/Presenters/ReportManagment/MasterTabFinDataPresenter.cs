@@ -25,6 +25,8 @@ namespace IDSA.Presenters.BasicViewsPresenters
             this._reportStoreService = ServiceLocator.Current.GetInstance<IReportStoreService>();
             this._view = view;
 
+            this.DataControlTabElementsContainer = new List<DataControlTabElement>();
+
             ((NotificationObject)_reportStoreService).PropertyChanged += new PropertyChangedEventHandler(report_PropertyChanged);
         }
 
@@ -36,6 +38,28 @@ namespace IDSA.Presenters.BasicViewsPresenters
         public FinancialData GetFinData()
         {
             return _reportStoreService.financialData;
+        }
+
+        /* 
+         * 
+         DataControlTabElements - ManagmentService
+         * 
+         */
+        public IList<DataControlTabElement> DataControlTabElementsContainer { get; set; }
+        /*
+         * Disabl data edit on control given name
+         */
+        private void disableDataEditControl(String name)
+        {
+            DataControlTabElementsContainer.Where(i => i.fieldNameText.Contains(name)).First().ValueEditDisabled();
+        }
+
+        public void disableAll()
+        {
+            foreach (var item in DataControlTabElementsContainer)
+            {
+                item.ValueEditDisabled();
+            }
         }
     }
 }
