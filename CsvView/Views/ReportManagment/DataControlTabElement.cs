@@ -8,8 +8,7 @@ namespace IDSA.Views.BasicViews
 {
     interface IDataControlTabElement
     {
-        //Label fieldName;
-        //TextBox fieldValue;
+        void ValueDisabled();
     }
 
     public class DataControlTabElement : UserControl, IDataControlTabElement
@@ -52,6 +51,11 @@ namespace IDSA.Views.BasicViews
         public void InitTextBoxSettings()
         {
             fieldValue.Width = 60;
+        }
+
+        public void ValueDisabled()
+        {
+            fieldValue.Enabled = false;
         }
 
         private void InitializeComponent()
