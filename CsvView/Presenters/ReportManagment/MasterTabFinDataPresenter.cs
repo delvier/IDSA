@@ -17,6 +17,7 @@ namespace IDSA.Presenters.BasicViewsPresenters
     {
         private ICacheService _cache;
         private IReportStoreService _reportStoreService;
+        private IUserReportActionService _userReportActionService;
         private MasterTabFinData _view;
 
         public MasterTabFinDataPresenter(MasterTabFinData view)
@@ -60,6 +61,11 @@ namespace IDSA.Presenters.BasicViewsPresenters
             {
                 item.ValueEditDisabled();
             }
+        }
+
+        public void disableProperElements()
+        {
+            throw new NotImplementedException();
         }
     }
 }
