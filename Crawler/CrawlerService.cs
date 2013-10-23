@@ -1,10 +1,12 @@
-﻿using HtmlAgilityPack;
+﻿using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reactive.Linq;
+using IDSA.Modules.PapParser;
 
-namespace IDSA.Services
+namespace Crawler
 {
     public interface ICrawlerService
     {
@@ -20,24 +22,26 @@ namespace IDSA.Services
     /// Crawler Service used for monitoring PAP site and acting, when new info appers.
     /// Based on Observer Design Pattern.
     /// 
+    /// Use the Reactive Extensions (Rx) = Observables + LINQ + Schedulers.
+    /// http://msdn.microsoft.com/en-us/data/gg577609.aspx
+    /// 
     /// TODO:
     /// * implement Observer pattern
     /// * crawling methods MUST use other TASK/THRED
     /// * use as more as possible from PAP Parser functionality
     /// * ...
     /// </summary>
-    public class CrawlerService : ICrawlerService
+    public class CrawlerService : ICrawlerService//, IObservable<T>
     {
         #region Fields
-        private HtmlWeb hw;
-        private HtmlDocument page;
+        private readonly IPapParser _papParser;
         private TimeSpan lastTime;
         #endregion
 
         #region Ctors
         public CrawlerService()
         {
-            hw = new HtmlWeb();
+            _papParser = new PapParser();
             lastTime = new TimeSpan(0, 1, 0);
             startCrawler(lastTime);
         }
@@ -56,7 +60,7 @@ namespace IDSA.Services
 
         public void startCrawler(TimeSpan refreshTime)
         {
-            TimeSpan lastReportTime = getLatestReportDate();
+            TimeSpan lastReportTime = _papParser.getTimeOfLatestReport();
             //TODO: Triggerowac godzine i minute pojawienia sie ostatniego raportu. 
             //Jezeli sie nie zgadza, to parsowac dopoty, dopoki nie spotkamy 
             //poprzednio zapisanej ostatniej daty.   Po skonczonej robocie
@@ -69,14 +73,7 @@ namespace IDSA.Services
         #endregion
 
         #region Private Methods
-        private TimeSpan getLatestReportDate()
-        {
-            page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/term,0,0,0,1");
-
-            //godzina z tabeli raportow	
-            var hour = page.DocumentNode.SelectSingleNode("//table [@class=\"espi\"]/tr[3]/td[1]").InnerText.Split(':');
-            return new TimeSpan(Convert.ToInt32(hour[0]), Convert.ToInt32(hour[1]), 0);
-        }
+        
         #endregion
     }
 }

@@ -35,6 +35,8 @@ namespace IDSA.Modules.PapParser
 
         List<string> GetCompanyNames();
         Models.Company GetCompanyDataFromPAP(string cmpName, int cmpId = 0);
+
+        TimeSpan getTimeOfLatestReport();
     }
 
     //TODO: Odroznic raport od skonsolidowanego raportu dla danej spolki.
@@ -57,6 +59,15 @@ namespace IDSA.Modules.PapParser
         #endregion
 
         #region Public Methods
+        public TimeSpan getTimeOfLatestReport()
+        {
+            page = hw.Load(@"http://biznes.pap.pl/pl/reports/espi/term,0,0,0,1");
+
+            //godzina z tabeli raportow	
+            var hour = page.DocumentNode.SelectSingleNode("//table [@class=\"espi\"]/tr[3]/td[1]").InnerText.Split(':');
+            return new TimeSpan(Convert.ToInt32(hour[0]), Convert.ToInt32(hour[1]), 0);
+        }
+        
         public List<string> GetCompanyNames()
         {
             var names = new List<string>();

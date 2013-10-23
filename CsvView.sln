@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LumenWorks.Framework.IO", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDSA", "CsvView\IDSA.csproj", "{89ED0CBD-24A8-462D-B1AA-98F28C39B302}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crawler", "Crawler\Crawler.csproj", "{3D6CC79D-3B9C-49BD-B779-E7040BB48B97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{89ED0CBD-24A8-462D-B1AA-98F28C39B302}.Release|Mixed Platforms.Build.0 = Release|x86
 		{89ED0CBD-24A8-462D-B1AA-98F28C39B302}.Release|x86.ActiveCfg = Release|x86
 		{89ED0CBD-24A8-462D-B1AA-98F28C39B302}.Release|x86.Build.0 = Release|x86
+		{3D6CC79D-3B9C-49BD-B779-E7040BB48B97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D6CC79D-3B9C-49BD-B779-E7040BB48B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D6CC79D-3B9C-49BD-B779-E7040BB48B97}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3D6CC79D-3B9C-49BD-B779-E7040BB48B97}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3D6CC79D-3B9C-49BD-B779-E7040BB48B97}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3D6CC79D-3B9C-49BD-B779-E7040BB48B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D6CC79D-3B9C-49BD-B779-E7040BB48B97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D6CC79D-3B9C-49BD-B779-E7040BB48B97}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3D6CC79D-3B9C-49BD-B779-E7040BB48B97}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3D6CC79D-3B9C-49BD-B779-E7040BB48B97}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
