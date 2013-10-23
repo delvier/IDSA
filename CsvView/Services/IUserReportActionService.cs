@@ -7,11 +7,15 @@ namespace IDSA.Presenters.ReportManagment
 {
     interface IUserReportActionService
     {
-        public ReportActionEnum userReportAction { get; set; }
+        ReportActionEnum userReportAction { get; set; }
     }
 
     class UserReportActionService : IUserReportActionService
     {
+        public UserReportActionService()
+        {
+            userReportAction = ReportActionEnum.UNDEFINED;
+        }
         public ReportActionEnum userReportAction
         {
             get;

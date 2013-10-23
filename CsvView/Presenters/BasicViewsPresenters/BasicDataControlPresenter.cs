@@ -12,6 +12,7 @@ using IDSA.Events.MainEvents;
 using Microsoft.Practices.Prism.Events;
 using IDSA.Events.DataControlEvents;
 using IDSA.Services;
+using IDSA.Presenters.ReportManagment;
 
 namespace IDSA.Presenters.BasicViewsPresenters
 {
@@ -28,6 +29,8 @@ namespace IDSA.Presenters.BasicViewsPresenters
         private readonly ICacheService _cache;
         private readonly IEventAggregator _eventAggregator;
         private readonly IReportStoreService _reportStore;
+        private readonly IUserReportActionService _userReportAction;
+        
 
         private IBindingList _reports = new BindingList<FinancialData>();
 
@@ -37,6 +40,7 @@ namespace IDSA.Presenters.BasicViewsPresenters
             this._cache = ServiceLocator.Current.GetInstance<ICacheService>();
             this._eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
             this._reportStore = ServiceLocator.Current.GetInstance<IReportStoreService>();
+            this._userReportAction = ServiceLocator.Current.GetInstance<IUserReportActionService>();
 
             //subscribe to events.
             _eventAggregator.GetEvent<CompanyInDataControlChangeEvent>().Subscribe(UpdateReports);
@@ -78,5 +82,10 @@ namespace IDSA.Presenters.BasicViewsPresenters
         }
 
         public event PropertyChangedEventHandler CompanyDataChange;
+
+        public void SetUserRequestType(ReportActionEnum reportActionEnum)
+        {
+            _userReportAction.userReportAction = reportActionEnum;
+        }
     }
 }

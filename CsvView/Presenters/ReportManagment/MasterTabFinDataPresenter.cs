@@ -24,6 +24,7 @@ namespace IDSA.Presenters.BasicViewsPresenters
         {
             this._cache = ServiceLocator.Current.GetInstance<ICacheService>();
             this._reportStoreService = ServiceLocator.Current.GetInstance<IReportStoreService>();
+            this._userReportActionService = ServiceLocator.Current.GetInstance<IUserReportActionService>();
             this._view = view;
 
             this.DataControlTabElementsContainer = new List<DataControlTabElement>();
@@ -41,21 +42,31 @@ namespace IDSA.Presenters.BasicViewsPresenters
             return _reportStoreService.financialData;
         }
 
+        
         /* 
          * 
          DataControlTabElements - ManagmentService
          * 
          */
         public IList<DataControlTabElement> DataControlTabElementsContainer { get; set; }
+        
         /*
          * Disabl data edit on control given name
          */
-        private void disableDataEditControl(String name)
+        private void DisableDataEditControls(IList<String> elements)
+        {
+            foreach (var disableItem in elements)
+            {
+                DisableDataEditControl(disableItem);
+            }
+        }
+
+        private void DisableDataEditControl(String name)
         {
             DataControlTabElementsContainer.Where(i => i.fieldNameText.Contains(name)).First().ValueEditDisabled();
         }
 
-        public void disableAll()
+        public void DisableAll()
         {
             foreach (var item in DataControlTabElementsContainer)
             {
@@ -63,9 +74,21 @@ namespace IDSA.Presenters.BasicViewsPresenters
             }
         }
 
-        public void disableProperElements()
+        /*
+         * Prevents some key fields from edit possibility
+         */
+        public void DisableProperElements()
         {
-            throw new NotImplementedException();
+            var disableElementsList = new ReportDisableElementsProvider().
+                                          GetDisableElementsList(_userReportActionService.userReportAction);
+            if (disableElementsList == null)
+            {
+                DisableAll();
+            }
+            else
+	        {
+                DisableDataEditControls(disableElementsList);
+	        }
         }
     }
 }

@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using IDSA.Models.DataStruct;
 using IDSA.Modules.CachedListContainer;
 using IDSA.Modules.DataCalculation;
+using IDSA.Presenters.ReportManagment;
 
 namespace IDSA
 {
@@ -42,6 +43,7 @@ namespace IDSA
             kernel.Bind<IRawData>().To<RawData>();
             kernel.Bind<IDisplayFormat>().To<DisplayFormatService>();
             kernel.Bind<IReportStoreService>().To<ReportStoreService>().InSingletonScope();
+            kernel.Bind<IUserReportActionService>().To<UserReportActionService>().InSingletonScope();
             
             Application.Run(ServiceLocator.Current.GetInstance<Shell>());
         }

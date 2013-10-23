@@ -9,6 +9,7 @@ namespace IDSA.Presenters.ReportManagment
 	{
 	  ADD,
       EDIT,
-      DELETE
+      DELETE,
+      UNDEFINED
 	} 
 }

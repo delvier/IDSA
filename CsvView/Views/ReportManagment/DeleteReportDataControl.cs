@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using IDSA.Views.BasicViews;
+using IDSA.Presenters.ReportManagment;
 
 namespace IDSA.Views.ReportManagment
 {
@@ -22,6 +23,11 @@ namespace IDSA.Views.ReportManagment
         public override void BtnOnClickAction()
         {
             throw new NotImplementedException();
+        }
+
+        public override void SetUserRequestType()
+        {
+            _presenter.SetUserRequestType(ReportActionEnum.DELETE);
         }
     }
 }

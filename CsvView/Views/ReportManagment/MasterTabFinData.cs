@@ -26,9 +26,7 @@ namespace IDSA.Presenters.ReportManagment
             Refresh(); // init bind
             //after base init.
             InitTabElements();
-            _presenter.disableProperElements();
-            //
-            // disable tab elements based on user action = add // edit // delete 
+            _presenter.DisableProperElements();
         }
 
         public void Refresh()
