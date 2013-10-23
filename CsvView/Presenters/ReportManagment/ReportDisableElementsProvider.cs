@@ -21,7 +21,7 @@ namespace IDSA.Presenters.ReportManagment
                     elementsToDisableList = AddControlsToDisableEdit();
                     break;
                 case ReportActionEnum.EDIT:
-                    elementsToDisableList = AddControlsToDisableEdit();
+                    elementsToDisableList = EditControlsToDisableEdit();
                     break;
                 case ReportActionEnum.DELETE:
                     elementsToDisableList = null;
@@ -39,6 +39,13 @@ namespace IDSA.Presenters.ReportManagment
         {
             var addElementsList = new List<String>();
             addElementsList.Add("CompanyId");
+            addElementsList.Add("Id");
+            return addElementsList;
+        }
+
+        private IList<string> EditControlsToDisableEdit()
+        {
+            var addElementsList = new List<String>();
             addElementsList.Add("Id");
             return addElementsList;
         }

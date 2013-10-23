@@ -83,7 +83,7 @@ namespace IDSA.Presenters.BasicViewsPresenters
 
         public event PropertyChangedEventHandler CompanyDataChange;
 
-        public void SetUserRequestType(ReportActionEnum reportActionEnum)
+        public void SetUserActionType(ReportActionEnum reportActionEnum)
         {
             _userReportAction.userReportAction = reportActionEnum;
         }

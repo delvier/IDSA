@@ -22,12 +22,12 @@ namespace IDSA.Views.ReportManagment
 
         public override void BtnOnClickAction()
         {
-            throw new NotImplementedException();
+            //_presenter.AddReport();
         }
 
-        public override void SetUserRequestType()
+        public override void SetUserActionType()
         {
-            _presenter.SetUserRequestType(ReportActionEnum.ADD);
+            _presenter.SetUserActionType(ReportActionEnum.ADD);
         }
     }
 }

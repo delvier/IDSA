@@ -25,9 +25,9 @@ namespace IDSA.Views.ReportManagment
             throw new NotImplementedException();
         }
 
-        public override void SetUserRequestType()
+        public override void SetUserActionType()
         {
-            _presenter.SetUserRequestType(ReportActionEnum.EDIT);
+            _presenter.SetUserActionType(ReportActionEnum.EDIT);
         }
     }
 }

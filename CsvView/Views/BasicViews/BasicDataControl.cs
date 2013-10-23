@@ -32,7 +32,7 @@ namespace IDSA.Views.BasicViews
             this._presenter =  new BasicDataControlPresenter(this);
             this._eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
 
-            SetUserRequestType();
+            SetUserActionType();
             InitializeComponent();
             InitPresenterData();
             InitMasterTabFinDataView();
@@ -79,7 +79,7 @@ namespace IDSA.Views.BasicViews
             reportsBox.DataSource = _presenter.ReportsBoxData;
         }
 
-        public abstract void SetUserRequestType();
+        public abstract void SetUserActionType();
         public abstract void SetActionBtnLabel();
         public abstract void SetVisibleBoxOption();
         public abstract void BtnOnClickAction();
