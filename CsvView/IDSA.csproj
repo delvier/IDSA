@@ -106,6 +106,7 @@
     <Compile Include="Modules\DataCalculation\ICalculationService.cs" />
     <Compile Include="Presenters\BasicViewsPresenters\BasicDataControlPresenter.cs" />
     <Compile Include="Presenters\BasicViewsPresenters\IReportStore.cs" />
+    <Compile Include="Services\INewReportGeneratorService.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\BalancePresenter.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\CashFlowPresenter.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\IncomeStatmentPresentercs.cs" />

@@ -12,6 +12,7 @@ using IDSA.Models.DataStruct;
 using IDSA.Modules.CachedListContainer;
 using IDSA.Modules.DataCalculation;
 using IDSA.Presenters.ReportManagment;
+using IDSA.Presenters.BasicViewsPresenters;
 
 namespace IDSA
 {
@@ -44,6 +45,7 @@ namespace IDSA
             kernel.Bind<IDisplayFormat>().To<DisplayFormatService>();
             kernel.Bind<IReportStoreService>().To<ReportStoreService>().InSingletonScope();
             kernel.Bind<IUserReportActionService>().To<UserReportActionService>().InSingletonScope();
+            kernel.Bind<INewReportGeneratorService>().To<NewReportGeneratorService>();
             
             Application.Run(ServiceLocator.Current.GetInstance<Shell>());
         }

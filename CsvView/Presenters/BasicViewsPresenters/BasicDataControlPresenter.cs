@@ -30,7 +30,8 @@ namespace IDSA.Presenters.BasicViewsPresenters
         private readonly IEventAggregator _eventAggregator;
         private readonly IReportStoreService _reportStore;
         private readonly IUserReportActionService _userReportAction;
-        
+        private readonly INewReportGeneratorService _newReportGenerator;
+
 
         private IBindingList _reports = new BindingList<FinancialData>();
 
@@ -41,20 +42,34 @@ namespace IDSA.Presenters.BasicViewsPresenters
             this._eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
             this._reportStore = ServiceLocator.Current.GetInstance<IReportStoreService>();
             this._userReportAction = ServiceLocator.Current.GetInstance<IUserReportActionService>();
+            this._newReportGenerator = ServiceLocator.Current.GetInstance<INewReportGeneratorService>();
 
             //subscribe to events.
-            _eventAggregator.GetEvent<CompanyInDataControlChangeEvent>().Subscribe(UpdateReports);
+            _eventAggregator.GetEvent<CompanyInDataControlChangeEvent>().Subscribe(UpdateReportsBox);
+            _eventAggregator.GetEvent<CompanyInDataControlChangeEvent>().Subscribe(GenerateNewReport);
             _eventAggregator.GetEvent<ReportInDataControlChangeEvent>().Subscribe(UpdateReportFields);
         }
 
-        private void UpdateReports(Company cmp)
+        private void UpdateReportsBox(Company cmp)
         {
             this.ReportsBoxData = new BindingList<FinancialData>(cmp.Reports.ToList());
         }
 
+        private void GenerateNewReport(Company cmp)
+        {
+            if (_userReportAction.userReportAction == ReportActionEnum.ADD)
+	        {
+                _reportStore.financialData = _newReportGenerator.GetNewTemplateReport(cmp);
+	        }
+        }
+
         private void UpdateReportFields(FinancialData report)
         {
-            _reportStore.financialData = report;
+            if (_userReportAction.userReportAction == ReportActionEnum.EDIT ||
+                _userReportAction.userReportAction == ReportActionEnum.DELETE)
+            {
+                _reportStore.financialData = report;
+            }
         }
 
         public IBindingList CompanyBoxData
