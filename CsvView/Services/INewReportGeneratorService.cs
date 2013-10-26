@@ -34,12 +34,24 @@ namespace IDSA.Presenters.BasicViewsPresenters
         {
             var templateFinData = new FinancialData();
             templateFinData.CompanyId = cmp.Id;
-            templateFinData.Quarter = cmp.Reports.Last().Quarter + 1;
+            templateFinData.Quarter = GetNextQuarter(cmp.Reports.Last().Quarter);
             
             // templateFinData.Id = _cache.GetAllInBindingList
             // should take max id from the reports scope.
 
             return templateFinData;
+        }
+
+        private int GetNextQuarter(int last)
+        {
+            if (last == 4)
+            {
+                return 1;
+            }
+            else
+            {
+                return last + 1;
+            }
         }
 
     }
