@@ -20,9 +20,9 @@ namespace IDSA.Views.ReportManagment
             EnableReportBox = false;
         }
 
-        public override void BtnOnClickAction()
+        public override void BtnOnClickAction(object sender, EventArgs e)
         {
-            //_presenter.AddReport();
+            _presenter.AddReport();
         }
 
         public override void SetUserActionType()

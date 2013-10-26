@@ -30,7 +30,7 @@ namespace IDSA.Presenters
         {
             this._view = view;
             this._cache = ServiceLocator.Current.GetInstance<ICacheService>();
-            this._dsmodule = new DataScanerModule(_cache.GetAll(), ServiceLocator.Current.GetInstance<IRawData>());
+            this._dsmodule = new DataScanerModule(_cache.GetAllCompanies(), ServiceLocator.Current.GetInstance<IRawData>());
         }
 
         public IList<FilterDescriptor> GetFilters()

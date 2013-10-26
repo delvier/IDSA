@@ -17,41 +17,49 @@ namespace IDSA.Modules.CachedListContainer
     public class CacheService : ICacheService
     {
         private IUnitOfWork _dbModel;
-        private CompanyDataContainer _dataContainer;
+        private CompanyDataContainer _companyContainer;
+        private ReportsCacheDataContainner _reportsContainer;
         private IEventAggregator _eventAggregator;
 
         public CacheService(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
             _dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();            
-            _dataContainer = new CompanyDataContainer(_dbModel.Companies.GetAll());
+            _companyContainer = new CompanyDataContainer(_dbModel.Companies.GetAll());
+            _reportsContainer = new ReportsCacheDataContainner(_dbModel.Reports.GetAll());
             /*initial sort*/
             SortReports();
         }
 
         public void SortReports()
         {
-            _dataContainer.SortReports();
+            _companyContainer.SortReports();
         }
 
-        public IList<Company> GetAll()
+        public IList<Company> GetAllCompanies()
         {
-            return _dataContainer;
+            return _companyContainer;
         }
 
         public Models.Company GetCompany(String name)
         {
-            return _dataContainer.GetCompany(name);
+            return _companyContainer.GetCompany(name);
         }
 
         public void RefreshData()
         {
-            _dataContainer._cacheLst = _dbModel.Companies.GetAll();
+            _companyContainer._cacheLst = _dbModel.Companies.GetAll();
         }
 
         public IBindingList GetAllInBindingList()
         {
-            return new BindingList<Company>(GetAll());
+            return new BindingList<Company>(GetAllCompanies());
+        }
+
+
+        public IList<Models.DataStruct.FinancialData> GetAllReports()
+        {
+            return _reportsContainer._cacheLst;
         }
     }
 }

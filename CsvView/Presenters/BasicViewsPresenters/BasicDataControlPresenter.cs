@@ -13,6 +13,7 @@ using Microsoft.Practices.Prism.Events;
 using IDSA.Events.DataControlEvents;
 using IDSA.Services;
 using IDSA.Presenters.ReportManagment;
+using IDSA.Models.Repository;
 
 namespace IDSA.Presenters.BasicViewsPresenters
 {
@@ -31,6 +32,8 @@ namespace IDSA.Presenters.BasicViewsPresenters
         private readonly IReportStoreService _reportStore;
         private readonly IUserReportActionService _userReportAction;
         private readonly INewReportGeneratorService _newReportGenerator;
+        private readonly IUnitOfWork _dbModel;
+        private readonly IMessageBoxService _messageBox;
 
 
         private IBindingList _reports = new BindingList<FinancialData>();
@@ -43,6 +46,8 @@ namespace IDSA.Presenters.BasicViewsPresenters
             this._reportStore = ServiceLocator.Current.GetInstance<IReportStoreService>();
             this._userReportAction = ServiceLocator.Current.GetInstance<IUserReportActionService>();
             this._newReportGenerator = ServiceLocator.Current.GetInstance<INewReportGeneratorService>();
+            this._dbModel = ServiceLocator.Current.GetInstance<IUnitOfWork>();
+            this._messageBox = ServiceLocator.Current.GetInstance<IMessageBoxService>();
 
             //subscribe to events.
             _eventAggregator.GetEvent<CompanyInDataControlChangeEvent>().Subscribe(UpdateReportsBox);
@@ -102,5 +107,47 @@ namespace IDSA.Presenters.BasicViewsPresenters
         {
             _userReportAction.userReportAction = reportActionEnum;
         }
+
+        public void AddReport()
+        {
+            try
+            {
+                _dbModel.Reports.Add(_reportStore.financialData);
+                _messageBox.Message("Report Add Successfully");
+            }
+            catch (Exception ex)
+            {
+                _messageBox.ErrorNotify(ex.Message);
+            }
+            
+        }
+
+        public void EditReport()
+        {
+            try
+            {
+                _dbModel.Reports.Update(_reportStore.financialData);
+                _messageBox.Message("Report Update Successfully");
+            }
+            catch (Exception ex)
+            {
+                _messageBox.ErrorNotify(ex.Message);
+            }
+        }
+
+        public void DeleteReport()
+        {
+            try
+            {
+                _dbModel.Reports.Remove(_reportStore.financialData);
+                _messageBox.Message("Report Remove Successfully");
+            }
+            catch (Exception ex)
+            {
+                _messageBox.ErrorNotify(ex.Message);
+            }
+            
+        }
+
     }
 }

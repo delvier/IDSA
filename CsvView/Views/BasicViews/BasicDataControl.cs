@@ -39,6 +39,9 @@ namespace IDSA.Views.BasicViews
 
             /*presenter events subscribe*/
             _presenter.CompanyDataChange += new PropertyChangedEventHandler((s, e) => Bind());
+
+            /* delegate link */
+            actionBtn.Click += delegate(object sender, EventArgs e) { BtnOnClickAction(sender, e); };            
         }
 
         private void companyBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -82,6 +85,6 @@ namespace IDSA.Views.BasicViews
         public abstract void SetUserActionType();
         public abstract void SetActionBtnLabel();
         public abstract void SetVisibleBoxOption();
-        public abstract void BtnOnClickAction();
+        public abstract void BtnOnClickAction(object sender, EventArgs e);
     }
 }

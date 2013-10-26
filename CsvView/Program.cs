@@ -46,6 +46,7 @@ namespace IDSA
             kernel.Bind<IReportStoreService>().To<ReportStoreService>().InSingletonScope();
             kernel.Bind<IUserReportActionService>().To<UserReportActionService>().InSingletonScope();
             kernel.Bind<INewReportGeneratorService>().To<NewReportGeneratorService>();
+            kernel.Bind<IMessageBoxService>().To<MessageBoxService>();
             
             Application.Run(ServiceLocator.Current.GetInstance<Shell>());
         }

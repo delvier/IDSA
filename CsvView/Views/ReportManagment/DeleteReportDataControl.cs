@@ -20,14 +20,14 @@ namespace IDSA.Views.ReportManagment
             EnableReportBox = true;
         }
 
-        public override void BtnOnClickAction()
-        {
-            throw new NotImplementedException();
-        }
-
         public override void SetUserActionType()
         {
             _presenter.SetUserActionType(ReportActionEnum.DELETE);
+        }
+
+        public override void BtnOnClickAction(object sender, EventArgs e)
+        {
+            _presenter.DeleteReport();
         }
     }
 }

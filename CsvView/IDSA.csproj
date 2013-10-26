@@ -103,9 +103,11 @@
     <Compile Include="Models\Repository\UnitOfWork.cs" />
     <Compile Include="Models\Utilities\MultiSortableBindingListView.cs" />
     <Compile Include="Models\Utilities\PropertyComparer.cs" />
+    <Compile Include="Modules\CachedListContainer\ReportsCacheDataContainner.cs" />
     <Compile Include="Modules\DataCalculation\ICalculationService.cs" />
     <Compile Include="Presenters\BasicViewsPresenters\BasicDataControlPresenter.cs" />
     <Compile Include="Presenters\BasicViewsPresenters\IReportStore.cs" />
+    <Compile Include="Services\IMessageBoxService.cs" />
     <Compile Include="Services\INewReportGeneratorService.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\BalancePresenter.cs" />
     <Compile Include="Presenters\Financial_InternalTabs\CashFlowPresenter.cs" />

@@ -11,7 +11,7 @@ namespace IDSA.Views.ReportManagment
     {
         public override void SetActionBtnLabel()
         {
-           actionBtn.Text = "Edit Report";
+           actionBtn.Text = "Update Report";
         }
 
         public override void SetVisibleBoxOption()
@@ -20,14 +20,14 @@ namespace IDSA.Views.ReportManagment
             EnableReportBox = true;
         }
 
-        public override void BtnOnClickAction()
-        {
-            throw new NotImplementedException();
-        }
-
         public override void SetUserActionType()
         {
             _presenter.SetUserActionType(ReportActionEnum.EDIT);
+        }
+
+        public override void BtnOnClickAction(object sender, EventArgs e)
+        {
+            _presenter.EditReport();
         }
     }
 }
