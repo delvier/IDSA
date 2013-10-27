@@ -112,7 +112,8 @@ namespace IDSA.Presenters.BasicViewsPresenters
         {
             try
             {
-                _dbModel.Reports.Add(_reportStore.financialData);
+                FinancialData reportToAdd = new FinancialData(_reportStore.financialData);
+                _dbModel.Reports.Add(reportToAdd);
                 _messageBox.Message("Report Add Successfully");
             }
             catch (Exception ex)

@@ -27,6 +27,8 @@ namespace IDSA.Views.BasicViews
         protected bool EnableReportBox { set { reportsBox.Visible = value; } }
         protected bool EnableCompanyBox { set { companyBox.Visible = value; } }
 
+        private Control _internalView;
+
         public BasicDataControl()
         {
             this._presenter =  new BasicDataControlPresenter(this);
@@ -71,15 +73,21 @@ namespace IDSA.Views.BasicViews
         /* this construct seperate view - controler for tab data control */
         private void InitMasterTabFinDataView ()
         {
-            var view = (Control)new MasterTabFinData();
-            view.Dock = DockStyle.Fill;
-            mainTabPanel.Controls.Add(view);       
+            _internalView = (Control)new MasterTabFinData();
+            _internalView.Dock = DockStyle.Fill;
+            mainTabPanel.Controls.Add(_internalView);       
         }
 
         public void Bind()
         {
             //companyBox.DataSource = _presenter.CompanyBoxData;
             reportsBox.DataSource = _presenter.ReportsBoxData;
+        }
+
+        protected override void OnHandleDestroyed(EventArgs e)
+        {
+            base.OnHandleDestroyed(e);
+            _internalView.Dispose();
         }
 
         public abstract void SetUserActionType();

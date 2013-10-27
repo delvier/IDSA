@@ -37,5 +37,27 @@ namespace IDSA.Models.DataStruct
         public CashFlowData CashFlow {get;set;}
 
         public virtual Company Company { get; set; }
+
+
+        // empty constructor
+        public FinancialData() { } 
+        
+        // copy constructor
+        public FinancialData(FinancialData finData)
+        {
+            this.Id = finData.Id;
+            this.Year = finData.Year;
+            this.Quarter = finData.Quarter;
+            this.CompanyId = finData.CompanyId;
+            
+            this.FinancialReportReleaseDate = finData.FinancialReportReleaseDate;
+            this.FinancialStatmentDate = finData.FinancialStatmentDate;
+
+            this.Balance = finData.Balance;
+            this.CashFlow = finData.CashFlow;
+            this.IncomeStatement = finData.IncomeStatement;
+
+            this.Company = finData.Company;
+        }
     }
 }

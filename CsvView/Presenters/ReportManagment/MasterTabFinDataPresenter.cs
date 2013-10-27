@@ -13,7 +13,7 @@ using IDSA.Presenters.ReportManagment;
 
 namespace IDSA.Presenters.BasicViewsPresenters
 {
-    public class MasterTabFinDataPresenter
+    public class MasterTabFinDataPresenter : IDisposable
     {
         private ICacheService _cache;
         private IReportStoreService _reportStoreService;
@@ -41,7 +41,6 @@ namespace IDSA.Presenters.BasicViewsPresenters
         {
             return _reportStoreService.financialData;
         }
-
         
         /* 
          * 
@@ -89,6 +88,12 @@ namespace IDSA.Presenters.BasicViewsPresenters
 	        {
                 DisableDataEditControls(disableElementsList);
 	        }
+        }
+
+        /* clear all the mess */
+        public void Dispose()
+        {
+            string.Format("hithere.");
         }
     }
 }

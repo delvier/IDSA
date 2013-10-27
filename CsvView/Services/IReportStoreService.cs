@@ -21,7 +21,7 @@ namespace IDSA.Services
 
         public ReportStoreService()
         {
-            _financialData = new FinancialData();
+            //_financialData = new FinancialData();
         }
 
         public FinancialData financialData

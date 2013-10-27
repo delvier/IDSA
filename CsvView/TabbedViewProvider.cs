@@ -52,6 +52,7 @@ namespace IDSA
                 }
                 );
 
+            //TEST ONLYs
             lst.Add(
                 new ViewItemDescriptor()
                 {

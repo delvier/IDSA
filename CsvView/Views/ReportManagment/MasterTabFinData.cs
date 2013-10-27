@@ -29,6 +29,12 @@ namespace IDSA.Presenters.ReportManagment
             _presenter.DisableProperElements();
         }
 
+        protected override void OnHandleDestroyed(EventArgs e)
+        {
+            base.OnHandleDestroyed(e);
+            _presenter.Dispose();
+        }
+
         public void Refresh()
         {
             financialDataBindingSource.DataSource = _presenter.GetFinData(); //rebind
