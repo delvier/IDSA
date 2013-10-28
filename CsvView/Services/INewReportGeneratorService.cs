@@ -45,12 +45,12 @@ namespace IDSA.Presenters.BasicViewsPresenters
                     IncomeStatement = new IncomeStatmentData()
                 };
 
-            FillFinancialDataWithValues(templateFinData, 1000); // all numbers are in thousands.
-
             try
             {
                 templateFinData.Quarter = GetNextQuarter(cmp.Reports.First().Quarter);
-                templateFinData.Year = GetNextYear(cmp.Reports.First());  
+                templateFinData.Year = GetNextYear(cmp.Reports.First());
+                templateFinData.FinancialReportReleaseDate = System.DateTime.Now;
+                templateFinData.FinancialStatmentDate = System.DateTime.Now;
             }
             catch (Exception ex)
             {
@@ -58,7 +58,9 @@ namespace IDSA.Presenters.BasicViewsPresenters
                 templateFinData.Year = System.DateTime.Now.Year;
                 _messageBox.ErrorNotify("No report in the db : " + cmp.Name);
             }
-            
+
+            FillFinancialDataWithValues(templateFinData, 1000); // all numbers are in thousands.
+
             return templateFinData;
         }
 

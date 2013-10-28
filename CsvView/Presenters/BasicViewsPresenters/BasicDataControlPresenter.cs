@@ -112,9 +112,16 @@ namespace IDSA.Presenters.BasicViewsPresenters
         {
             try
             {
-                FinancialData reportToAdd = new FinancialData(_reportStore.financialData);
-                _dbModel.Reports.Add(reportToAdd);
-                _messageBox.Message("Report Add Successfully");
+                var test = _dbModel.Reports.Query().Where(r => r.Id == _reportStore.financialData.Id).Count();
+                if (test == 1)
+                {
+                    _dbModel.Reports.Update(_reportStore.financialData);
+                    _messageBox.Message("Report Add Successfully");
+                }
+                else
+                {
+                    _dbModel.Reports.Add(_reportStore.financialData);
+                }
             }
             catch (Exception ex)
             {
@@ -147,7 +154,6 @@ namespace IDSA.Presenters.BasicViewsPresenters
             {
                 _messageBox.ErrorNotify(ex.Message);
             }
-            
         }
 
     }

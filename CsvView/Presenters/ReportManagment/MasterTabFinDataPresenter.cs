@@ -93,7 +93,7 @@ namespace IDSA.Presenters.BasicViewsPresenters
         /* clear all the mess */
         public void Dispose()
         {
-            string.Format("hithere.");
+            ((NotificationObject)_reportStoreService).PropertyChanged -= new PropertyChangedEventHandler(report_PropertyChanged);
         }
     }
 }
