@@ -117,10 +117,17 @@ namespace IDSA.Modules.PapParser
             page = hw.Load(@"http://biznes.pap.pl/" + link);
             data = page.DocumentNode.SelectNodes("//table [@class=\"nDokument\"]")[2];
 
-            company.FullName = cmpName;// data.SelectSingleNode("./tr[4]/td[2]").InnerText;
+            company.FullName = cmpName;
 
-            if ((company.Name = data.SelectSingleNode("./tr[5]/td[2]").InnerText) == string.Empty)
+            if (company.FullName.Contains("S.A."))
+                company.Name = company.FullName.Substring(0, company.FullName.Length - 5);
+            else if (company.FullName.Contains("SA"))
+                company.Name = company.FullName.Substring(0, company.FullName.Length - 3);
+            else
                 company.Name = company.FullName;
+
+            //company.Shortcut = "AAA";
+            //logger.Fatal("---Company {0} Shortcut is unknown!!!!", company.FullName);
 
             company.Profile = data.SelectSingleNode("./tr[7]/td[2]").InnerText;
 
@@ -307,7 +314,12 @@ namespace IDSA.Modules.PapParser
             _financialData.CashFlow = new CashFlowData();
 
             var cache = ServiceLocator.Current.GetInstance<ICacheService>();
-            _financialData.Company = cache.GetCompany(report.CompanyName);
+            _financialData.Company = cache.GetCompanyByFullName(report.CompanyName);
+            if (_financialData.Company == null)
+            {
+                logger.Debug("--Company FullName is inproper in db. FullName: {0}", report.CompanyName);
+                return _financialData;
+            }
             _financialData.Id = Convert.ToInt32(report.Link.Split('/')[5]);
             _financialData.FinancialReportReleaseDate = report.ReleaseDate;
             _financialData.FinancialStatmentDate = report.FinancialStatmentDate;
