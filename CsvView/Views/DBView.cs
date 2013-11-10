@@ -17,7 +17,7 @@ namespace IDSA.Views
         #region Fields and Props
 
         private readonly DBPresenter presenter;
-        
+
         #endregion
 
         #region Ctor
@@ -25,7 +25,7 @@ namespace IDSA.Views
         public DBView(IEventAggregator eventAggregator)
         {
             presenter = new DBPresenter(this, eventAggregator);
-            
+
             eventAggregator.GetEvent<DatabaseCreatedEvent>().Subscribe(DatabaseCreatedAction);
             eventAggregator.GetEvent<DatabaseUpdatedEvent>().Subscribe(DatabaseUpdatedAction);
             InitializeComponent();
@@ -143,6 +143,16 @@ namespace IDSA.Views
                 this.trackBar1.Value = int.Parse(this.textBox1.Text);
         }
         #endregion
+
+        private void RefreshDb_Click(object sender, EventArgs e)
+        {
+            presenter.RefreshDb();
+        }
+
+        private void UpdateDb_Click(object sender, EventArgs e)
+        {
+            this.Info.Text = presenter.UpdateDb();
+        }
 
         #endregion
     }

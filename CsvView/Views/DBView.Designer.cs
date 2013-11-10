@@ -54,6 +54,7 @@ namespace IDSA.Views
             this.companyBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.companyDataGridView = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FullName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Shortcut = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -66,7 +67,6 @@ namespace IDSA.Views
             this.EBIT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Sales = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EarningOnSales = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -76,6 +76,8 @@ namespace IDSA.Views
             this.CreateDatabase = new System.Windows.Forms.Button();
             this.Info = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.RefreshDb = new System.Windows.Forms.Button();
+            this.UpdateDb = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.companyBindingNavigator)).BeginInit();
             this.companyBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.companyBindingSource)).BeginInit();
@@ -282,10 +284,12 @@ namespace IDSA.Views
             // 
             // companyDataGridView
             // 
+            this.companyDataGridView.AllowUserToOrderColumns = true;
             this.companyDataGridView.AutoGenerateColumns = false;
             this.companyDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.companyDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
+            this.FullName,
             this.dataGridViewTextBoxColumn2,
             this.Shortcut,
             this.Date});
@@ -306,11 +310,19 @@ namespace IDSA.Views
             this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Column1.Width = 50;
             // 
+            // FullName
+            // 
+            this.FullName.DataPropertyName = "FullName";
+            this.FullName.HeaderText = "FullName";
+            this.FullName.Name = "FullName";
+            this.FullName.Width = 80;
+            // 
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "Name";
             this.dataGridViewTextBoxColumn2.HeaderText = "Name";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 80;
             // 
             // Shortcut
             // 
@@ -318,7 +330,7 @@ namespace IDSA.Views
             this.Shortcut.HeaderText = "Shortcut";
             this.Shortcut.Name = "Shortcut";
             this.Shortcut.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Shortcut.Width = 60;
+            this.Shortcut.Width = 40;
             // 
             // Date
             // 
@@ -326,7 +338,7 @@ namespace IDSA.Views
             this.Date.HeaderText = "Date";
             this.Date.Name = "Date";
             this.Date.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Date.Width = 80;
+            this.Date.Width = 70;
             // 
             // reportsBindingSource
             // 
@@ -344,8 +356,7 @@ namespace IDSA.Views
             this.Quarter,
             this.EBIT,
             this.Sales,
-            this.EarningOnSales,
-            this.dataGridViewTextBoxColumn13});
+            this.EarningOnSales});
             this.reportsDataGridView.DataSource = this.reportsBindingSource;
             this.reportsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.reportsDataGridView.Location = new System.Drawing.Point(0, 0);
@@ -396,13 +407,6 @@ namespace IDSA.Views
             this.EarningOnSales.DataPropertyName = "EarningOnSales";
             this.EarningOnSales.HeaderText = "EarningOnSales";
             this.EarningOnSales.Name = "EarningOnSales";
-            // 
-            // dataGridViewTextBoxColumn13
-            // 
-            this.dataGridViewTextBoxColumn13.DataPropertyName = "NetProfit";
-            this.dataGridViewTextBoxColumn13.HeaderText = "NetProfit";
-            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
-            this.dataGridViewTextBoxColumn13.Visible = false;
             // 
             // splitContainer1
             // 
@@ -517,10 +521,31 @@ namespace IDSA.Views
             this.Info.TabIndex = 5;
             this.Info.Text = "DB is still loading.\r\n... please wait ...\r\n";
             // 
+            // RefreshDb
+            // 
+            this.RefreshDb.Location = new System.Drawing.Point(261, 0);
+            this.RefreshDb.Name = "RefreshDb";
+            this.RefreshDb.Size = new System.Drawing.Size(52, 25);
+            this.RefreshDb.TabIndex = 7;
+            this.RefreshDb.Text = "Refresh";
+            this.RefreshDb.UseVisualStyleBackColor = true;
+            this.RefreshDb.Click += new System.EventHandler(this.RefreshDb_Click);
+            // 
+            // UpdateDb
+            // 
+            this.UpdateDb.Location = new System.Drawing.Point(312, 0);
+            this.UpdateDb.Name = "UpdateDb";
+            this.UpdateDb.Size = new System.Drawing.Size(52, 25);
+            this.UpdateDb.TabIndex = 12;
+            this.UpdateDb.Text = "Update";
+            this.UpdateDb.UseVisualStyleBackColor = true;
+            // 
             // DBView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.UpdateDb);
+            this.Controls.Add(this.RefreshDb);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.companyBindingNavigator);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -582,7 +607,6 @@ namespace IDSA.Views
         private System.Windows.Forms.DataGridViewTextBoxColumn EBIT;
         private System.Windows.Forms.DataGridViewTextBoxColumn Sales;
         private System.Windows.Forms.DataGridViewTextBoxColumn EarningOnSales;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.Label Info;
@@ -593,9 +617,12 @@ namespace IDSA.Views
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FullName;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Shortcut;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.Button RefreshDb;
+        private System.Windows.Forms.Button UpdateDb;
     }
 }
 
