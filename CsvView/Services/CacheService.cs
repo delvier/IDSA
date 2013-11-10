@@ -48,6 +48,11 @@ namespace IDSA.Modules.CachedListContainer
             return _dataContainer.GetCompany(name);
         }
 
+        public Company GetCompanyByFullName(String fullName)
+        {
+            return _dataContainer.GetCompanyByFullName(fullName);
+        }
+
         public void AddCompany(Company company)
         {
             _dataContainer.Add(company);

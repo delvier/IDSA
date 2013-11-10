@@ -30,6 +30,11 @@ namespace IDSA.Modules.CachedDataContainer
             return _cacheLst.Where(c => c.Name == name).FirstOrDefault();
         }
 
+        public Company GetCompanyByFullName(String fullName)
+        {
+            return _cacheLst.Where(c => c.FullName == fullName).FirstOrDefault();
+        }
+
         public void AddCompany(Company company)
         {
             _cacheLst.Add(company);

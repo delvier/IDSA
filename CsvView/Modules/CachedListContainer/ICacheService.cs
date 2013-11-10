@@ -16,6 +16,9 @@ namespace IDSA.Modules.CachedListContainer
         /* Get specified company by name */
         Company GetCompany(String name);
 
+        /* Get specified company by fullName */
+        Company GetCompanyByFullName(String fullName);
+
         void AddCompany(Company company);
 
         /* Somtimes we need all data */
