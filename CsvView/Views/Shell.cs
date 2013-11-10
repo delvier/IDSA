@@ -32,6 +32,11 @@ namespace IDSA
 			}
 		}
 
+        public void Show(string text)
+        {
+            MessageBox.Show(text);
+        }
+
         private EventHandler giveMeHandler(Type typeView)
         {
             return new EventHandler((s, e) =>

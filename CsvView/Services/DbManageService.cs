@@ -25,8 +25,7 @@ namespace IDSA.Services
         private readonly Logger logger = LogManager.GetCurrentClassLogger();
         private Dictionary<string, string> cmpNames;
         private Dictionary<string, string> addedCmpNames;
-        private List<string> newCmpNames;
-        private List<string> newNewCmpNames;
+        private Dictionary<string, string> newCmpInfo;
         #endregion
 
         #region Ctors
@@ -171,25 +170,35 @@ namespace IDSA.Services
             context.Companies.Load();
             int counter = 0;
 
-            foreach (var company in newCmpNames)
+            foreach (var company in newCmpInfo)
             {
-                if (context.Companies.FirstOrDefault(c => c.FullName == company) == null)
+                var cmp = context.Companies.FirstOrDefault(c => c.FullName == company.Key);
+                if (cmp != null)
                 {
-                    var papParser = ServiceLocator.Current.GetInstance<IPapParser>();
-                    var tempCmp = papParser.GetCompanyDataFromPAP(company);
-
-                    if (!CompanyValidate(tempCmp))
+                    if (!CompanyValidate(cmp) && cmp.Reports.Count() == 0)
                     {
-                        logger.Error("\nAdd company -- {0} -- failed because of validation problems: --ID-- {1} -- --NAME-- {2}\n",
-                            company, tempCmp.Id, tempCmp.Name);
-                        continue;
+                        context.Companies.Remove(cmp);
+                        context.SaveChanges();
                     }
-
-                    context.Companies.Add(tempCmp);
-                    context.SaveChanges();
-                    cache.AddCompany(tempCmp);
-                    ++counter;
+                    else
+                        continue;
                 }
+
+                var papParser = ServiceLocator.Current.GetInstance<IPapParser>();
+                var tempCmp = papParser.GetCompanyDataFromPAP(company.Key);
+                tempCmp.Shortcut = company.Value;
+
+                if (!CompanyValidate(tempCmp))
+                {
+                    logger.Error("\nAdd company -- {0} -- failed because of validation problems: --ID-- {1} -- --NAME-- {2} --SHORTCUT-- {3}\n",
+                        company, tempCmp.Id, tempCmp.Name, tempCmp.Shortcut);
+                    continue;
+                }
+
+                context.Companies.Add(tempCmp);
+                context.SaveChanges();
+                cache.AddCompany(tempCmp);
+                ++counter;
             }
             context.Dispose();
             logger.Debug("\nAdd {0} new companies.\n", counter);
@@ -197,10 +206,16 @@ namespace IDSA.Services
 
         private bool CompanyValidate(Company cmp)
         {
+            if (cmp.FullName == null)
+                return false;
             if (cmp.Name == null)
                 return false;
             if (model.Companies.Query().FirstOrDefault(c => c.Id == cmp.Id) != null)
                 return false;
+            if (cmp.Shortcut == null)
+            {
+                ServiceLocator.Current.GetInstance<Shell>().Show("cmp " + cmp.Name + " shortcut doesnot exist!");
+            }
             return true;
         }
 
@@ -307,35 +322,33 @@ namespace IDSA.Services
                     {"Weglopex Holding S.A.", "Węglopex Holding SA"},
                 };
 
-            newCmpNames = new List<string>()
+            newCmpInfo = new Dictionary<string, string>()
             {
-                "Agrotour SA",
-                "APS Energia SA",
-                "AviaAM Leasing AB",
-                "Bank Gospodarstwa Krajowego SA",
-                "BARCLAYS BANK PLC",
-                "Efix Dom Maklerski SA",        // reports from 2013.07.26
-                "EURO GOLD SA",                 // reports from 2013.06.12
-                "Global Cosmed SA",
-                "Grupa Exorigo-Upos SA",
-                "HM Inwest SA",
-                "Imagis SA",
-                "InfoScope SA",
-                "Investment Fund Managers SA",
-                "Leasing-Experts SA",
-                "MEGA SONIC SA",
-                "NC NUTRITION CENTER S.A.",
-                "Novavis SA",
-                "OT Logistics SA",
-                "Peixin International Group NV",
-                "PIK SA",
-                "Przedsiębiorstwo Telekomunikacyjne Telgam SA",
-                "Pylon SA",
-                "Standrew SA",
-                "Tarczyński SA"
+                {"Agrotour SA", "AGR"},
+                {"APS Energia SA", "APE"},
+                {"AviaAM Leasing AB", "AAL"},
+                {"Efix Dom Maklerski SA", "EFX"},        // reports from 2013.07.26
+                {"Global Cosmed SA", "GLC"},
+                {"Grupa Exorigo-Upos SA", "GEU"},
+                {"HM Inwest SA", "HMI"},
+                {"Imagis SA", "IMG"},
+                {"InfoScope SA", "ISC"},
+                {"Investment Fund Managers SA", "IFM"},
+                {"Leasing-Experts SA", "LEX"},
+                {"Novavis SA", "NVV"},
+                {"OT Logistics SA", "OTS"},     //ID sie pokrywa
+                {"Peixin International Group NV", "PEX"},
+                {"PIK SA", "PIK"},
+                {"Przedsiębiorstwo Telekomunikacyjne Telgam SA", "TLG"},
+                {"Pylon SA", "PYL"},
+                {"Standrew SA", "STD"},
+                {"Tarczyński SA", "TAR"},
+                //{"Bank Gospodarstwa Krajowego SA", "AA0"},
+                //{"BARCLAYS BANK PLC", "BARC.UK"},
+                //{"EURO GOLD SA", "AA1"},            // reports from 2013.06.12
+                //"MEGA SONIC SA", "AA2"},
+                //"NC NUTRITION CENTER S.A.", "AA3"}
             };
-
-            newNewCmpNames = new List<string>();
 
             //var tempCompanies = new List<string>()
             //{
