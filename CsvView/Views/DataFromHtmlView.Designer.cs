@@ -37,7 +37,6 @@
             this.endDatePicker = new System.Windows.Forms.DateTimePicker();
             this.addReportsToDb = new System.Windows.Forms.Button();
             this.errors = new System.Windows.Forms.Label();
-            this.UpdateDB = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -124,21 +123,10 @@
             this.errors.Size = new System.Drawing.Size(0, 13);
             this.errors.TabIndex = 9;
             // 
-            // UpdateDB
-            // 
-            this.UpdateDB.Location = new System.Drawing.Point(138, 140);
-            this.UpdateDB.Name = "UpdateDB";
-            this.UpdateDB.Size = new System.Drawing.Size(75, 23);
-            this.UpdateDB.TabIndex = 10;
-            this.UpdateDB.Text = "Update DB";
-            this.UpdateDB.UseVisualStyleBackColor = true;
-            this.UpdateDB.Click += new System.EventHandler(this.UpdateDB_Click);
-            // 
             // DataFromHtmlView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.UpdateDB);
             this.Controls.Add(this.errors);
             this.Controls.Add(this.addReportsToDb);
             this.Controls.Add(this.endDatePicker);
@@ -167,6 +155,5 @@
         private System.Windows.Forms.DateTimePicker endDatePicker;
         private System.Windows.Forms.Button addReportsToDb;
         private System.Windows.Forms.Label errors;
-        private System.Windows.Forms.Button UpdateDB;
     }
 }
