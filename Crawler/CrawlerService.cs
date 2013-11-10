@@ -8,14 +8,63 @@ using IDSA.Modules.PapParser;
 
 namespace Crawler
 {
+    public class DataStruct
+    {
+        public string CmpName { get; set; }
+        public string CmpLink { get; set; }
+        public List<MsgStruct> Message { get; set; }
+        public List<Subscriber> Subscribers { get; set; }
+    }
+
+    public class MsgStruct
+    {
+        public string Title { get; set; }
+        public DateTime Time { get; set; }
+    }
+
+    public class Subscriber
+    {
+        public string Name { get; set; }
+        public string Password { get; set; }
+        public DateTime Time { get; set; }
+    }
+
     public interface ICrawlerService
     {
         void startCrawler(TimeSpan refreshTime);
         void endCrawler(bool forceExit = false);
 
-        bool Subscribe();
-        bool Unsubscribe();
+    }
 
+    public class Client : IObserver<string>, IDisposable
+    {
+        public Client()
+        {
+
+        }
+
+        public void OnCompleted() {}
+        //
+        // Summary:
+        //     Notifies the observer that the provider has experienced an error condition.
+        //
+        // Parameters:
+        //   error:
+        //     An object that provides additional information about the error.
+        public void OnError(Exception error) {}
+        //
+        // Summary:
+        //     Provides the observer with new data.
+        //
+        // Parameters:
+        //   value:
+        //     The current notification information.
+        public void OnNext(string value) {}
+
+        public void Dispose()
+        {
+            //
+        }
     }
 
     /// <summary>
@@ -31,31 +80,38 @@ namespace Crawler
     /// * use as more as possible from PAP Parser functionality
     /// * ...
     /// </summary>
-    public class CrawlerService : ICrawlerService//, IObservable<T>
+    public class CrawlerService : ICrawlerService, IObservable<string>
     {
         #region Fields
         private readonly IPapParser _papParser;
         private TimeSpan lastTime;
+        private List<DataStruct> _data;
         #endregion
 
         #region Ctors
         public CrawlerService()
         {
+            _data = new List<DataStruct>();
             _papParser = new PapParser();
+
+            if (_data.Count == 0)
+            {
+                foreach (var item in _papParser.GetCompanyNames())
+                {
+                    _data.Add(new DataStruct { CmpName = item });
+                }
+            }
+
             lastTime = new TimeSpan(0, 1, 0);
             startCrawler(lastTime);
         }
         #endregion
 
         #region Public Methods
-        public bool Subscribe()
+        public IDisposable Subscribe(IObserver<string> observer)
         {
-            return false;
-        }
-
-        public bool Unsubscribe()
-        {
-            return false;
+            IDisposable obj = new Client();
+            return obj;
         }
 
         public void startCrawler(TimeSpan refreshTime)
