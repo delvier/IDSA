@@ -33,27 +33,12 @@ namespace IDSA.Presenters
         #endregion
 
         #region Public Methods
-        public string updateDatabase()
-        {
-            //only for testing purposes
-            //_papParser.GetCompanyDataFromPAP("AGORA SA", 18);
-            //var names = _papParser.GetCompanyNames(); 
-            //_dbManageService.ComparePapDbCompanyNames(names);
-            
-            _dbManageService.Update1CompanyNames();
-            _dbManageService.Update2CompanyNames();
-            
-            return "DB successfully updated\n";
-        }
 
-        public string parsePapReports(DateTime startDate, DateTime endDate, bool saveReportsInDb)
+        public string parsePapReports(DateTime startDate, DateTime endDate)
         {
             var finData = _papParser.parseReportsFromDate(startDate, endDate);
 
-            if (saveReportsInDb)
-            {
-                _dbManageService.AddReportsToDb(finData);
-            }
+            _dbManageService.AddReportsToDb(finData);
 
             var str = finData.Count.ToString() + " new reports parsed.\n";
 

@@ -383,6 +383,19 @@ namespace IDSA.Presenters
             _eventAggregator.GetEvent<DatabaseUpdatedEvent>().Publish(true);
         }
 
+        internal void RefreshDb()
+        {
+            model.Load();
+        }
+
+        internal string UpdateDb()
+        {
+            _dbManageService.Update1CompanyNames();
+            //_dbManageService.Update2CompanyNames();
+
+            return "DB successfully updated\n";
+        }
+
         #endregion
 
         //delete relationship
